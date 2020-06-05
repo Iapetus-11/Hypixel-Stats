@@ -3,13 +3,13 @@ import discord
 import logging
 import asyncio
 import asyncpg
-import json
+import dotenv
+import os
 
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying errors
 
-with open("keys.json") as k:
-    keys = json.load(k)
+dotenv.load_dotenv()
 
 
 async def get_prefix(_bot, ctx):
@@ -45,4 +45,4 @@ async def _bot_check_thingy(ctx):
     return not ctx.author.bot
 
 
-bot.run(keys["discord"], bot=True)
+bot.run(os.get_env("discord"), bot=True)
