@@ -7,6 +7,7 @@ class BasicMC(commands.Cog):
         self.bot = bot
 
     @commands.command(name="mcping") # Pings a java edition minecraft server
+    @commands.cooldown(1, 4, commands.BucketType.user)
     async def mc_ping(self, ctx, *, server: str):
         await ctx.trigger_typing()
         server = server.replace(" ", "")
@@ -30,6 +31,7 @@ class BasicMC(commands.Cog):
                                                                                  f"Did you type the ip and port correctly? (Like ip:port)\n\nExample: ``{ctx.prefix}mcping 172.10.17.177:25565``"))
 
     @commands.command(name="mcpeping", aliases=["mcbeping"])
+    @commands.cooldown(1, 4, commands.BucketType.user)
     async def bedrock_ping(self, ctx, server: str):
         ping = UNCONNECTED_PING()
         ping.pingID = 4201
@@ -54,7 +56,7 @@ class BasicMC(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{server} is online with {p_count} player(s)."))
 
     @commands.command(name="stealskin", aliases=["skinsteal", "skin"])
-    @commands.cooldown(1, 2.5, commands.BucketType.user)
+    @commands.cooldown(1, 4, commands.BucketType.user)
     async def skinner(self, ctx, *, gamertag: str):
         response = await self.ses.get(f"https://api.mojang.com/users/profiles/minecraft/{gamertag}")
         if response.status == 204:
@@ -82,7 +84,7 @@ class BasicMC(commands.Cog):
         await ctx.send(embed=skin_embed)
 
     @commands.command(name="nametouuid", aliases=["uuid", "getuuid"])
-    @commands.cooldown(1, 1, commands.BucketType.user)
+    @commands.cooldown(1, 1.5, commands.BucketType.user)
     async def get_uuid(self, ctx, *, gamertag: str):
         r = await self.ses.post("https://api.mojang.com/profiles/minecraft", json=[gamertag])
         j = json.loads(await r.text()) # [0]['id']
@@ -92,7 +94,7 @@ class BasicMC(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{gamertag}: ``{j[0]['id']}``"))
 
     @commands.command(name="uuidtoname", aliases=["getgamertag"])
-    @commands.cooldown(1, 1, commands.BucketType.user)
+    @commands.cooldown(1, 1.5, commands.BucketType.user)
     async def get_gamertag(self, ctx, *, uuid: str):
         response = await self.ses.get(f"https://api.mojang.com/user/profiles/{uuid}/names")
         if response.status == 204:
@@ -103,7 +105,7 @@ class BasicMC(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{uuid}: ``{name}``"))
 
     @commands.command(name="mcsales", aliases=["minecraftsales"])
-    @commands.cooldown(1, 1, commands.BucketType.user)
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def mc_sales(self, ctx):
         r = await self.ses.post("https://api.mojang.com/orders/statistics", json={"metricKeys": ["item_sold_minecraft", "prepaid_card_redeemed_minecraft"]})
         j = json.loads(await r.text())
