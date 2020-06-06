@@ -20,7 +20,7 @@ bot = commands.AutoShardedBot(shard_count=1, command_prefix=get_prefix, help_com
                               max_messages=512)
 
 # Stuffs
-bot.cmd_c = "0xFFAA00"
+bot.cc = "0xFFAA00"
 
 
 async def setup_db():
