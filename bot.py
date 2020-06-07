@@ -38,7 +38,8 @@ async def setup_db():
 asyncio.get_event_loop().run_until_complete(setup_db())
 
 # Yes this bc !!reload *
-bot.cog_list = []
+bot.cog_list = ["cogs.core.errors", "cogs.core.events", "cogs.core.database", "cogs.cmds.basic_mc",
+                "cogs.cmds.settings"]
 
 for cog in bot.cog_list:
     bot.load_extension(cog)
