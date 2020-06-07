@@ -75,10 +75,10 @@ class Errors(commands.Cog):
         if not "HTTPException: 503 Service Unavailable (error code: 0)" in str(e):
             excls = ['OH SNAP', 'OH FU\*\*!', 'OH \*\*\*\*!', 'OH SH-']
             await self.send(ctx, f"{choice(excls)} "
-                                 "You found an actual error, please take a screenshot and report it on our " \
+                                 "You found an actual error, please take a screenshot and report it on our "
                                  f"**[support server](https://discord.gg/{self.bot.guild_invite_code})**, thank you!")
 
-        error_channel = self.bot.get_channel(642446655022432267)
+        error_channel = self.bot.get_channel(self.bot.error_channel_id)
 
         # Thanks TrustedMercury!
         etype = type(e)

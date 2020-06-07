@@ -24,6 +24,7 @@ bot = commands.AutoShardedBot(shard_count=1, command_prefix=get_prefix, help_com
 # Stuffs
 bot.cc = "0xFFAA00"
 bot.guild_invite_code = "MZ2cXxF"
+bot.error_channel_id = 718983583779520541
 
 
 async def setup_db():
