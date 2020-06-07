@@ -1,12 +1,23 @@
 from discord.ext import commands
 import discord
+from mcstatus import MinecraftServer
+import socket
+from pyraklib.protocol.EncapsulatedPacket import EncapsulatedPacket
+from pyraklib.protocol.UNCONNECTED_PING import UNCONNECTED_PING
+from pyraklib.protocol.UNCONNECTED_PONG import UNCONNECTED_PONG
+import aiohttp
+import base64
+import json
+import asyncio
 
 
 class BasicMC(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="mcping") # Pings a java edition minecraft server
+        self.ses = aiohttp.ClientSession()
+
+    @commands.command(name="mcping")  # Pings a java edition minecraft server
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def mc_ping(self, ctx, *, server: str):
         await ctx.trigger_typing()
