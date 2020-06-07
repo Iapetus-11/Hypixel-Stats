@@ -10,5 +10,6 @@ class Friends(commands.Cog):
     async def friends_of(self, ctx, gamertag: str):
         pass
 
+
 def setup(bot):
     bot.add_cog(Friends(bot))
