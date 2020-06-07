@@ -18,7 +18,7 @@ class BasicMC(commands.Cog):
         self.ses = aiohttp.ClientSession()
 
     @commands.command(name="mcping")  # Pings a java edition minecraft server
-    @commands.cooldown(1, 4, commands.BucketType.user)
+    @commands.cooldown(1, 7.5, commands.BucketType.user)
     async def mc_ping(self, ctx, *, server: str):
         await ctx.trigger_typing()
         server = server.replace(" ", "")
@@ -42,7 +42,7 @@ class BasicMC(commands.Cog):
                                                                                  f"Did you type the ip and port correctly? (Like ip:port)\n\nExample: ``{ctx.prefix}mcping 172.10.17.177:25565``"))
 
     @commands.command(name="mcpeping", aliases=["mcbeping"])
-    @commands.cooldown(1, 4, commands.BucketType.user)
+    @commands.cooldown(1, 7.5, commands.BucketType.user)
     async def bedrock_ping(self, ctx, server: str):
         ping = UNCONNECTED_PING()
         ping.pingID = 4201

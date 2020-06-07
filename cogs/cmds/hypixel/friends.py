@@ -7,6 +7,7 @@ class Friends(commands.Cog):
         self.bot = bot
 
     @commands.command(name="friendsof", aliases=["getfriends", "getuserfriends", "friends"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def friends_of(self, ctx, gamertag: str):
         pass
 

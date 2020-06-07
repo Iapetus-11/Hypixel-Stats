@@ -7,10 +7,12 @@ class FindGuild(commands.Cog):
         self.bot = bot
 
     @commands.command(name="getuserguild", aliases=["userguild"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def get_user_guild(self, ctx, gamertag: str):
         pass
 
     @commands.command(name="getguild", aliases=["getguildbyname"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def get_guild(self, ctx, guild_name: str):
         pass
 
