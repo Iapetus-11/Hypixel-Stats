@@ -16,5 +16,6 @@ class GameCounts(commands.Cog):
     async def games(self, ctx):
         pass
 
+
 def setup(bot):
     bot.add_cog(GameCounts(bot))
