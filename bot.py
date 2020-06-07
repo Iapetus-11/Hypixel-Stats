@@ -12,10 +12,12 @@ logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying e
 dotenv.load_dotenv()
 
 
-async def get_prefix(_bot, gid):
-    pp = await _bot.db.fetchrow("SELECT prefix FROM prefixes WHERE gid=$1", gid)
-    if pp is None:
-        return "h!"
+async def get_prefix(_bot, msg):
+    if msg.guild is not None:
+        pp = await _bot.db.fetchrow("SELECT prefix FROM prefixes WHERE gid=$1", msg.guild.id)
+        if pp is not None:
+            return pp
+    return "h!"
 
 
 bot = commands.AutoShardedBot(shard_count=1, command_prefix=get_prefix, help_command=None, case_insensitive=True,
