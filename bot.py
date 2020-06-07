@@ -28,7 +28,8 @@ bot.error_channel_id = 718983583779520541
 
 
 async def setup_db():
-    bot.db = await asyncpg.create_pool(host="localhost", database="hypixel-bot", user="", password=os.get_env("psql"),
+    bot.db = await asyncpg.create_pool(host="localhost", database="hypixel-stats-bot", user="pi",
+                                       password=os.get_env("psql"),
                                        command_timeout=5)
 
 

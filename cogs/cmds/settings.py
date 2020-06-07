@@ -34,9 +34,12 @@ class Settings(commands.Cog):
                     await ctx.send(
                         embed=discord.Embed(color=self.bot.cc, description="That prefix contains invalid characters!"))
                     return
-            await self.db.set_prefix(ctx.guild.id, prefix[:12])
+            await self.db.set_prefix(ctx.guild.id, prefix[:10])
+            s = ""
+            if prefix[:10] != prefix:
+                s = "Also, your prefix was too long, so we shortened it!"
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                               description=f"Changed the prefix from **``{ctx.prefix}``** to **``{prefix}``***"))
+                                               description=f"Changed the prefix from **``{ctx.prefix}``** to **``{prefix}``*** {s}"))
 
 
 def setup(bot):
