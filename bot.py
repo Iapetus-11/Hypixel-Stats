@@ -44,7 +44,6 @@ bot.error_channel_id = bot.CONFIG["error_channel_is"]
 
 
 async def setup_db():
-
     bot.db = await asyncpg.create_pool(
         host=HOSTNAME,
         database=DATABASE,
