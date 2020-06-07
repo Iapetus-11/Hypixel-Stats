@@ -5,7 +5,7 @@ import discord
 class Database(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
+        
         self.db = bot.db
 
     async def get_prefix(self, gid):
