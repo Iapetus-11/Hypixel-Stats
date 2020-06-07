@@ -11,6 +11,10 @@ class GameCounts(commands.Cog):
     async def game_count(self, ctx, game: str):
         pass
 
+    @commands.command(name="games", aliases=["allgames"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def games(self, ctx):
+        pass
 
 def setup(bot):
     bot.add_cog(GameCounts(bot))
