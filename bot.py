@@ -40,7 +40,7 @@ with open('data/config.json') as CONFIG:
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
 
-bot.embed = bot.CONFIG["embed"]
+bot.cc = bot.CONFIG["color"]
 bot.guild_invite_code = bot.CONFIG["guild_invite"]
 bot.error_channel_id = bot.CONFIG["error_channel_is"]
 
@@ -71,7 +71,6 @@ for cog in bot.cog_list:
 async def bot_check(ctx):
 
     if not bot.is_ready():
-        embed = discord.Embed()
         await ctx.send(embed=discord.Embed(color=bot.cmd_c, description="Hold on! We're starting up!"))
         return False
 

@@ -10,7 +10,7 @@ class Errors(commands.Cog):
 
     async def send(self, ctx, msg):
         try:
-            await ctx.send(embed=discord.Embed(color=discord.Color.green(), description=msg))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=msg))
         except discord.Forbidden:
             pass
 
@@ -45,8 +45,7 @@ class Errors(commands.Cog):
                 return
 
         if isinstance(e, commands.MaxConcurrencyReached):
-            await ctx.send(embed=discord.Embed(color=discord.Color.green(),
-                                               escription="Hold on! you're using that command way too fast..."))
+            await self.send(ctx, "Hold on! you're using that command way too fast...")
             return
 
         if isinstance(e, commands.CommandOnCooldown):
@@ -87,8 +86,7 @@ class Errors(commands.Cog):
         lines = traceback.format_exception(etype, e, trace, verbosity)
         traceback_text = ''.join(lines)
 
-        await error_channel.send(embed=discord.Embed(color=discord.Color.green(),
-                                                     description=f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```"))
+        await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
 
 
 def setup(bot):
