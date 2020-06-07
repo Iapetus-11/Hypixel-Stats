@@ -21,9 +21,7 @@ logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying e
 
 
 async def get_prefix(_bot, message):
-
     if message.guild is not None:
-
         prefix = await _bot.db.fetchrow("SELECT prefix FROM prefixes WHERE gid=$1",
                                         message.guild.id)
         if prefix is not None:
