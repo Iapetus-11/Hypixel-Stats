@@ -24,7 +24,7 @@ bot.cc = "0xFFAA00"
 
 
 async def setup_db():
-    bot.db = await asyncpg.create_pool(host="localhost", database="hypixel-bot", user="", password=keys["psql"],
+    bot.db = await asyncpg.create_pool(host="localhost", database="hypixel-bot", user="", password=os.get_env("psql"),
                                        command_timeout=5)
 
 
