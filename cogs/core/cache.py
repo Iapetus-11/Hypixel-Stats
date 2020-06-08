@@ -66,3 +66,7 @@ class Cache(commands.Cog):
             self.player_friends_cache[player] = friends
 
         return friends
+
+
+def setup(bot):
+    bot.add_cog(Cache(bot))
