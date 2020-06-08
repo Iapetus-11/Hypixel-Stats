@@ -8,13 +8,13 @@ class Player(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.hypixel = aiopypixel.Client(self.bot.hypixel_key)
+        self.cache = self.bot.get_cog("Cache")
 
     @commands.command(name="friends", aliases=["pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
         try:
-            player_friends = await self.hypixel.getPlayerFriends(player)
+            player_friends = await self.cache.get_player_friends(player)
         except aiopypixel.exceptions.exceptions.InvalidPlayerError:
             await ctx.send("That player is invalid or doesn't exist!")
         else:
