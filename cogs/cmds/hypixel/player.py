@@ -23,7 +23,7 @@ class Player(commands.Cog):
 
             body = ""
             for friend in player_friends:
-                body.append(f"{await self.cache.get_player_name(friend)}\n")
+                body += f"{await self.cache.get_player_name(friend)}\n"
 
             embed = discord.Embed(color=self.bot.cc, title=f"__{player}'s friends__:", description=body)
 
