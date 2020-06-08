@@ -25,7 +25,7 @@ class Cache(commands.Cog):
         uuid = self.name_uuid_cache.get(player)
 
         if uuid is None:
-            uuid = await self.hypixel.usernameToUUID(player)
+            uuid = await self.hypixel.UsernameToUUID(player) # should be lowercause u username not Username but yeah
             self.name_uuid_cache[player] = uuid
 
         if uuid not in self.valid_names_and_uuids:
