@@ -43,6 +43,8 @@ bot.cc = bot.CONFIG["color"]
 bot.guild_invite_code = bot.CONFIG["guild_invite"]
 bot.error_channel_id = bot.CONFIG["error_channel_is"]
 
+bot.ratelimited_wait_time = .5 # seconds, obviously
+
 bot.hypixel_key = HYPIXEL
 
 
