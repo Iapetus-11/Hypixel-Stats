@@ -9,12 +9,9 @@ import os
 
 
 load_dotenv()
-TOKEN = os.getenv('bot_token')
-USER = os.getenv('database_user')
-DATABASE = os.getenv('database_name')
-PASSWORD = os.getenv('database_password')
-HOSTNAME = os.getenv('database_hostname')
-HYPIXEL = os.getenv('hypixel')
+TOKEN = os.getenv('discord_token')
+DB_PASSWORD = os.getenv('db_password')
+HYPIXEL = os.getenv('hypixel_key')
 
 
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
@@ -47,10 +44,10 @@ bot.hypixel_key = HYPIXEL
 
 async def setup_db():
     bot.db = await asyncpg.create_pool(
-        host=HOSTNAME,
-        database=DATABASE,
-        user=USER,
-        password=PASSWORD)
+        host="localhost",
+        database="hypixel-stats-bot",
+        user="pi",
+        password=DB_PASSWORD)
 
 
 asyncio.get_event_loop().run_until_complete(setup_db())
