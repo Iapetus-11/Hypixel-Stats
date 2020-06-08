@@ -21,6 +21,14 @@ class Player(commands.Cog):
             if not player_friends:
                 await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} doesn't have any friends! :cry:"))
 
+            body = ""
+            for friend in friends:
+                body.append(f"{await self.cache.get_player_name(friend)}\n")
+
+            embed = discord.Embed(color=self.bot.cc, title=f"__{player}'s friends__:", description=body)
+
+            await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Player(bot))
