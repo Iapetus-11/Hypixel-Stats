@@ -52,7 +52,7 @@ class Cache(commands.Cog):
     async def get_player_friends(self, player):
         player = await self.get_player_uuid(player) # ensure it's a uuid for best caching results
 
-        friends = player_friends_cache.get(player)
+        friends = self.player_friends_cache.get(player)
 
         if friends is None:
             try_again = True
