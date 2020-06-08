@@ -34,6 +34,7 @@ with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
 
 bot.cc = "ffaa00"
+bot.cc = discord.Color.blurple()
 bot.guild_invite_code = "MZ2cXxF"
 bot.error_channel_id = 718983583779520541
 
