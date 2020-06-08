@@ -14,6 +14,7 @@ USER = os.getenv('database_user')
 DATABASE = os.getenv('database_name')
 PASSWORD = os.getenv('database_password')
 HOSTNAME = os.getenv('database_hostname')
+HYPIXEL = os.getenv('hypixel')
 
 
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
@@ -42,6 +43,8 @@ bot.cc = bot.CONFIG["color"]
 bot.guild_invite_code = bot.CONFIG["guild_invite"]
 bot.error_channel_id = bot.CONFIG["error_channel_is"]
 
+bot.hypixel_key = HYPIXEL
+
 
 async def setup_db():
     bot.db = await asyncpg.create_pool(
@@ -57,8 +60,7 @@ asyncio.get_event_loop().run_until_complete(setup_db())
 bot.cog_list = ["cogs.core.errors",
                 "cogs.core.events",
                 "cogs.core.database",
-                "cogs.cmds.basic_mc",
-                "cogs.cmds.settings"]
+                "cogs.core.utils"]
 
 for cog in bot.cog_list:
     bot.load_extension(cog)
