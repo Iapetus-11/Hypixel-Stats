@@ -33,17 +33,14 @@ async def get_prefix(_bot, message):
 
 bot = commands.AutoShardedBot(shard_count=1, command_prefix=get_prefix, case_insensitive=True)
 
-with open('data/config.json') as CONFIG:
-    bot.CONFIG = json.load(CONFIG)
-
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
 
-bot.cc = bot.CONFIG["color"]
-bot.guild_invite_code = bot.CONFIG["guild_invite"]
-bot.error_channel_id = bot.CONFIG["error_channel_is"]
+bot.cc = "0xffaa00"
+bot.guild_invite_code = "MZ2cXxF"
+bot.error_channel_id = 718983583779520541
 
-bot.ratelimited_wait_time = .5 # seconds, obviously
+bot.ratelimited_wait_time = .5  # seconds, obviously
 
 bot.hypixel_key = HYPIXEL
 
