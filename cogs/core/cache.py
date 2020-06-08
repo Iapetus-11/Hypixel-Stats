@@ -41,6 +41,7 @@ class Cache(commands.Cog):
         name = self.uuid_name_cache.get(player)
 
         if name is None:
+            print(player)
             name = await self.hypixel.usernameToUUID(player)
             self.uuid_name_cache[player] = name
 
