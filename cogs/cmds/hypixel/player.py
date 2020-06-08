@@ -4,6 +4,7 @@ import aiopypixel
 
 
 class Player(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -14,7 +15,7 @@ class Player(commands.Cog):
     async def player_friends(self, ctx, player):
         player_friends = await self.hypixel.getPlayerFriends(player)
         if not player_friends:
-            await ctx.send()
+            await ct
 
 
 def setup(bot):
