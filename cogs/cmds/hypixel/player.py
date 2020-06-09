@@ -1,5 +1,6 @@
 import aiopypixel
 import discord
+from datetime import datetime
 from discord.ext import commands
 
 
@@ -17,9 +18,13 @@ class Player(commands.Cog):
         embed = discord.Embed(color=self.bot.cc)
         player_pfp = await self.cache.get_player_head(p.UUID)
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
-        embed.add_field(name="XP", value=f"``{p.EXP}``")
-        embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``")
-        embed.add_field(name="Guild", value=f"``{p.GUILD}``")
+        embed.add_field(name="XP", value=f"``{p.EXP}``", inline=True)
+        embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``", inline=True)
+        embed.add_field(name="Guild", value=f"``{await self.cache.get_guild_name_from_id(p.GUILD)}``", inline=False)
+        embed.add_field(name="Last Online",
+                        value=f"``{datetime.utcfromdatestamp(p.LAST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
+        embed.add_field(name="First Join",
+                        value=f"``{datetime.utcfromdatestamp(p.FIRST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
