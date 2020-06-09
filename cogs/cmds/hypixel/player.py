@@ -30,7 +30,7 @@ class Player(commands.Cog):
                 name = await self.cache.get_player_name(friend)
             except aiopypixel.exceptions.exceptions.InvalidPlayerError:
                 name = "Unknown User"
-            body += f"{name}\n"
+            body += f"{name}\n\n"
             if count > 30:
                 embed.add_field(name="\uFEFF", value=body)
                 embed_count += 1
