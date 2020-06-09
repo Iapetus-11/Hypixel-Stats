@@ -28,7 +28,6 @@ class Player(commands.Cog):
             body = ""
             count = 0
             for friend in player_friends:
-                count += 1
                 try:
                     name = await self.cache.get_player_name(friend)
                 except aiopypixel.exceptions.exceptions.InvalidPlayerError:
@@ -37,7 +36,8 @@ class Player(commands.Cog):
                 if count > 20:
                     embed.add_field(name="\uFEFF", value=body)
                     count = 0
-                    body = 0
+                    body = ""
+                count += 1
             if count > 0:
                 embed.add_field(name="\uFEFF", value=body)
 
