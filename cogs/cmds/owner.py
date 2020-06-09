@@ -64,7 +64,7 @@ class Owner(commands.Cog):
 
     @commands.command(name="getlatest", aliases=["gitpull", "git_pull"])
     @commands.is_owner()
-    async def get_and_deploy_latest(self, ctx):
+    async def get_latest(self, ctx):
         os.system("git pull > git_pull_log 2>&1")
         with open("git_pull_log", "r") as f:
             await self.send(ctx, f"```diff\n{f.read()}\n```")
