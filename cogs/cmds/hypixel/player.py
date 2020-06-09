@@ -16,8 +16,10 @@ class Player(commands.Cog):
     async def player(self, ctx, player):
         p = await self.cache.get_player(player)
         online = "offline"
+        last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()
         if p.LAST_LOGIN > p.LAST_LOGOUT:
             online = "online"
+            last_online = "now"
         embed = discord.Embed(color=self.bot.cc)
         player_pfp = await self.cache.get_player_head(p.UUID)
         player_guild = p.GUILD
@@ -27,7 +29,7 @@ class Player(commands.Cog):
             player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
         embed.add_field(name="Status", value=online)
-        embed.add_field(name="Last Online", value=f"{arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()}")
+        embed.add_field(name="Last Online", value=f"{last_online}")
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="XP", value=f"{p.EXP}", inline=True)
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=True)
