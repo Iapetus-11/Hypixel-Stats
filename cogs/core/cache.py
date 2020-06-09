@@ -1,7 +1,6 @@
 import aiohttp
 import aiopypixel
 import asyncio
-import base64
 import discord
 from discord.ext import commands
 
