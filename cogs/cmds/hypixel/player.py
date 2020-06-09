@@ -18,8 +18,8 @@ class Player(commands.Cog):
         player_pfp = await self.cache.get_player_head(p.UUID)
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
         embed.add_field(name="XP", value=f"``{p.EXP}``")
-        embed.add_field("Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``")
-        embed.add_field("Guild", value=f"``{p.GUILD}``")
+        embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``")
+        embed.add_field(name="Guild", value=f"``{p.GUILD}``")
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
