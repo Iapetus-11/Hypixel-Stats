@@ -16,7 +16,7 @@ class Player(commands.Cog):
         p = await self.cache.get_player(player)
         embed = discord.Embed(color=self.bot.cc)
         player_pfp = await self.cache.get_player_head(p.UUID)
-        embed.set_author(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
+        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
         embed.add_field(name="XP", value=f"``{p.EXP}``")
         embed.add_field("Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``")
         embed.add_field("Guild", value=f"``{p.GUILD}``")
