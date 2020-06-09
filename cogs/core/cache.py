@@ -65,8 +65,6 @@ class Cache(commands.Cog):
 
             self.player_friends_cache[player] = friends
 
-        print(friends)
-
         return friends
 
 
