@@ -27,6 +27,7 @@ class Player(commands.Cog):
 
             body = ""
             count = 0
+            embed_count = 0
             for friend in player_friends:
                 try:
                     name = await self.cache.get_player_name(friend)
@@ -35,13 +36,15 @@ class Player(commands.Cog):
                 body += f"{name}\n"
                 if count > 20:
                     embed.add_field(name="\uFEFF", value=body)
+                    embed_count += 1
                     count = 0
                     body = ""
                 count += 1
             if count > 0:
                 embed.add_field(name="\uFEFF", value=body)
+                embed_count += 1
 
-            if len(embed) > 5095:
+            if len(embed) > 5095 or embed_count > 35:
                 await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That user has too many friends to show!"))
                 return
 
