@@ -17,10 +17,10 @@ class Player(commands.Cog):
 
         player_friends = await self.cache.get_player_friends(player)
         if not player_friends:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} doesn't have any friends! :cry:"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{discord.utils.escape_markdown(player)} doesn't have any friends! :cry:"))
             return
 
-        embed = discord.Embed(color=self.bot.cc, title=f"``{player}``'s friends ({len(player_friends)} total!)")
+        embed = discord.Embed(color=self.bot.cc, title=f"``{discord.utils.escape_markdown(player)}``'s friends ({len(player_friends)} total!)")
 
         body = ""
         count = 0
@@ -42,7 +42,7 @@ class Player(commands.Cog):
             embed_count += 1
 
         if len(embed) > 5095 or embed_count > 35:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That user has too many friends to show!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{discord.utils.escape_markdown(player)} has too many friends to show!"))
             return
 
         await ctx.send(embed=embed)
@@ -55,12 +55,12 @@ class Player(commands.Cog):
         player_guild = await self.cache.get_player_guild(player)
 
         if player_guild is None:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} isn't in a guild!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{discord.utils.escape_markdown(player)} isn't in a guild!"))
             return
 
         player_guild = await self.cache.get_guild_name_from_id(player_guild)
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} is in the guild: {player_guild}"))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{discord.utils.escape_markdown(player)}** is in the guild: {player_guild}"))
 
 
 def setup(bot):
