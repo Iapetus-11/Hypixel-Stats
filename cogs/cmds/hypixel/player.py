@@ -50,6 +50,14 @@ class Player(commands.Cog):
 
             await ctx.send(embed=embed)
 
+    @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def player_guild(self, ctx):
+        await ctx.trigger_typing()
+
+        try:
+            player_guild = cache
+
 
 def setup(bot):
     bot.add_cog(Player(bot))

@@ -10,12 +10,14 @@ class Cache(commands.Cog):
 
         self.hypixel = aiopypixel.Client(self.bot.hypixel_key)
 
-        self.valid_names_and_uuids = []  # clear once a day
+        self.valid_names_and_uuids = []  # clear every hour or so
 
         self.name_uuid_cache = {}  # {name: uuid} clear this maybe once a day?
         self.uuid_name_cache = {}  # {uuid: name} clear this maybe once a day?
 
         self.player_friends_cache = {}  # {uuid: [friends...]} clear this every 2 hrs
+
+        self.player_guild_cache = {} # {uuid: guild} clear every 1 hr
 
     async def get_player_uuid(self, player):
         if len(player) > 16:
@@ -66,6 +68,24 @@ class Cache(commands.Cog):
             self.player_friends_cache[player] = friends
 
         return friends
+
+    async def get_player_guild(self, player):
+        player = await self.get_player_uuid(player)
+
+        guild = self.player_guild_cache.get(player)
+
+        if guild is None:
+            try_again = True
+            while try_again:
+                try:
+                    guild = await self.hypixel.getPlayerGuild(player)
+                    try_again = False
+                except aiopypixel.exceptions.exceptions.RateLimitError:
+                    await asyncio.sleep(self.bot.ratelimited_wait_time)
+
+            self.player_guild_cache[player] = guild
+
+        return guild
 
 
 def setup(bot):
