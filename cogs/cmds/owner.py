@@ -39,6 +39,16 @@ class Owner(commands.Cog):
             return
         await self.send(ctx, "Successfully reloaded cog: " + cog)
 
+    @commands.command(name="eval")
+    @commands.is_owner()
+    async def eval_message(self, ctx, *, msg):
+        await self.send(ctx, f"{eval(msg)}\uFEFF")
+
+    @commands.command(name="awaiteval")
+    @commands.is_owner()
+    async def await_eval_message(self, ctx, *, msg):
+        await self.send(ctx, f"{await eval(msg)}\uFEFF")
+
 
 def setup(bot):
     bot.add_cog(Owner(bot))
