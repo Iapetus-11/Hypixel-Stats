@@ -16,7 +16,7 @@ class Player(commands.Cog):
     async def player(self, ctx, player):
         p = await self.cache.get_player(player)
         embed = discord.Embed(color=self.bot.cc)
-        player_pfp = base64.decodeb64(await self.cache.get_player_pfp(p.UUID))
+        player_pfp = base64.b64decode(await self.cache.get_player_pfp(p.UUID))
         embed.set_author(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
         """
         embed.add_field(name="XP", value=f"``{p.EXP}``")
