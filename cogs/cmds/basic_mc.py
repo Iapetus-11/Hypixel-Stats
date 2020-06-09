@@ -98,7 +98,7 @@ class BasicMC(commands.Cog):
         await ctx.send(embed=skin_embed)
 
     @commands.command(name="nametouuid", aliases=["uuid", "getuuid"])
-    @commands.cooldown(1, 1.5, commands.BucketType.user)
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def get_uuid(self, ctx, *, gamertag: str):
         r = await self.ses.post("https://api.mojang.com/profiles/minecraft", json=[gamertag])
         j = json.loads(await r.text()) # [0]['id']
@@ -108,7 +108,7 @@ class BasicMC(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{gamertag}: ``{j[0]['id']}``"))
 
     @commands.command(name="uuidtoname", aliases=["getgamertag"])
-    @commands.cooldown(1, 1.5, commands.BucketType.user)
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def get_gamertag(self, ctx, *, uuid: str):
         response = await self.ses.get(f"https://api.mojang.com/user/profiles/{uuid}/names")
         if response.status == 204:
