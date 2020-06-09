@@ -18,7 +18,7 @@ class Player(commands.Cog):
         try:
             player_friends = await self.cache.get_player_friends(player)
         except aiopypixel.exceptions.exceptions.InvalidPlayerError:
-            wait ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player is invalid or doesn't exist!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player is invalid or doesn't exist!"))
         else:
             if not player_friends:
                 await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} doesn't have any friends! :cry:"))
