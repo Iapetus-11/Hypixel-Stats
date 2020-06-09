@@ -51,7 +51,7 @@ class Player(commands.Cog):
     async def player_guild(self, ctx, player):
         await ctx.trigger_typing()
 
-        player_guild = self.cache.get_player_guild(player)
+        player_guild = await self.cache.get_player_guild(player)
 
         if player_guild is None:
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player isn't in a guild!"))
