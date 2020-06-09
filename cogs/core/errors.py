@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 from random import choice
 import traceback
+from aiopypixel.exceptions import exceptions as aiopypixel_errors
 
 
 class Errors(commands.Cog):
@@ -21,6 +22,10 @@ class Errors(commands.Cog):
                 ctx.handled = False
         except AttributeError:
             ctx.handled = False
+
+        if isinstance(e, aiopypixel_errors.InvalidPlayerError):
+            await self.send(ctx, "That player is invalid or doesn't exist!")
+            return
 
         if isinstance(e, commands.errors.NoPrivateMessage):
             await self.send(ctx, "This command can't be used in private chat channels.")

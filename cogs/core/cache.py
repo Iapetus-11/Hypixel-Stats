@@ -32,7 +32,6 @@ class Cache(commands.Cog):
 
         if uuid not in self.valid_names_and_uuids:
             self.valid_names_and_uuids.append(uuid)
-
         return uuid
 
     async def get_player_name(self, player):
@@ -48,7 +47,6 @@ class Cache(commands.Cog):
 
         if name not in self.valid_names_and_uuids:
             self.valid_names_and_uuids.append(name)
-
         return name
 
     async def get_player_friends(self, player):
@@ -66,7 +64,6 @@ class Cache(commands.Cog):
                     await asyncio.sleep(self.bot.ratelimited_wait_time)
 
             self.player_friends_cache[player] = friends
-
         return friends
 
     async def get_player_guild(self, player):
@@ -84,7 +81,6 @@ class Cache(commands.Cog):
                     await asyncio.sleep(self.bot.ratelimited_wait_time)
 
             self.player_guild_cache[player] = guild
-
         return guild
 
 
