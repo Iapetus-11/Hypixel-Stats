@@ -1,4 +1,5 @@
 import discord
+import os
 from discord.ext import commands
 
 
@@ -60,6 +61,14 @@ class Owner(commands.Cog):
             await ctx.send(gds)
         else:
             await self.send(ctx, "No results...")
+
+    @commands.command(name="getlatest", aliases=["gitpull", "git_pull"])
+    @commands.is_owner()
+    async def get_and_deploy_latest(self, ctx):
+        os.system("git pull > git_pull_log 2>&1")
+        with open("git_pull_log", "r") as f:
+            await ctx.send(embed=discord.Embed(color=discord.Color.green(), description=f"```diff\n{f.read()}\n```"))
+        os.system("rm git_pull_log")
 
 
 def setup(bot):
