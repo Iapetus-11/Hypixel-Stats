@@ -1,6 +1,6 @@
-from discord.ext import commands
-import discord
 import aiopypixel
+import discord
+from discord.ext import commands
 
 
 class Player(commands.Cog):
@@ -10,7 +10,7 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-    @commands.command(name="friends", aliases=["pfriends", "playerfriends", "friendsof"])
+    @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
         await ctx.trigger_typing()
@@ -55,12 +55,19 @@ class Player(commands.Cog):
         player_guild = await self.cache.get_player_guild(player)
 
         if player_guild is None:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{discord.utils.escape_markdown(player)} isn't in a guild!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"{discord.utils.escape_markdown(player)} isn't in a guild!"))
             return
 
         player_guild = await self.cache.get_guild_name_from_id(player_guild)
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{discord.utils.escape_markdown(player)}** is in the guild: {discord.utils.escape_markdown(player_guild)}"))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                           description=f"**{discord.utils.escape_markdown(player)}** is in the guild: {discord.utils.escape_markdown(player_guild)}"))
+
+    @commands.group(name="player", aliases=["profile", "pp"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def player_stats(self, ctx, player):
+        player_stats =
 
 
 def setup(bot):

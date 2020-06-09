@@ -21,6 +21,8 @@ class Cache(commands.Cog):
 
         self.guild_id_name_cache = {}  # {id: name} for guilds, clear every day or somethin
 
+        self.player_object_cache = {}  # {uuid: Player} every thirty min?
+
     async def get_player_uuid(self, player):
         if len(player) > 16:
             if player in self.valid_names_and_uuids:
@@ -51,20 +53,23 @@ class Cache(commands.Cog):
             self.valid_names_and_uuids.append(name)
         return name
 
+    async def rate_limit_wait(self, to_be_awaited):
+        try_again = True
+        while try_again:
+            try:
+                awaited = await to_be_awaited
+                try_again = False
+            except aiopypixel.exceptions.exceptions.RateLimitError:
+                await asyncio.sleep(self.bot.ratelimited_wait_time)
+        return awaited
+
     async def get_player_friends(self, player):
         player = await self.get_player_uuid(player)  # ensure it's a uuid for best caching results
 
         friends = self.player_friends_cache.get(player)
 
         if friends is None:
-            try_again = True
-            while try_again:
-                try:
-                    friends = await self.hypixel.getPlayerFriends(player)
-                    try_again = False
-                except aiopypixel.exceptions.exceptions.RateLimitError:
-                    await asyncio.sleep(self.bot.ratelimited_wait_time)
-
+            friends = await self.rate_limit_wait(self.hypixel.getPlayerFriends(player))
             self.player_friends_cache[player] = friends
         return friends
 
@@ -74,14 +79,7 @@ class Cache(commands.Cog):
         guild_id = self.player_guild_cache.get(player)
 
         if guild_id is None:
-            try_again = True
-            while try_again:
-                try:
-                    guild_id = await self.hypixel.getPlayerGuild(player)
-                    try_again = False
-                except aiopypixel.exceptions.exceptions.RateLimitError:
-                    await asyncio.sleep(self.bot.ratelimited_wait_time)
-
+            guild_id = await self.rate_limit_wait(self.hypixel.getPlayerGuild(player))
             self.player_guild_cache[player] = guild_id
         return guild_id
 
@@ -89,16 +87,19 @@ class Cache(commands.Cog):
         guild_name = self.guild_id_name_cache.get(guild_id)
 
         if guild_name is None:
-            try_again = True
-            while try_again:
-                try:
-                    guild_name = await self.hypixel.getGuildNameByID(guild_id)
-                    try_again = False
-                except aiopypixel.exceptions.exceptions.RateLimitError:
-                    await asyncio.sleep(self.bot.ratelimited_wait_time)
-
+            guild_name = await self.rate_limit_wait(self.hypixel.getGuildNameByID(guild_id))
             self.guild_id_name_cache[guild_id] = guild_name
         return guild_name
+
+    async def get_player(self, player):  # uuid preferred
+        player = self.get_player_uuid(player)
+
+        player_object = self.player_object_cache.get(player)
+
+        if player_object is None:
+            player_object = await self.rate_limit_wait(self.hypixel.getPlayer(player))
+            self.player_object_cache[player] = player_object
+        return player_object
 
 
 def setup(bot):
