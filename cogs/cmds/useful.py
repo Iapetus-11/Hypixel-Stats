@@ -22,10 +22,10 @@ class Useful(commands.Cog):
             pp = "Schlong"
         elif "schlong" in c:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                               description="<a:ping:692401875001278494> Magnum Dong! \uFEFF ``69.00 ms``"))
+                                               description="Magnum Dong! \uFEFF ``69.00 ms``"))
             return
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"<a:ping:692401875001278494> {pp}! \uFEFF ``{round(self.bot.latency * 1000, 2)} ms``"))
+                                           description=f"{pp}! \uFEFF ``{round(self.bot.latency * 1000, 2)} ms``"))
 
     @commands.command(name="info", aliases=["information"])
     async def information(self, ctx):
