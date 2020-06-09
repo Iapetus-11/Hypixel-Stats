@@ -39,9 +39,9 @@ class Settings(commands.Cog):
             await self.db.set_prefix(ctx.guild.id, prefix[:10])
             s = ""
             if prefix[:10] != prefix:
-                s = "Also, your prefix was too long, so we shortened it!"
+                s = "\nAlso, your prefix was too long, so we shortened it!"
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                               description=f"Changed the prefix from **``{ctx.prefix}``** to **``{prefix}``*** {s}"))
+                                               description=f"Changed the prefix from **``{ctx.prefix}``** to ***``{prefix}``***{s}"))
 
 
 def setup(bot):
