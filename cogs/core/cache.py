@@ -18,7 +18,7 @@ class Cache(commands.Cog):
         self.player_friends_cache = {}  # {uuid: [friends...]} clear this every 2 hrs
 
     async def get_player_uuid(self, player):
-        if len(player) <= 16:
+        if len(player) > 16:
             if player in self.valid_names_and_uuids:
                 return player
 
@@ -34,7 +34,7 @@ class Cache(commands.Cog):
         return uuid
 
     async def get_player_name(self, player):
-        if len(player) > 16:
+        if len(player) <= 16:
             if player in self.valid_names_and_uuids:
                 return player
 
