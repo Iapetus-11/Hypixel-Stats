@@ -1,14 +1,8 @@
 import aiohttp
 import asyncio
-import base64
 import discord
 import json
-import socket
 from discord.ext import commands
-from mcstatus import MinecraftServer
-from pyraklib.protocol.EncapsulatedPacket import EncapsulatedPacket
-from pyraklib.protocol.UNCONNECTED_PING import UNCONNECTED_PING
-from pyraklib.protocol.UNCONNECTED_PONG import UNCONNECTED_PONG
 
 
 class BasicMC(commands.Cog):
