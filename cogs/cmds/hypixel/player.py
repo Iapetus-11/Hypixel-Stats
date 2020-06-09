@@ -18,12 +18,12 @@ class Player(commands.Cog):
         try:
             player_friends = await self.cache.get_player_friends(player)
         except aiopypixel.exceptions.exceptions.InvalidPlayerError:
-            await ctx.send("That player is invalid or doesn't exist!")
+            wait ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player is invalid or doesn't exist!"))
         else:
             if not player_friends:
                 await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} doesn't have any friends! :cry:"))
 
-            embed = discord.Embed(color=self.bot.cc, title=f"``{player}``'s friends:")
+            embed = discord.Embed(color=self.bot.cc, title=f"``{player}``'s friends ({len(player_friends)} total!)")
 
             body = ""
             count = 0
@@ -40,6 +40,10 @@ class Player(commands.Cog):
                 count += 1
             if count > 0:
                 embed.add_field(name="\uFEFF", value=body)
+
+            if len(embed) > 5095:
+                await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That user has too many friends to show!"))
+                return
 
             await ctx.send(embed=embed)
 
