@@ -71,22 +71,34 @@ class Cache(commands.Cog):
     async def get_player_guild(self, player):
         player = await self.get_player_uuid(player)
 
-        guild = self.player_guild_cache.get(player)
+        guild_id = self.player_guild_cache.get(player)
 
-        if guild is None:
+        if guild_id is None:
             try_again = True
             while try_again:
                 try:
-                    guild = await self.hypixel.getPlayerGuild(player)
+                    guild_id = await self.hypixel.getPlayerGuild(player)
                     try_again = False
                 except aiopypixel.exceptions.exceptions.RateLimitError:
                     await asyncio.sleep(self.bot.ratelimited_wait_time)
 
-            self.player_guild_cache[player] = guild
-        return guild
+            self.player_guild_cache[player] = guild_id
+        return guild_id
 
     async def get_guild_name_from_id(self, guild_id):
         guild_name = self.guild_id_name_cache.get(guild_id)
+
+        if guild_name is None:
+            try_again = True
+            while try_again:
+                try:
+                    guild_name = await self.hypixel.getGuildNameByID(guild_id)
+                    try_again = False
+                except aiopypixel.exceptions.exceptions.RateLimitError:
+                    await asyncio.sleep(self.bot.ratelimited_wait_time)
+
+            self.guild_id_name_cache[guild_id] = guild_name
+        return guild_name
 
 
 
