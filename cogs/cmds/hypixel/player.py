@@ -28,7 +28,7 @@ class Player(commands.Cog):
 
         player_guild = p.GUILD
         if player_guild is None:
-            player_guild = "not in a guild"
+            player_guild = "none"
         else:
             player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
 
@@ -39,7 +39,7 @@ class Player(commands.Cog):
         embed.add_field(name="XP", value=f"{p.EXP}", inline=True)
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Guild", value=f"{player_guild}", inline=False)
+        embed.add_field(name="Guild", value=f"{player_guild}", inline=True)
 
         await ctx.send(embed=embed)
 
