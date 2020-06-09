@@ -14,19 +14,24 @@ class Player(commands.Cog):
     @commands.group(name="player", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player(self, ctx, player):
-        p = await self.cache.get_player(player)
-        online = "offline"
-        last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()
-        if p.LAST_LOGIN > p.LAST_LOGOUT:
-            online = "online"
-            last_online = "now"
         embed = discord.Embed(color=self.bot.cc)
+
+        p = await self.cache.get_player(player)
+
+        online = f"{self.bot.emojis['offline_status']} offline"
+        last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
+        if p.LAST_LOGIN > p.LAST_LOGOUT:
+            online = f"{self.bot.emojis['online_status']} online"
+            last_online = "now"  # bc this value is obtained from last_login
+
         player_pfp = await self.cache.get_player_head(p.UUID)
+
         player_guild = p.GUILD
         if player_guild is None:
             player_guild = "not in a guild"
         else:
             player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
+
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
         embed.add_field(name="Status", value=online)
         embed.add_field(name="Last Online", value=f"{last_online}")
@@ -35,6 +40,7 @@ class Player(commands.Cog):
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Guild", value=f"{player_guild}", inline=False)
+
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])

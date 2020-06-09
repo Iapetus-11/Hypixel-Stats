@@ -29,7 +29,7 @@ async def get_prefix(_bot, message):
 bot = commands.AutoShardedBot(shard_count=1, command_prefix=get_prefix, case_insensitive=True)
 
 with open('data/emojis.json') as EMOJIS:
-    bot.EMOJIS = json.load(EMOJIS)
+    bot.emojis = json.load(EMOJIS)
 
 bot.cc = discord.Color.gold()
 bot.guild_invite_code = "MZ2cXxF"
