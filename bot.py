@@ -51,15 +51,17 @@ async def setup_db():
 
 asyncio.get_event_loop().run_until_complete(setup_db())
 
-
-bot.cog_list = ["cogs.core.errors",
-                "cogs.core.events",
-                "cogs.core.database",
-                "cogs.core.cache",
-                "cogs.cmds.useful",
-                "cogs.cmds.settings",
-                "cogs.cmds.basic_mc",
-                "cogs.cmds.hypixel.player"]
+bot.cog_list = [
+    "cogs.core.errors",
+    "cogs.core.events",
+    "cogs.core.database",
+    "cogs.core.cache",
+    "cogs.cmds.owner",
+    "cogs.cmds.useful",
+    "cogs.cmds.settings",
+    "cogs.cmds.basic_mc",
+    "cogs.cmds.hypixel.player"
+]
 
 for cog in bot.cog_list:
     bot.load_extension(cog)
@@ -67,7 +69,6 @@ for cog in bot.cog_list:
 
 @bot.check
 async def bot_check(ctx):
-
     if not bot.is_ready():
         await ctx.send(embed=discord.Embed(color=bot.cmd_c, description="Hold on! We're starting up!"))
         return False
