@@ -1,6 +1,6 @@
 import aiopypixel
+import arrow
 import discord
-from datetime import datetime
 from discord.ext import commands
 
 
@@ -27,9 +27,9 @@ class Player(commands.Cog):
         embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``", inline=True)
         embed.add_field(name="Guild", value=f"``{player_guild}``", inline=False)
         embed.add_field(name="Last Online",
-                        value=f"``{datetime.fromtimestamp(p.LAST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
+                        value=f"``{arrow.fromtimestamp(p.LAST_LOGIN).humanize()}``")
         embed.add_field(name="First Join",
-                        value=f"``{datetime.fromtimestamp(p.FIRST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
+                        value=f"``{arrow.fromtimestamp(p.FIRST_LOGIN).humanize()}``")
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
