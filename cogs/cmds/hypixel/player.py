@@ -18,10 +18,10 @@ class Player(commands.Cog):
 
         p = await self.cache.get_player(player)
 
-        online = f"{self.bot.emojis['offline_status']} offline"
+        online = f"offline"
         last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
         if p.LAST_LOGIN > p.LAST_LOGOUT:
-            online = f"{self.bot.emojis['online_status']} online"
+            online = f"online"
             last_online = "now"  # bc this value is obtained from last_login
 
         player_pfp = await self.cache.get_player_head(p.UUID)
