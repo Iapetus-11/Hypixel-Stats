@@ -17,10 +17,15 @@ class Player(commands.Cog):
         p = await self.cache.get_player(player)
         embed = discord.Embed(color=self.bot.cc)
         player_pfp = await self.cache.get_player_head(p.UUID)
+        player_guild = p.GUILD
+        if player_guild is None:
+            player_guild = "not in a guild"
+        else:
+            player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
         embed.add_field(name="XP", value=f"``{p.EXP}``", inline=True)
         embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``", inline=True)
-        embed.add_field(name="Guild", value=f"``{await self.cache.get_guild_name_from_id(p.GUILD)}``", inline=False)
+        embed.add_field(name="Guild", value=f"``{player_guild}``", inline=False)
         embed.add_field(name="Last Online",
                         value=f"``{datetime.utcfromdatestamp(p.LAST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
         embed.add_field(name="First Join",
