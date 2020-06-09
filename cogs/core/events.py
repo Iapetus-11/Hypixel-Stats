@@ -10,7 +10,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("\u001b[36;1m CONNECTED \u001b[0m [{self.bot.shard_count} Shards]")
+        print(f"\u001b[36;1m CONNECTED \u001b[0m [{self.bot.shard_count} Shards]")
         await self.bot.change_presence(activity=discord.Game("on Hypixel"), status=discord.Status.idle)
 
     @commands.Cog.listener()
