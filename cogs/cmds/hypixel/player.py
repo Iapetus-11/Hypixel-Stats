@@ -23,7 +23,11 @@ class Player(commands.Cog):
 
             body = ""
             for friend in player_friends:
-                body += f"{await self.cache.get_player_name(friend)}\n"
+                try:
+                    name = await self.cache.get_player_name(friend)
+                except aiopypixel.exceptions.exceptions.InvalidPlayerError:
+                    name = "Unknown User"
+                body += f"{name}\n"
 
             embed = discord.Embed(color=self.bot.cc, title=f"__{player}'s friends__:", description=body)
 
