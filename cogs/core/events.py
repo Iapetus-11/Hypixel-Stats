@@ -10,8 +10,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        activity = discord.Activity(type=discord.ActivityType.watching, name="the stats")
-        await self.bot.change_presence(activity=activity, status=discord.Status.idle)
+        await self.bot.change_presence(activity=discord.Game("Hypixel"), status=discord.Status.idle)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
