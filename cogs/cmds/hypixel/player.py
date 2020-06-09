@@ -34,7 +34,7 @@ class Player(commands.Cog):
                 except aiopypixel.exceptions.exceptions.InvalidPlayerError:
                     name = "Unknown User"
                 body += f"{name}\n"
-                if count > 20:
+                if count > 30:
                     embed.add_field(name="\uFEFF", value=body)
                     embed_count += 1
                     count = 0
