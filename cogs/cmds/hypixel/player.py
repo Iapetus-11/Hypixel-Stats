@@ -60,7 +60,7 @@ class Player(commands.Cog):
 
         player_guild = await self.cache.get_guild_name_from_id(player_guild)
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{discord.utils.escape_markdown(player)}** is in the guild: {player_guild}"))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{discord.utils.escape_markdown(player)}** is in the guild: {discord.utils.escape_markdown(player_guild)}"))
 
 
 def setup(bot):
