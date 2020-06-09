@@ -95,7 +95,7 @@ class Cache(commands.Cog):
         return guild_name
 
     async def get_player(self, player):  # uuid preferred
-        player = self.get_player_uuid(player)
+        player = await self.get_player_uuid(player)
 
         player_object = self.player_object_cache.get(player)
 
