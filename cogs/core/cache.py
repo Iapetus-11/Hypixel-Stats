@@ -1,7 +1,7 @@
-from discord.ext import commands
-import discord
 import aiopypixel
 import asyncio
+import discord
+from discord.ext import commands
 
 
 class Cache(commands.Cog):
@@ -17,9 +17,9 @@ class Cache(commands.Cog):
 
         self.player_friends_cache = {}  # {uuid: [friends...]} clear this every 2 hrs
 
-        self.player_guild_cache = {} # {uuid: guild} clear every 1 hr
+        self.player_guild_cache = {}  # {uuid: guild} clear every 1 hr
 
-        self.guild_id_name_cache = {} # {id: name} for guilds, clear every day or somethin
+        self.guild_id_name_cache = {}  # {id: name} for guilds, clear every day or somethin
 
     async def get_player_uuid(self, player):
         if len(player) > 16:
@@ -52,7 +52,7 @@ class Cache(commands.Cog):
         return name
 
     async def get_player_friends(self, player):
-        player = await self.get_player_uuid(player) # ensure it's a uuid for best caching results
+        player = await self.get_player_uuid(player)  # ensure it's a uuid for best caching results
 
         friends = self.player_friends_cache.get(player)
 
@@ -99,8 +99,6 @@ class Cache(commands.Cog):
 
             self.guild_id_name_cache[guild_id] = guild_name
         return guild_name
-
-
 
 
 def setup(bot):
