@@ -65,10 +65,6 @@ class Useful(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
-    @commands.command(name="guilds")
-    async def list_guilds(self, ctx):
-        await ctx.send(self.bot.guilds)
-
 
 def setup(bot):
     bot.add_cog(Useful(bot))
