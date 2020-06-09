@@ -38,6 +38,8 @@ class Player(commands.Cog):
                     embed.add_field(name="\uFEFF", value=body)
                     count = 0
                     body = 0
+            if count > 0:
+                embed.add_field(name="\uFEFF", value=body)
 
             await ctx.send(embed=embed)
 
