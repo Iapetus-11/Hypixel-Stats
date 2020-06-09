@@ -1,18 +1,16 @@
-from discord.ext import commands
-from dotenv import load_dotenv
-import discord
-import logging
 import asyncio
 import asyncpg
+import discord
 import json
+import logging
 import os
-
+from discord.ext import commands
+from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('discord_token')
 DB_PASSWORD = os.getenv('db_password')
 HYPIXEL = os.getenv('hypixel_key')
-
 
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying errors
@@ -57,6 +55,9 @@ bot.cog_list = ["cogs.core.errors",
                 "cogs.core.events",
                 "cogs.core.database",
                 "cogs.core.cache",
+                "cogs.cmds.useful",
+                "cogs.cmds.settings",
+                "cogs.cmds.basic_mc",
                 "cogs.cmds.hypixel.player"]
 
 for cog in bot.cog_list:
