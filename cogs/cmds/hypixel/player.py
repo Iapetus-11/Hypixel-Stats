@@ -53,6 +53,12 @@ class Player(commands.Cog):
 
         player_guild = cache.get_player_guild(player)
 
+        if player_guild is None:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player isn't in a guild!"))
+            return
+
+        await ctx.send(embed=discord.Embed(color=self.bot.cc))
+
 
 def setup(bot):
     bot.add_cog(Player(bot))
