@@ -57,7 +57,7 @@ class Player(commands.Cog):
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player isn't in a guild!"))
             return
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} is in the guild: {player_guild}"))
 
 
 def setup(bot):
