@@ -1,8 +1,7 @@
-from discord.ext import commands
 import discord
-from random import choice
 import traceback
-from aiopypixel.exceptions import exceptions as aiopypixel_errors
+from discord.ext import commands
+from random import choice
 
 
 class Errors(commands.Cog):
@@ -23,7 +22,7 @@ class Errors(commands.Cog):
         except AttributeError:
             ctx.handled = False
 
-        if isinstance(e, aiopypixel_errors.InvalidPlayerError):
+        if "InvalidPlayerError" in str(e):
             await self.send(ctx, "That player is invalid or doesn't exist!")
             return
 
