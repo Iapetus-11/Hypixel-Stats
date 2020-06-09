@@ -56,6 +56,7 @@ asyncio.get_event_loop().run_until_complete(setup_db())
 bot.cog_list = ["cogs.core.errors",
                 "cogs.core.events",
                 "cogs.core.database",
+                "cogs.core.events",
                 "cogs.core.cache",
                 "cogs.cmds.hypixel.player"]
 
