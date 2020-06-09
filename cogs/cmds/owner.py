@@ -49,6 +49,18 @@ class Owner(commands.Cog):
     async def await_eval_message(self, ctx, *, msg):
         await self.send(ctx, f"{await eval(msg)}\uFEFF")
 
+    @commands.command(name="reverselookup", aliases=["lookup"])
+    @commands.is_owner()
+    async def guild_lookup(self, ctx, user: discord.User):
+        gds = ""
+        for guild in self.bot.guilds:
+            if guild.get_member(user.id) is not None:
+                gds += str(guild) + " **|** " + str(guild.id) + "\n"
+        if not gds == "":
+            await ctx.send(gds)
+        else:
+            await self.send(ctx, "No results...")
+
 
 def setup(bot):
     bot.add_cog(Owner(bot))
