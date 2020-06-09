@@ -67,7 +67,7 @@ class Owner(commands.Cog):
     async def get_and_deploy_latest(self, ctx):
         os.system("git pull > git_pull_log 2>&1")
         with open("git_pull_log", "r") as f:
-            await ctx.send(embed=discord.Embed(color=discord.Color.green(), description=f"```diff\n{f.read()}\n```"))
+            await self.send(ctx, f"```diff\n{f.read()}\n```")
         os.system("rm git_pull_log")
 
 
