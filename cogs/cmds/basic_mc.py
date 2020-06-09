@@ -1,14 +1,14 @@
-from discord.ext import commands
+import aiohttp
+import asyncio
+import base64
 import discord
-from mcstatus import MinecraftServer
+import json
 import socket
+from discord.ext import commands
+from mcstatus import MinecraftServer
 from pyraklib.protocol.EncapsulatedPacket import EncapsulatedPacket
 from pyraklib.protocol.UNCONNECTED_PING import UNCONNECTED_PING
 from pyraklib.protocol.UNCONNECTED_PONG import UNCONNECTED_PONG
-import aiohttp
-import base64
-import json
-import asyncio
 
 
 class BasicMC(commands.Cog):
@@ -16,55 +16,6 @@ class BasicMC(commands.Cog):
         self.bot = bot
 
         self.ses = aiohttp.ClientSession()
-
-    @commands.command(name="mcping")  # Pings a java edition minecraft server
-    @commands.cooldown(1, 7.5, commands.BucketType.user)
-    async def mc_ping(self, ctx, *, server: str):
-        await ctx.trigger_typing()
-        server = server.replace(" ", "")
-        if ":" in server:
-            s = server.split(":")
-            try:
-                int(s[1])
-            except Exception:
-                await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{server}** is either offline or unavailable at the moment.\n"
-                                                                                            f"Did you type the ip and port correctly? (Like ip:port)\n\nExample: ``{ctx.prefix}mcping 172.10.17.177:25565``"))
-                return
-        if server == "":
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="You must specify a server to ping!"))
-            return
-        status = MinecraftServer.lookup(server)
-        try:
-            status = status.status()
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{server} is online with {status.players.online} player(s) and a ping of {status.latency} ms."))
-        except Exception:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{server}** is either offline or unavailable at the moment.\n"
-                                                                                 f"Did you type the ip and port correctly? (Like ip:port)\n\nExample: ``{ctx.prefix}mcping 172.10.17.177:25565``"))
-
-    @commands.command(name="mcpeping", aliases=["mcbeping"])
-    @commands.cooldown(1, 7.5, commands.BucketType.user)
-    async def bedrock_ping(self, ctx, server: str):
-        ping = UNCONNECTED_PING()
-        ping.pingID = 4201
-        ping.encode()
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.setblocking(0)
-        try:
-            s.sendto(ping.buffer, (socket.gethostbyname(server), 19132))
-            await asyncio.sleep(.75)
-            recv_data = s.recvfrom(2048)
-        except BlockingIOError:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{server}** is either offline or unavailable at the moment. Did you type the ip correctly?"))
-            return
-        except socket.gaierror:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"**{server}** is either offline or unavailable at the moment. Did you type the ip correctly?"))
-            return
-        pong = UNCONNECTED_PONG()
-        pong.buffer = recv_data[0]
-        pong.decode()
-        s_info = str(pong.serverName)[2:-2].split(";")
-        p_count = s_info[4]
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{server} is online with {p_count} player(s)."))
 
     @commands.command(name="stealskin", aliases=["skinsteal", "skin"])
     @commands.cooldown(1, 4, commands.BucketType.user)
