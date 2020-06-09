@@ -7,7 +7,7 @@ class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def send(self, location, message):
+    async def send(self, location, message):  # idk because it's easy ig
         await location.send(embed=discord.Embed(color=self.bot.cc, description=message))
 
     @commands.command(name="unload")
