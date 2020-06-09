@@ -104,16 +104,9 @@ class Cache(commands.Cog):
             self.player_object_cache[player] = player_object
         return player_object
 
-    async def get_player_pfp(self, player):
+    async def get_player_head(self, player):
         player = await self.get_player_uuid(player)
-
-        pfp = self.player_pfp_cache.get(player)
-
-        if pfp is None:
-            req = await self.session.get(f"https://crafatar.com/avatars/{player}")
-            pfp = base64.b64encode(await req.content)
-            self.player_pfp_cache[player] = pfp
-        return pfp
+        return f"https://crafatar.com/avatars/{player}"
 
 
 def setup(bot):

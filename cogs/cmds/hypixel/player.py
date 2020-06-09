@@ -1,5 +1,4 @@
 import aiopypixel
-import base64
 import discord
 from discord.ext import commands
 
@@ -16,13 +15,11 @@ class Player(commands.Cog):
     async def player(self, ctx, player):
         p = await self.cache.get_player(player)
         embed = discord.Embed(color=self.bot.cc)
-        player_pfp = base64.b64decode(await self.cache.get_player_pfp(p.UUID))
+        player_pfp = await self.cache.get_player_pfp(p.UUID)
         embed.set_author(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
-        """
         embed.add_field(name="XP", value=f"``{p.EXP}``")
         embed.add_field("Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``")
         embed.add_field("Guild", value=f"``{p.GUILD}``")
-        """
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
