@@ -43,5 +43,28 @@ class Useful(commands.Cog):
                             icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
         await ctx.send(embed=info_msg)
 
+    @commands.command(name="uptime")
+    async def get_uptime(self, ctx):
+        p = arrow.utcnow()
+        diff = (p - self.bot.start_time)
+        days = diff.days
+        hours = int(diff.seconds / 3600)
+        minutes = int(diff.seconds / 60) % 60
+        if days == 1:
+            dd = "day"
+        else:
+            dd = "days"
+        if hours == 1:
+            hh = "hour"
+        else:
+            hh = "hours"
+        if minutes == 1:
+            mm = "minute"
+        else:
+            mm = "minutes"
+        await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                           description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
+
+
 def setup(bot):
     bot.add_cog(Useful(bot))
