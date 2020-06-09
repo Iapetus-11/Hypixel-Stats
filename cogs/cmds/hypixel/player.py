@@ -18,6 +18,7 @@ class Player(commands.Cog):
         player_friends = await self.cache.get_player_friends(player)
         if not player_friends:
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} doesn't have any friends! :cry:"))
+            return
 
         embed = discord.Embed(color=self.bot.cc, title=f"``{player}``'s friends ({len(player_friends)} total!)")
 
@@ -54,8 +55,10 @@ class Player(commands.Cog):
         player_guild = await self.cache.get_player_guild(player)
 
         if player_guild is None:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That player isn't in a guild!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} isn't in a guild!"))
             return
+
+        player_guild =
 
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{player} is in the guild: {player_guild}"))
 
