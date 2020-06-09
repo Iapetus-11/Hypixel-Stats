@@ -15,6 +15,9 @@ class Player(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player(self, ctx, player):
         p = await self.cache.get_player(player)
+        online = "offline"
+        if p.LAST_LOGIN > p.LAST_LOGOUT:
+            online = "online"
         embed = discord.Embed(color=self.bot.cc)
         player_pfp = await self.cache.get_player_head(p.UUID)
         player_guild = p.GUILD
@@ -23,11 +26,11 @@ class Player(commands.Cog):
         else:
             player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
-        embed.add_field(name="XP", value=f"``{p.EXP}``", inline=True)
-        embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``", inline=True)
-        embed.add_field(name="Guild", value=f"``{player_guild}``", inline=False)
-        embed.add_field(name="Last Online",
-                        value=f"``{arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()}``")
+        embed.add_field(name="Status", value=online)
+        embed.add_field(name="Last Online", value=f"{arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()}")
+        embed.add_field(name="XP", value=f"{p.EXP}", inline=True)
+        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=True)
+        embed.add_field(name="Guild", value=f"{player_guild}", inline=False)
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
