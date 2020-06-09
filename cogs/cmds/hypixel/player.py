@@ -27,9 +27,9 @@ class Player(commands.Cog):
         embed.add_field(name="Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``", inline=True)
         embed.add_field(name="Guild", value=f"``{player_guild}``", inline=False)
         embed.add_field(name="Last Online",
-                        value=f"``{datetime.utcfromtimestamp(p.LAST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
+                        value=f"``{datetime.fromtimestamp(p.LAST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
         embed.add_field(name="First Join",
-                        value=f"``{datetime.utcfromtimestamp(p.FIRST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
+                        value=f"``{datetime.fromtimestamp(p.FIRST_LOGIN).strftime('%Y-%m-%d %H:%M:%S')}``")
         await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
