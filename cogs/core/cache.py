@@ -43,6 +43,7 @@ class Cache(commands.Cog):
         if name is None:
             print(player)
             name = await self.hypixel.usernameToUUID(player)
+            print(name)
             self.uuid_name_cache[player] = name
 
         if name not in self.valid_names_and_uuids:
