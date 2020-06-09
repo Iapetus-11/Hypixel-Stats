@@ -1,5 +1,7 @@
+import aiohttp
 import aiopypixel
 import asyncio
+import base64
 import discord
 from discord.ext import commands
 
@@ -10,18 +12,19 @@ class Cache(commands.Cog):
 
         self.hypixel = aiopypixel.Client(self.bot.hypixel_key)
 
-        self.valid_names_and_uuids = []  # clear every hour or so
+        self.session = aiohttp.ClientSession()
 
+        self.valid_names_and_uuids = []  # clear every hour or so
         self.name_uuid_cache = {}  # {name: uuid} clear this maybe twice a day?
         self.uuid_name_cache = {}  # {uuid: name} clear this maybe twice a day?
-
         self.player_friends_cache = {}  # {uuid: [friends...]} clear this every 2 hrs
-
         self.player_guild_cache = {}  # {uuid: guild} clear every 1 hr
-
         self.guild_id_name_cache = {}  # {id: name} for guilds, clear every day or somethin
-
         self.player_object_cache = {}  # {uuid: Player} every thirty min?
+        self.player_pfp_cache = {}  # {uuid: pfp in b64} every 2 days or somethin
+
+    def cog_unload(self):
+        self.bot.loop.create_task(self.session.close())
 
     async def get_player_uuid(self, player):
         if len(player) > 16:
@@ -100,6 +103,17 @@ class Cache(commands.Cog):
             player_object = await self.rate_limit_wait(self.hypixel.getPlayer(player))
             self.player_object_cache[player] = player_object
         return player_object
+
+    async def get_player_pfp(self, player):
+        player = await self.get_player_uuid(player)
+
+        pfp = self.player_pfp_cache.get(player)
+
+        if pfp is None:
+            req = await self.session.get(f"https://crafatar.com/avatars/{player}")
+            pfp = base64.b64encode(await req.content)
+            self.player_pfp_cache[player] = pfp
+        return pfp
 
 
 def setup(bot):

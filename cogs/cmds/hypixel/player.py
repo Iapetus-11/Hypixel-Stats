@@ -1,4 +1,5 @@
 import aiopypixel
+import base64
 import discord
 from discord.ext import commands
 
@@ -10,6 +11,18 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
+    @commands.group(name="player", aliases=["profile", "pp"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def player(self, ctx, player):
+        p = await self.cache.get_player(player)
+        embed = discord.Embed(color=self.bot.cc)
+        player_pfp = base64.decodeb64(await self.cache.get_player_pfp(p.UUID))
+        embed.set_author(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile")
+        embed.add_field(name="XP", value=f"``{p.EXP}``")
+        embed.add_field("Achievements", value=f"``{len(p.ONE_TIME_ACHIEVEMENTS)}``")
+        embed.add_field("Guild", value=f"``{p.GUILD}``")
+        embed.add_field()
+
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
@@ -17,7 +30,8 @@ class Player(commands.Cog):
 
         player_friends = await self.cache.get_player_friends(player)
         if not player_friends:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{discord.utils.escape_markdown(player)} doesn't have any friends! :cry:"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"{discord.utils.escape_markdown(player)} doesn't have any friends! :cry:"))
             return
 
         embed = discord.Embed(color=self.bot.cc, title=f"``{discord.utils.escape_markdown(player)}``'s friends ({len(player_friends)} total!)")
@@ -63,11 +77,6 @@ class Player(commands.Cog):
 
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"**{discord.utils.escape_markdown(player)}** is in the guild: {discord.utils.escape_markdown(player_guild)}"))
-
-    @commands.group(name="player", aliases=["profile", "pp"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def player_stats(self, ctx, player):
-        player_stats =
 
 
 def setup(bot):
