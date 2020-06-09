@@ -1,3 +1,4 @@
+import arrow
 import discord
 from discord.ext import commands
 
@@ -20,11 +21,27 @@ class Useful(commands.Cog):
         elif "shing" in c or "shling" in c:
             pp = "Schlong"
         elif "schlong" in c:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="<a:ping:692401875001278494> Magnum Dong! \uFEFF ``69.00 ms``"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description="<a:ping:692401875001278494> Magnum Dong! \uFEFF ``69.00 ms``"))
             return
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"<a:ping:692401875001278494> {pp}! \uFEFF ``{round(self.bot.latency*1000, 2)} ms``"))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                           description=f"<a:ping:692401875001278494> {pp}! \uFEFF ``{round(self.bot.latency * 1000, 2)} ms``"))
 
-
+    @commands.command(name="info", aliases=["information"])
+    async def information(self, ctx):
+        info_msg = discord.Embed(color=discord.Color.green())
+        info_msg.add_field(name="Bot Library", value="Discord.py", inline=True)
+        info_msg.add_field(name="Command Prefix", value=ctx.prefix, inline=True)
+        info_msg.add_field(name="Creators", value="Iapetus11#6821 &\n TrustedMercury#1953", inline=True)
+        info_msg.add_field(name="Total Servers", value=str(len(self.bot.guilds)), inline=True)
+        info_msg.add_field(name="Shards", value=str(self.bot.shard_count), inline=True)
+        info_msg.add_field(name="Total Users", value=str(len(self.bot.users)), inline=True)
+        info_msg.add_field(name="Top.gg Page", value="[Click Here](https://top.gg/bot/718523903147900998)", inline=True)
+        info_msg.add_field(name="Website", value="None Yet!", inline=True)
+        info_msg.add_field(name="Support", value="[Click Here](https://discord.gg/MZ2cXxF)", inline=True)
+        info_msg.set_author(name="Hypixel Bot Information",
+                            icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
+        await ctx.send(embed=info_msg)
 
 def setup(bot):
     bot.add_cog(Useful(bot))
