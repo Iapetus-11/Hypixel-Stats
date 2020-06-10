@@ -1,3 +1,4 @@
+arrow
 asyncpg
 aiopypixel
 discord.py

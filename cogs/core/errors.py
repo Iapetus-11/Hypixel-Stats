@@ -1,7 +1,7 @@
 import discord
 import traceback
-from discord.ext import commands
 from random import choice
+from discord.ext import commands
 
 
 class Errors(commands.Cog):
@@ -83,9 +83,9 @@ class Errors(commands.Cog):
             excls = ['OH SNAP', 'OH FU\*\*!', 'OH \*\*\*\*!', 'OH SH-']
             await self.send(ctx, f"{choice(excls)} "
                                  "You found an actual error, please take a screenshot and report it on our "
-                                 f"**[support server](https://discord.gg/{self.bot.guild_invite_code})**, thank you!")
+                                 f"**[support server](https://discord.gg/{self.bot.CONFIG['guild_invite_code']})**, thank you!")
 
-        error_channel = self.bot.get_channel(self.bot.error_channel_id)
+        error_channel = self.bot.get_channel(self.bot.CONFIG["error_channel_id"])
 
         # Thanks TrustedMercury!
         etype = type(e)

@@ -13,7 +13,7 @@ class Events(commands.Cog):
     async def on_ready(self):
         print(f"\n\u001b[36;1m CONNECTED \u001b[0m [{self.bot.shard_count} Shards]\n")
         await self.bot.change_presence(activity=discord.Game("on Hypixel"), status=discord.Status.idle)
-        self.bot.start_time = arrow.utcnow()
+        self.bot.self.bot.CONFIG["start_time"] = arrow.utcnow()
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -32,7 +32,7 @@ class Events(commands.Cog):
             help_embed.set_author(name="Villager Bot", icon_url=str(self.bot.user.avatar_url_as(static_format="png")))
             help_embed.set_footer(text="Made by Iapetus11 & TrustedMercury!")
             try:
-                await message.channel.send(embed=help_embed)
+                await msg.channel.send(embed=help_embed)
             except discord.errors.Forbidden:
                 pass
 
