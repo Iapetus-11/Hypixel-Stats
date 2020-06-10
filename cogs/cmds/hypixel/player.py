@@ -118,12 +118,8 @@ class Player(commands.Cog):
 
             tntgames = p.STATS.get("TNTGames")
 
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Coins", value=tntgames["coins"])
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
-
             embed.add_field(name="Wins", value=tntgames["wins"])
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Winstreak", value=tntgames["winstreak"])
 
             kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
