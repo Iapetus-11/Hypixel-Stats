@@ -54,7 +54,7 @@ class Player(commands.Cog):
         p = await self.cache.get_player(player)
 
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"Which game do you want to view stats for? ``{','.join(list(p.STATS))}``"))
+                                           description=f"Which game do you want to view stats for? ``{', '.join(list(p.STATS))}``"))
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
@@ -70,29 +70,30 @@ class Player(commands.Cog):
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
+        if stat not in [s.lower() for s in list(p.STATS)]:
+            await ctx.send(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that!")
+            return
+
         if stat == "bedwars":
             bedwars = p.STATS.get("Bedwars")
-            try:
-                embed.add_field(name="XP", value=bedwars["Experience"])
-                embed.add_field(name="Coins", value=bedwars["coins"])
-                embed.add_field(name="Total Games",
-                                value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
 
-                embed.add_field(name="Losses", value=bedwars["beds_lost_bedwars"])
-                embed.add_field(name="Wins", value=bedwars["wins_bedwars"])
-                embed.add_field(name="Winstreak", value=bedwars["winstreak"])
+            embed.add_field(name="XP", value=bedwars["Experience"])
+            embed.add_field(name="Coins", value=bedwars["coins"])
+            embed.add_field(name="Total Games",
+                            value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
 
-                kills = bedwars["kills_bedwars"]
-                deaths = bedwars["deaths_bedwars"]
-                embed.add_field(name="Kills", value=kills)
-                embed.add_field(name="Deaths", value=deaths)
-                embed.add_field(name="KDR", value=round(kills / deaths, 2))
+            embed.add_field(name="Losses", value=bedwars["beds_lost_bedwars"])
+            embed.add_field(name="Wins", value=bedwars["wins_bedwars"])
+            embed.add_field(name="Winstreak", value=bedwars["winstreak"])
 
-                embed.add_field(name="Beds Broken", value=bedwars["beds_broken_bedwars"])
-                await ctx.send(embed=embed)
-            except KeyError:
-                await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                                   description=f"**{discord.utils.escape_markdown(player)}** has no Bedwars stats."))
+            kills = bedwars["kills_bedwars"]
+            deaths = bedwars["deaths_bedwars"]
+            embed.add_field(name="Kills", value=kills)
+            embed.add_field(name="Deaths", value=deaths)
+            embed.add_field(name="KDR", value=round(kills / deaths, 2))
+
+            embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
+            await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
