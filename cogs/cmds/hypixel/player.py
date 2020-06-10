@@ -72,10 +72,7 @@ class Player(commands.Cog):
 
         if stat == "bedwars":
             bedwars = p.STATS.get("Bedwars")
-            if bedwars is None:
-                await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                                   description=f"**{discord.utils.escape_markdown(player)}** has no Bedwars stats."))
-            else:
+            try:
                 embed.add_field(name="XP", value=bedwars["Experience"])
                 embed.add_field(name="Coins", value=bedwars["coins"])
                 embed.add_field(name="Total Games",
@@ -93,6 +90,9 @@ class Player(commands.Cog):
 
                 embed.add_field(name="Beds Broken", value=bedwars["beds_broken_bedwars"])
                 await ctx.send(embed=embed)
+            except KeyError:
+                await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                                   description=f"**{discord.utils.escape_markdown(player)}** has no Bedwars stats."))
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
