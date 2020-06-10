@@ -1,3 +1,4 @@
 asyncpg
+aiopypixel
 discord.py
 python-dotenv
