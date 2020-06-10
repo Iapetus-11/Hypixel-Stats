@@ -1,3 +1,12 @@
+"""
+bot.py
+basic initialization and configuration of hypixel-stats
+- loads external files - .env, .json
+- creates database connection pool
+- loads cogs and prefixes
+- creates bot instance
+"""
+
 import os
 import json
 import asyncio
@@ -6,6 +15,7 @@ import discord
 import logging
 from discord.ext import commands
 from dotenv import load_dotenv
+
 
 load_dotenv()
 TOKEN = os.getenv('discord_token')
