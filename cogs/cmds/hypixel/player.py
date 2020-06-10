@@ -102,7 +102,7 @@ class Player(commands.Cog):
             arcade = p.STATS["Arcade"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=False)
+            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
             embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
@@ -118,7 +118,7 @@ class Player(commands.Cog):
             truecombat = p.STATS["TrueCombat"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Coins", value=truecombat["coins"], inline=False)
+            embed.add_field(name="Coins", value=truecombat["coins"], inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             await ctx.send(embed=embed)
         elif stat == "tntgames":
@@ -148,7 +148,7 @@ class Player(commands.Cog):
             supersmash = p.STATS["SuperSmash"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Coins", value=supersmash["coins"], inline=False)
+            embed.add_field(name="Coins", value=supersmash["coins"], inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             await ctx.send(embed=embed)
         elif stat == "murdermystery":
@@ -157,13 +157,13 @@ class Player(commands.Cog):
 
             mystery = p.STATS["MurderMystery"]
 
-            embed.add_field(name="Coins", value=mystery["coins"], inline=False)
+            embed.add_field(name="Coins", value=mystery["coins"], inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Coins Picked Up", value=mystery["coins_pickedup"], inline=False)
+            embed.add_field(name="Coins Picked Up", value=mystery["coins_pickedup"], inline=True)
 
-            embed.add_field(name="Games", value=mystery["games"])
-            embed.add_field(name="Wins", value=mystery["wins"])
-            embed.add_field(name="Deaths", value=mystery["deaths"])
+            embed.add_field(name="Games", value=mystery["games"], inline=True)
+            embed.add_field(name="Wins", value=mystery["wins"], inline=True)
+            embed.add_field(name="Deaths", value=mystery["deaths"], inline=True)
             await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
