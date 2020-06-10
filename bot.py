@@ -60,7 +60,8 @@ bot.cog_list = [
     "cogs.cmds.useful",
     "cogs.cmds.settings",
     "cogs.cmds.basic_mc",
-    "cogs.cmds.hypixel.player"
+    "cogs.cmds.hypixel.player",
+    "cogs.cmds.hypixel.guild"
 ]
 
 for cog in bot.cog_list:
