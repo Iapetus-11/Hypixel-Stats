@@ -26,6 +26,10 @@ class Errors(commands.Cog):
             await self.send(ctx, "That player is invalid or doesn't exist!")
             return
 
+        if "InvalidGuildError" in str(e):
+            await self.send(ctx, "That guild is invalid or doesn't exist!")
+            return
+
         if isinstance(e, commands.errors.NoPrivateMessage):
             await self.send(ctx, "This command can't be used in private chat channels.")
             return

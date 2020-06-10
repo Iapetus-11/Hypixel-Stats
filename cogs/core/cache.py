@@ -16,10 +16,11 @@ class Cache(commands.Cog):
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
         self.uuid_name_cache = {}  # {uuid: name}
-        self.player_friends_cache = {}  # {uuid: [friends...]} clear this every 2 hrs
+        self.player_friends_cache = {}  # {uuid: [friends...]}
         self.player_guild_cache = {}  # {uuid: guild}
-        self.guild_id_name_cache = {}  # {id: name}
+        self.guild_id_name_cache = {}  # {id: name or name: id}
         self.player_object_cache = {}  # {uuid: Player}
+        self.guild_cache = {}  # {id: Guild}
         # not added
 
     def cog_unload(self):
@@ -45,17 +46,14 @@ class Cache(commands.Cog):
         while self.bot.is_ready():
             await asyncio.sleep(60 * 60 * 2)
             self.player_friends_cache = {}
+            self.guild_cache = {}
+            self.guild_id_name_cache = {}
 
     async def reset_6_hours(self):
         while self.bot.is_ready():
             await asyncio.sleep(60 * 60 * 6)
             self.name_uuid_cache = {}
             self.uuid_name_cache = {}
-
-    async def reset_1_day(self):
-        while self.bot.is_ready():
-            await asyncio.sleep(60 * 60 * 24)
-            self.guild_id_name_cache = {}
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -65,7 +63,6 @@ class Cache(commands.Cog):
         self.bot.loop.create_task(self.reset_1_hour())
         self.bot.loop.create_task(self.reset_2_hours())
         self.bot.loop.create_task(self.reset_6_hours())
-        self.bot.loop.create_task(self.reset_1_day())
 
     async def get_player_uuid(self, player):
         if len(player) > 16:
@@ -107,6 +104,16 @@ class Cache(commands.Cog):
                 await asyncio.sleep(self.bot.ratelimited_wait_time)
         return awaited
 
+    async def get_player(self, player):  # uuid preferred
+        player = await self.get_player_uuid(player)
+
+        player_object = self.player_object_cache.get(player)
+
+        if player_object is None:
+            player_object = await self.rate_limit_wait(self.hypixel.getPlayer(player))
+            self.player_object_cache[player] = player_object
+        return player_object
+
     async def get_player_friends(self, player):
         player = await self.get_player_uuid(player)  # ensure it's a uuid for best caching results
 
@@ -127,6 +134,10 @@ class Cache(commands.Cog):
             self.player_guild_cache[player] = guild_id
         return guild_id
 
+    async def get_player_head(self, player):
+        player = await self.get_player_uuid(player)
+        return f"https://crafatar.com/avatars/{player}"
+
     async def get_guild_name_from_id(self, guild_id):
         guild_name = self.guild_id_name_cache.get(guild_id)
 
@@ -135,19 +146,21 @@ class Cache(commands.Cog):
             self.guild_id_name_cache[guild_id] = guild_name
         return guild_name
 
-    async def get_player(self, player):  # uuid preferred
-        player = await self.get_player_uuid(player)
+    async def get_guild_id_from_name(self, guild_name):
+        guild_id = self.guild_id_name_cache.get(guild_name)
 
-        player_object = self.player_object_cache.get(player)
+        if guild_id is None:
+            guild_id = await self.rate_limit_wait(self.hypixel.getGuildIDByName(guild_name))
+            self.guild_id_name_cache[guild_name] = guild_id
+        return guild_id
 
-        if player_object is None:
-            player_object = await self.rate_limit_wait(self.hypixel.getPlayer(player))
-            self.player_object_cache[player] = player_object
-        return player_object
+    async def get_guild(self, guild_id):
+        guild = self.guild_cache.get(guild_id)
 
-    async def get_player_head(self, player):
-        player = await self.get_player_uuid(player)
-        return f"https://crafatar.com/avatars/{player}"
+        if guild is None:
+            guild = await self.rate_limit_wait(self.hypixel.getGuildData(guild_id))
+            self.guild_cache[guild_id] = guild
+        return guild
 
 
 def setup(bot):
