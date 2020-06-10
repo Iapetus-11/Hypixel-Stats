@@ -20,7 +20,8 @@ class Guild(commands.Cog):
         if desc is None:
             embed = discord.Embed(color=self.bot.cc)
         else:
-            embed = discord.Embed(color=self.bot.cc, description=desc)
+            embed = discord.Embed(color=self.bot.cc,
+                                  description='\n'.join(desc[i:i + 20] for i in range(0, len(desc), 20)))
 
         member_count = len(g.MEMBERS)
         coins = g.COINS
