@@ -50,6 +50,9 @@ bot = commands.AutoShardedBot(
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
 
+with open('data/config.json') as CONFIG:
+    bot.CONFIG = json.load(CONFIG)
+
 bot.cc = discord.Color.gold()
 bot.guild_invite_code = "MZ2cXxF"
 bot.error_channel_id = 718983583779520541
