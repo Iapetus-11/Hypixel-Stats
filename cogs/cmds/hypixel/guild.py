@@ -17,7 +17,7 @@ class Guild(commands.Cog):
         member_count = len(g.MEMBERS)
         coins = g.COINS
         xp = g.EXP
-        tag = g.TAG
+        tag = g.TAG  # idk
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
         embed = discord.Embed(color=self.bot.cc, description=desc)
