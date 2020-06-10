@@ -96,6 +96,17 @@ class Player(commands.Cog):
 
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
             await ctx.send(embed=embed)
+        elif stat == "arcade":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arcade Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            arcade = p.STATS.get("Arcade")
+
+            embed.add_field(name="Total Coins", value=arcade["coins"], inline=False)
+            embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
+                            inline=False)
+            embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
+                            inline=False)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
