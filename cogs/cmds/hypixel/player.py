@@ -67,7 +67,7 @@ class Player(commands.Cog):
             return
 
         if stat not in [s.lower() for s in list(p.STATS)]:
-            await ctx.send(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that!")
+            await ctx.send(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that game!")
             return
 
         embed = discord.Embed(color=self.bot.cc)
@@ -111,6 +111,8 @@ class Player(commands.Cog):
             embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
                             inline=True)
             await ctx.send(embed=embed)
+        elif stat == "truecombat":
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="We don't currently support stats for that!"))
         elif stat == "tntgames":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s TNT Games Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
