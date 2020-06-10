@@ -95,6 +95,7 @@ class Player(commands.Cog):
 
                 embed.add_field(name="Beds Broken",
                                 value=sum({k: v for k, v in bedwars.items() if "beds_broken_bedwars" in k}.values()))
+                await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
