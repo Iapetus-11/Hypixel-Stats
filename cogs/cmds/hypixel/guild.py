@@ -14,7 +14,6 @@ class Guild(commands.Cog):
     @commands.command(name="guild", aliases=["g"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def guild(self, ctx, *, guild_name):
-
         await ctx.trigger_typing()
 
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
