@@ -31,9 +31,9 @@ class Cache(commands.Cog):
             while len(self.valid_names_and_uuids) > len(self.bot.guilds) * 3:  # reset valid names + uuids
                 self.valid_names_and_uuids.pop(0)
 
-    async def reset_15_minutes(self):
+    async def reset_10_minutes(self):
         while self.bot.is_ready():
-            await asyncio.sleep(60 * 15)
+            await asyncio.sleep(60 * 10)
             self.player_object_cache = {}
 
     async def reset_1_hour(self):
@@ -61,7 +61,7 @@ class Cache(commands.Cog):
     async def on_ready(self):
         await asyncio.sleep(1)
         self.bot.loop.create_task(self.reset_continuous())
-        self.bot.loop.create_task(self.reset_15_minutes())
+        self.bot.loop.create_task(self.reset_10_minutes())
         self.bot.loop.create_task(self.reset_1_hour())
         self.bot.loop.create_task(self.reset_2_hours())
         self.bot.loop.create_task(self.reset_6_hours())
