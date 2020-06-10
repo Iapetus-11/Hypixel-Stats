@@ -47,7 +47,7 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="playerstats", aliases=["pstats", "ps"])
+    @commands.command(name="playerstats", aliases=["pstats", "ps", "player_stats"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_stats(self, ctx, player):
         await ctx.trigger_typing()
@@ -161,7 +161,7 @@ class Player(commands.Cog):
             embed.add_field(name="Deaths", value=mystery["deaths"], inline=True)
             await ctx.send(embed=embed)
 
-    @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
+    @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
         await ctx.trigger_typing()
@@ -200,7 +200,7 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer"])
+    @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer", "player_guild"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_guild(self, ctx, player):
         await ctx.trigger_typing()
