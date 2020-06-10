@@ -88,7 +88,7 @@ class Player(commands.Cog):
                 kills = bedwars["kills_bedwars"]
                 deaths = bedwars["deaths_bedwars"]
                 embed.add_field(name="Kills", value=kills)
-                embed.add_field(name="Deaths", value=kills)
+                embed.add_field(name="Deaths", value=deaths)
                 embed.add_field(name="KDR", value=round(kills / deaths, 2))
 
                 embed.add_field(name="Beds Broken", value=bedwars["beds_broken_bedwars"])
