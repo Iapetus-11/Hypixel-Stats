@@ -35,6 +35,7 @@ bot.cc = discord.Color.gold()
 bot.guild_invite_code = "MZ2cXxF"
 bot.error_channel_id = 718983583779520541
 bot.start_time = None
+self.bot.TIMEOUT_MESSAGE = "You took too long to answer, the command was canceled."
 
 bot.ratelimited_wait_time = .5  # seconds, obviously
 
