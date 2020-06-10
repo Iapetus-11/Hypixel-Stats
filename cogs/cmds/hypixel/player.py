@@ -61,6 +61,7 @@ class Player(commands.Cog):
 
         try:
             stat = await self.bot.wait_for("message", check=check, timeout=20)
+            stat = stat.content.lower()
         except asyncio.TimeoutError:
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description=self.bot.TIMEOUT_MESSAGE))
             return
@@ -69,7 +70,7 @@ class Player(commands.Cog):
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        if stat.lower() == "bedwars":
+        if stat == "bedwars":
             bedwars = p.STATS.get("Bedwars")
             if bedwars is None:
                 await ctx.send(embed=discord.Embed(color=self.bot.cc,
