@@ -17,16 +17,21 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 
+# loads environment variables
 load_dotenv()
 TOKEN = os.getenv('discord_token')
 DB_PASSWORD = os.getenv('db_password')
 HYPIXEL = os.getenv('hypixel_key')
 
+
+# sets up logging methods
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying errors
 
 
 async def get_prefix(_bot, message):
+    """fetches the custom prefix for the provided server"""
+
     if message.guild is not None:
         prefix = await _bot.db.fetchrow("SELECT prefix FROM prefixes WHERE gid=$1",
                                         message.guild.id)
@@ -36,7 +41,11 @@ async def get_prefix(_bot, message):
     return "h!"
 
 
-bot = commands.AutoShardedBot(shard_count=1, command_prefix=get_prefix, case_insensitive=True)
+bot = commands.AutoShardedBot(
+    command_prefix=get_prefix,
+    case_insensitive=True
+)
+
 
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
