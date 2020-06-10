@@ -40,7 +40,6 @@ class Player(commands.Cog):
         embed.add_field(name="Level", value=f"{await self.cache.hypixel.calcPlayerLevel(p.EXP)}", inline=True)
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
         embed.add_field(name="Guild", value=f"{player_guild}", inline=False)
-        embed.add_field(name="UUID", value=f"``{p.UUID}``", inline=False)
 
         await ctx.send(embed=embed)
 
