@@ -108,7 +108,7 @@ class Player(commands.Cog):
                             inline=False)
             await ctx.send(embed=embed)
         elif stat == "truecombat":
-            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s True Combat Stats",
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
             truecombat = p.STATS["TrueCombat"]
@@ -137,7 +137,7 @@ class Player(commands.Cog):
             embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"], inline=False)
             await ctx.send(embed=embed)
         elif stat == "supersmash":
-            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Super Smash Stats",
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nSuper Smash Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
             supersmash = p.STATS["SuperSmash"]
