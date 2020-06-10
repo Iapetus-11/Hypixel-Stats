@@ -157,7 +157,7 @@ class Player(commands.Cog):
         else:
             embed = discord.Embed(color=self.bot.cc,
                                   description='\n'.join(
-                                      desc[i:i + len(author)] for i in range(0, len(desc), len(author))))
+                                      desc[i:i + len(author) + 2] for i in range(0, len(desc), len(author) + 2)))
 
         member_count = len(g.MEMBERS)
         coins = g.COINS
