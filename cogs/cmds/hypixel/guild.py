@@ -27,7 +27,7 @@ class Guild(commands.Cog):
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
         embed = discord.Embed(color=self.bot.cc, description=desc)
-        embed.set_author(name=g.NAME, inline=True)
+        embed.set_author(name=g.NAME)
         embed.add_field(name="Members", value=member_count, inline=True)
         embed.add_field(name="Coins", value=coins, inline=True)
         embed.add_field(name="XP", value=xp, inline=True)
