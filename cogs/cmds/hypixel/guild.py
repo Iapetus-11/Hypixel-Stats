@@ -10,6 +10,7 @@ class Guild(commands.Cog):
         self.cache = self.bot.get_cog("Cache")
 
     @commands.command(name="guild", aliases=["g"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def guild(self, ctx, *, guild_name):
         await ctx.trigger_typing()
 
@@ -29,7 +30,7 @@ class Guild(commands.Cog):
         tag = g.TAG
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
-        embed.set_author(name=g.NAME)
+        embed.set_author(name=discord.utils.escape_markdown(g.NAME))
         embed.add_field(name="Members", value=member_count, inline=True)
         embed.add_field(name="Tag", value=tag, inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
