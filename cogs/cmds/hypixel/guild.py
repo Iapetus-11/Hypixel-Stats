@@ -4,14 +4,17 @@ from discord.ext import commands
 
 
 class Guild(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
 
+    def __init__(self, bot: commands.Bot):
+        """basic initalization of the guild cog"""
+
+        self.bot = bot
         self.cache = self.bot.get_cog("Cache")
 
     @commands.command(name="guild", aliases=["g"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def guild(self, ctx, *, guild_name):
+
         await ctx.trigger_typing()
 
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
