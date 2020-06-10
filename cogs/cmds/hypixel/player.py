@@ -149,12 +149,15 @@ class Player(commands.Cog):
 
         g = await self.cache.get_guild(player_guild)
 
+        author = f"{discord.utils.escape_markdown(player)}'s guild ({discord.utils.escape_markdown(g.NAME)})"
+
         desc = g.DESCRIPTION
         if desc is None:
             embed = discord.Embed(color=self.bot.cc)
         else:
             embed = discord.Embed(color=self.bot.cc,
-                                  description='\n'.join(desc[i:i + 30] for i in range(0, len(desc), 30)))
+                                  description='\n'.join(
+                                      desc[i:i + len(author)] for i in range(0, len(desc), len(author))))
 
         member_count = len(g.MEMBERS)
         coins = g.COINS
@@ -162,8 +165,7 @@ class Player(commands.Cog):
         tag = g.TAG
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
-        embed.set_author(
-            name=f"{discord.utils.escape_markdown(player)}'s guild ({discord.utils.escape_markdown(g.NAME)})")
+        embed.set_author(name=author)
         embed.add_field(name="Members", value=member_count, inline=True)
         embed.add_field(name="Tag", value=tag, inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
