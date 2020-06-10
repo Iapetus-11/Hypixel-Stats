@@ -37,8 +37,9 @@ class Player(commands.Cog):
         embed.add_field(name="Last Online", value=f"{last_online}")
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="XP", value=f"{p.EXP}", inline=True)
-        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=True)
+        embed.add_field(name="Level", value=f"{self.cache.hypixel.calcPlayerLevel(p.EXP)}", inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
+        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=True)
         embed.add_field(name="Guild", value=f"{player_guild}", inline=True)
 
         await ctx.send(embed=embed)
