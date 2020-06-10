@@ -1,9 +1,9 @@
+import os
+import json
 import asyncio
 import asyncpg
 import discord
-import json
 import logging
-import os
 from discord.ext import commands
 from dotenv import load_dotenv
 
