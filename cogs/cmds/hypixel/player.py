@@ -81,20 +81,17 @@ class Player(commands.Cog):
                 embed.add_field(name="Total Games",
                                 value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
 
-                embed.add_field(name="Losses",
-                                value=sum({k: v for k, v in bedwars.items() if "losses_bedwars" in k}.values()))
-                embed.add_field(name="Wins",
-                                value=sum({k: v for k, v in bedwars.items() if "wins_bedwars" in k}.values()))
+                embed.add_field(name="Losses", value=bedwars["beds_lost_bedwars"])
+                embed.add_field(name="Wins", value=bedwars["wins_bedwars"])
                 embed.add_field(name="Winstreak", value=bedwars["winstreak"])
 
-                kills = sum({k: v for k, v in bedwars.items() if "kills_bedwars" in k}.values())
-                deaths = sum({k: v for k, v in bedwars.items() if "deaths_bedwars" in k}.values())
+                kills = bedwars["kills_bedwars"]
+                deaths = bedwars["deaths_bedwars"]
                 embed.add_field(name="Kills", value=kills)
                 embed.add_field(name="Deaths", value=kills)
                 embed.add_field(name="KDR", value=round(kills / deaths, 2))
 
-                embed.add_field(name="Beds Broken",
-                                value=sum({k: v for k, v in bedwars.items() if "beds_broken_bedwars" in k}.values()))
+                embed.add_field(name="Beds Broken", value=bedwars["beds_broken_bedwars"])
                 await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
