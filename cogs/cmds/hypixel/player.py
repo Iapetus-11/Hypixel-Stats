@@ -158,7 +158,7 @@ class Player(commands.Cog):
             length = len(author) + 2
             embed = discord.Embed(color=self.bot.cc,
                                   description='\n'.join(
-                                      desc[i:i + len(length) if len(length) > 30 else 30] for i in
+                                      desc[i:i + length if length > 30 else 30] for i in
                                       range(0, len(desc), len(author) + 2)))
 
         member_count = len(g.MEMBERS)
