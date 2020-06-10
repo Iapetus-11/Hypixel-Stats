@@ -155,9 +155,11 @@ class Player(commands.Cog):
         if desc is None:
             embed = discord.Embed(color=self.bot.cc)
         else:
+            length = len(author) + 2
             embed = discord.Embed(color=self.bot.cc,
                                   description='\n'.join(
-                                      desc[i:i + len(author) + 2] for i in range(0, len(desc), len(author) + 2)))
+                                      desc[i:i + len(length) if len(length) > 30 else 30] for i in
+                                      range(0, len(desc), len(author) + 2)))
 
         member_count = len(g.MEMBERS)
         coins = g.COINS
