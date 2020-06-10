@@ -47,7 +47,7 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.gruop(name="playerstats", aliases=["pstats", "ps"])
+    @commands.command(name="playerstats", aliases=["pstats", "ps"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_stats(self, ctx, player):
         await ctx.trigger_typing()
