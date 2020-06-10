@@ -149,7 +149,7 @@ class Player(commands.Cog):
 
         g = await self.cache.get_guild(player_guild)
 
-        author = f"{discord.utils.escape_markdown(player)}'s guild ({discord.utils.escape_markdown(g.NAME)})"
+        author = f"{discord.utils.escape_markdown(player)}'s Guild ({discord.utils.escape_markdown(g.NAME)})"
 
         desc = g.DESCRIPTION
         if desc is None:
