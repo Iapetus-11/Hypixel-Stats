@@ -169,11 +169,11 @@ class Player(commands.Cog):
 
         embed.set_author(name=author)
         embed.add_field(name="Members", value=member_count, inline=True)
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Tag", value=tag, inline=True)
-        embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Coins", value=coins, inline=True)
-        embed.add_field(name="XP", value=xp, inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
+        embed.add_field(name="XP", value=xp, inline=True)
         embed.add_field(name="Created", value=created, inline=False)
 
         await ctx.send(embed=embed)
