@@ -162,7 +162,8 @@ class Player(commands.Cog):
         tag = g.TAG
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
-        embed.set_author(name=discord.utils.escape_markdown(g.NAME))
+        embed.set_author(
+            name=f"{discord.utils.escape_markdown(player)}'s guild ({discord.utils.escape_markdown(g.NAME)})")
         embed.add_field(name="Members", value=member_count, inline=True)
         embed.add_field(name="Tag", value=tag, inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
