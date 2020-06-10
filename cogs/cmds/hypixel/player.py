@@ -101,14 +101,11 @@ class Player(commands.Cog):
 
             arcade = p.STATS["Arcade"]
 
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=True)
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
-
+            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=False)
             embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
-                            inline=True)
+                            inline=False)
             embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
-                            inline=True)
+                            inline=False)
             await ctx.send(embed=embed)
         elif stat == "truecombat":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s True Combat Stats",
