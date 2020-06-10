@@ -164,6 +164,7 @@ class Player(commands.Cog):
             embed.add_field(name="Games", value=mystery["games"])
             embed.add_field(name="Wins", value=mystery["wins"])
             embed.add_field(name="Deaths", value=mystery["deaths"])
+            await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
