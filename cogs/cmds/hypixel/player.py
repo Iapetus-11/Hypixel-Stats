@@ -47,15 +47,14 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="playerstats", aliases=["pstats", "ps"])
+    @commands.gruop(name="playerstats", aliases=["pstats", "ps"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_stats(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"Which game do you want to view stats for? ``{', '.join(list(p.STATS))}``"))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"Available stats for this player (send which one you want): ``{', '.join(list(p.STATS))}``"))
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
