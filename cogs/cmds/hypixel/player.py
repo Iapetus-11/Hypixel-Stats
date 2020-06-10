@@ -107,7 +107,6 @@ class Player(commands.Cog):
 
             embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
                             inline=True)
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
                             inline=True)
             await ctx.send(embed=embed)
