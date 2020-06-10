@@ -18,7 +18,9 @@ class Guild(commands.Cog):
 
         desc = g.DESCRIPTION
         if desc is None:
-            desc = "\uFEFF"
+            embed = discord.Embed(color=self.bot.cc)
+        else:
+            embed = discord.Embed(color=self.bot.cc, description=desc)
 
         member_count = len(g.MEMBERS)
         coins = g.COINS
@@ -26,8 +28,7 @@ class Guild(commands.Cog):
         tag = g.TAG
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
-        embed = discord.Embed(color=self.bot.cc, description=desc)
-        embed.set_author(name=g.NAME)
+        embed.set_author(name=guild_name)
         embed.add_field(name="Members", value=member_count, inline=True)
         embed.add_field(name="Coins", value=coins, inline=True)
         embed.add_field(name="XP", value=xp, inline=True)
