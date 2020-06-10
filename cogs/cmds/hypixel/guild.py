@@ -38,6 +38,7 @@ class Guild(commands.Cog):
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Coins", value=coins, inline=True)
         embed.add_field(name="XP", value=xp, inline=True)
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Created", value=created, inline=False)
 
         await ctx.send(embed=embed)
