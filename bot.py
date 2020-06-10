@@ -65,6 +65,8 @@ bot.hypixel_key = HYPIXEL
 
 
 async def setup_db():
+    """Sets up the database pool connection"""
+
     bot.db = await asyncpg.create_pool(
         host="localhost",
         database="hypixel-stats-bot",
@@ -73,6 +75,7 @@ async def setup_db():
 
 
 asyncio.get_event_loop().run_until_complete(setup_db())
+
 
 bot.cog_list = [
     "cogs.core.errors",
@@ -93,8 +96,13 @@ for cog in bot.cog_list:
 
 @bot.check
 async def bot_check(ctx):
+
     if not bot.is_ready():
-        await ctx.send(embed=discord.Embed(color=bot.cmd_c, description="Hold on! We're starting up!"))
+        embed = discord.Embed(
+            color=bot.CONFIG["cc"],
+            description="Hold on! We're starting up!"
+        )
+        await ctx.send(embed=embed)
         return False
 
     return not ctx.author.bot
