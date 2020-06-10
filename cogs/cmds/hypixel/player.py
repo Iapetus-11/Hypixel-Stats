@@ -66,15 +66,16 @@ class Player(commands.Cog):
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description=self.bot.TIMEOUT_MESSAGE))
             return
 
-        embed = discord.Embed(color=self.bot.cc)
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
-                         icon_url=await self.cache.get_player_head(p.UUID))
-
         if stat not in [s.lower() for s in list(p.STATS)]:
             await ctx.send(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that!")
             return
 
+        embed = discord.Embed(color=self.bot.cc)
+
         if stat == "bedwars":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
             bedwars = p.STATS.get("Bedwars")
 
             embed.add_field(name="XP", value=bedwars["Experience"])
