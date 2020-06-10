@@ -101,7 +101,7 @@ class Cache(commands.Cog):
                 awaited = await to_be_awaited
                 try_again = False
             except aiopypixel.exceptions.exceptions.RateLimitError:
-                await asyncio.sleep(self.bot.self.bot.CONFIG["ratelimited_wait_time"])
+                await asyncio.sleep(self.bot.CONFIG["ratelimited_wait_time"])
         return awaited
 
     async def get_player(self, player):  # uuid preferred
