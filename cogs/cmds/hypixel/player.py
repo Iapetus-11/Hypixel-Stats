@@ -76,7 +76,7 @@ class Player(commands.Cog):
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
-            bedwars = p.STATS.get("Bedwars")
+            bedwars = p.STATS["Bedwars"]
 
             embed.add_field(name="XP", value=bedwars["Experience"])
             embed.add_field(name="Coins", value=bedwars["coins"])
@@ -99,10 +99,10 @@ class Player(commands.Cog):
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arcade Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
-            arcade = p.STATS.get("Arcade")
+            arcade = p.STATS["Arcade"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Total Coins", value=arcade["coins"], inline=False)
+            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=False)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
             embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
@@ -112,12 +112,20 @@ class Player(commands.Cog):
                             inline=True)
             await ctx.send(embed=embed)
         elif stat == "truecombat":
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="We don't currently support stats for that!"))
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s True Combat Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            truecombat = p.STATS["TrueCombat"]
+
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins", value=truecombat["coins"], inline=False)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            await ctx.send(embed=embed)
         elif stat == "tntgames":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s TNT Games Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
-            tntgames = p.STATS.get("TNTGames")
+            tntgames = p.STATS["TNTGames"]
 
             embed.add_field(name="Coins", value=tntgames["coins"])
             embed.add_field(name="Wins", value=tntgames["wins"])
@@ -133,7 +141,29 @@ class Player(commands.Cog):
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"])
             await ctx.send(embed=embed)
+        elif stat == "supersmash":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Super Smash Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
 
+            supersmash = p.STATS["SuperSmash"]
+
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins", value=supersmash["coins"], inline=False)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            await ctx.send(embed=embed)
+        elif stat == "murdermystery":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Murder Mystery Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            mystery = p.STATS["MurderMystery"]
+
+            embed.add_field(name="Coins", value=mystery["coins"], inline=False)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins Picked Up", value=mystery["coins_pickedup"], inline=False)
+
+            embed.add_field(name="Games", value=mystery["games"])
+            embed.add_field(name="Wins", value=mystery["wins"])
+            embed.add_field(name="Deaths", value=mystery["deaths"])
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
