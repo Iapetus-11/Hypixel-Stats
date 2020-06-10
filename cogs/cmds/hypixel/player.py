@@ -102,12 +102,41 @@ class Player(commands.Cog):
 
             arcade = p.STATS.get("Arcade")
 
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Total Coins", value=arcade["coins"], inline=False)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+
             embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
-                            inline=False)
+                            inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
-                            inline=False)
+                            inline=True)
             await ctx.send(embed=embed)
+        elif stat == "tntgames":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s TNT Games Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            tntgames = p.STATS.get("TNTGames")
+
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins", value=tntgames["coins"])
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+
+            embed.add_field(name="Wins", value=tntgames["wins"])
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Winstreak", value=tntgames["winstreak"])
+
+            kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
+            deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
+            embed.add_field(name="Kills", value=kills)
+            embed.add_field(name="Deaths", value=deaths)
+            embed.add_field(name="KDR", value=round(kills/deaths, 2))
+
+            embed.add_field(name="TNT Run Record", value=tntgames["record_tntrun"])
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"])
+            await ctx.send(embed=embed)
+
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
     @commands.cooldown(1, 5, commands.BucketType.user)
