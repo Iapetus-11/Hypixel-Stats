@@ -14,6 +14,8 @@ class Player(commands.Cog):
     @commands.group(name="player", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player(self, ctx, player):
+        await ctx.trigger_typing()
+
         embed = discord.Embed(color=self.bot.cc)
 
         p = await self.cache.get_player(player)

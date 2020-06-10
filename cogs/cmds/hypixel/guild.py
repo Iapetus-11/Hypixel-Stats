@@ -1,3 +1,4 @@
+import arrow
 import discord
 from discord.ext import commands
 
@@ -10,6 +11,8 @@ class Guild(commands.Cog):
 
     @commands.command(name="guild", aliases=["g"])
     async def guild(self, ctx, guild_name):
+        await ctx.trigger_typing()
+
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
         g = await self.cache.get_guild(guild_id)
 
