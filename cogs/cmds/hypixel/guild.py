@@ -29,11 +29,11 @@ class Guild(commands.Cog):
         created = arrow.Arrow.fromtimestamp(g.CREATED / 1000).humanize()
 
         embed.set_author(name=guild_name)
-        embed.add_field(name="Members", value=member_count, inline=True)
+        embed.add_field(name="Members", value=member_count, inline=False)
         embed.add_field(name="Coins", value=coins, inline=True)
         embed.add_field(name="XP", value=xp, inline=True)
-        embed.add_field(name="Tag", value=tag, inline=True)
-        embed.add_field(name="Created", value=created, inline=True)
+        embed.add_field(name="Tag", value=tag, inline=False)
+        embed.add_field(name="Created", value=created, inline=False)
 
         await ctx.send(embed=embed)
 
