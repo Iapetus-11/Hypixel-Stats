@@ -133,9 +133,8 @@ class Player(commands.Cog):
             embed.add_field(name="Deaths", value=deaths)
             embed.add_field(name="KDR", value=round(kills/deaths, 2))
 
-            embed.add_field(name="TNT Run Record", value=tntgames["record_tntrun"])
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"])
+            embed.add_field(name="TNT Run Record", value=tntgames["record_tntrun"], inline=False)
+            embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"], inline=False)
             await ctx.send(embed=embed)
         elif stat == "supersmash":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Super Smash Stats",
