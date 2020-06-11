@@ -112,7 +112,7 @@ class Player(commands.Cog):
 
             total_dmg = sum({k: v for k, v in arena.items() if "games_" in k}.values())
             embed.add_field(name="Total Damage", value=total_dmg, inline=False)
-            embed.add_field(name="Rating", value=arena.get("rating"), inline=False)
+            embed.add_field(name="Rating", value=round(arena.get("rating"), 2), inline=False)
             await ctx.send(embed=embed)
         elif stat == "bedwars":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
