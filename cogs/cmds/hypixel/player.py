@@ -165,7 +165,7 @@ class Player(commands.Cog):
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s MCGO Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
-            mcgo = p.STATS["MCO"]
+            mcgo = p.STATS["MCGO"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Coins", value=mcgo.get("coins"), inline=True)
