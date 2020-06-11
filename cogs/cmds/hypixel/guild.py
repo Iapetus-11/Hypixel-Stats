@@ -59,7 +59,7 @@ class Guild(commands.Cog):
         members = g.MEMBERS
 
         embed = discord.Embed(color=self.bot.cc,
-                              title=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)")
+                              title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)")
 
         body = ""
         count = 0
@@ -87,6 +87,8 @@ class Guild(commands.Cog):
             return
 
         await ctx.send(embed=embed)
+
+    @commands
 
 
 def setup(bot):
