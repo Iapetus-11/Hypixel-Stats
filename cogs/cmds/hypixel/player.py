@@ -79,7 +79,7 @@ class Player(commands.Cog):
 
             bedwars = p.STATS.get("Bedwars")
 
-            embed.add_field(name="XP", value=bedwars["Experience"])
+            embed.add_field(name="XP", value=bedwars.get("Experience"))
             embed.add_field(name="Coins", value=bedwars["coins"])
             embed.add_field(name="Total Games",
                             value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
@@ -88,7 +88,7 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=bedwars["wins_bedwars"])
             embed.add_field(name="Winstreak", value=bedwars["winstreak"])
 
-            kills = bedwars["kills_bedwars"]
+            kills = bedwars.get("kills_bedwars")
             deaths = bedwars["deaths_bedwars"]
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
