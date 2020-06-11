@@ -89,8 +89,8 @@ class Player(commands.Cog):
 
             kills = bedwars.get("kills_bedwars")
             deaths = bedwars.get("deaths_bedwars")
-            embed.add_field(name="Kills", value=kills)
-            embed.add_field(name="Deaths", value=deaths)
+            embed.add_field(name="Kills", value=kills if kills is not None else 0)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0)
             embed.add_field(name="KDR", value=round(
                 (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
                             inline=True)
@@ -132,8 +132,8 @@ class Player(commands.Cog):
 
             kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
             deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
-            embed.add_field(name="Kills", value=kills)
-            embed.add_field(name="Deaths", value=deaths)
+            embed.add_field(name="Kills", value=kills if kills is not None else 0)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0)
             embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
             embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=False)
@@ -164,7 +164,7 @@ class Player(commands.Cog):
             embed.add_field(name="Deaths", value=mystery.get("deaths"), inline=True)
             await ctx.send(embed=embed)
         elif stat == "mcgo":
-            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s MCGO Stats",
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Cops & Crims Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
             mcgo = p.STATS["MCGO"]
@@ -175,8 +175,8 @@ class Player(commands.Cog):
 
             kills = mcgo.get("kills")
             deaths = mcgo.get("deaths")
-            embed.add_field(name="Kills", value=kills, inline=True)
-            embed.add_field(name="Deaths", value=deaths, inline=True)
+            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
             embed.add_field(name="KDR", value=round(
                 (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
                             inline=True)
@@ -184,6 +184,27 @@ class Player(commands.Cog):
             embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired"), inline=False)
             embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
             embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills"), inline=False)
+            await ctx.send(embed=embed)
+        elif stat == "skyclash":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Sky Clash Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            clash = p.STATS["SkyClash"]
+
+            embed.add_field(name="Coins", value=clash.get("coins"), inline=True)
+            embed.add_field(name="Wins", value=clash.get("wins"), inline=True)
+            embed.add_field(name="Losses", value=clash.get("losses"), inline=True)
+
+            kills = clash.get("kills")
+            deaths = clash.get("deaths")
+            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Kill Streak", value=clash.get("killstreak"), inline=False)
+            embed.add_field(name="Win Streak", value=clash.get("win_streak"), inline=False)
             await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
