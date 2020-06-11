@@ -72,7 +72,49 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=self.bot.cc)
 
-        if stat == "bedwars":
+        if stat == "arcade":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arcade Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            arcade = p.STATS["Arcade"]
+
+            embed.add_field(name="All Time Coins", value=arcade.get("coins"), inline=False)
+            embed.add_field(name="Coins This Month",
+                            value=arcade.get("monthly_coins_a") + arcade.get("monthly_coins_b"),
+                            inline=False)
+            embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a") + arcade.get("weekly_coins_b"),
+                            inline=False)
+            await ctx.send(embed=embed)
+        elif stat == "arena":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arena Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            arena = p.STATS["Arena"]
+
+            embed.add_field(name="Coins", value=arena.get("coins"), inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins Spent", value=arena.get("coins_spent"), inline=True)
+
+            kills = sum({k: v for k, v in arena.items() if "kills_" in k}.values())
+            deaths = sum({k: v for k, v in arena.items() if "deaths_" in k}.values())
+            embed.add_field(name="Kills", value=kills if kills is not None else 0)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            games = sum({k: v for k, v in arena.items() if "games_" in k}.values())
+            wins = arena.get("wins")
+            losses = sum({k: v for k, v in arena.items() if "losses_" in k}.values())
+            embed.add_field(name="Games", value=games, inline=True)
+            embed.add_field(name="Wins", value=wins if wins is not None else 0, inline=True)
+            embed.add_field(name="Losses", value=losses, inline=True)
+
+            total_dmg = sum({k: v for k, v in arena.items() if "games_" in k}.values())
+            embed.add_field(name="Total Damage", value=total_dmg, inline=False)
+            embed.add_field(name="Rating", value=arena.get("rating"), inline=False)
+            await ctx.send(embed=embed)
+        elif stat == "bedwars":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -96,19 +138,6 @@ class Player(commands.Cog):
                             inline=True)
 
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
-            await ctx.send(embed=embed)
-        elif stat == "arcade":
-            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arcade Stats",
-                             icon_url=await self.cache.get_player_head(p.UUID))
-
-            arcade = p.STATS["Arcade"]
-
-            embed.add_field(name="All Time Coins", value=arcade.get("coins"), inline=False)
-            embed.add_field(name="Coins This Month",
-                            value=arcade.get("monthly_coins_a") + arcade.get("monthly_coins_b"),
-                            inline=False)
-            embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a") + arcade.get("weekly_coins_b"),
-                            inline=False)
             await ctx.send(embed=embed)
         elif stat == "truecombat":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
