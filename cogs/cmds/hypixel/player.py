@@ -91,7 +91,7 @@ class Player(commands.Cog):
             deaths = bedwars.get("deaths_bedwars")
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
-            embed.add_field(name="KDR", value=round(kills / deaths, 2))
+            embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
             await ctx.send(embed=embed)
@@ -132,7 +132,7 @@ class Player(commands.Cog):
             deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
-            embed.add_field(name="KDR", value=round(kills / deaths, 2))
+            embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
             embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=False)
             embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"), inline=False)
@@ -175,7 +175,7 @@ class Player(commands.Cog):
             deaths = mcgo.get("deaths")
             embed.add_field(name="Kills", value=kills, inline=True)
             embed.add_field(name="Deaths", value=deaths, inline=True)
-            embed.add_field(name="KDR", value=round(kills / deaths, 2), inline=True)
+            embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2), inline=True)
 
             embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired"), inline=False)
             embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
