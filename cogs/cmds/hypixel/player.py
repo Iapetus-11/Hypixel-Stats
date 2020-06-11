@@ -167,12 +167,8 @@ class Player(commands.Cog):
 
             mcgo = p.STATS["MCGO"]
 
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Coins", value=mcgo.get("coins"), inline=True)
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
-
             embed.add_field(name="Wins", value=mcgo.get("game_wins"), inline=True)
-            embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Round Wins", value=mcgo.get("round_wins"), inline=True)
 
             kills = mcgo.get("kills")
