@@ -83,22 +83,23 @@ class Errors(commands.Cog):
             await self.send(ctx, "I can't do that, you idiot.")
             return
 
-        if not "HTTPException: 503 Service Unavailable (error code: 0)" in str(e):
+        if "HTTPException: 503 Service Unavailable (error code: 0)" not in str(
+                e) and "discord.errors.Forbidden" not in str(e):
             excls = ['OH SNAP', 'OH FU\*\*!', 'OH \*\*\*\*!', 'OH SH-']
             await self.send(ctx, f"{choice(excls)} "
                                  "You found an actual error, please take a screenshot and report it on our "
                                  f"**[support server](https://discord.gg/{self.bot.CONFIG['guild_invite_code']})**, thank you!")
 
-        error_channel = self.bot.get_channel(self.bot.CONFIG["error_channel_id"])
+            error_channel = self.bot.get_channel(self.bot.CONFIG["error_channel_id"])
 
-        # Thanks TrustedMercury!
-        etype = type(e)
-        trace = e.__traceback__
-        verbosity = 1
-        lines = traceback.format_exception(etype, e, trace, verbosity)
-        traceback_text = ''.join(lines)
+            # Thanks TrustedMercury!
+            etype = type(e)
+            trace = e.__traceback__
+            verbosity = 1
+            lines = traceback.format_exception(etype, e, trace, verbosity)
+            traceback_text = ''.join(lines)
 
-        await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
+            await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
 
 
 def setup(bot):
