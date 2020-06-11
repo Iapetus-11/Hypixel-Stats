@@ -154,6 +154,48 @@ class Player(commands.Cog):
                 (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
                             inline=True)
             await ctx.send(embed=embed)
+        elif stat == "paintball":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Paintball Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            paint = p.STATS["Paintball"]
+
+            embed.add_field(name="Coins", value=paint.get("coins"), inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Wins", value=paint.get("wins"), inline=True)
+
+            kills = paint.get("kills")
+            deaths = paint.get("deaths")
+            embed.add_field(name="Kills", value=kills if kill is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Shots Fired", value=paint.get("shots_fired"), inline=False)
+            await ctx.send(embed=embed)
+        elif stat == "quake":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Quake Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            quake = p.STATS["Quake"]
+
+            embed.add_field(name="Coins", value=quake.get("coins"), inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Wins", value=quake.get("wins"), inline=True)
+
+            kills = quake.get("kills")
+            deaths = quake.get("deaths")
+            embed.add_field(name="Kills", value=kills if kill is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Shots Fired", value=quake.get("shots_fired"), inline=False)
+            embed.add_field(name="Headshots", value=quake.get("headshots"), inline=False)
+            embed.add_field(name="Highest Killstreak", value=quake.get("highest_killstreak"), inline=False)
+            await ctx.send(embed=embed)
         elif stat == "bedwars":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
