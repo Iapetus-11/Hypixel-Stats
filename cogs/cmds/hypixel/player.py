@@ -79,16 +79,16 @@ class Player(commands.Cog):
             bedwars = p.STATS["Bedwars"]
 
             embed.add_field(name="XP", value=bedwars.get("Experience"))
-            embed.add_field(name="Coins", value=bedwars["coins"])
+            embed.add_field(name="Coins", value=bedwars.get("coins"))
             embed.add_field(name="Total Games",
                             value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
 
-            embed.add_field(name="Losses", value=bedwars["beds_lost_bedwars"])
-            embed.add_field(name="Wins", value=bedwars["wins_bedwars"])
-            embed.add_field(name="Winstreak", value=bedwars["winstreak"])
+            embed.add_field(name="Losses", value=bedwars.get("beds_lost_bedwars"))
+            embed.add_field(name="Wins", value=bedwars.get("wins_bedwars"))
+            embed.add_field(name="Winstreak", value=bedwars.get("winstreak"))
 
             kills = bedwars.get("kills_bedwars")
-            deaths = bedwars["deaths_bedwars"]
+            deaths = bedwars.get("deaths_bedwars")
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
             embed.add_field(name="KDR", value=round(kills / deaths, 2))
@@ -101,10 +101,11 @@ class Player(commands.Cog):
 
             arcade = p.STATS["Arcade"]
 
-            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=False)
-            embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
+            embed.add_field(name="All Time Coins", value=arcade.get("coins"), inline=False)
+            embed.add_field(name="Coins This Month",
+                            value=arcade.get("monthly_coins_a") + arcade.get("monthly_coins_b"),
                             inline=False)
-            embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
+            embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a") + arcade.get("weekly_coins_b"),
                             inline=False)
             await ctx.send(embed=embed)
         elif stat == "truecombat":
@@ -114,7 +115,7 @@ class Player(commands.Cog):
             truecombat = p.STATS["TrueCombat"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Coins", value=truecombat["coins"], inline=True)
+            embed.add_field(name="Coins", value=truecombat.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             await ctx.send(embed=embed)
         elif stat == "tntgames":
@@ -123,18 +124,18 @@ class Player(commands.Cog):
 
             tntgames = p.STATS["TNTGames"]
 
-            embed.add_field(name="Coins", value=tntgames["coins"])
-            embed.add_field(name="Wins", value=tntgames["wins"])
-            embed.add_field(name="Winstreak", value=tntgames["winstreak"])
+            embed.add_field(name="Coins", value=tntgames.get("coins"))
+            embed.add_field(name="Wins", value=tntgames.get("wins"))
+            embed.add_field(name="Winstreak", value=tntgames.get("winstreak"))
 
             kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
             deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
-            embed.add_field(name="KDR", value=round(kills/deaths, 2))
+            embed.add_field(name="KDR", value=round(kills / deaths, 2))
 
-            embed.add_field(name="TNT Run Record", value=tntgames["record_tntrun"], inline=False)
-            embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"], inline=False)
+            embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=False)
+            embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"), inline=False)
             await ctx.send(embed=embed)
         elif stat == "supersmash":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nSuper Smash Stats",
@@ -143,7 +144,7 @@ class Player(commands.Cog):
             supersmash = p.STATS["SuperSmash"]
 
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Coins", value=supersmash["coins"], inline=True)
+            embed.add_field(name="Coins", value=supersmash.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             await ctx.send(embed=embed)
         elif stat == "murdermystery":
@@ -152,13 +153,13 @@ class Player(commands.Cog):
 
             mystery = p.STATS["MurderMystery"]
 
-            embed.add_field(name="Coins", value=mystery["coins"], inline=True)
+            embed.add_field(name="Coins", value=mystery.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Coins Picked Up", value=mystery["coins_pickedup"], inline=True)
+            embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup"), inline=True)
 
-            embed.add_field(name="Games", value=mystery["games"], inline=True)
-            embed.add_field(name="Wins", value=mystery["wins"], inline=True)
-            embed.add_field(name="Deaths", value=mystery["deaths"], inline=True)
+            embed.add_field(name="Games", value=mystery.get("games"), inline=True)
+            embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
+            embed.add_field(name="Deaths", value=mystery.get("deaths"), inline=True)
             await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
