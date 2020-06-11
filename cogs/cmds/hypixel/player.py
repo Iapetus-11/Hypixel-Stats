@@ -47,15 +47,14 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="playerstats", aliases=["pstats", "ps"])
+    @commands.command(name="playerstats", aliases=["pstats", "ps", "player_stats"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_stats(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"Which game do you want to view stats for? ``{', '.join(list(p.STATS))}``"))
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"Available stats for this player (send which one you want): ``{', '.join(list(p.STATS))}``"))
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
@@ -68,7 +67,7 @@ class Player(commands.Cog):
             return
 
         if stat not in [s.lower() for s in list(p.STATS)]:
-            await ctx.send(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that!")
+            await ctx.send(f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that game!")
             return
 
         embed = discord.Embed(color=self.bot.cc)
@@ -77,7 +76,7 @@ class Player(commands.Cog):
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
-            bedwars = p.STATS.get("Bedwars")
+            bedwars = p.STATS["Bedwars"]
 
             embed.add_field(name="XP", value=bedwars.get("Experience"))
             embed.add_field(name="Coins", value=bedwars["coins"])
@@ -100,16 +99,69 @@ class Player(commands.Cog):
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arcade Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
-            arcade = p.STATS.get("Arcade")
+            arcade = p.STATS["Arcade"]
 
-            embed.add_field(name="Total Coins", value=arcade["coins"], inline=False)
+            embed.add_field(name="All Time Coins", value=arcade["coins"], inline=False)
             embed.add_field(name="Coins This Month", value=arcade["monthly_coins_a"] + arcade["monthly_coins_b"],
                             inline=False)
             embed.add_field(name="Coins This Week", value=arcade["weekly_coins_a"] + arcade["weekly_coins_b"],
                             inline=False)
             await ctx.send(embed=embed)
+        elif stat == "truecombat":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
 
-    @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof"])
+            truecombat = p.STATS["TrueCombat"]
+
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins", value=truecombat["coins"], inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            await ctx.send(embed=embed)
+        elif stat == "tntgames":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s TNT Games Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            tntgames = p.STATS["TNTGames"]
+
+            embed.add_field(name="Coins", value=tntgames["coins"])
+            embed.add_field(name="Wins", value=tntgames["wins"])
+            embed.add_field(name="Winstreak", value=tntgames["winstreak"])
+
+            kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
+            deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
+            embed.add_field(name="Kills", value=kills)
+            embed.add_field(name="Deaths", value=deaths)
+            embed.add_field(name="KDR", value=round(kills/deaths, 2))
+
+            embed.add_field(name="TNT Run Record", value=tntgames["record_tntrun"], inline=False)
+            embed.add_field(name="PvP Run Record", value=tntgames["record_pvprun"], inline=False)
+            await ctx.send(embed=embed)
+        elif stat == "supersmash":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nSuper Smash Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            supersmash = p.STATS["SuperSmash"]
+
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins", value=supersmash["coins"], inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            await ctx.send(embed=embed)
+        elif stat == "murdermystery":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Murder Mystery Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            mystery = p.STATS["MurderMystery"]
+
+            embed.add_field(name="Coins", value=mystery["coins"], inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins Picked Up", value=mystery["coins_pickedup"], inline=True)
+
+            embed.add_field(name="Games", value=mystery["games"], inline=True)
+            embed.add_field(name="Wins", value=mystery["wins"], inline=True)
+            embed.add_field(name="Deaths", value=mystery["deaths"], inline=True)
+            await ctx.send(embed=embed)
+
+    @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
         await ctx.trigger_typing()
@@ -148,7 +200,7 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer"])
+    @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer", "player_guild"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_guild(self, ctx, player):
         await ctx.trigger_typing()
