@@ -49,7 +49,7 @@ class Guild(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="guildmembers", aliases=["gmembers", "gplayers", "guildplayers", "gps"])
+    @commands.command(name="guildmembers", aliases=["gmembers", "gplayers", "guildplayers", "gps", "listguildmembers"])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def guild_members(self, *, guild_name):
         await ctx.trigger_typing()
