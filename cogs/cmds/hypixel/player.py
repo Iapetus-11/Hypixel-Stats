@@ -91,7 +91,9 @@ class Player(commands.Cog):
             deaths = bedwars.get("deaths_bedwars")
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
-            embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
 
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
             await ctx.send(embed=embed)
@@ -183,7 +185,6 @@ class Player(commands.Cog):
             embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
             embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills"), inline=False)
             await ctx.send(embed=embed)
-        elif stat ==
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
