@@ -114,6 +114,45 @@ class Player(commands.Cog):
             embed.add_field(name="Total Damage", value=total_dmg, inline=False)
             embed.add_field(name="Rating", value=round(arena.get("rating"), 2), inline=False)
             await ctx.send(embed=embed)
+        elif stat == "battleground":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Battleground Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            battle = p.STATS["Battleground"]
+
+            embed.add_field(name="Coins", value=battle.get("coins"), inline=True)
+            embed.add_field(name="Wins", value=battle.get("wins"), inline=True)
+            embed.add_field(name="Losses", value=battle.get("losses"), inline=True)
+
+            kills = battle.get("kills")
+            deaths = battle.get("deaths")
+            embed.add_field(name="Kills", value=kills if kill is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Damage Inflicted", value=battle.get("damage"))
+            embed.add_field(name="Damage Taken", value=battle.get("damage_taken"))
+            embed.add_field(name="Life Leeched", value=battle.get("life_leeched"))
+            await ctx.send(embed=embed)
+        elif stat == "hungergames":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Hungergames Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            hunger = p.STATS["HungerGames"]
+
+            embed.add_field(name="Coins", value=hunger.get("coins"), inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Wins", value=hunger.get("wins"), inline=True)
+
+            kills = hunger.get("kills")
+            deaths = hunger.get("deaths")
+            embed.add_field(name="Kills", value=kills if kill is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
         elif stat == "bedwars":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
