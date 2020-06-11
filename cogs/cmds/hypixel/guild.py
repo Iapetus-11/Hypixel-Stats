@@ -49,6 +49,45 @@ class Guild(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="guildmembers", aliases=["gmembers", "gplayers", "guildplayers", "gps"])
+    @commands.cooldown(1, 4, commands.BucketType.user)
+    async def guild_members(self, *, guild_name):
+        await ctx.trigger_typing()
+
+        guild_id = await self.cache.get_guild_id_from_name(guild_name)
+        g = await self.cache.get_guild(guild_id)
+        members = g.MEMBERS
+
+        embed = discord.Embed(color=self.bot.cc,
+                              title=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)")
+
+        body = ""
+        count = 0
+        embed_count = 0
+        for member in members:
+            member = member["uuid"]
+            try:
+                name = await self.cache.get_player_name(member)
+            except aiopypixel.exceptions.exceptions.InvalidPlayerError:
+                name = "Unknown Member"
+            body += f"{discord.utils.escape_markdown(name)}\n\n"
+            if count > 20:
+                embed.add_field(name="\uFEFF", value=body)
+                embed_count += 1
+                count = 0
+                body = ""
+            count += 1
+        if count > 0:
+            embed.add_field(name="\uFEFF", value=body)
+            embed_count += 1
+
+        if len(embed) > 5095 or embed_count > 35:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"{discord.utils.escape_markdown(g.NAME)} has too many members to show!"))
+            return
+
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Guild(bot))
