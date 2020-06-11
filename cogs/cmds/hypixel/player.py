@@ -161,6 +161,30 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
             embed.add_field(name="Deaths", value=mystery.get("deaths"), inline=True)
             await ctx.send(embed=embed)
+        elif stat == "mcgo":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s MCGO Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            mcgo = p.STATS["MCO"]
+
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Coins", value=mcgo.get("coins"), inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+
+            embed.add_field(name="Wins", value=mcgo.get("game_wins"), inline=True)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF")
+            embed.add_field(name="Round Wins", value=mcgo.get(round_wins), inline=True)
+
+            kills = mcgo.get("kills")
+            deaths = mcgo.get("deaths")
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
+            embed.add_field(name="KDR", value=round(kills / deaths, 2), inline=True)
+
+            embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired"), inline=False)
+            embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
+            embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills"), inline=False)
+            await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
