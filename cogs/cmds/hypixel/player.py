@@ -173,7 +173,7 @@ class Player(commands.Cog):
 
             embed.add_field(name="Wins", value=mcgo.get("game_wins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
-            embed.add_field(name="Round Wins", value=mcgo.get(round_wins), inline=True)
+            embed.add_field(name="Round Wins", value=mcgo.get("round_wins"), inline=True)
 
             kills = mcgo.get("kills")
             deaths = mcgo.get("deaths")
