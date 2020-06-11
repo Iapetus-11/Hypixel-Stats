@@ -88,8 +88,6 @@ class Guild(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands
-
 
 def setup(bot):
     bot.add_cog(Guild(bot))
