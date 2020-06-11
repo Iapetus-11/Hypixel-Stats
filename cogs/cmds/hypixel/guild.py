@@ -1,6 +1,7 @@
 import arrow
 import discord
 from discord.ext import commands
+from math import ceil
 
 
 class Guild(commands.Cog):
