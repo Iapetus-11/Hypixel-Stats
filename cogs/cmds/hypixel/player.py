@@ -200,6 +200,53 @@ class Player(commands.Cog):
         elif stat == "uhc":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s UHC Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
+
+            uhc = p.STATS["UHC"]
+
+            embed.add_field(name="Coins", value=uhc.get("coins"), inline=True)
+            embed.add_field(name="Wins", value=uhc.get("wins"), inline=True)
+            embed.add_field(name="Score", value=uhc.get("score"), inline=True)
+
+            kills = uhc.get("kills")
+            deaths = uhc.get("deaths")
+            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Heads Eaten", value=uhc.get("heads_eaten"), inline=False)
+            await ctx.send(embed=embed)
+        elif stat == "vampirez":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s VampireZ Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            vampire = p.STATS["VampireZ"]
+
+            embed.add_field(name="Coins", value=vampire.get("coins"), inline=False)
+
+            human_kills = vampire.get("human_kills")
+            human_kills = human_kills if human_kills is not None else 0
+            vampire_kills = vampire.get("vampire_kills")
+            vampire_kills = vampire_kills if vampire_kills is not None else 0
+            zombie_kills = vampire.get("zombie_kills")
+            zombie_kills = zombie_kills if zombie_kills is not None else 0
+            embed.add_field(name="Human Kills", value=human_kills, inline=True)
+            embed.add_field(name="Vampire Kills", value=vampire_kills, inline=True)
+            embed.add_field(name="Zombie Kills", value=zombie_kills, inline=True)
+
+            human_deaths = vampire.get("human_deaths")
+            human_deaths = human_deaths if human_deaths is not None else 0
+            vampire_deaths = vampire.get("vampire_deaths")
+            vampire_deaths = vampire_deaths if vampire_deaths is not None else 0
+            embed.add_field(name="Human Deaths", value=human_deaths, inline=True)
+            embed.add_field(name="Vampire Deaths", value=vampire_deaths, inline=True)
+            embed.add_field(name="Zombie Deaths", value="N/A", inline=True)
+
+            embed.add_field(name="Human KDR", value=round(human_kills / human_deaths, 2), inline=True)
+            embed.add_field(name="Vampire KDR", value=round(vampire_kills / vampire_deaths, 2), inline=True)
+            embed.add_field(name="Zombie KDR", value="N/A", inline=True)
+            await ctx.send(embed=embed)
         elif stat == "bedwars":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
