@@ -98,10 +98,10 @@ class Player(commands.Cog):
 
             kills = sum({k: v for k, v in arena.items() if "kills_" in k}.values())
             deaths = sum({k: v for k, v in arena.items() if "deaths_" in k}.values())
-            embed.add_field(name="Kills", value=kills if kills is not None else 0)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0)
+            embed.add_field(name="Kills", value=kills)
+            embed.add_field(name="Deaths", value=deaths)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             games = sum({k: v for k, v in arena.items() if "games_" in k}.values())
@@ -125,12 +125,12 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=battle.get("wins"), inline=True)
             embed.add_field(name="Losses", value=battle.get("losses"), inline=True)
 
-            kills = battle.get("kills")
-            deaths = battle.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = battle.get("kills", 0)
+            deaths = battle.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Damage Inflicted", value=battle.get("damage"))
@@ -147,12 +147,12 @@ class Player(commands.Cog):
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Wins", value=hunger.get("wins"), inline=True)
 
-            kills = hunger.get("kills")
-            deaths = hunger.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = hunger.get("kills", 0)
+            deaths = hunger.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
             await ctx.send(embed=embed)
         elif stat == "paintball":
@@ -165,12 +165,12 @@ class Player(commands.Cog):
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Wins", value=paint.get("wins"), inline=True)
 
-            kills = paint.get("kills")
-            deaths = paint.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = paint.get("kills", 0)
+            deaths = paint.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Shots Fired", value=paint.get("shots_fired"), inline=False)
@@ -185,12 +185,12 @@ class Player(commands.Cog):
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Wins", value=quake.get("wins"), inline=True)
 
-            kills = quake.get("kills")
-            deaths = quake.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = quake.get("kills", 0)
+            deaths = quake.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Shots Fired", value=quake.get("shots_fired"), inline=False)
@@ -207,12 +207,12 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=uhc.get("wins"), inline=True)
             embed.add_field(name="Score", value=uhc.get("score"), inline=True)
 
-            kills = uhc.get("kills")
-            deaths = uhc.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = uhc.get("kills", 0)
+            deaths = uhc.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Heads Eaten", value=uhc.get("heads_eaten"), inline=False)
@@ -225,20 +225,15 @@ class Player(commands.Cog):
 
             embed.add_field(name="Coins", value=vampire.get("coins"), inline=False)
 
-            human_kills = vampire.get("human_kills")
-            human_kills = human_kills if human_kills is not None else 0
-            vampire_kills = vampire.get("vampire_kills")
-            vampire_kills = vampire_kills if vampire_kills is not None else 0
-            zombie_kills = vampire.get("zombie_kills")
-            zombie_kills = zombie_kills if zombie_kills is not None else 0
+            human_kills = vampire.get("human_kills", 0)
+            vampire_kills = vampire.get("vampire_kills", 0)
+            zombie_kills = vampire.get("zombie_kills", 0)
             embed.add_field(name="Human Kills", value=human_kills, inline=True)
             embed.add_field(name="Vampire Kills", value=vampire_kills, inline=True)
             embed.add_field(name="Zombie Kills", value=zombie_kills, inline=True)
 
-            human_deaths = vampire.get("human_deaths")
-            human_deaths = human_deaths if human_deaths is not None else 0
-            vampire_deaths = vampire.get("vampire_deaths")
-            vampire_deaths = vampire_deaths if vampire_deaths is not None else 0
+            human_deaths = vampire.get("human_deaths", 0)
+            vampire_deaths = vampire.get("vampire_deaths", 0)
             embed.add_field(name="Human Deaths", value=human_deaths, inline=True)
             embed.add_field(name="Vampire Deaths", value=vampire_deaths, inline=True)
             embed.add_field(name="Zombie Deaths", value="N/A", inline=True)
@@ -261,12 +256,12 @@ class Player(commands.Cog):
             embed.add_field(name="Winstreak", value=sky.get("win_streak"), inline=True)
             embed.add_field(name="Losses", value=sky.get("losses"), inline=True)
 
-            kills = sky.get("kills")
-            deaths = sky.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = sky.get("kills", 0)
+            deaths = sky.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown"), inline=False)
@@ -294,10 +289,10 @@ class Player(commands.Cog):
 
             kills = bedwars.get("kills_bedwars")
             deaths = bedwars.get("deaths_bedwars")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0)
+            embed.add_field(name="Kills", value=kills)
+            embed.add_field(name="Deaths", value=deaths)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
@@ -324,8 +319,8 @@ class Player(commands.Cog):
 
             kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
             deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
-            embed.add_field(name="Kills", value=kills if kills is not None else 0)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0)
+            embed.add_field(name="Kills", value=kills)
+            embed.add_field(name="Deaths", value=deaths)
             embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
             embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=False)
@@ -353,7 +348,7 @@ class Player(commands.Cog):
 
             embed.add_field(name="Games", value=mystery.get("games"), inline=True)
             embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
-            embed.add_field(name="Deaths", value=mystery.get("deaths"), inline=True)
+            embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
             await ctx.send(embed=embed)
         elif stat == "mcgo":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Cops & Crims Stats",
@@ -365,12 +360,12 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=mcgo.get("game_wins"), inline=True)
             embed.add_field(name="Round Wins", value=mcgo.get("round_wins"), inline=True)
 
-            kills = mcgo.get("kills")
-            deaths = mcgo.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = mcgo.get("kills", 0)
+            deaths = mcgo.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired"), inline=False)
@@ -387,12 +382,12 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=clash.get("wins"), inline=True)
             embed.add_field(name="Losses", value=clash.get("losses"), inline=True)
 
-            kills = clash.get("kills")
-            deaths = clash.get("deaths")
-            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
-            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            kills = clash.get("kills", 0)
+            deaths = clash.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round(
-                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
             embed.add_field(name="Kill Streak", value=clash.get("killstreak"), inline=False)
