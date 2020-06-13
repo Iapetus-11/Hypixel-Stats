@@ -247,6 +247,36 @@ class Player(commands.Cog):
             embed.add_field(name="Vampire KDR", value=round(vampire_kills / vampire_deaths, 2), inline=True)
             embed.add_field(name="Zombie KDR", value="N/A", inline=True)
             await ctx.send(embed=embed)
+        elif stat == "skywars":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Sky Wars Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            sky = p.STATS["SkyWars"]
+
+            embed.add_field(name="Coins", value=sky.get("coins"), inline=True)
+            embed.add_field(name="Games", value=sky.get("games"), inline=True)
+            embed.add_field(name="Quits", value=sky.get("quits"), inline=True)
+
+            embed.add_field(name="Wins", value=sky.get("wins"), inline=true)
+            embed.add_field(name="Winstreak", value=sky.get("win_streak"), inline=True)
+            embed.add_field(name="Losses", value=sky.get("losses"), inline=True)
+
+            kills = sky.get("kills")
+            deaths = sky.get("deaths")
+            embed.add_field(name="Kills", value=kills if kills is not None else 0, inline=True)
+            embed.add_field(name="Deaths", value=deaths if deaths is not None else 0, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills if kills is not None else 0 + .00001) / (deaths if deaths is not None else 0 + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown"), inline=False)
+
+            embed.add_field(name="Arrows Shot", value=sky.get("arrows_shot"), inline=True)
+            embed.add_field(name="Successful Shots", value=sky.get("arrows_hit"), inline=True)
+
+            embed.add_field(name="Killstreak", value=sky.get("killstreak"), inline=False)
+
+            await ctx.send(embed=embed)
         elif stat == "bedwars":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
