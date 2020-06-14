@@ -7,15 +7,14 @@ basic initialization and configuration of hypixel-stats
 - creates bot instance
 """
 
-import os
-import json
 import asyncio
 import asyncpg
 import discord
+import json
 import logging
+import os
 from discord.ext import commands
 from dotenv import load_dotenv
-
 
 # loads environment variables
 load_dotenv()
@@ -46,21 +45,16 @@ bot = commands.AutoShardedBot(
     case_insensitive=True
 )
 
-
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
 
-with open('data/config.json') as CONFIG:
-    bot.CONFIG = json.load(CONFIG)
-
-bot.cc = discord.Color.gold()
+# Don't even think about it Hg
+bot.cc = discord.Color.gold()  # color of the embeds
 bot.guild_invite_code = "MZ2cXxF"
 bot.error_channel_id = 718983583779520541
-bot.start_time = None
-bot.TIMEOUT_MESSAGE = "You took too long to answer, the command was canceled."
-
+bot.start_time = None  # Will be set later in cogs.core.events
+bot.timeout_message = "You took too long to answer, the command was canceled."
 bot.ratelimited_wait_time = .5  # seconds, obviously
-
 bot.hypixel_key = HYPIXEL
 
 

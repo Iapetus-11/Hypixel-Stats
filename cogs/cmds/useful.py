@@ -21,15 +21,15 @@ class Useful(commands.Cog):
         elif "shing" in c or "shling" in c:
             pp = "Schlong"
         elif "schlong" in c:
-            await ctx.send(embed=discord.Embed(color=self.bot.CONFIG["cc"],
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                                description="Magnum Dong! \uFEFF ``69.00 ms``"))
             return
-        await ctx.send(embed=discord.Embed(color=self.bot.CONFIG["cc"],
+        await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"{pp}! \uFEFF ``{round(self.bot.latency * 1000, 2)} ms``"))
 
     @commands.command(name="info", aliases=["information"])
     async def information(self, ctx):
-        info_msg = discord.Embed(color=self.bot.CONFIG["cc"])
+        info_msg = discord.Embed(color=self.bot.cc)
         info_msg.add_field(name="Bot Library", value="Discord.py", inline=True)
         info_msg.add_field(name="Command Prefix", value=ctx.prefix, inline=True)
         info_msg.add_field(name="Creators", value="Iapetus11#6821 &\n TrustedMercury#1953", inline=True)
@@ -46,7 +46,7 @@ class Useful(commands.Cog):
     @commands.command(name="uptime")
     async def get_uptime(self, ctx):
         p = arrow.utcnow()
-        diff = (p - self.bot.self.bot.CONFIG["start_time"])
+        diff = (p - self.bot.start_time)
         days = diff.days
         hours = int(diff.seconds / 3600)
         minutes = int(diff.seconds / 60) % 60
@@ -62,7 +62,7 @@ class Useful(commands.Cog):
             mm = "minute"
         else:
             mm = "minutes"
-        await ctx.send(embed=discord.Embed(color=self.bot.CONFIG["cc"],
+        await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
 

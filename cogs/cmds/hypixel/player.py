@@ -64,7 +64,7 @@ class Player(commands.Cog):
             stat = await self.bot.wait_for("message", check=check, timeout=20)
             stat = stat.content.lower()
         except asyncio.TimeoutError:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=self.bot.TIMEOUT_MESSAGE))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=self.bot.timeout_message))
             return
 
         if stat not in [s.lower() for s in list(p.STATS)]:
