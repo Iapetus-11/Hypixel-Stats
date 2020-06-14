@@ -42,11 +42,10 @@ async def get_prefix(_bot, message):
 
 bot = commands.AutoShardedBot(
     command_prefix=get_prefix,
-    case_insensitive=True
+    case_insensitive=True,
+    help_command=None,
+    max_messages=512
 )
-
-with open('data/emojis.json') as EMOJIS:
-    bot.EMOJIS = json.load(EMOJIS)
 
 # Don't even think about it Hg
 bot.cc = discord.Color.gold()  # color of the embeds
@@ -56,6 +55,9 @@ bot.start_time = None  # Will be set later in cogs.core.events
 bot.timeout_message = "You took too long to answer, the command was canceled."
 bot.ratelimited_wait_time = .5  # seconds, obviously
 bot.hypixel_key = HYPIXEL
+
+with open('data/emojis.json') as EMOJIS:
+    bot.EMOJIS = json.load(EMOJIS)
 
 
 async def setup_db():
@@ -94,7 +96,7 @@ async def bot_check(ctx):
 
     if not bot.is_ready():
         embed = discord.Embed(
-            color=bot.CONFIG["cc"],
+            color=bot.cc,
             description="Hold on! We're starting up!"
         )
         await ctx.send(embed=embed)
