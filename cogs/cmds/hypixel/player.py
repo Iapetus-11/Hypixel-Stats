@@ -115,7 +115,7 @@ class Player(commands.Cog):
             embed.add_field(name="Total Damage", value=total_dmg, inline=False)
             embed.add_field(name="Rating", value=round(arena.get("rating"), 2), inline=False)
             await ctx.send(embed=embed)
-        elif stat == "battleground":
+        elif stat in ["battleground", "battlegrounds", "battle ground"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Battleground Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -137,7 +137,7 @@ class Player(commands.Cog):
             embed.add_field(name="Damage Taken", value=battle.get("damage_taken"))
             embed.add_field(name="Life Leeched", value=battle.get("life_leeched"))
             await ctx.send(embed=embed)
-        elif stat == "hungergames":
+        elif stat in ["hungergames", "hunger games", "hungergame"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Hungergames Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -155,7 +155,7 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
             await ctx.send(embed=embed)
-        elif stat == "paintball":
+        elif stat in ["paintball", "paint ball"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Paintball Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -242,7 +242,7 @@ class Player(commands.Cog):
             embed.add_field(name="Vampire KDR", value=round(vampire_kills / vampire_deaths, 2), inline=True)
             embed.add_field(name="Zombie KDR", value="N/A", inline=True)
             await ctx.send(embed=embed)
-        elif stat == "skywars":
+        elif stat in ["skywars", "sky wars", "sky war"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Sky Wars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -272,7 +272,7 @@ class Player(commands.Cog):
             embed.add_field(name="Killstreak", value=sky.get("killstreak"), inline=False)
 
             await ctx.send(embed=embed)
-        elif stat == "bedwars":
+        elif stat in ["bedwars", "bed wars", "bedwar"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -297,7 +297,7 @@ class Player(commands.Cog):
 
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
             await ctx.send(embed=embed)
-        elif stat == "truecombat":
+        elif stat in ["truecombat", "true combat"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -307,7 +307,7 @@ class Player(commands.Cog):
             embed.add_field(name="Coins", value=truecombat.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             await ctx.send(embed=embed)
-        elif stat == "tntgames":
+        elif stat in ["tntgames", "tnt games", "tnt game"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s TNT Games Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -326,7 +326,7 @@ class Player(commands.Cog):
             embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=False)
             embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"), inline=False)
             await ctx.send(embed=embed)
-        elif stat == "supersmash":
+        elif stat in ["supersmash", "super smash"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nSuper Smash Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -336,7 +336,7 @@ class Player(commands.Cog):
             embed.add_field(name="Coins", value=supersmash.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             await ctx.send(embed=embed)
-        elif stat == "murdermystery":
+        elif stat in ["murdermystery", "murder mystery"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Murder Mystery Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -350,7 +350,8 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
             embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
             await ctx.send(embed=embed)
-        elif stat == "mcgo":
+        elif stat in ["mcgo", "mc go", "cops and crims", "cops and criminals", "cops and robbers", "cops & crims",
+                      "cops & criminals"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Cops & Crims Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -372,7 +373,7 @@ class Player(commands.Cog):
             embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
             embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills"), inline=False)
             await ctx.send(embed=embed)
-        elif stat == "skyclash":
+        elif stat in ["skyclash", "sky clash"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Sky Clash Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
