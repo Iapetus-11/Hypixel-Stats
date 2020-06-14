@@ -3,7 +3,7 @@ bot.py
 basic initialization and configuration of hypixel-stats
 - loads external files - .env, .json
 - creates database connection pool
-- loads cogs and prefixes
+- loads cogs
 - creates bot instance
 """
 
