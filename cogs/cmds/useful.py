@@ -72,7 +72,7 @@ class Useful(commands.Cog):
             embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
             embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
-            await ctx.send(embed)
+            await ctx.send(embed=embed)
 
 
 def setup(bot):
