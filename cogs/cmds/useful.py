@@ -65,6 +65,7 @@ class Useful(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
+    """
     @commands.group(name="help", aliases=["helpme", "halp", "hlp"])
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -73,6 +74,19 @@ class Useful(commands.Cog):
             embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
             await ctx.send(embed=embed)
+
+    @help.command(name="stats", aliases=["statistics", "information"])
+    async def help_stats(self, ctx):
+        embed = discord.Embed(color=self.bot.cc, title=f"{self.bot.EMOJIS['coin']} Stats/Info Commands")
+    """
+
+    @commands.group(name="help", aliases=["helpme", "halp", "hlp"])
+    async def help(self, ctx):
+        embed = discord.Embed(
+            color=self.bot.cc,
+            title="Hypixel Stats Command Help",
+            description=f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+        )
 
 
 def setup(bot):
