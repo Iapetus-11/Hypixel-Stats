@@ -65,7 +65,8 @@ async def setup_db():
         host="localhost",
         database="hypixel-stats-bot",
         user="pi",
-        password=DB_PASSWORD)
+        password=DB_PASSWORD
+    )
 
 
 asyncio.get_event_loop().run_until_complete(setup_db())
