@@ -77,7 +77,7 @@ class Useful(commands.Cog):
             )
 
             embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
-            embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
+            embed.add_field(name=f":tools: Utility", value=f"``{ctx.prefix}help utility``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
 
             embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
@@ -94,20 +94,39 @@ class Useful(commands.Cog):
 
         p = ctx.prefix
 
-        player_stats = f"``{p}profile <username>`` *shows some general information for that player*\n\n" \
+        player_stats = f"\uFEFF\n``{p}profile <username>`` *shows some general information for that player*\n\n" \
                        f"``{p}playerstats <username>`` *shows stats for that user for each hypixel game*\n\n" \
                        f"``{p}friends <username>`` *shows that user's friends*\n\n" \
-                       f"``{p}playerguild <username>`` *shows that player's guild*\n\n\uFEFF"
+                       f"``{p}playerguild <username>`` *shows that player's guild*\n\uFEFF"
         embed.add_field(name="Player Stats", value=player_stats, inline=False)
 
         guild_stats = f"``{p}guild <guild name>`` *shows that hypixel guild*\n\n" \
-                      f"``{p}members <guild name>`` *shows the members in that guild*\n\n"
+                      f"``{p}members <guild name>`` *shows the members in that guild*\n\uFEFF"
         embed.add_field(name="Guild Stats", value=guild_stats, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
         await ctx.send(embed=embed)
 
+    @help.command(name="utility", aliases=["other"])
+    async def help_utility(self, ctx):
+        embed = discord.Embed(
+            color=self.bot.cc,
+            title=f":tools: Other/Utility Commands",
+            description=self.need_more_halp
+        )
+
+        p = ctx.prefix
+
+        player_stats = f"``\uFEFF\n{p}stealskin <username>`` *steal another user's skin*\n\n" \
+                       f"``{p}nametouuid <username>`` *turns a username into an mc uuid*\n\n" \
+                       f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
+                       f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
+        embed.add_field(name="Minecraft Commands", value=player_stats, inline=False)
+
+        embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
+
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Useful(bot))

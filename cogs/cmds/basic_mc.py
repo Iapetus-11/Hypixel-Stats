@@ -66,14 +66,6 @@ class BasicMC(commands.Cog):
         name = j[len(j)-1]["name"]
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{uuid}: ``{name}``"))
 
-    @commands.command(name="mcsales", aliases=["minecraftsales"])
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    async def mc_sales(self, ctx):
-        r = await self.session.post("https://api.mojang.com/orders/statistics", json={"metricKeys": ["item_sold_minecraft", "prepaid_card_redeemed_minecraft"]})
-        j = json.loads(await r.text())
-        await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"**{j['total']}** total Minecraft copies sold, **{round(j['saleVelocityPerSeconds'], 3)}** copies sold per second."))
-
     @commands.command(name="colorcodes", aliases=["mccolorcodes", "colors", "cc"])
     async def mc_color_codes(self, ctx):
         embed = discord.Embed(color=self.bot.cc,
