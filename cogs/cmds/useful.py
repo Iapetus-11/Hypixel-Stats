@@ -80,7 +80,7 @@ class Useful(commands.Cog):
 
             await ctx.send(embed=embed)
 
-    @help.command(name="stats", aliases=["statistics", "information"])
+    @help.command(name="botstats", aliases=["bot", "botinfo"])
     async def help_stats(self, ctx):
         embed = discord.Embed(
             color=self.bot.cc,
@@ -88,10 +88,16 @@ class Useful(commands.Cog):
             description=help_msg
         )
 
-        player_stats = f""
+        p = ctx.prefix
+
+        player_stats = f"``{p}profile <username>`` *shows some general information for that player*\n\n" \
+                       f"``{p}playerstats <username>`` *shows stats for that user for each hypixel game*\n\n" \
+                       f"``{p}friends <username>`` *shows that user's friends*\n\n``" \
+                       f"``{p}playerguild <username>`` *shows that player's guild*\n\n"
         embed.add_field(name="Player Stats", value=player_stats, inline=False)
 
-        guild_stats = f""
+        guild_stats = f"``{p}guild <guild name>`` *shows that hypixel guild*\n\n" \
+                      f"``{p}members <guild name>`` *shows the members in that guild*\n\n"
         embed.add_field(name="Guild Stats", value=guild_stats, inline=False)
 
         embed.set_footer(

@@ -13,9 +13,9 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-    @commands.group(name="player", aliases=["profile", "pp"])
+    @commands.group(name="playerprofile", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def player(self, ctx, player):
+    async def player_profile(self, ctx, player):
         await ctx.trigger_typing()
 
         embed = discord.Embed(color=self.bot.cc)
