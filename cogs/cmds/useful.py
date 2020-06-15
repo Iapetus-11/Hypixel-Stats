@@ -101,7 +101,7 @@ class Useful(commands.Cog):
         embed.add_field(name="Player Stats", value=player_stats, inline=False)
 
         guild_stats = f"``{p}guild <guild name>`` *shows that hypixel guild*\n\n" \
-                      f"``{p}members <guild name>`` *shows the members in that guild*\n\n\uFEFF"
+                      f"``{p}members <guild name>`` *shows the members in that guild*\n\n"
         embed.add_field(name="Guild Stats", value=guild_stats, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
