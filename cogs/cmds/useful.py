@@ -7,7 +7,7 @@ class Useful(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.need_more_halp = f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+        self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!"
 
     @commands.command(name="ping", aliases=["pong", "ding", "dong", "shing", "shling", "schlong"])
     async def ping(self, ctx):
