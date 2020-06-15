@@ -65,28 +65,39 @@ class Useful(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
-    """
     @commands.group(name="help", aliases=["helpme", "halp", "hlp"])
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
-            embed = discord.Embed(color=self.bot.cc, title="Hypixel Stats Command Help")
+            embed = discord.Embed(
+                color=self.bot.cc,
+                title="Hypixel Stats Command Help",
+                description=f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+            )
+
             embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
             embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
+
             await ctx.send(embed=embed)
 
     @help.command(name="stats", aliases=["statistics", "information"])
     async def help_stats(self, ctx):
-        embed = discord.Embed(color=self.bot.cc, title=f"{self.bot.EMOJIS['coin']} Stats/Info Commands")
-    """
-
-    @commands.group(name="help", aliases=["helpme", "halp", "hlp"])
-    async def help(self, ctx):
         embed = discord.Embed(
             color=self.bot.cc,
-            title="Hypixel Stats Command Help",
-            description=f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+            title=f"{self.bot.EMOJIS['coin']} Stats/Info Commands",
+            description=help_msg
         )
+
+        player_stats = f""
+        embed.add_field(name="Player Stats", value=player_stats, inline=False)
+
+        guild_stats = f""
+        embed.add_field(name="Guild Stats", value=guild_stats, inline=False)
+
+        embed.set_footer(
+            text=f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!")
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
