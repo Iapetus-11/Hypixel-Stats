@@ -80,7 +80,7 @@ class Useful(commands.Cog):
             embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
 
-            embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
+            embed.set_footer(text=f"\uFEFF\nMade by Iapetus11 & TrustedMercury!")
 
             await ctx.send(embed=embed)
 
@@ -123,6 +123,24 @@ class Useful(commands.Cog):
                        f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
                        f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
         embed.add_field(name="Minecraft Commands", value=player_stats, inline=False)
+
+        embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
+
+        await ctx.send(embed=embed)
+
+    @help.command(name="config", aliases=["settings"])
+    async def help_config(self, ctx):
+        embed = discord.Embed(
+            color=self.bot.cc,
+            title=f":gear: Config Commands",
+            description=self.need_more_halp
+        )
+
+        p = ctx.prefix
+
+        player_stats = f"``{p}config`` *shows the different settings you can change*\n\n" \
+                       f"``{p}config prefix <prefix>`` *changes the prefix of the server you're in*\n\uFEFF"
+        embed.add_field(name="General Config", value=player_stats, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
