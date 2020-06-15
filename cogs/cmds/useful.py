@@ -7,7 +7,7 @@ class Useful(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+        self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!\n\uFEFF"
 
     @commands.command(name="ping", aliases=["pong", "ding", "dong", "shing", "shling", "schlong"])
     async def ping(self, ctx):
@@ -94,7 +94,7 @@ class Useful(commands.Cog):
 
         p = ctx.prefix
 
-        player_stats = f"\uFEFF\n``{p}profile <username>`` *shows some general information for that player*\n\n" \
+        player_stats = f"``{p}profile <username>`` *shows some general information for that player*\n\n" \
                        f"``{p}playerstats <username>`` *shows stats for that user for each hypixel game*\n\n" \
                        f"``{p}friends <username>`` *shows that user's friends*\n\n" \
                        f"``{p}playerguild <username>`` *shows that player's guild*\n\uFEFF"
@@ -118,7 +118,7 @@ class Useful(commands.Cog):
 
         p = ctx.prefix
 
-        player_stats = f"``\uFEFF\n{p}stealskin <username>`` *steal another user's skin*\n\n" \
+        player_stats = f"``{p}stealskin <username>`` *steal another user's skin*\n\n" \
                        f"``{p}nametouuid <username>`` *turns a username into an mc uuid*\n\n" \
                        f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
                        f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
