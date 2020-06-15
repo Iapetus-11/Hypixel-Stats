@@ -80,7 +80,7 @@ class Useful(commands.Cog):
 
             await ctx.send(embed=embed)
 
-    @help.command(name="botstats", aliases=["bot", "botinfo"])
+    @help.command(name="stats", aliases=["info", "statistics"])
     async def help_stats(self, ctx):
         embed = discord.Embed(
             color=self.bot.cc,
