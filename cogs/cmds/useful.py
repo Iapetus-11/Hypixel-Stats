@@ -73,7 +73,7 @@ class Useful(commands.Cog):
             embed = discord.Embed(
                 color=self.bot.cc,
                 title="Hypixel Stats Command Help",
-                description=self.need_more_halp
+                description=self.need_more_halp + "\n\uFEFF"
             )
 
             embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
