@@ -24,6 +24,7 @@ class Events(commands.Cog):
         if msg.clean_content.startswith("@" + msg.guild.get_member(self.bot.user.id).display_name):
             if msg.guild is not None:
                 prefix = await self.db.get_prefix(msg.guild.id)
+                prefix = prefix if prefix is not None else "h!"
             else:
                 prefix = "h!"
             help_embed = discord.Embed(color=self.bot.cc,
