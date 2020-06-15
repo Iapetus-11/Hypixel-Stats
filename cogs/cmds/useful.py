@@ -7,6 +7,8 @@ class Useful(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+        self.need_more_halp = f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+
     @commands.command(name="ping", aliases=["pong", "ding", "dong", "shing", "shling", "schlong"])
     async def ping(self, ctx):
         c = ctx.message.content.lower()
@@ -71,7 +73,7 @@ class Useful(commands.Cog):
             embed = discord.Embed(
                 color=self.bot.cc,
                 title="Hypixel Stats Command Help",
-                description=f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!"
+                description=self.need_more_halp
             )
 
             embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
@@ -85,7 +87,7 @@ class Useful(commands.Cog):
         embed = discord.Embed(
             color=self.bot.cc,
             title=f"{self.bot.EMOJIS['coin']} Stats/Info Commands",
-            description=help_msg
+            description=self.need_more_halp
         )
 
         p = ctx.prefix
