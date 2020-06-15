@@ -7,7 +7,7 @@ class Useful(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!\n\uFEFF"
+        self.need_more_halp = f"Need more help? Found a bug or have a suggestion? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!\n\uFEFF"
 
     @commands.command(name="ping", aliases=["pong", "ding", "dong", "shing", "shling", "schlong"])
     async def ping(self, ctx):
@@ -77,7 +77,7 @@ class Useful(commands.Cog):
             )
 
             embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
-            embed.add_field(name=f":tools: Utility", value=f"``{ctx.prefix}help utility``", inline=True)
+            embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
 
             embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
@@ -108,7 +108,7 @@ class Useful(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @help.command(name="utility", aliases=["other"])
+    @help.command(name="other", aliases=["utility"])
     async def help_utility(self, ctx):
         embed = discord.Embed(
             color=self.bot.cc,
