@@ -21,7 +21,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, msg):
-        if msg.content.startswith(msg.guild.get_member(self.bot.user.id).mention):
+        if msg.content.startswith("@" + msg.guild.get_member(self.bot.user.id).display_name):
             if msg.guild is not None:
                 prefix = await self.db.get_prefix(msg.guild.id)
             else:
