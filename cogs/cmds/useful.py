@@ -76,7 +76,7 @@ class Useful(commands.Cog):
                 description=self.need_more_halp + "\n\uFEFF"
             )
 
-            embed.add_field(name=f"{self.bot.EMOJIS['coin']} Stats", value=f"``{ctx.prefix}help stats``", inline=True)
+            embed.add_field(name=f":bar_chart: Stats", value=f"``{ctx.prefix}help stats``", inline=True)
             embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
 
@@ -88,7 +88,7 @@ class Useful(commands.Cog):
     async def help_stats(self, ctx):
         embed = discord.Embed(
             color=self.bot.cc,
-            title=f"{self.bot.EMOJIS['coin']} Stats/Info Commands",
+            title=f":bar_chart: Stats/Info Commands",
             description=self.need_more_halp + "\n\uFEFF"
         )
 
