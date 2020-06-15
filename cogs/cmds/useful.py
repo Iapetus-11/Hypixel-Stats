@@ -80,6 +80,8 @@ class Useful(commands.Cog):
             embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
             embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
 
+            embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
+
             await ctx.send(embed=embed)
 
     @help.command(name="stats", aliases=["info", "statistics"])
@@ -102,8 +104,7 @@ class Useful(commands.Cog):
                       f"``{p}members <guild name>`` *shows the members in that guild*\n\n"
         embed.add_field(name="Guild Stats", value=guild_stats, inline=False)
 
-        embed.set_footer(
-            text=f"Need more help? Join the [support server](https://discord.gg/{self.bot.guild_invite_code})!")
+        embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
         await ctx.send(embed=embed)
 
