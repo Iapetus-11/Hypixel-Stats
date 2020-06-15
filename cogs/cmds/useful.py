@@ -7,7 +7,7 @@ class Useful(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!\n\uFEFF"
+        self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!"
 
     @commands.command(name="ping", aliases=["pong", "ding", "dong", "shing", "shling", "schlong"])
     async def ping(self, ctx):
@@ -89,7 +89,7 @@ class Useful(commands.Cog):
         embed = discord.Embed(
             color=self.bot.cc,
             title=f"{self.bot.EMOJIS['coin']} Stats/Info Commands",
-            description=self.need_more_halp
+            description=self.need_more_halp + "\n\uFEFF"
         )
 
         p = ctx.prefix
@@ -122,7 +122,7 @@ class Useful(commands.Cog):
                        f"``{p}nametouuid <username>`` *turns a username into an mc uuid*\n\n" \
                        f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
                        f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
-        embed.add_field(name="Minecraft Commands", value=player_stats, inline=False)
+        embed.add_field(name="\uFEFF", value=player_stats, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
@@ -140,7 +140,7 @@ class Useful(commands.Cog):
 
         player_stats = f"``{p}config`` *shows the different settings you can change*\n\n" \
                        f"``{p}config prefix <prefix>`` *changes the prefix of the server you're in*\n\uFEFF"
-        embed.add_field(name="General Config", value=player_stats, inline=False)
+        embed.add_field(name="\uFEFF", value=player_stats, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
