@@ -35,24 +35,40 @@ class Cache(commands.Cog):
 
     async def reset_10_minutes(self):
         while self.bot.is_ready():
-            await asyncio.sleep(60 * 10)
+            for i in range(0, 60 * 10, 1):
+                await asyncio.sleep(1)
+                if not self.bot.is_ready():
+                    return
+
             self.player_object_cache = {}
 
     async def reset_1_hour(self):
         while self.bot.is_ready():
-            await asyncio.sleep(60 * 60)
+            for i in range(0, 60 * 60, 1):
+                await asyncio.sleep(1)
+                if not self.bot.is_ready():
+                    return
+
             self.player_guild_cache = {}
 
     async def reset_2_hours(self):
         while self.bot.is_ready():
-            await asyncio.sleep(60 * 60 * 2)
+            for i in range(0, 60 * 60 * 2, 1):
+                await asyncio.sleep(1)
+                if not self.bot.is_ready():
+                    return
+
             self.player_friends_cache = {}
             self.guild_cache = {}
             self.guild_id_name_cache = {}
 
     async def reset_6_hours(self):
         while self.bot.is_ready():
-            await asyncio.sleep(60 * 60 * 6)
+            for i in range(0, 60 * 60 * 6, 1):
+                await asyncio.sleep(1)
+                if not self.bot.is_ready():
+                    return
+
             self.name_uuid_cache = {}
             self.uuid_name_cache = {}
 
