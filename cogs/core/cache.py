@@ -70,11 +70,12 @@ class Cache(commands.Cog):
             if player in self.valid_names_and_uuids:
                 return player
 
-        uuid = self.name_uuid_cache.get(player)
+        # By this point, player must be a username
+        uuid = self.name_uuid_cache.get(player.lower())
 
         if uuid is None:
             uuid = await self.hypixel.usernameToUUID(player)
-            self.name_uuid_cache[player] = uuid
+            self.name_uuid_cache[player.lower()] = uuid
 
         if uuid not in self.valid_names_and_uuids:
             self.valid_names_and_uuids.append(uuid)
@@ -82,17 +83,18 @@ class Cache(commands.Cog):
 
     async def get_player_name(self, player):
         if len(player) <= 16:
-            if player in self.valid_names_and_uuids:
+            if player.lower() in self.valid_names_and_uuids:
                 return player
 
+        # By this point, player is a uuid
         name = self.uuid_name_cache.get(player)
 
         if name is None:
             name = await self.hypixel.UUIDToUsername(player)
-            self.uuid_name_cache[player] = name
+            self.uuid_name_cache[player] = name.lower()
 
         if name not in self.valid_names_and_uuids:
-            self.valid_names_and_uuids.append(name)
+            self.valid_names_and_uuids.append(name.lower())
         return name
 
     async def rate_limit_wait(self, to_be_awaited):
