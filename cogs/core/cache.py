@@ -24,62 +24,61 @@ class Cache(commands.Cog):
         self.player_object_cache = {}  # {uuid: Player}
         self.guild_cache = {}  # {id: Guild}
 
-    def cog_unload(self):
-        self.bot.loop.create_task(self.session.close())
-
-    async def reset_continuous(self):
-        while self.bot.is_ready():
-            await asyncio.sleep(1)
-            while len(self.valid_names_and_uuids) > len(self.bot.guilds) * 3:  # reset valid names + uuids
-                self.valid_names_and_uuids.pop(0)
-
-    async def reset_10_minutes(self):
-        while self.bot.is_ready():
-            for i in range(0, 60 * 10, 1):
-                await asyncio.sleep(1)
-                if not self.bot.is_ready():
-                    return
-
-            self.player_object_cache = {}
-
-    async def reset_1_hour(self):
-        while self.bot.is_ready():
-            for i in range(0, 60 * 60, 1):
-                await asyncio.sleep(1)
-                if not self.bot.is_ready():
-                    return
-
-            self.player_guild_cache = {}
-
-    async def reset_2_hours(self):
-        while self.bot.is_ready():
-            for i in range(0, 60 * 60 * 2, 1):
-                await asyncio.sleep(1)
-                if not self.bot.is_ready():
-                    return
-
-            self.player_friends_cache = {}
-            self.guild_cache = {}
-            self.guild_id_name_cache = {}
-
-    async def reset_6_hours(self):
-        while self.bot.is_ready():
-            for i in range(0, 60 * 60 * 6, 1):
-                await asyncio.sleep(1)
-                if not self.bot.is_ready():
-                    return
-
-            self.name_uuid_cache = {}
-            self.uuid_name_cache = {}
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        await asyncio.sleep(1)
         self.bot.loop.create_task(self.reset_continuous())
         self.bot.loop.create_task(self.reset_10_minutes())
         self.bot.loop.create_task(self.reset_1_hour())
         self.bot.loop.create_task(self.reset_2_hours())
         self.bot.loop.create_task(self.reset_6_hours())
+
+    def cog_unload(self):
+        self.bot.loop.create_task(self.session.close())
+
+        self.reset_continuous.cancel()
+        self.reset_10_minutes.cancel()
+        self.reset_1_hour.cancel()
+        self.reset_2_hours.cancel()
+        self.reset_6_hours.cancel()
+
+    async def reset_continuous(self):
+        while True:
+            await asyncio.sleep(1)
+            while len(self.valid_names_and_uuids) > len(self.bot.guilds) * 3:  # reset valid names + uuids
+                self.valid_names_and_uuids.pop(0)
+
+    async def reset_10_minutes(self):
+        try:
+            while True:
+                await asyncio.sleep(60 * 10)
+                self.player_object_cache = {}
+        except asyncio.CancelledError:
+            pass
+
+    async def reset_1_hour(self):
+        try:
+            while True:
+                await asyncio.sleep(60 * 60)
+                self.player_guild_cache = {}
+        except asyncio.CancelledError:
+            pass
+
+    async def reset_2_hours(self):
+        try:
+            while True:
+                await asyncio.sleep(60 * 60 * 2)
+                self.player_friends_cache = {}
+                self.guild_cache = {}
+                self.guild_id_name_cache = {}
+        except asyncio.CancelledError:
+            pass
+
+    async def reset_6_hours(self):
+        try:
+            while True:
+                await asyncio.sleep(60 * 60 * 6)
+                self.name_uuid_cache = {}
+                self.uuid_name_cache = {}
+        except asyncio.CancelledError:
+            pass
 
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
