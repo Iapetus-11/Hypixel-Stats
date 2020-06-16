@@ -13,7 +13,7 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-        self.games_to_ignore = ["Walls3"]
+        self.games_to_ignore = ["Walls3", "Legacy"]
 
     @commands.group(name="playerprofile", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -327,6 +327,33 @@ class Player(commands.Cog):
             embed.add_field(name="Successful Shots", value=sky.get("arrows_hit"), inline=True)
 
             embed.add_field(name="Killstreak", value=sky.get("killstreak"), inline=False)
+
+            await ctx.send(embed=embed)
+        elif stat in ["speeduhc", "suhc", "speed uhc"]:
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Speed UHC Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            suhc = p.STATS["SpeedUHC"]
+
+            embed.add_field(name="Coins", value=suhc.get("coins"), inline=True)
+            embed.add_field(name="Games", value=suhc.get("games"), inline=True)
+            embed.add_field(name="Quits", value=suhc.get("quits"), inline=True)
+
+            embed.add_field(name="Wins", value=suhc.get("wins"), inline=true)
+            embed.add_field(name="Winstreak", value=suhc.get("win_streak"), inline=True)
+            embed.add_field(name="Losses", value=suhc.get("losses"), inline=True)
+
+            kills = suhc.get("kills", 0)
+            deaths = suhc.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills + .00001) / (deaths + .00001), 2),
+                            inline=True)
+
+            embed.add_field(name="Killstreak", value=suhc.get("killstreak"), inline=False)
+            embed.add_field(name="Players Survived", value=suhc.get("survived_players"), inline=False)
+            embed.add_field(name="Blocks Broken", value=suhc.get("blocks_broken"), inline=False)
 
             await ctx.send(embed=embed)
         elif stat in ["bedwars", "bed wars", "bedwar"]:
