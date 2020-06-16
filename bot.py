@@ -37,7 +37,7 @@ async def get_prefix(_bot, message):
         if prefix is not None:
             return prefix
 
-    return "H!" if message.startswith("H!") else "h!"
+    return "H!" if message.content.startswith("H!") else "h!"
 
 
 bot = commands.AutoShardedBot(
