@@ -61,8 +61,20 @@ class Player(commands.Cog):
             if game in p.STATS:
                 p.STATS.pop(game)
 
+        proper_spellings = {
+            "HungerGames": "Hunger Games", "TNTGames": "TNT Games", "SkyWars": "Sky Wars",
+            "TrueCombat": "True Combat", "SuperSmash": "Super Smash", "SpeedUHC": "Speed UHC",
+            "SkyClash": "Sky Clash", "MurderMystery": "Murder Mystery", "BuildBattle": "Build Battle",
+            "SkyBlock": "Sky Block"
+        }
+
+        games = []
+
+        for game in list(p.STATS):
+            games.append(proper_spellings.get(game, game))
+
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"Available stats for this player (send which one you want): ``{(', '.join(list(p.STATS))).replace(' ', ' ')}``"))
+                                           description=f"Available stats for this player (send which one you want): ``{', '.join(games)}``"))
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
