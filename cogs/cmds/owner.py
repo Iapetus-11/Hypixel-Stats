@@ -40,6 +40,13 @@ class Owner(commands.Cog):
             return
         await self.send(ctx, "Successfully reloaded cog: " + cog)
 
+    @commands.command(name="reloadall")
+    @commands.is_owner()
+    async def reload_all(self, ctx):
+        for cog in self.bot.cog_list:
+            self.bot.reload_extension(cog)
+        await self.send(ctx, f"Successfully reloaded {len(self.bot.cog_list)} cogs.")
+
     @commands.command(name="eval", aliases=["ev"])
     @commands.is_owner()
     async def eval_message(self, ctx, *, msg):
