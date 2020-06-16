@@ -52,7 +52,7 @@ class Useful(commands.Cog):
 
         await ctx.send(embed=info_msg)
 
-    @commands.command(name="stats", aliases=["statistics"])
+    @commands.command(name="botstats", aliases=["botstatistics"])
     async def stats(self, ctx):
         embed = discord.Embed(color=self.bot.cc)
 
@@ -149,16 +149,23 @@ class Useful(commands.Cog):
         embed = discord.Embed(
             color=self.bot.cc,
             title=f":tools: Other/Utility Commands",
-            description=self.need_more_halp
+            description=self.need_more_halp + "\n\uFEFF"
         )
 
         p = ctx.prefix
 
-        player_stats = f"``{p}stealskin <username>`` *steal another user's skin*\n\n" \
-                       f"``{p}nametouuid <username>`` *turns a username into an mc uuid*\n\n" \
-                       f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
-                       f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
-        embed.add_field(name="\uFEFF", value=player_stats, inline=False)
+        minecraft = f"``{p}stealskin <username>`` *steal another user's skin*\n\n" \
+                    f"``{p}nametouuid <username>`` *turns a username into an mc uuid*\n\n" \
+                    f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
+                    f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
+        embed.add_field(name="Minecraft", value=minecraft, inline=False)
+
+        other = f"``{p}help`` *shows a help message*\n\n" \
+                f"``{p}ping`` *shows the latency between the bot and discord*\n\n" \
+                f"``{p}uptime`` *shows the uptime of the bot*\n\n" \
+                f"``{p}info`` *shows information about the bot*\n\n" \
+                f"``{p}botstats`` *shows some bot statistics*\n\uFEFF"
+        embed.add_field(name="Other", value=other, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
