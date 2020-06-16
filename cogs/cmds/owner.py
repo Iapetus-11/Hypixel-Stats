@@ -33,6 +33,9 @@ class Owner(commands.Cog):
     @commands.command(name="reload")
     @commands.is_owner()
     async def reload(self, ctx, *, cog: str):
+        if cog == "all" or cog == "everything" or cog == "al":
+            await self.reload_all(ctx)
+            return
         try:
             self.bot.reload_extension("cogs." + cog)
         except Exception as e:
