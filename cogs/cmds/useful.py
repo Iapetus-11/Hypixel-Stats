@@ -56,8 +56,8 @@ class Useful(commands.Cog):
     async def stats(self, ctx):
         embed = discord.Embed(color=self.bot.cc)
 
-        info_msg.set_author(name="Hypixel Stats Statistics",
-                            icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
+        embed.set_author(name="Hypixel Stats Statistics",
+                         icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
         general = f"Guild Count: ``{len(self.bot.guilds)}``\n" \
                   f"DM Channels ``{len(self.bot.private_channels)}``\n" \
