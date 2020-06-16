@@ -1,5 +1,5 @@
-from discord.ext import commands
 import discord
+from discord.ext import commands
 
 
 class Database(commands.Cog):
@@ -14,6 +14,10 @@ class Database(commands.Cog):
             return "h!"
 
     async def set_prefix(self, gid, prefix):
+        if prefix == "h!" or prefix == "H!":
+            await self.drop_prefix(gid)
+            return
+
         pp = await self.db.fetchrow("SELECT prefix FROM prefixes WHERE gid=$1", gid)
         async with self.db.acquire() as con:
             if pp is None:
