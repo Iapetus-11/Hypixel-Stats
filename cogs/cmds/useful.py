@@ -7,6 +7,8 @@ class Useful(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+        self.cache = self.bot.get_cog("Cache")
+
         self.need_more_halp = f"Need more help? Found a bug? Join the official [support server](https://discord.gg/{self.bot.guild_invite_code})!"
 
     @commands.command(name="ping", aliases=["pong", "ding", "dong", "shing", "shling", "schlong"])
@@ -32,18 +34,47 @@ class Useful(commands.Cog):
     @commands.command(name="info", aliases=["information"])
     async def information(self, ctx):
         info_msg = discord.Embed(color=self.bot.cc)
+
         info_msg.add_field(name="Bot Library", value="Discord.py", inline=True)
         info_msg.add_field(name="Command Prefix", value=ctx.prefix, inline=True)
         info_msg.add_field(name="Creators", value="Iapetus11#6821 &\n TrustedMercury#1953", inline=True)
+
         info_msg.add_field(name="Total Servers", value=str(len(self.bot.guilds)), inline=True)
         info_msg.add_field(name="Shards", value=str(self.bot.shard_count), inline=True)
         info_msg.add_field(name="Total Users", value=str(len(self.bot.users)), inline=True)
+
         info_msg.add_field(name="Top.gg Page", value="[Click Here](https://top.gg/bot/718523903147900998)", inline=True)
         info_msg.add_field(name="Website", value="None Yet!", inline=True)
         info_msg.add_field(name="Support", value="[Click Here](https://discord.gg/MZ2cXxF)", inline=True)
+
         info_msg.set_author(name="Hypixel Bot Information",
                             icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
+
         await ctx.send(embed=info_msg)
+
+    @commands.command(name="stats", aliases=["statistics"])
+    async def stats(self, ctx):
+        embed = discord.Embed(color=self.bot.cc)
+
+        general = f"Guild Count: ``{len(self.bot.guilds)}``\n" \
+                  f"DM Channels ``{len(self.bot.private_channels)}``\n" \
+                  f"User Count: ``{len(self.bot.users)}``\n" \
+                  f"Shard Count: ``{self.bot.shard_count}``\n" \
+                  f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n"
+        embed.add_field(name="General", value=general)
+
+        caching = f"waiting api requests: ``{self.cache.waiting}``\n" \
+                  f""f"valid names & uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
+                  f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
+                  f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
+                  f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n" \
+                  f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
+                  f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
+                  f"player object cache: ``{len(self.cache.player_object_cache)}``\n" \
+                  f"guild object cache: ``{len(self.cache.guild_cache)}``\n"
+        embed.add_field(name="Caching", value=caching)
+
+        await ctx.send(embed=embed)
 
     @commands.command(name="uptime")
     async def get_uptime(self, ctx):

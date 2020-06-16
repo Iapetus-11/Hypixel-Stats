@@ -13,6 +13,8 @@ class Cache(commands.Cog):
 
         self.session = aiohttp.ClientSession()
 
+        self.waiting = 0
+
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
         self.uuid_name_cache = {}  # {uuid: name}
@@ -21,7 +23,6 @@ class Cache(commands.Cog):
         self.guild_id_name_cache = {}  # {id: name or name: id}
         self.player_object_cache = {}  # {uuid: Player}
         self.guild_cache = {}  # {id: Guild}
-        # not added
 
     def cog_unload(self):
         self.bot.loop.create_task(self.session.close())
@@ -96,12 +97,14 @@ class Cache(commands.Cog):
 
     async def rate_limit_wait(self, to_be_awaited):
         try_again = True
+        self.waiting += 1
         while try_again:
             try:
                 awaited = await to_be_awaited
                 try_again = False
             except aiopypixel.exceptions.exceptions.RateLimitError:
                 await asyncio.sleep(self.bot.ratelimited)
+        self.waiting -= 1
         return awaited
 
     async def get_player(self, player):  # uuid preferred
