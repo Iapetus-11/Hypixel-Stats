@@ -66,6 +66,8 @@ class Cache(commands.Cog):
         self.bot.loop.create_task(self.reset_6_hours())
 
     async def get_player_uuid(self, player):
+        """Fetches a player's uuid via their username"""
+
         if len(player) > 16:
             if player in self.valid_names_and_uuids:
                 return player
@@ -82,6 +84,8 @@ class Cache(commands.Cog):
         return uuid
 
     async def get_player_name(self, player):
+        """Fetches a player's username via their mc uuid"""
+
         if len(player) <= 16:
             if player.lower() in self.valid_names_and_uuids:
                 return player
@@ -98,6 +102,8 @@ class Cache(commands.Cog):
         return name
 
     async def rate_limit_wait(self, to_be_awaited):
+        """Gets something from the api and if ratelimited, waits and tries again"""
+
         try_again = True
         self.waiting += 1
         while try_again:
@@ -110,6 +116,8 @@ class Cache(commands.Cog):
         return awaited
 
     async def get_player(self, player):  # uuid preferred
+        """Gets a player object via uuid or username, prefers a uuid"""
+
         player = await self.get_player_uuid(player)
 
         player_object = self.player_object_cache.get(player)
@@ -120,6 +128,8 @@ class Cache(commands.Cog):
         return player_object
 
     async def get_player_friends(self, player):
+        """Fetches the friends of a given player via name or uuid, prefers a uuid"""
+
         player = await self.get_player_uuid(player)  # ensure it's a uuid for best caching results
 
         friends = self.player_friends_cache.get(player)
@@ -130,6 +140,8 @@ class Cache(commands.Cog):
         return friends
 
     async def get_player_guild(self, player):
+        """Gets the guild of a player via name or uuid, prefers a uuid"""
+
         player = await self.get_player_uuid(player)
 
         guild_id = self.player_guild_cache.get(player)
@@ -140,10 +152,14 @@ class Cache(commands.Cog):
         return guild_id
 
     async def get_player_head(self, player):
+        """Returns a valid craftatar url for a player's head, prefers uuid"""
+
         player = await self.get_player_uuid(player)
         return f"https://crafatar.com/avatars/{player}"
 
     async def get_guild_name_from_id(self, guild_id):
+        """Fetches a hypixel guild's name via a hypixel guild id"""
+
         guild_name = self.guild_id_name_cache.get(guild_id)
 
         if guild_name is None:
@@ -152,6 +168,8 @@ class Cache(commands.Cog):
         return guild_name
 
     async def get_guild_id_from_name(self, guild_name):
+        """Fetches a hypixel guild id from a hypixel guild's name"""
+
         guild_id = self.guild_id_name_cache.get(guild_name)
 
         if guild_id is None:
@@ -160,6 +178,8 @@ class Cache(commands.Cog):
         return guild_id
 
     async def get_guild(self, guild_id):
+        """"Returns an aiopypixel guild object from a hypixel guild id"""
+
         guild = self.guild_cache.get(guild_id)
 
         if guild is None:
