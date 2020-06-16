@@ -13,6 +13,8 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
+        self.games_to_ignore = ["Walls3"]
+
     @commands.group(name="playerprofile", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):
@@ -55,7 +57,12 @@ class Player(commands.Cog):
 
         p = await self.cache.get_player(player)
 
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"Available stats for this player (send which one you want): ``{', '.join(list(p.STATS))}``"))
+        for game in self.games_to_ignore:
+            if game in p.STATS:
+                p.STATS.pop(p.STATS.index(game))
+
+        await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                           description=f"Available stats for this player (send which one you want): ``{', '.join(list(p.STATS))}``"))
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
