@@ -238,9 +238,28 @@ class Player(commands.Cog):
             embed.add_field(name="Vampire Deaths", value=vampire_deaths, inline=True)
             embed.add_field(name="Zombie Deaths", value="N/A", inline=True)
 
-            embed.add_field(name="Human KDR", value=round(human_kills / human_deaths, 2), inline=True)
-            embed.add_field(name="Vampire KDR", value=round(vampire_kills / vampire_deaths, 2), inline=True)
+            embed.add_field(name="Human KDR", value=round((human_kills + .00001) / (human_deaths + .00001), 2),
+                            inline=True)
+            embed.add_field(name="Vampire KDR", value=round((vampire_kills + .00001) / (vampire_deaths + .00001), 2),
+                            inline=True)
             embed.add_field(name="Zombie KDR", value="N/A", inline=True)
+            await ctx.send(embed=embed)
+        elif stat == "walls":
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Walls Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            walls = p.STATS["Walls"]
+
+            embed.add_field(name="Coins", value=walls.get("coins"), inline=True)
+            embed.add_field(name="Wins", value=walls.get("wins"), inline=True)
+            embed.add_field(name="Losses", value=walls.get("losses"), inline=True)
+
+            kills = walls.get("kills", 0)
+            deaths = walls.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
+            embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2), inline=True)
+
             await ctx.send(embed=embed)
         elif stat in ["skywars", "sky wars", "sky war"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Sky Wars Stats",
