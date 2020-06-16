@@ -65,7 +65,7 @@ class Player(commands.Cog):
             "HungerGames": "Hunger Games", "TNTGames": "TNT Games", "SkyWars": "Sky Wars",
             "TrueCombat": "True Combat", "SuperSmash": "Super Smash", "SpeedUHC": "Speed UHC",
             "SkyClash": "Sky Clash", "MurderMystery": "Murder Mystery", "BuildBattle": "Build Battle",
-            "SkyBlock": "Sky Block"
+            "SkyBlock": "Sky Block", "GingerBread": "Turbo Kart Racer"
         }
 
         games = []
@@ -216,7 +216,7 @@ class Player(commands.Cog):
             embed.add_field(name="Headshots", value=quake.get("headshots"), inline=False)
             embed.add_field(name="Highest Killstreak", value=quake.get("highest_killstreak"), inline=False)
             await ctx.send(embed=embed)
-        elif stat in ["uhc", "ultrahc", "hardcore", "ultrahardcore"]:
+        elif stat in ["uhc", "ultrahc", "hardcore", "ultrahardcore", "hard core", "ultra hard core"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s UHC Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -236,7 +236,7 @@ class Player(commands.Cog):
 
             embed.add_field(name="Heads Eaten", value=uhc.get("heads_eaten"), inline=False)
             await ctx.send(embed=embed)
-        elif stat == "vampirez":
+        elif stat in ["vampirez", "vampire z", "vampire and zombies", "vampirezombie"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s VampireZ Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -278,6 +278,25 @@ class Player(commands.Cog):
             embed.add_field(name="Kills", value=kills, inline=True)
             embed.add_field(name="Deaths", value=deaths, inline=True)
             embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2), inline=True)
+
+            await ctx.send(embed=embed)
+        elif stat in ["karts", "go karts", "tkr", "turbo kart racer", "turbo karts", "turbo kart", "turbo kart racers"]:
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Turbo Kart Racer Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            bread = p.STATS["GingerBread"]
+
+            embed.add_field(name="Coins", value=bread.get("coins"), inline=True)
+            embed.add_field(name="Wins", value=bread.get("wins"), inline=True)
+            embed.add_field(name="Laps", value=bread.get("laps_completed"), inline=True)
+
+            embed.add_field(name="Gold Trophies", value=bread.get("gold_trophy"), inline=True)
+            embed.add_field(name="Silver Trophies", value=bread.get("silver_trophy"), inline=True)
+            embed.add_field(name="Bronze Trophies", value=bread.get("bronze_trophy"), inline=True)
+
+            embed.add_field(name="Bananas Hit", value=bread.get("banana_hits_received"), inline=False)
+            embed.add_field(name="Boxes Picked Up", value=bread.get("box_pickups"), inline=False)
+            embed.add_field(name="Coins Picked Up", value=bread.get("coins_picked_up"), inline=False)
 
             await ctx.send(embed=embed)
         elif stat in ["skywars", "sky wars", "sky war"]:
