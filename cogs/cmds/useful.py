@@ -47,7 +47,7 @@ class Useful(commands.Cog):
         info_msg.add_field(name="Website", value="None Yet!", inline=True)
         info_msg.add_field(name="Support", value="[Click Here](https://discord.gg/MZ2cXxF)", inline=True)
 
-        info_msg.set_author(name="Hypixel Bot Information",
+        info_msg.set_author(name="Hypixel Stats Information",
                             icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
         await ctx.send(embed=info_msg)
@@ -55,6 +55,9 @@ class Useful(commands.Cog):
     @commands.command(name="stats", aliases=["statistics"])
     async def stats(self, ctx):
         embed = discord.Embed(color=self.bot.cc)
+
+        info_msg.set_author(name="Hypixel Stats Statistics",
+                            icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
         general = f"Guild Count: ``{len(self.bot.guilds)}``\n" \
                   f"DM Channels ``{len(self.bot.private_channels)}``\n" \
@@ -67,12 +70,14 @@ class Useful(commands.Cog):
                   f""f"valid names & uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
-                  f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n" \
-                  f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
-                  f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
-                  f"player object cache: ``{len(self.cache.player_object_cache)}``\n" \
-                  f"guild object cache: ``{len(self.cache.guild_cache)}``\n"
+                  f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n"
+
+        caching2 = f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
+                   f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
+                   f"player object cache: ``{len(self.cache.player_object_cache)}``\n" \
+                   f"guild object cache: ``{len(self.cache.guild_cache)}``\n"
         embed.add_field(name="Caching", value=caching)
+        embed.add_field(name="Caching", value=caching2)
 
         await ctx.send(embed=embed)
 
