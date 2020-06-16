@@ -156,7 +156,7 @@ class Player(commands.Cog):
             embed.add_field(name="Damage Taken", value=battle.get("damage_taken"))
             embed.add_field(name="Life Leeched", value=battle.get("life_leeched"))
             await ctx.send(embed=embed)
-        elif stat in ["hungergames", "hunger games", "hungergame"]:
+        elif stat in ["hungergames", "hunger games", "hungergame", "hunger game"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Hungergames Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
