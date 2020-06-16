@@ -197,7 +197,7 @@ class Player(commands.Cog):
             embed.add_field(name="Headshots", value=quake.get("headshots"), inline=False)
             embed.add_field(name="Highest Killstreak", value=quake.get("highest_killstreak"), inline=False)
             await ctx.send(embed=embed)
-        elif stat == "uhc":
+        elif stat in ["uhc", "ultrahc", "hardcore", "ultrahardcore"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s UHC Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
 
