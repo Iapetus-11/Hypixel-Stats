@@ -27,8 +27,8 @@ class Player(commands.Cog):
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
         if p.LAST_LOGIN is None or p.LAST_LOGOUT is None:
-            online = "ERROR"
-            last_online = "ERROR"
+            online = "N/A"
+            last_online = "N/A"
         elif p.LAST_LOGIN > p.LAST_LOGOUT:
             online = f"{self.bot.EMOJIS['online_status']} online"
             last_online = "now"  # bc this value is obtained from last_login
