@@ -13,7 +13,7 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-        self.games_to_ignore = ["Walls3", "Legacy", "SkyBlock"]
+        self.games_to_ignore = ["Walls3", "Legacy", "SkyBlock", "Housing"]
 
     @commands.group(name="playerprofile", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
