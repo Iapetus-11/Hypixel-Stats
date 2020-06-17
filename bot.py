@@ -53,7 +53,7 @@ bot.guild_invite_code = "MZ2cXxF"
 bot.error_channel_id = 718983583779520541
 bot.start_time = None  # Will be set later in cogs.core.events
 bot.timeout_message = "You took too long to answer, the command was canceled."
-bot.ratelimited_wait_time = .5  # seconds, obviously
+bot.ratelimited_wait_time = .75  # seconds, obviously
 bot.hypixel_key = HYPIXEL
 
 with open('data/emojis.json') as EMOJIS:
