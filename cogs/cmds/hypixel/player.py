@@ -296,9 +296,9 @@ class Player(commands.Cog):
             embed.add_field(name="Silver Trophies", value=bread.get("silver_trophy"), inline=True)
             embed.add_field(name="Bronze Trophies", value=bread.get("bronze_trophy"), inline=True)
 
+            embed.add_field(name="Boxes Picked Up", value=bread.get("box_pickups"), inline=True)
+            embed.add_field(name="Coins Picked Up", value=bread.get("coins_picked_up"), inline=True)
             embed.add_field(name="Bananas Hit", value=bread.get("banana_hits_received"), inline=False)
-            embed.add_field(name="Boxes Picked Up", value=bread.get("box_pickups"), inline=False)
-            embed.add_field(name="Coins Picked Up", value=bread.get("coins_picked_up"), inline=False)
 
             await ctx.send(embed=embed)
         elif stat in ["skywars", "sky wars", "sky war"]:
