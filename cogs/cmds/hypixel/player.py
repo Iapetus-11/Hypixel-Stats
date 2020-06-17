@@ -13,7 +13,7 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-        self.games_to_ignore = ["Walls3", "Legacy"]
+        self.games_to_ignore = ["Walls3", "Legacy", "SkyBlock"]
 
     @commands.group(name="playerprofile", aliases=["profile", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -323,8 +323,8 @@ class Player(commands.Cog):
 
             embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown"), inline=False)
 
-            embed.add_field(name="Arrows Shot", value=sky.get("arrows_shot"), inline=True)
-            embed.add_field(name="Successful Shots", value=sky.get("arrows_hit"), inline=True)
+            embed.add_field(name="Bow Shots", value=sky.get("arrows_shot"), inline=True)
+            embed.add_field(name="Bow Hits", value=sky.get("arrows_hit"), inline=True)
 
             embed.add_field(name="Killstreak", value=sky.get("killstreak"), inline=False)
 
@@ -354,6 +354,21 @@ class Player(commands.Cog):
             embed.add_field(name="Killstreak", value=suhc.get("killstreak"), inline=False)
             embed.add_field(name="Players Survived", value=suhc.get("survived_players"), inline=False)
             embed.add_field(name="Blocks Broken", value=suhc.get("blocks_broken"), inline=False)
+
+            await ctx.send(embed=embed)
+        elif stat in ["build battle", "buildbattle", "builds", "build battles"]:
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Build Battle Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            bb = p.STATS["BuildBattle"]
+
+            embed.add_field(name="Coins", value=bb.get("coins"), inline=True)
+            embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
+            embed.add_field(name="Score", value=bb.get("score"), inline=True)
+
+            embed.add_field(name="Games", value=bb.get("games_played"), inline=True)
+            embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
+            embed.add_field(name="Wins", value=bb.get("wins"), inline=True)
 
             await ctx.send(embed=embed)
         elif stat in ["bedwars", "bed wars", "bedwar"]:
@@ -477,6 +492,69 @@ class Player(commands.Cog):
 
             embed.add_field(name="Kill Streak", value=clash.get("killstreak"), inline=False)
             embed.add_field(name="Win Streak", value=clash.get("win_streak"), inline=False)
+            await ctx.send(embed=embed)
+        elif stat in ["duels", "fights"]:
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Duels Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            duels = p.STATS["Duels"]
+
+            embed.add_field(name="Coins", value=duels.get("coins"), inline=False)
+
+            embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0), inline=True)
+            embed.add_field(name="Wins", value=duels.get("wins"), inline=True)
+            embed.add_field(name="Losses", value=duels.get("losses"), inline=True)
+
+            kills = duels.get("kills", 0)
+            deaths = duels.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills + .00001) / (deaths + .00001), 2),
+                            inline=True)
+
+            bow_shots = duels.get("bow_shots", 0)
+            bow_hits = duels.get("bow_hits", 0)
+            embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
+            embed.add_field(name="Bow Hits", value=bow_shots, inline=True)
+            embed.add_field(name="Accuracy", value=f"{round(bow_hits + .00001 / bow_shots + .00001, 2) * 100}%")
+
+            melee_swings = duels.get("melee_swings")
+            melee_hits = duels.get("melee_hits")
+            embed.add_field(name="Melee Swings", value=melee_swings, inline=True)
+            embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
+            embed.add_field(name="Accuracy", value=f"{round(melee_hits + .00001 / melee_swings + .00001, 2) * 100}%")
+
+            await ctx.send(embed=embed)
+        elif stat in ["pit", "hypixel pit", "the pit"]:
+            embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Hypixel Pit Stats",
+                             icon_url=await self.cache.get_player_head(p.UUID))
+
+            armpit = p.STATS["Pit"]["pit_stats_ptl"]
+
+            embed.add_field(name="Cash", value=armpit.get("cash_earned"), inline=True)
+            embed.add_field(name="Joins", value=armpit.get("joins"), inline=True)
+            embed.add_field(name="Playtime", value=f"{armpit.get('playtime_minutes')} minutes")
+
+            kills = armpit.get("kills", 0)
+            deaths = armpit.get("deaths", 0)
+            embed.add_field(name="Kills", value=kills, inline=True)
+            embed.add_field(name="Deaths", value=deaths, inline=True)
+            embed.add_field(name="KDR", value=round(
+                (kills + .00001) / (deaths + .00001), 2),
+                            inline=True)
+
+            bow_shots = armpit.get("arrows_fired", 0)
+            bow_hits = armpit.get("arrow_hits", 0)
+            embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
+            embed.add_field(name="Bow Hits", value=bow_hits, inline=True)
+            embed.add_field(name="Accuracy", value=f"{round(bow_hits + .00001 / bow_shots + .00001, 2) * 100}%")
+
+            embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt"), inline=True)
+            embed.add_field(name="Damage Received", value=armpit.get("damage_received"), inline=True)
+
+            embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed"), inline=False)
+
             await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
