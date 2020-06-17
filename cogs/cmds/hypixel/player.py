@@ -213,8 +213,9 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
-            embed.add_field(name="Shots Fired", value=quake.get("shots_fired"), inline=False)
-            embed.add_field(name="Headshots", value=quake.get("headshots"), inline=False)
+            embed.add_field(name="Shots Fired", value=quake.get("shots_fired"), inline=True)
+            embed.add_field(name="Headshots", value=quake.get("headshots"), inline=True)
+
             embed.add_field(name="Highest Killstreak", value=quake.get("highest_killstreak"), inline=False)
             await ctx.send(embed=embed)
         elif stat in ["uhc", "ultrahc", "hardcore", "ultrahardcore", "hard core", "ultra hard core"]:
