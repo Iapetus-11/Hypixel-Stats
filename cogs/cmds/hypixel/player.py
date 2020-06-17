@@ -492,8 +492,8 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
-            embed.add_field(name="Kill Streak", value=clash.get("killstreak"), inline=False)
-            embed.add_field(name="Win Streak", value=clash.get("win_streak"), inline=False)
+            embed.add_field(name="Kill Streak", value=clash.get("killstreak"), inline=True)
+            embed.add_field(name="Win Streak", value=clash.get("win_streak"), inline=True)
             await ctx.send(embed=embed)
         elif stat in ["duels", "fights"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Duels Stats",
