@@ -323,10 +323,10 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
-            embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown"), inline=False)
-
             embed.add_field(name="Bow Shots", value=sky.get("arrows_shot"), inline=True)
             embed.add_field(name="Bow Hits", value=sky.get("arrows_hit"), inline=True)
+
+            embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown"), inline=False)
 
             embed.add_field(name="Killstreak", value=sky.get("killstreak"), inline=False)
 
