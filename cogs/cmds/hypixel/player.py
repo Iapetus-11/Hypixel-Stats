@@ -556,6 +556,11 @@ class Player(commands.Cog):
             embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed"), inline=False)
 
             await ctx.send(embed=embed)
+        else:
+            embed.set_author(
+                name=f"SH\*\*! Something went seriously wrong while sending {discord.utils.escape_markdown(p.DISPLAY_NAME)}'s stats, please report this!",
+                icon_url=await self.cache.get_player_head(p.UUID))
+            await ctx.send(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
