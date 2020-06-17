@@ -187,7 +187,10 @@ class Useful(commands.Cog):
                 f"``{p}ping`` *shows the latency between the bot and discord*\n\n" \
                 f"``{p}uptime`` *shows the uptime of the bot*\n\n" \
                 f"``{p}info`` *shows information about the bot*\n\n" \
-                f"``{p}botstats`` *shows some bot statistics*\n\uFEFF"
+                f"``{p}botstats`` *shows some bot statistics*\n\n" \
+                f"``{p}invite`` *gives a link to invite the bot*\n\n" \
+                f"``{p}vote`` *gives a link to vote for the bot*\n\n" \
+                f"``{p}support`` *gives the invite link for the support server*\n\uFEFF"
         embed.add_field(name="Other", value=other, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
