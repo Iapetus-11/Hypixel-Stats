@@ -86,7 +86,7 @@ class Player(commands.Cog):
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description=self.bot.timeout_message))
             return
 
-        if stat not in [s.lower() for s in list(p.STATS)]:
+        if stat not in [s.lower() for s in games]:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                                description=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that game!"))
             return
