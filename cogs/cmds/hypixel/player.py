@@ -386,8 +386,8 @@ class Player(commands.Cog):
             embed.add_field(name="Wins", value=bedwars.get("wins_bedwars"))
             embed.add_field(name="Winstreak", value=bedwars.get("winstreak"))
 
-            kills = bedwars.get("kills_bedwars")
-            deaths = bedwars.get("deaths_bedwars")
+            kills = bedwars.get("kills_bedwars", 0)
+            deaths = bedwars.get("deaths_bedwars", 0)
             embed.add_field(name="Kills", value=kills)
             embed.add_field(name="Deaths", value=deaths)
             embed.add_field(name="KDR", value=round(
