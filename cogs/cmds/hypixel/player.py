@@ -341,7 +341,7 @@ class Player(commands.Cog):
             embed.add_field(name="Games", value=suhc.get("games"), inline=True)
             embed.add_field(name="Quits", value=suhc.get("quits"), inline=True)
 
-            embed.add_field(name="Wins", value=suhc.get("wins"), inline=true)
+            embed.add_field(name="Wins", value=suhc.get("wins"), inline=True)
             embed.add_field(name="Winstreak", value=suhc.get("win_streak"), inline=True)
             embed.add_field(name="Losses", value=suhc.get("losses"), inline=True)
 
