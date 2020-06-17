@@ -443,9 +443,9 @@ class Player(commands.Cog):
 
             mystery = p.STATS["MurderMystery"]
 
-            embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=False)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
             embed.add_field(name="Coins", value=mystery.get("coins"), inline=True)
-            embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=False)
+            embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
 
             embed.add_field(name="Games", value=mystery.get("games"), inline=True)
             embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
