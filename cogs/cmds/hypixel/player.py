@@ -549,7 +549,7 @@ class Player(commands.Cog):
             bow_hits = armpit.get("arrow_hits", 0)
             embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
             embed.add_field(name="Bow Hits", value=bow_hits, inline=True)
-            embed.add_field(name="Accuracy", value=f"{round(bow_hits + .00001 / bow_shots + .00001, 2) * 100}%")
+            embed.add_field(name="Accuracy", value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100}%")
 
             embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt"), inline=True)
             embed.add_field(name="Damage Received", value=armpit.get("damage_received"), inline=True)
