@@ -311,7 +311,7 @@ class Player(commands.Cog):
             embed.add_field(name="Games", value=sky.get("games"), inline=True)
             embed.add_field(name="Quits", value=sky.get("quits"), inline=True)
 
-            embed.add_field(name="Wins", value=sky.get("wins"), inline=true)
+            embed.add_field(name="Wins", value=sky.get("wins"), inline=True)
             embed.add_field(name="Winstreak", value=sky.get("win_streak"), inline=True)
             embed.add_field(name="Losses", value=sky.get("losses"), inline=True)
 
