@@ -113,7 +113,7 @@ class Useful(commands.Cog):
 
     @commands.command(name="invite", aliases=["invitelink"])
     async def invite_link(self, ctx):
-        inv_l = discord.Embed(description="[**Click Here!**](https://bit.ly/2tQfOhW)", color=self.bot.cc)
+        inv_l = discord.Embed(description="[**Click Here!**](https://bit.ly/3fAUmPV)", color=self.bot.cc)
         inv_l.set_author(name="Add Hypixel Stats to your server!",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
         await ctx.send(embed=inv_l)
