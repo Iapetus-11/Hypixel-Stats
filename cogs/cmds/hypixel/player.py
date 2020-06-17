@@ -443,13 +443,12 @@ class Player(commands.Cog):
 
             mystery = p.STATS["MurderMystery"]
 
-            embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
             embed.add_field(name="Coins", value=mystery.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
+            embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
 
             embed.add_field(name="Games", value=mystery.get("games"), inline=True)
             embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
-            embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
             await ctx.send(embed=embed)
         elif stat in ["mcgo", "mc go", "cops and crims", "cops and criminals", "cops and robbers", "cops & crims",
                       "cops & criminals"]:
