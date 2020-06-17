@@ -76,13 +76,13 @@ class Guild(commands.Cog):
                 name = "Unknown Member"
             body += f"{discord.utils.escape_markdown(name)}\n\n"
             if count > ceil(len(members) / 2) if len(members) < 20 else 20:
-                embed.add_field(name="\uFEFF", value=body + "\uFEFF")
+                embed.add_field(name="\uFEFF", value=body)
                 embed_count += 1
                 count = 0
                 body = ""
             count += 1
         if count > 0:
-            embed.add_field(name="\uFEFF", value=body)
+            embed.add_field(name="\uFEFF", value=body + "\uFEFF")
             embed_count += 1
 
         if len(embed) > 5095 or embed_count > 35:
