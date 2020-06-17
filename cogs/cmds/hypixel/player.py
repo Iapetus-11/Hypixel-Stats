@@ -101,9 +101,9 @@ class Player(commands.Cog):
 
             embed.add_field(name="All Time Coins", value=floor(arcade.get("coins")), inline=False)
             embed.add_field(name="Coins This Month",
-                            value=arcade.get("monthly_coins_a") + arcade.get("monthly_coins_b"),
+                            value=arcade.get("monthly_coins_a"),
                             inline=False)
-            embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a") + arcade.get("weekly_coins_b"),
+            embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a"),
                             inline=False)
             await ctx.send(embed=embed)
         elif stat == "arena":
