@@ -644,16 +644,19 @@ class Player(commands.Cog):
         else:
             try:
                 offset = 0
+                e = None
                 while offset < len(chonks):
-                    embed = discord.Embed(color=self.bot.cc)
+                    embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
                     embed.set_author(
                         name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                         icon_url=await self.cache.get_player_head(puuid))
                     for chonk in chonks[offset:offset + 3]:
                         embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                             "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
-                    embed.set_footer(text="Type \"more\" to see more!")
-                    await ctx.send(embed=embed)
+                    if e is None:
+                        e = await ctx.send(embed=embed)
+                    else:
+                        await e.edit(embed=embed)
 
                     def czech(m):
                         return m.author.id == ctx.author.id and m.content == "more"
