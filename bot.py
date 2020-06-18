@@ -15,7 +15,7 @@ import logging
 import os
 from discord.ext import commands
 from dotenv import load_dotenv
-from random import randint
+from random import randint, choice
 
 # loads environment variables
 load_dotenv()
