@@ -652,11 +652,16 @@ class Player(commands.Cog):
                         name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                         icon_url=await self.cache.get_player_head(puuid))
 
+                    await ctx.send(f"DEBUG: {len(chonks[offset:offset + 3])}")
+
                     for chonk in chonks[offset:offset + 3]:
                         embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                             "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
 
-                    await ctx.send(embed=embed)
+                    if e is None:
+                        e = await ctx.send(embed=embed)
+                    else:
+                        await e.edit(embed=embed)
 
                     def czech(m):
                         return m.author.id == ctx.author.id and m.content == "more"
