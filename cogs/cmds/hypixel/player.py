@@ -587,7 +587,7 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=self.bot.cc)
 
-        embed.set_author(name=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)",
+        embed.set_author(name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
         body = ""
@@ -634,7 +634,7 @@ class Player(commands.Cog):
         embed.set_author(name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
-        chonks = [player_friends[i:i + 20] for i in range(0, len(player_friends), 20)]
+        chonks = [player_friends[i:i + 15] for i in range(0, len(player_friends), 15)]
 
         if len(chonks) <= 3:
             for chonk in chonks:
