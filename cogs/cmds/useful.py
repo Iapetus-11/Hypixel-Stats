@@ -63,6 +63,7 @@ class Useful(commands.Cog):
                   f"DM Channels ``{len(self.bot.private_channels)}``\n" \
                   f"User Count: ``{len(self.bot.users)}``\n" \
                   f"Shard Count: ``{self.bot.shard_count}``\n" \
+                  f"CMD Count: ``{self.bot.cmd_count}``\n" \
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n"
         embed.add_field(name="General", value=general)
 
