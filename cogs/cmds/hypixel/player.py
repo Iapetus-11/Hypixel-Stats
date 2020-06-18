@@ -616,9 +616,9 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="test_friends")
+    @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def test_player_friends(self, ctx, player):
+    async def player_friends(self, ctx, player):
         await ctx.trigger_typing()
 
         puuid = await self.cache.get_player_uuid(player)
