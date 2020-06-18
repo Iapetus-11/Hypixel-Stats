@@ -616,6 +616,16 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def clean_convert(self, uuids):
+        names = []
+        for uuid in uuids:
+            try:
+                name = await self.cache.get_player_name(uuid)
+            except aiopypixel.exceptions.exceptions.InvalidPlayerError:
+                name = "Unknown User"
+            names.append(name)
+        return names
+
     @commands.command(name="test_friends")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def test_player_friends(self, ctx, player):
@@ -638,7 +648,7 @@ class Player(commands.Cog):
         if len(chonks) <= 3:
             for chonk in chonks:
                 embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
-                    "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
+                    "\n\n".join(await self.clean_convert(chonk))))
 
             await ctx.send(embed=embed)
         else:
@@ -656,7 +666,7 @@ class Player(commands.Cog):
 
                     for chonk in chonks[offset:offset + 3]:
                         embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
-                            "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
+                            "\n\n".join(await self.clean_convert(chonk))))
 
                     if e is None:
                         e = await ctx.send(embed=embed)
