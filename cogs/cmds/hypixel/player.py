@@ -616,16 +616,6 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    async def clean_convert(self, uuids):
-        names = []
-        for uuid in uuids:
-            try:
-                name = await self.cache.get_player_name(uuid)
-            except aiopypixel.exceptions.exceptions.InvalidPlayerError:
-                name = "Unknown User"
-            names.append(name)
-        return names
-
     @commands.command(name="test_friends")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def test_player_friends(self, ctx, player):
