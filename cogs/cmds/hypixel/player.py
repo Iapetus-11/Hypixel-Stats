@@ -638,7 +638,8 @@ class Player(commands.Cog):
             mid = ceil(len(player_friends) / 2)
             # I fucking love one liners
             embed.add_field(name="\uFEFF",
-                            value=discord.utils.escape_markdown("\n\n".join([p for p in player_friends[:mid]])))
+                            value=discord.utils.escape_markdown(
+                                "\n\n".join([await self.cache.get_player_name(p) for p in player_friends[:mid]])))
             embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                 "\n\n".join([await self.cache.get_player_name(p) for p in player_friends[mid:]])))
 
