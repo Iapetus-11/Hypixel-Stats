@@ -631,11 +631,13 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=self.bot.cc)
 
-        embed.set_author(name=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)",
+        embed.set_author(name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
         if len(player_friends) <= 20:
-            embed.add_field(name="\uFEFF", value="\n\n".join(player_friends))
+            # I fucking love one liners
+            embed.add_field(name="\uFEFF", value="\n\n".join(
+                [discord.utils.escape_markdown(await self.cache.get_player_name(p)) for p in player_friends]))
 
         await ctx.send(embed=embed)
 
