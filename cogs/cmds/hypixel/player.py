@@ -656,10 +656,7 @@ class Player(commands.Cog):
                         embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                             "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
 
-                    if e is None:
-                        e = await ctx.send(embed=embed)
-                    else:
-                        await e.edit(embed=embed)
+                    await ctx.send(embed=embed)
 
                     def czech(m):
                         return m.author.id == ctx.author.id and m.content == "more"
