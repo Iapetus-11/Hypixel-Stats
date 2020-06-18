@@ -594,7 +594,7 @@ class Player(commands.Cog):
         if len(chonks) <= 20:
             for chonk in chonks:
                 embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
-                    "\n\n".join([await self.cache.get_player_name(chonk) for bigpp in chonk])))
+                    "\n\n".join([await self.cache.get_player_name(bigpp) for bigpp in chonk])))
 
             await ctx.send(embed=embed)
         else:
