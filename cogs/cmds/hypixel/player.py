@@ -663,6 +663,7 @@ class Player(commands.Cog):
 
                     await self.bot.wait_for("message", check=czech, timeout=20)
                     offset += 3
+                await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's all of em!"))
             except asyncio.TimeoutError:
                 pass
 
