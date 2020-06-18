@@ -108,7 +108,7 @@ async def bot_check(ctx):
         return False
 
     if randint(0, 30) == 15:
-        await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+        await ctx.send(embed=discord.Embed(color=bot.cc,
                                            description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
 
     return not ctx.author.bot
