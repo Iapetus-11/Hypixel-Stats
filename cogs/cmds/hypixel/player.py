@@ -640,7 +640,7 @@ class Player(commands.Cog):
             return
 
         embed = discord.Embed(color=self.bot.cc)
-        embed.set_author(name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
+        embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
         chonks = [player_friends[i:i + 15] for i in range(0, len(player_friends), 15)]
@@ -659,7 +659,7 @@ class Player(commands.Cog):
                     embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
 
                     embed.set_author(
-                        name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
+                        name=f"{player}'s friends ({len(player_friends)} total!)",
                         icon_url=await self.cache.get_player_head(puuid))
 
                     await ctx.send(type(chonks))
