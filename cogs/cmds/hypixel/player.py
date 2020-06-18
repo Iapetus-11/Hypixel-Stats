@@ -645,27 +645,26 @@ class Player(commands.Cog):
             try:
                 offset = 0
                 e = None
-                while offset < len(chonks):
-                    embed = discord.Embed(color=self.bot.cc)
-                    if len(chonks[offset + 3:offset + 6]) > 0:
-                        embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
+                while offset + 3 < len(chonks):
+                    embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
                     embed.set_author(
                         name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                         icon_url=await self.cache.get_player_head(puuid))
+
                     for chonk in chonks[offset:offset + 3]:
                         embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                             "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
+
                     if e is None:
                         e = await ctx.send(embed=embed)
                     else:
                         await e.edit(embed=embed)
 
-                    if len(chonks[offset + 3:offset + 6]) > 0:
-                        def czech(m):
-                            return m.author.id == ctx.author.id and m.content == "more"
+                    def czech(m):
+                        return m.author.id == ctx.author.id and m.content == "more"
 
-                        await self.bot.wait_for("message", check=czech, timeout=20)
-                        offset += 3
+                    await self.bot.wait_for("message", check=czech, timeout=20)
+                    offset += 3
             except asyncio.TimeoutError:
                 pass
 
