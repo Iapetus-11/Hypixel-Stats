@@ -634,6 +634,14 @@ class Player(commands.Cog):
         embed.set_author(name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
+        chonks = [player_friends[i:i + 20] for i in range(0, len(player_friends), 20)]
+
+        if len(chonks) <= 3:
+            for chonk in chonks:
+                embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
+                    "\n\n".join([(await self.cache.get_player(pp)).DISPLAY_NAME for pp in chonk])))
+
+        """
         if len(player_friends) <= 40:
             mid = ceil(len(player_friends) / 2)
             # I fucking love one liners
@@ -642,6 +650,7 @@ class Player(commands.Cog):
                                 "\n\n".join([await self.cache.get_player_name(p) for p in player_friends[:mid]])))
             embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                 "\n\n".join([await self.cache.get_player_name(p) for p in player_friends[mid:]])))
+        """
 
         await ctx.send(embed=embed)
 
