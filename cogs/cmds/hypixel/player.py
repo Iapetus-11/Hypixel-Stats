@@ -652,7 +652,7 @@ class Player(commands.Cog):
                         name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                         icon_url=await self.cache.get_player_head(puuid))
 
-                    await ctx.send(chonks)
+                    await ctx.send(len(chonks))
 
                     await ctx.send(f"DEBUG: {len(chonks[offset:offset + 3])}")
 
