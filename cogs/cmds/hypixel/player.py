@@ -643,44 +643,17 @@ class Player(commands.Cog):
         embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
-        chonks = [player_friends[i:i + 15] for i in range(0, len(player_friends), 15)]
+        chonks = [player_friends[i:i + 10] for i in range(0, len(player_friends), 10)]
 
-        if len(chonks) <= 3:
+        if len(chonks) <= 20:
             for chonk in chonks:
                 embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                     "\n\n".join(await self.clean_convert(chonk))))
 
             await ctx.send(embed=embed)
         else:
-            try:
-                offset = 0
-                e = None
-                while offset < len(chonks):
-                    embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
-
-                    embed.set_author(
-                        name=f"{player}'s friends ({len(player_friends)} total!)",
-                        icon_url=await self.cache.get_player_head(puuid))
-
-                    await ctx.send(type(chonks))
-
-                    for chonk in chonks[offset:offset + 3]:
-                        embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
-                            "\n\n".join(await self.clean_convert(chonk))))
-
-                    if e is None:
-                        e = await ctx.send(embed=embed)
-                    else:
-                        await e.edit(embed=embed)
-
-                    def czech(m):
-                        return m.author.id == ctx.author.id and m.content == "more"
-
-                    await self.bot.wait_for("message", check=czech, timeout=20)
-                    offset += 3
-                await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's all of em!"))
-            except asyncio.TimeoutError:
-                pass
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description="At this time, we can't show that many friends, sorry!"))
 
     @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer", "player_guild"])
     @commands.cooldown(1, 5, commands.BucketType.user)
