@@ -639,7 +639,7 @@ class Player(commands.Cog):
         if len(chonks) <= 3:
             for chonk in chonks:
                 embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
-                    "\n\n".join([(await self.cache.get_player(pp)).DISPLAY_NAME for pp in chonk])))
+                    "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
 
         """
         if len(player_friends) <= 40:
