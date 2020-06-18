@@ -646,7 +646,11 @@ class Player(commands.Cog):
                 offset = 0
                 e = None
                 while offset + 3 < len(chonks):
-                    embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
+                    if offset + 6 < len(chonks):
+                        embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
+                    else:
+                        embed = discord.Embed(color=self.bot.cc)
+
                     embed.set_author(
                         name=f"{discord.utils.escape_markdown(player)}'s friends ({len(player_friends)} total!)",
                         icon_url=await self.cache.get_player_head(puuid))
