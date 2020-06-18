@@ -15,6 +15,7 @@ import logging
 import os
 from discord.ext import commands
 from dotenv import load_dotenv
+from random import randint
 
 # loads environment variables
 load_dotenv()
@@ -22,10 +23,15 @@ TOKEN = os.getenv('discord_token')
 DB_PASSWORD = os.getenv('db_password')
 HYPIXEL = os.getenv('hypixel_key')
 
-
 # sets up logging methods
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying errors
+
+tips = [
+    "Need more help? Check out the [support server](https://discord.gg/MZ2cXxF)!",
+    "Hey! Check out one of our other bots, [vidio](https://top.gg/bot/689210550680682560), a YouTube sim/roleplay bot!",
+    "Hey! Check out another of our bots, [Villager Bot!](https://top.gg/bot/639498607632056321), a Minecraft themed bot with a ton of features!"
+]
 
 
 async def get_prefix(_bot, message):
@@ -93,7 +99,6 @@ for cog in bot.cog_list:
 
 @bot.check
 async def bot_check(ctx):
-
     if not bot.is_ready():
         embed = discord.Embed(
             color=bot.cc,
@@ -101,6 +106,10 @@ async def bot_check(ctx):
         )
         await ctx.send(embed=embed)
         return False
+
+    if randint(0, 30) == 15:
+        await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+                                           description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
 
     return not ctx.author.bot
 
