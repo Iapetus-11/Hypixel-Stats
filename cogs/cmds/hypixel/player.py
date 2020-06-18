@@ -646,8 +646,6 @@ class Player(commands.Cog):
                 offset = 0
                 e = None
                 while offset + 3 < len(chonks):
-                    await ctx.send(chonks[offset:offset + 3])
-
                     embed = discord.Embed(color=self.bot.cc, description="Type ``more`` to see more!")
 
                     embed.set_author(
