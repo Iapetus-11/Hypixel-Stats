@@ -652,7 +652,7 @@ class Player(commands.Cog):
                     for chonk in chonks[offset:offset + 3]:
                         embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
                             "\n\n".join([await self.cache.get_player_name(pp) for pp in chonk])))
-                    embed.set_author(text="Type \"more\" to see more!")
+                    embed.set_footer(text="Type \"more\" to see more!")
                     await ctx.send(embed=embed)
 
                     def czech(m):
