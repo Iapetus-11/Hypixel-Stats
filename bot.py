@@ -61,6 +61,7 @@ bot.start_time = None  # Will be set later in cogs.core.events
 bot.timeout_message = "You took too long to answer, the command was canceled."
 bot.ratelimited_wait_time = .75  # seconds, obviously
 bot.hypixel_key = HYPIXEL
+bot.cmd_count = 0
 
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
@@ -99,6 +100,8 @@ for cog in bot.cog_list:
 
 @bot.check
 async def bot_check(ctx):
+    bot.cmd_count += 1
+
     if not bot.is_ready():
         embed = discord.Embed(
             color=bot.cc,
