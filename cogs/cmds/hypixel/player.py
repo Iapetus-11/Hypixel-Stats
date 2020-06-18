@@ -659,6 +659,7 @@ class Player(commands.Cog):
                         return m.author.id == ctx.author.id and m.content == "more"
 
                     await self.bot.wait_for("message", check=czech, timeout=20)
+                    offset += 3
             except asyncio.TimeoutError:
                 pass
 
