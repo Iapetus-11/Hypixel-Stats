@@ -577,14 +577,18 @@ class Player(commands.Cog):
     async def player_friends(self, ctx, player):
         await ctx.trigger_typing()
 
+        puuid = await self.cache.get_player_uuid(player)
+
         player_friends = await self.cache.get_player_friends(player)
         if not player_friends:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                                description=f"**{discord.utils.escape_markdown(player)}** doesn't have any friends! :cry:"))
             return
 
-        embed = discord.Embed(color=self.bot.cc,
-                              title=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)")
+        embed = discord.Embed(color=self.bot.cc)
+
+        embed.set_author(name=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)",
+                         icon_url=await self.cache.get_player_head(puuid))
 
         body = ""
         count = 0
@@ -606,8 +610,32 @@ class Player(commands.Cog):
             embed_count += 1
 
         if len(embed) > 5095 or embed_count > 35:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=f"{discord.utils.escape_markdown(player)} has too many friends to show!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"{discord.utils.escape_markdown(player)} has too many friends to show!"))
             return
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="test_friends")
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def player_friends(self, ctx, player):
+        await ctx.trigger_typing()
+
+        puuid = await self.cache.get_player_uuid(player)
+
+        player_friends = await self.cache.get_player_friends(player)
+        if not player_friends:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"**{discord.utils.escape_markdown(player)}** doesn't have any friends! :cry:"))
+            return
+
+        embed = discord.Embed(color=self.bot.cc)
+
+        embed.set_author(name=f"**{discord.utils.escape_markdown(player)}**'s friends ({len(player_friends)} total!)",
+                         icon_url=await self.cache.get_player_head(puuid))
+
+        if len(player_friends) <= 20:
+            embed.add_field(name="\uFEFF", value="\n\n".join(player_friends))
 
         await ctx.send(embed=embed)
 
