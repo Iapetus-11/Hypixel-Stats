@@ -90,11 +90,11 @@ class Cache(commands.Cog):
                 return player
 
         # By this point, player must be a username
-        uuid = self.name_uuid_cache.get(player.lower())
+        uuid = self.name_uuid_cache.get(player)
 
         if uuid is None:
             uuid = await self.hypixel.usernameToUUID(player)
-            self.name_uuid_cache[player.lower()] = uuid
+            self.name_uuid_cache[player] = uuid
 
         if uuid not in self.valid_names_and_uuids:
             self.valid_names_and_uuids.append(uuid)
@@ -104,7 +104,7 @@ class Cache(commands.Cog):
         """Fetches a player's username via their mc uuid"""
 
         if len(player) <= 16:
-            if player.lower() in self.valid_names_and_uuids:
+            if player in self.valid_names_and_uuids:
                 return player
 
         # By this point, player is a uuid
