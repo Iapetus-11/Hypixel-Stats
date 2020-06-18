@@ -601,7 +601,7 @@ class Player(commands.Cog):
                 count = 0
                 body = ""
             count += 1
-        if count > 0:
+        if body != "":
             embed.add_field(name="\uFEFF", value=body)
             embed_count += 1
 
