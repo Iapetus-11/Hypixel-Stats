@@ -117,8 +117,6 @@ class Cache(commands.Cog):
         if name not in self.valid_names_and_uuids:
             self.valid_names_and_uuids.append(name.lower())
 
-        await self.bot.get_channel(718983583779520540).send("DONE WITH GET_NAME")
-
         return name
 
     async def rate_limit_wait(self, to_be_awaited):
