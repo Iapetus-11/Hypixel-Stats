@@ -635,9 +635,12 @@ class Player(commands.Cog):
                          icon_url=await self.cache.get_player_head(puuid))
 
         if len(player_friends) <= 20:
+            mid = ceil(len(player_friends) / 2)
             # I fucking love one liners
             embed.add_field(name="\uFEFF", value="\n\n".join(
-                [discord.utils.escape_markdown(await self.cache.get_player_name(p)) for p in player_friends]))
+                [discord.utils.escape_markdown(await self.cache.get_player_name(p)) for p in player_friends[:mid]]))
+            embed.add_field(name="\uFEFF", value="\n\n".join(
+                [discord.utils.escape_markdown(await self.cache.get_player_name(p)) for p in player_friends[mid:]]))
 
         await ctx.send(embed=embed)
 
