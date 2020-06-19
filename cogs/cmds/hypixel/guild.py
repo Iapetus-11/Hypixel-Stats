@@ -21,7 +21,7 @@ class Guild(commands.Cog):
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
         g = await self.cache.get_guild(guild_id)
 
-        author = discord.utils.escape_markdown(g.NAME)
+        author = g.NAME
 
         desc = g.DESCRIPTION
         if desc is None:

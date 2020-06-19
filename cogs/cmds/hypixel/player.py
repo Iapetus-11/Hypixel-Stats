@@ -62,7 +62,7 @@ class Player(commands.Cog):
             else:
                 rank = "None"
 
-        embed.set_author(name=f"{prefix}{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
+        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
         embed.add_field(name="Level",
@@ -426,7 +426,8 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
-            embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
+            embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
+            embed.add_field(name="Stars", value=bedwars.get())
             await ctx.send(embed=embed)
         elif stat in ["truecombat", "true combat"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
