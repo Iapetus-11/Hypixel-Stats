@@ -614,8 +614,10 @@ class Player(commands.Cog):
                     embed = discord.Embed(color=self.bot.cc)
 
                 embed.set_author(
-                    name=f"[Page {page}/{max_pages}] of {player}'s friends ({len(player_friends)} total!)",
+                    name=f"{player}'s friends ({len(player_friends)} total!)",
                     icon_url=head)
+
+                embed.set_footer(text=f"[Page {page}/{max_pages}]")
 
                 for i in range(0, 3, 1):
                     try:
