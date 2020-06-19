@@ -266,7 +266,7 @@ class Games(commands.Cog):
                              f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
 
         iteration = 0
-        while True:
+        while iteration <= 3:
             await ctx.send(profile_names)
             index = await self.bot.wait_for('message', check=author_check, timeout=120)
 
