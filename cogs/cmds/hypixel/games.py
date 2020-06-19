@@ -19,11 +19,11 @@ class Games(commands.Cog):
     async def arcade(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        arcade = p.STATS["Arcade"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Arcade Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        arcade = p.STATS["Arcade"]
 
         embed.add_field(name="All Time Coins", value=floor(arcade.get("coins")), inline=False)
         embed.add_field(name="Coins This Month",
@@ -39,11 +39,11 @@ class Games(commands.Cog):
     async def arena(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        arena = p.STATS["Arena"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Arena Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        arena = p.STATS["Arena"]
 
         embed.add_field(name="Coins", value=arena.get("coins"), inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
@@ -75,12 +75,12 @@ class Games(commands.Cog):
     async def battleground(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        battle = p.STATS["Battleground"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Battleground Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        battle = p.STATS["Battleground"]
 
         embed.add_field(name="Coins", value=battle.get("coins"), inline=True)
         embed.add_field(name="Wins", value=battle.get("wins"), inline=True)
@@ -105,12 +105,12 @@ class Games(commands.Cog):
     async def hunger_games(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        hunger = p.STATS["HungerGames"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hungergames Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        hunger = p.STATS["HungerGames"]
 
         embed.add_field(name="Coins", value=hunger.get("coins"), inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
@@ -131,11 +131,11 @@ class Games(commands.Cog):
     async def paintball(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        paint = p.STATS["Paintball"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Paintball Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        paint = p.STATS["Paintball"]
 
         embed.add_field(name="Coins", value=paint.get("coins"), inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
@@ -158,11 +158,11 @@ class Games(commands.Cog):
     async def quake(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        quake = p.STATS["Quake"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Quake Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        quake = p.STATS["Quake"]
 
         embed.add_field(name="Coins", value=quake.get("coins"), inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
@@ -188,11 +188,11 @@ class Games(commands.Cog):
     async def uhc(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        uhc = p.STATS["UHC"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        uhc = p.STATS["UHC"]
 
         embed.add_field(name="Coins", value=uhc.get("coins"), inline=True)
         embed.add_field(name="Wins", value=uhc.get("wins"), inline=True)
@@ -215,11 +215,11 @@ class Games(commands.Cog):
     async def vampirez(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        vampire = p.STATS["VampireZ"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s VampireZ Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        vampire = p.STATS["VampireZ"]
 
         embed.add_field(name="Coins", value=vampire.get("coins"), inline=False)
 
@@ -249,11 +249,11 @@ class Games(commands.Cog):
     async def walls(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        walls = p.STATS["Walls"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Walls Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        walls = p.STATS["Walls"]
 
         embed.add_field(name="Coins", value=walls.get("coins"), inline=True)
         embed.add_field(name="Wins", value=walls.get("wins"), inline=True)
@@ -272,12 +272,12 @@ class Games(commands.Cog):
     async def turbo_kart_racer(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        bread = p.STATS["GingerBread"]  # WHAT THE FUCK HYPIXEL DEVS
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Turbo Kart Racer Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        bread = p.STATS["GingerBread"]  # WHAT THE FUCK HYPIXEL DEVS
 
         embed.add_field(name="Coins", value=bread.get("coins"), inline=True)
         embed.add_field(name="Wins", value=bread.get("wins"), inline=True)
@@ -298,11 +298,11 @@ class Games(commands.Cog):
     async def skywars(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        sky = p.STATS["SkyWars"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Wars Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        sky = p.STATS["SkyWars"]
 
         embed.add_field(name="Coins", value=sky.get("coins"), inline=True)
         embed.add_field(name="Games", value=sky.get("games"), inline=True)
@@ -334,11 +334,11 @@ class Games(commands.Cog):
     async def speed_uhc(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        suhc = p.STATS["SpeedUHC"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Speed UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        suhc = p.STATS["SpeedUHC"]
 
         embed.add_field(name="Coins", value=suhc.get("coins"), inline=True)
         embed.add_field(name="Games", value=suhc.get("games"), inline=True)
@@ -367,12 +367,12 @@ class Games(commands.Cog):
     async def build_battle(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        bb = p.STATS["BuildBattle"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Build Battle Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        bb = p.STATS["BuildBattle"]
 
         embed.add_field(name="Coins", value=bb.get("coins"), inline=True)
         embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
@@ -389,11 +389,11 @@ class Games(commands.Cog):
     async def bedwars(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        bedwars = p.STATS["Bedwars"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats", icon_url=await self.cache.get_player_head(p.UUID))
-
-        bedwars = p.STATS["Bedwars"]
 
         embed.add_field(name="XP", value=bedwars.get("Experience"))
         embed.add_field(name="Coins", value=bedwars.get("coins"))
@@ -422,12 +422,12 @@ class Games(commands.Cog):
     async def true_combat(self, ctx, *player):
         p = await self.cache.get_player(player)
 
+        truecombat = p.STATS["TrueCombat"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s\nTrue Combat Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        truecombat = p.STATS["TrueCombat"]
 
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Coins", value=truecombat.get("coins"), inline=True)
@@ -440,12 +440,12 @@ class Games(commands.Cog):
     async def tnt_games(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        tntgames = p.STATS["TNTGames"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s TNT Games Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        tntgames = p.STATS["TNTGames"]
 
         embed.add_field(name="Coins", value=tntgames.get("coins"))
         embed.add_field(name="Wins", value=tntgames.get("wins"))
@@ -467,12 +467,12 @@ class Games(commands.Cog):
     async def super_smash(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        supersmash = p.STATS["SuperSmash"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s\nSuper Smash Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        supersmash = p.STATS["SuperSmash"]
 
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Coins", value=supersmash.get("coins"), inline=True)
@@ -485,12 +485,12 @@ class Games(commands.Cog):
     async def murder_mystery(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        mystery = p.STATS["MurderMystery"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Murder Mystery Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        mystery = p.STATS["MurderMystery"]
 
         embed.add_field(name="Coins", value=mystery.get("coins"), inline=True)
         embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
@@ -509,12 +509,12 @@ class Games(commands.Cog):
     async def cops_and_criminals(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        mcgo = p.STATS["MCGO"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Cops & Crims Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        mcgo = p.STATS["MCGO"]
 
         embed.add_field(name="Coins", value=mcgo.get("coins"), inline=True)
         embed.add_field(name="Wins", value=mcgo.get("game_wins"), inline=True)
@@ -539,12 +539,12 @@ class Games(commands.Cog):
     async def sky_clash(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        clash = p.STATS["SkyClash"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Clash Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        clash = p.STATS["SkyClash"]
 
         embed.add_field(name="Coins", value=clash.get("coins"), inline=True)
         embed.add_field(name="Wins", value=clash.get("wins"), inline=True)
@@ -568,12 +568,12 @@ class Games(commands.Cog):
     async def duels(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        duels = p.STATS["Duels"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        duels = p.STATS["Duels"]
 
         embed.add_field(name="Coins", value=duels.get("coins"), inline=False)
 
@@ -609,12 +609,12 @@ class Games(commands.Cog):
     async def hypixel_pit(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
+        armpit = p.STATS["Pit"]["pit_stats_ptl"]
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hypixel Pit Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
-
-        armpit = p.STATS["Pit"]["pit_stats_ptl"]
 
         embed.add_field(name="Cash", value=armpit.get("cash_earned"), inline=True)
         embed.add_field(name="Joins", value=armpit.get("joins"), inline=True)
