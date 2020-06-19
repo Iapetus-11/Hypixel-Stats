@@ -48,7 +48,12 @@ class Player(commands.Cog):
         else:
             player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
+        if p.PREFIX is None:
+            prefix = ""
+        else:
+            prefix = await self.filter_prefix(p.PREFIX)
+
+        embed.set_author(name=f"{prefix}{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Status", value=online)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
@@ -59,7 +64,7 @@ class Player(commands.Cog):
                         value=f"{await self.cache.hypixel.calcPlayerLevel(p.EXP if p.EXP is not None else 0)}",
                         inline=True)
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
-        embed.add_field(name="Guild", value=f"{discord.utils.escape_markdown(p.GUILD)}", inline=False)
+        embed.add_field(name="Guild", value=f"{discord.utils.escape_markdown(player_guild)}", inline=False)
 
         await ctx.send(embed=embed)
 
