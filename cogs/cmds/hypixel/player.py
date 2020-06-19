@@ -47,7 +47,7 @@ class Player(commands.Cog):
             guild = "none"
         else:
             guild = await self.cache.get_guild_name_from_id(p.GUILD)
-            guild = f"[{guild}](https://hypixel.net/guilds/{guild}"
+            guild = f"[{discord.utils.escape_markdown(guild)}](https://hypixel.net/guilds/{guild}"
 
         if p.PREFIX is None:
             prefix = ""
@@ -62,7 +62,7 @@ class Player(commands.Cog):
                         inline=True)
         embed.add_field(name="Karma", value=f"{p.KARMA}", inline=True)
 
-        embed.add_field(name="Guild", value=f"{discord.utils.escape_markdown(guild)}", inline=True)
+        embed.add_field(name="Guild", value=f"{guild}", inline=True)
         embed.add_field(name="Status", value=online, inline=True)
         embed.add_field(name="Last Online", value=f"{last_online}", inline=True)
 
