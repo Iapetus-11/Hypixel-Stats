@@ -96,7 +96,7 @@ class Player(commands.Cog):
             games.append(proper_spellings.get(game, game))
 
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"Available stats for this player (send which one you want): ``{', '.join(games)}``"))
+                                           description=f"Available stats for this player (send which one you want): `{'`, `'.join(games)}`"))
 
         def check(m):
             return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
