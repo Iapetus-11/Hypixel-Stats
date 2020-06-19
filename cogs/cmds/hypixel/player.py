@@ -48,7 +48,7 @@ class Player(commands.Cog):
             guild = "None"
         else:
             guild = await self.cache.get_guild_name_from_id(p.GUILD)
-            guild = f"[{discord.utils.escape_markdown(guild)}]({parse.quote('https://hypixel.net/guilds/{guild}')})"
+            guild = f"[{discord.utils.escape_markdown(guild)}]({'https://hypixel.net/guilds/{guild}'})"
 
         if p.PREFIX is None:
             prefix = ""
