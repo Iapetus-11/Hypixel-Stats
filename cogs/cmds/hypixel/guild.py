@@ -51,6 +51,8 @@ class Guild(commands.Cog):
 
         embed.add_field(name="Created", value=created, inline=False)
 
+        embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
+
         await ctx.send(embed=embed)
 
     @commands.command(name="guildmembers", aliases=["gmembers", "guildplayers", "gms", "members"])
