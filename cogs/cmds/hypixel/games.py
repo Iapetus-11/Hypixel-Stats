@@ -262,7 +262,8 @@ class Games(commands.Cog):
         iteration = 1
 
         for profile in profiles:
-            profile_names += f'``{str(iteration)}.`` {profile.get("cute_name")} ``({profile.get("profile_id")})``\n'
+            profile_names += f'``{str(iteration)}.`` {skyblock["profiles"][profile].get("cute_name")} ' \
+                             f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
 
         iteration = 0
         while True:
@@ -275,7 +276,7 @@ class Games(commands.Cog):
                         await ctx.send("**Please enter a valid index.** Cancelling process.")
                         return
                     await ctx.send(f"**Invalid Index!** Please try again.")
-                    iteration +=1
+                    iteration += 1
                     continue
             except ValueError:
                 if iteration > 3:
@@ -287,7 +288,7 @@ class Games(commands.Cog):
 
             index = int(index.content) - 1
 
-        await ctx.send(f"Test - you chose {profiles[index].get('cute_name')}")
+        await ctx.send(f"Test - you chose {skyblock['profiles'][index].get('cute_name')}")
 
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
