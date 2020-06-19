@@ -42,11 +42,12 @@ class Player(commands.Cog):
 
         player_pfp = await self.cache.get_player_head(p.UUID)
 
-        player_guild = p.GUILD
+        guild = p.GUILD
         if player_guild is None:
-            player_guild = "none"
+            guild = "none"
         else:
-            player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
+            guild = await self.cache.get_guild_name_from_id(p.GUILD)
+            guild = f"[{guild}](https://hypixel.net/guilds/{guild}"
 
         if p.PREFIX is None:
             prefix = ""
