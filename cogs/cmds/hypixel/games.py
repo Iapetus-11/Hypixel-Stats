@@ -287,6 +287,7 @@ class Games(commands.Cog):
                 continue
 
             index = int(index.content) - 1
+            break
 
         await ctx.send(f"Test - you chose {skyblock['profiles'][index].get('cute_name')}")
 
