@@ -515,7 +515,7 @@ class Games(commands.Cog):
 
     @commands.command(name="truecombat", aliases=["tc", "true_combat"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def true_combat(self, ctx, *player):
+    async def true_combat(self, ctx, *, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
