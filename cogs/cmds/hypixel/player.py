@@ -15,6 +15,13 @@ class Player(commands.Cog):
 
         self.games_to_ignore = ["Walls3", "Legacy", "SkyBlock", "Housing"]
 
+    async def filter_prefix(self, pp):
+        cleaned = ""
+        for i in range(1, len(pp), 1):
+            if pp[i - 1] != "§" and pp[i] != "§":
+                cleaned += pp[i]
+        return cleaned
+
     @commands.group(name="playerprofile", aliases=["profile", "pp", "player"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):
@@ -27,12 +34,11 @@ class Player(commands.Cog):
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None:
             last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
-        if p.LAST_LOGIN is None or p.LAST_LOGOUT is None:
-            online = "N/A"
-            last_online = "N/A"
-        elif p.LAST_LOGIN > p.LAST_LOGOUT:
             online = f"{self.bot.EMOJIS['online_status']} online"
             last_online = "now"  # bc this value is obtained from last_login
+        else:
+            online = f"{self.bot.EMOJIS['offline_status']} offline"
+            last_online = "Never"
 
         player_pfp = await self.cache.get_player_head(p.UUID)
 
@@ -47,13 +53,13 @@ class Player(commands.Cog):
         embed.add_field(name="Status", value=online)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Last Online", value=f"{last_online}")
-        embed.add_field(name="XP", value=f"{p.EXP}", inline=True)
+        embed.add_field(name="Karma", value=f"{p.KARMA}", inline=True)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Level",
                         value=f"{await self.cache.hypixel.calcPlayerLevel(p.EXP if p.EXP is not None else 0)}",
                         inline=True)
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
-        embed.add_field(name="Guild", value=f"{player_guild}", inline=False)
+        embed.add_field(name="Guild", value=f"{discord.utils.escape_markdown(p.GUILD)}", inline=False)
 
         await ctx.send(embed=embed)
 
