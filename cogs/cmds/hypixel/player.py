@@ -609,10 +609,10 @@ class Player(commands.Cog):
             try:
                 stop = False
                 page = 0
+                max_pages = ceil(len(chonks) / 3)
 
                 while True:
                     page += 1
-                    max_pages = ceil(len(chonks) / 3)
 
                     if not stop:
                         embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
