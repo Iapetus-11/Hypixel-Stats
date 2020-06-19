@@ -69,7 +69,7 @@ class Player(commands.Cog):
 
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
 
-        embed.set_footer("Made by Iapetus11 & TrustedMercury")
+        embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
 
         await ctx.send(embed=embed)
 
