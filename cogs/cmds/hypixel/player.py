@@ -600,50 +600,44 @@ class Player(commands.Cog):
 
         chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
 
-        if len(chonks) <= 3:
-            for chonk in chonks:
-                embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown("\n\n".join(chonk)))
+        try:
+            stop = False
+            page = 0
+            max_pages = ceil(len(chonks) / 3)
 
-            await ctx.send(embed=embed)
-        else:
-            try:
-                stop = False
-                page = 0
-                max_pages = ceil(len(chonks) / 3)
+            while True:
+                page += 1
 
-                while True:
-                    page += 1
+                if not stop:
+                    embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
+                else:
+                    embed = discord.Embed(color=self.bot.cc)
 
-                    if not stop:
-                        embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
-                    else:
-                        embed = discord.Embed(color=self.bot.cc)
+                embed.set_author(
+                    name=f"Page [{page}/{max_pages}] of {player}'s friends ({len(player_friends)} total!)",
+                    icon_url=head)
 
-                    embed.set_author(
-                        name=f"Page [{page}/{max_pages}] of {player}'s friends ({len(player_friends)} total!)",
-                        icon_url=head)
+                for i in range(0, 3, 1):
+                    try:
+                        embed.add_field(name="\uFEFF",
+                                        value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+                    except IndexError:
+                        pass
 
-                    for i in range(0, 3, 1):
-                        try:
-                            embed.add_field(name="\uFEFF",
-                                            value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
-                        except IndexError:
-                            pass
+                await ctx.send(embed=embed)
 
-                    await ctx.send(embed=embed)
+                if stop:
+                    return
 
-                    if stop:
-                        return
+                if len(chonks) - 3 < 1:
+                    stop = True
 
-                    if len(chonks) - 3 < 1:
-                        stop = True
+                def check(m):
+                    return m.author.id == ctx.author.id and m.content == "more"
 
-                    def check(m):
-                        return m.author.id == ctx.author.id and m.content == "more"
-
-                    await self.bot.wait_for("message", check=check, timeout=20)
-            except asyncio.TimeoutError:
-                pass
+                await self.bot.wait_for("message", check=check, timeout=20)
+        except asyncio.TimeoutError:
+            pass
 
     @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer", "player_guild"])
     @commands.cooldown(1, 5, commands.BucketType.user)
