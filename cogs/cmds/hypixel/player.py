@@ -58,7 +58,7 @@ class Player(commands.Cog):
 
         if rank is None:
             if prefix != "":
-                rank = prefix[1:len(prefix) - 1]
+                rank = prefix[1:len(prefix) - 2]
             else:
                 rank = "None"
 
