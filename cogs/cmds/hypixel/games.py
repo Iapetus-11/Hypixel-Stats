@@ -34,7 +34,8 @@ class Games(commands.Cog):
 
     @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats"])
     async def player_stats(self, ctx):
-        embed = discord.Embed(color=self.bot.cc, title="Available Statistics",
+        embed = discord.Embed(color=self.bot.cc,
+                              title=":chart_with_upwards_trend: Available Statistics :chart_with_downwards_trend:",
                               description=f"`{'`, `'.join(self.games)}`\n\nDo `{ctx.prefix}<stat> <player>` to view a certain stat!")
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
         await ctx.send(embed=embed)
