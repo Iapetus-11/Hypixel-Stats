@@ -163,7 +163,7 @@ class Player(commands.Cog):
 
             total_dmg = sum({k: v for k, v in arena.items() if "games_" in k}.values())
             embed.add_field(name="Total Damage", value=total_dmg, inline=True)
-            embed.add_field(name="Rating", value=round(arena.get("rating"), 2), inline=True)
+            embed.add_field(name="Rating", value=round(arena.get("rating", 0), 2), inline=True)
             await ctx.send(embed=embed)
         elif stat in ["battleground", "battlegrounds", "battle ground"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Battleground Stats",
