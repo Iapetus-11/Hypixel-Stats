@@ -51,7 +51,7 @@ class Player(commands.Cog):
         if p.PREFIX is None:
             prefix = ""
         else:
-            prefix = await self.filter_prefix(p.PREFIX)
+            prefix = await self.filter_prefix(p.PREFIX) + " "
 
         embed.set_author(name=f"{prefix}{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
