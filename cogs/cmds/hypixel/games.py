@@ -31,6 +31,8 @@ class Games(commands.Cog):
 
         try:
             arcade = p.STATS["Arcade"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -50,7 +52,10 @@ class Games(commands.Cog):
     async def arena(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        arena = p.STATS["Arena"]
+        try:
+            arena = p.STATS["Arena"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -86,7 +91,10 @@ class Games(commands.Cog):
     async def battleground(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        battle = p.STATS["Battleground"]
+        try:
+            battle = p.STATS["Battleground"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -116,7 +124,10 @@ class Games(commands.Cog):
     async def hunger_games(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        hunger = p.STATS["HungerGames"]
+        try:
+            hunger = p.STATS["HungerGames"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -142,7 +153,10 @@ class Games(commands.Cog):
     async def paintball(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        paint = p.STATS["Paintball"]
+        try:
+            paint = p.STATS["Paintball"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -169,7 +183,10 @@ class Games(commands.Cog):
     async def quake(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        quake = p.STATS["Quake"]
+        try:
+            quake = p.STATS["Quake"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -199,7 +216,10 @@ class Games(commands.Cog):
     async def uhc(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        uhc = p.STATS["UHC"]
+        try:
+            uhc = p.STATS["UHC"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -226,7 +246,10 @@ class Games(commands.Cog):
     async def vampirez(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        vampire = p.STATS["VampireZ"]
+        try:
+            vampire = p.STATS["VampireZ"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -260,7 +283,10 @@ class Games(commands.Cog):
     async def walls(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        walls = p.STATS["Walls"]
+        try:
+            walls = p.STATS["Walls"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -283,7 +309,10 @@ class Games(commands.Cog):
     async def turbo_kart_racer(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        bread = p.STATS["GingerBread"]  # WHAT THE FUCK HYPIXEL DEVS
+        try:
+            bread = p.STATS["GingerBread"]  # WHAT THE FUCK HYPIXEL DEVS
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -309,7 +338,10 @@ class Games(commands.Cog):
     async def skywars(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        sky = p.STATS["SkyWars"]
+        try:
+            sky = p.STATS["SkyWars"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -345,7 +377,10 @@ class Games(commands.Cog):
     async def speed_uhc(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        suhc = p.STATS["SpeedUHC"]
+        try:
+            suhc = p.STATS["SpeedUHC"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -378,7 +413,10 @@ class Games(commands.Cog):
     async def build_battle(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        bb = p.STATS["BuildBattle"]
+        try:
+            bb = p.STATS["BuildBattle"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -400,7 +438,10 @@ class Games(commands.Cog):
     async def bedwars(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        bedwars = p.STATS["Bedwars"]
+        try:
+            bedwars = p.STATS["Bedwars"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -433,7 +474,10 @@ class Games(commands.Cog):
     async def true_combat(self, ctx, *player):
         p = await self.cache.get_player(player)
 
-        truecombat = p.STATS["TrueCombat"]
+        try:
+            truecombat = p.STATS["TrueCombat"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -451,7 +495,10 @@ class Games(commands.Cog):
     async def tnt_games(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        tntgames = p.STATS["TNTGames"]
+        try:
+            tntgames = p.STATS["TNTGames"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -478,7 +525,10 @@ class Games(commands.Cog):
     async def super_smash(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        supersmash = p.STATS["SuperSmash"]
+        try:
+            supersmash = p.STATS["SuperSmash"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -496,7 +546,10 @@ class Games(commands.Cog):
     async def murder_mystery(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        mystery = p.STATS["MurderMystery"]
+        try:
+            mystery = p.STATS["MurderMystery"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -520,7 +573,10 @@ class Games(commands.Cog):
     async def cops_and_criminals(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        mcgo = p.STATS["MCGO"]
+        try:
+            mcgo = p.STATS["MCGO"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -550,7 +606,10 @@ class Games(commands.Cog):
     async def sky_clash(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        clash = p.STATS["SkyClash"]
+        try:
+            clash = p.STATS["SkyClash"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -579,7 +638,10 @@ class Games(commands.Cog):
     async def duels(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        duels = p.STATS["Duels"]
+        try:
+            duels = p.STATS["Duels"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -620,7 +682,10 @@ class Games(commands.Cog):
     async def hypixel_pit(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        armpit = p.STATS["Pit"]["pit_stats_ptl"]
+        try:
+            armpit = p.STATS["Pit"]["pit_stats_ptl"]
+        except KeyError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
