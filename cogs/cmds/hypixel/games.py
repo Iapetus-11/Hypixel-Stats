@@ -251,8 +251,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Walls Stats",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Walls Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         walls = p.STATS["Walls"]
 
@@ -275,10 +274,10 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Turbo Kart Racer Stats",
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Turbo Kart Racer Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        bread = p.STATS["GingerBread"]
+        bread = p.STATS["GingerBread"]  # WHAT THE FUCK HYPIXEL DEVS
 
         embed.add_field(name="Coins", value=bread.get("coins"), inline=True)
         embed.add_field(name="Wins", value=bread.get("wins"), inline=True)
@@ -297,6 +296,72 @@ class Games(commands.Cog):
     @commands.command(name="skywars", aliases=["skywar", "skw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skywars(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Wars Stats", icon_url=await self.cache.get_player_head(p.UUID))
+
+        sky = p.STATS["SkyWars"]
+
+        embed.add_field(name="Coins", value=sky.get("coins"), inline=True)
+        embed.add_field(name="Games", value=sky.get("games"), inline=True)
+        embed.add_field(name="Quits", value=sky.get("quits"), inline=True)
+
+        embed.add_field(name="Wins", value=sky.get("wins"), inline=True)
+        embed.add_field(name="Winstreak", value=sky.get("win_streak"), inline=True)
+        embed.add_field(name="Losses", value=sky.get("losses"), inline=True)
+
+        kills = sky.get("kills", 0)
+        deaths = sky.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round(
+            (kills + .00001) / (deaths + .00001), 2),
+                        inline=True)
+
+        embed.add_field(name="Bow Shots", value=sky.get("arrows_shot"), inline=True)
+        embed.add_field(name="Bow Hits", value=sky.get("arrows_hit"), inline=True)
+
+        embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown"), inline=False)
+
+        embed.add_field(name="Killstreak", value=sky.get("killstreak"), inline=False)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="speeduhc", aliases=["suhc", "speedultrahardcore", "succ"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def speed_uhc(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Speed UHC Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        suhc = p.STATS["SpeedUHC"]
+
+        embed.add_field(name="Coins", value=suhc.get("coins"), inline=True)
+        embed.add_field(name="Games", value=suhc.get("games"), inline=True)
+        embed.add_field(name="Quits", value=suhc.get("quits"), inline=True)
+
+        embed.add_field(name="Wins", value=suhc.get("wins"), inline=True)
+        embed.add_field(name="Winstreak", value=suhc.get("win_streak"), inline=True)
+        embed.add_field(name="Losses", value=suhc.get("losses"), inline=True)
+
+        kills = suhc.get("kills", 0)
+        deaths = suhc.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round(
+            (kills + .00001) / (deaths + .00001), 2),
+                        inline=True)
+
+        embed.add_field(name="Killstreak", value=suhc.get("killstreak"), inline=False)
+        embed.add_field(name="Players Survived", value=suhc.get("survived_players"), inline=False)
+        embed.add_field(name="Blocks Broken", value=suhc.get("blocks_broken"), inline=False)
+
+        await ctx.send(embed=embed)
 
     @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
