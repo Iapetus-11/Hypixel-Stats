@@ -442,8 +442,8 @@ class Games(commands.Cog):
             (kills + .00001) / (deaths + .00001), 2),
                         inline=True)
 
-        embed.add_field(name="Killstreak", value=suhc.get("killstreak"), inline=False)
-        embed.add_field(name="Players Survived", value=suhc.get("survived_players"), inline=False)
+        embed.add_field(name="Killstreak", value=suhc.get("killstreak"), inline=True)
+        embed.add_field(name="Players Survived", value=suhc.get("survived_players"), inline=True)
         embed.add_field(name="Blocks Broken", value=suhc.get("blocks_broken"), inline=False)
 
         await ctx.send(embed=embed)
