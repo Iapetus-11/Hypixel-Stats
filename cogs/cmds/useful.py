@@ -44,7 +44,7 @@ class Useful(commands.Cog):
         info_msg.add_field(name="Total Users", value=str(len(self.bot.users)), inline=True)
 
         info_msg.add_field(name="Top.gg Page", value="[Click Here](https://top.gg/bot/718523903147900998)", inline=True)
-        info_msg.add_field(name="Website", value="None Yet!", inline=True)
+        info_msg.add_field(name="Website", value="[Click Here](https://villagerbot.xyz/hypixel-stats/)", inline=True)
         info_msg.add_field(name="Support", value="[Click Here](https://discord.gg/MZ2cXxF)", inline=True)
 
         info_msg.set_author(name="Hypixel Stats Information",
