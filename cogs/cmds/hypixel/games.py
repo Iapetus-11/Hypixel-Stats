@@ -262,7 +262,7 @@ class Games(commands.Cog):
         iteration = 1
 
         for profile in profiles:
-            profile_names += f'``{str(iteration)}.`` {skyblock["profiles"][profile].get("cute_name")} ' \
+            profile_names += f'``{str(iteration)}.`` **{skyblock["profiles"][profile].get("cute_name")}** ' \
                              f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
 
         iteration = 0
@@ -289,7 +289,7 @@ class Games(commands.Cog):
             index = int(index.content) - 1
             break
 
-        await ctx.send(f"Test - you chose {skyblock['profiles'][index].get('cute_name')}")
+        await ctx.send(f"Test - you chose {skyblock['profiles'][profiles[index]].get('cute_name')}")
 
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
