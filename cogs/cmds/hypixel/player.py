@@ -606,7 +606,6 @@ class Player(commands.Cog):
         else:
             try:
                 stop = False
-
                 page = 1
 
                 while True:
@@ -618,8 +617,10 @@ class Player(commands.Cog):
                     embed.set_author(name=f"Page {page} of {player}'s friends ({len(player_friends)} total!)",
                                      icon_url=await self.cache.get_player_head(puuid))
 
+                    await ctx.send(type(chonks))
+
                     for i in range(0, 3, 1):
-                        embed.add_field(name="\uFEFF", value="\n\n".join(chonks.pop(0)))
+                        embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
 
                     await ctx.send(embed=embed)
 
