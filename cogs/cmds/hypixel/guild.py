@@ -65,32 +65,11 @@ class Guild(commands.Cog):
         embed = discord.Embed(color=self.bot.cc,
                               title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)")
 
-        body = ""
-        count = 0
-        embed_count = 0
-        for member in members:
-            member = member["uuid"]
-            try:
-                name = await self.cache.get_player_name(member)
-            except aiopypixel.exceptions.exceptions.InvalidPlayerError:
-                name = "Unknown Member"
-            body += f"{discord.utils.escape_markdown(name)}\n\n"
-            if count > ceil(len(members) / 2) if len(members) < 20 else 20:
-                embed.add_field(name="\uFEFF", value=body)
-                embed_count += 1
-                count = 0
-                body = ""
-            count += 1
-        if count > 0:
-            embed.add_field(name="\uFEFF", value=body + "\uFEFF")
-            embed_count += 1
-
-        if len(embed) > 5095 or embed_count > 35:
+        if len(members) > 1024:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                               description=f"{discord.utils.escape_markdown(g.NAME)} has too many members to show!"))
+                                               description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
             return
 
-        await ctx.send(embed=embed)
 
 
 def setup(bot):

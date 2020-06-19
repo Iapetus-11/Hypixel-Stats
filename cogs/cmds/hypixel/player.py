@@ -575,8 +575,6 @@ class Player(commands.Cog):
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
-        await ctx.trigger_typing()
-
         puuid = await self.cache.get_player_uuid(player)
 
         player_friends = await self.cache.get_player_friends(player)
@@ -596,9 +594,10 @@ class Player(commands.Cog):
         embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
                          icon_url=head)
 
-        names = [await self.cache.get_player_name(uuid) for uuid in player_friends]
+        async with ctx.typing():
+            names = [await self.cache.get_player_name(uuid) for uuid in player_friends]
 
-        chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
+            chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
 
         try:
             stop = False
