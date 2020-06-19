@@ -287,7 +287,9 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s VampireZ Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=vampire.get("coins"), inline=False)
+        embed.add_field(name="Coins", value=vampire.get("coins"), inline=True)
+        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
+        embed.add_field(nname="Gold Bought", value=vampire.get("gold_bought"), inline=True)
 
         human_kills = vampire.get("human_kills", 0)
         vampire_kills = vampire.get("vampire_kills", 0)
