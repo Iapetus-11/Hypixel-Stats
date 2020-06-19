@@ -30,17 +30,17 @@ class Games(commands.Cog):
             'arcade', 'arena', 'battleground', 'hungergames', 'paintball', 'quake', 'uhc', 'vampirez', 'walls',
             'turbokartracer', 'skywars', 'speeduhc', 'buildbattle', 'bedwars', 'truecombat', 'tntgames', 'supersmash',
             'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit'
-        ]﻿
+        ]
 
-        @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
-        @commands.cooldown(1, 2, commands.BucketType.user)
-        async def arcade(self, ctx, *, player):
-            await ctx.trigger_typing()
+    @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def arcade(self, ctx, *, player):
+        await ctx.trigger_typing()
 
-            p = await self.cache.get_player(player)
+        p = await self.cache.get_player(player)
 
-            try:
-                arcade = p.STATS["Arcade"]
+        try:
+            arcade = p.STATS["Arcade"]
         except KeyError:
             raise NoStatError
 
