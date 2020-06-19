@@ -6,6 +6,14 @@ from discord.ext import commands
 from math import floor, ceil
 
 
+class NoStatError(Exception):
+    def __init__(self):
+        self.msg = "This user doesn't have that stat!"
+
+    def __str__(self):
+        return self.msg
+
+
 class Games(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -19,7 +27,8 @@ class Games(commands.Cog):
     async def arcade(self, ctx, *, player):
         p = await self.cache.get_player(player)
 
-        arcade = p.STATS["Arcade"]
+        try:
+            arcade = p.STATS["Arcade"]
 
         embed = self.embed.copy()
 
