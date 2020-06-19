@@ -62,7 +62,7 @@ class Player(commands.Cog):
                         inline=True)
         embed.add_field(name="Karma", value=f"{p.KARMA}", inline=True)
 
-        embed.add_field(name="Guild", value=f"{discord.utils.escape_markdown(player_guild)}", inline=True)
+        embed.add_field(name="Guild", value=f"{discord.utils.escape_markdown(guild)}", inline=True)
         embed.add_field(name="Status", value=online, inline=True)
         embed.add_field(name="Last Online", value=f"{last_online}", inline=True)
 
