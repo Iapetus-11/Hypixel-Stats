@@ -133,7 +133,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Paintball Stats",
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Paintball Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         paint = p.STATS["Paintball"]
@@ -161,7 +161,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Quake Stats",
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Quake Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         quake = p.STATS["Quake"]
@@ -192,7 +192,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s UHC Stats",
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s UHC Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         uhc = p.STATS["UHC"]
@@ -216,7 +216,11 @@ class Games(commands.Cog):
     @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def bedwars(self, ctx, *, player):
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Bedwars Stats",
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         bedwars = p.STATS["Bedwars"]
