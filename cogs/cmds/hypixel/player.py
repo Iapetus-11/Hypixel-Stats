@@ -612,6 +612,7 @@ class Player(commands.Cog):
 
                 while True:
                     page += 1
+                    max_pages = ceil(len(chonks) / 3)
 
                     if not stop:
                         embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
@@ -619,7 +620,7 @@ class Player(commands.Cog):
                         embed = discord.Embed(color=self.bot.cc)
 
                     embed.set_author(
-                        name=f"Page {page}/{ceil(len(chonks) / 3)} of {player}'s friends ({len(player_friends)} total!)",
+                        name=f"Page {page}/{max_pages} of {player}'s friends ({len(player_friends)} total!)",
                         icon_url=head)
 
                     await ctx.send(type(chonks))
