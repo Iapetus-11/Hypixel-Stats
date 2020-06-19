@@ -32,12 +32,12 @@ class Player(commands.Cog):
         p = await self.cache.get_player(player)
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
-        if p.LAST_LOGIN is not None:
+        if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
             last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
-            online = f"{self.bot.EMOJIS['online_status']} online"
-            last_online = "now"  # bc this value is obtained from last_login
+            if p.LAST_LOGIN > p.LAST_LOGOUT:
+                online = f"{self.bot.EMOJIS['online_status']} online"
+                last_online = "now"  # bc this value is obtained from last_login
         else:
-            online = f"{self.bot.EMOJIS['offline_status']} offline"
             last_online = "Never"
 
         player_pfp = await self.cache.get_player_head(p.UUID)
