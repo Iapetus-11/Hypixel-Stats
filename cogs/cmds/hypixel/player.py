@@ -618,8 +618,9 @@ class Player(commands.Cog):
                     else:
                         embed = discord.Embed(color=self.bot.cc)
 
-                    embed.set_author(name=f"Page {page} of {player}'s friends ({len(player_friends)} total!)",
-                                     icon_url=head)
+                    embed.set_author(
+                        name=f"Page {page}/{ceil(len(chonks) / 3)} of {player}'s friends ({len(player_friends)} total!)",
+                        icon_url=head)
 
                     await ctx.send(type(chonks))
 
