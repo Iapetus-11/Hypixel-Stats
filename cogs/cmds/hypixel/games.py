@@ -730,8 +730,8 @@ class Games(commands.Cog):
         embed.add_field(name="Bow Hits", value=bow_shots, inline=True)
         embed.add_field(name="Accuracy", value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100}%")
 
-        melee_swings = duels.get("melee_swings")
-        melee_hits = duels.get("melee_hits")
+        melee_swings = duels.get("melee_swings", 0)
+        melee_hits = duels.get("melee_hits", 0)
         embed.add_field(name="Melee Swings", value=melee_swings, inline=True)
         embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
         embed.add_field(name="Accuracy",
