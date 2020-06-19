@@ -80,47 +80,6 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="playerstats", aliases=["pstats", "ps", "player_stats", "stats"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def player_stats(self, ctx, player):
-        await ctx.trigger_typing()
-
-        p = await self.cache.get_player(player)
-
-        for game in self.games_to_ignore:
-            if game in p.STATS:
-                p.STATS.pop(game)
-
-        proper_spellings = {
-            "HungerGames": "Hunger Games", "TNTGames": "TNT Games", "SkyWars": "Sky Wars",
-            "TrueCombat": "True Combat", "SuperSmash": "Super Smash", "SpeedUHC": "Speed UHC",
-            "SkyClash": "Sky Clash", "MurderMystery": "Murder Mystery", "BuildBattle": "Build Battle",
-            "SkyBlock": "Sky Block", "GingerBread": "Turbo Kart Racer"
-        }
-
-        games = []
-
-        for game in list(p.STATS):
-            games.append(proper_spellings.get(game, game))
-
-        await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                           description=f"Available stats for this player (send which one you want): `{'`, `'.join(games)}`"))
-
-        def check(m):
-            return m.author.id == ctx.author.id and m.channel.id == ctx.channel.id
-
-        try:
-            stat = await self.bot.wait_for("message", check=check, timeout=20)
-            stat = stat.content.lower()
-        except asyncio.TimeoutError:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description=self.bot.timeout_message))
-            return
-
-        if stat not in [s.lower() for s in games]:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                               description=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)} doesn't have stats for that game!"))
-            return
-
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):

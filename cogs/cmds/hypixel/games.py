@@ -26,11 +26,18 @@ class Games(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-        self.games = [
+        self.games = [  # Don't forget to add sky block!
             'arcade', 'arena', 'battleground', 'hungergames', 'paintball', 'quake', 'uhc', 'vampirez', 'walls',
             'turbokartracer', 'skywars', 'speeduhc', 'buildbattle', 'bedwars', 'truecombat', 'tntgames', 'supersmash',
             'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit'
         ]
+
+    @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats"])
+    async def player_stats(self, ctx):
+        embed = discord.Embed(color=self.bot.cc, title="Available Statistics",
+                              description=f"`{'`, `'.join(self.games)}`\n\nDo `{ctx.prefix}<stat> <player>` to view a certain stat!")
+        embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
+        await ctx.send(embed=embed)
 
     @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
     @commands.cooldown(1, 2, commands.BucketType.user)
