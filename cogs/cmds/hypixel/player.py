@@ -25,7 +25,8 @@ class Player(commands.Cog):
         p = await self.cache.get_player(player)
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
-        last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
+        if p.LAST_LOGIN is not None:
+            last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGIN / 1000).humanize()  # I love arrow
         if p.LAST_LOGIN is None or p.LAST_LOGOUT is None:
             online = "N/A"
             last_online = "N/A"
