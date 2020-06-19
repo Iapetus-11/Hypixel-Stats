@@ -4,7 +4,6 @@ import asyncio
 import discord
 from discord.ext import commands
 from math import floor, ceil
-from urllib import parse
 
 
 class Player(commands.Cog):
@@ -56,7 +55,7 @@ class Player(commands.Cog):
             prefix = await self.filter_prefix(p.PREFIX) + " "
 
         embed.set_author(name=f"{prefix}{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
-                         url=parse.quote(f"https://hypixel.net/player/{p.DISPLAY_NAME}"), icon_url=player_pfp)
+                         url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Rank", value=p.RANK, inline=True)
         embed.add_field(name="Level",
                         value=f"{await self.cache.hypixel.calcPlayerLevel(p.EXP if p.EXP is not None else 0)}",
