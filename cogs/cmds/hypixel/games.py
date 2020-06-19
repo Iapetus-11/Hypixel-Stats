@@ -336,8 +336,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Speed UHC Stats",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Speed UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         suhc = p.STATS["SpeedUHC"]
 
@@ -363,6 +362,28 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="buildbattle", aliases=["buildbattles", "blingblingboy", "bb"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def build_battle(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Build Battle Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        bb = p.STATS["BuildBattle"]
+
+        embed.add_field(name="Coins", value=bb.get("coins"), inline=True)
+        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
+        embed.add_field(name="Score", value=bb.get("score"), inline=True)
+
+        embed.add_field(name="Games", value=bb.get("games_played"), inline=True)
+        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
+        embed.add_field(name="Wins", value=bb.get("wins"), inline=True)
+
+        await ctx.send(embed=embed)
+
     @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def bedwars(self, ctx, *, player):
@@ -370,8 +391,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         bedwars = p.STATS["Bedwars"]
 
@@ -394,6 +414,93 @@ class Games(commands.Cog):
         embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
         embed.add_field(name="Total Games",
                         value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="truecombat", aliases=["tc", "true_combat"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def true_combat(self, ctx, *player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s\nTrue Combat Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        truecombat = p.STATS["TrueCombat"]
+
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
+        embed.add_field(name="Coins", value=truecombat.get("coins"), inline=True)
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="tntgames", aliases=["tntgame", "tnt", "tntg"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def tnt_games(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s TNT Games Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        tntgames = p.STATS["TNTGames"]
+
+        embed.add_field(name="Coins", value=tntgames.get("coins"))
+        embed.add_field(name="Wins", value=tntgames.get("wins"))
+        embed.add_field(name="Winstreak", value=tntgames.get("winstreak"))
+
+        kills = sum({k: v for k, v in tntgames.items() if "kills" in k}.values())
+        deaths = sum({k: v for k, v in tntgames.items() if "deaths" in k}.values())
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
+
+        embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=True)
+        embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"), inline=True)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="supersmash", aliases=["supasmash", "super_smash", "ss"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def super_smash(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s\nSuper Smash Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        supersmash = p.STATS["SuperSmash"]
+
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
+        embed.add_field(name="Coins", value=supersmash.get("coins"), inline=True)
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="murdermystery", aliases=["murder_mystery", "mm"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def murder_mystery(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Murder Mystery Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        mystery = p.STATS["MurderMystery"]
+
+        embed.add_field(name="Coins", value=mystery.get("coins"), inline=True)
+        embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
+        embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
+
+        embed.add_field(name="Games", value=mystery.get("games"), inline=True)
+        embed.add_field(name="Wins", value=mystery.get("wins"), inline=True)
+        embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
+
+        embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup"), inline=False)
 
         await ctx.send(embed=embed)
 

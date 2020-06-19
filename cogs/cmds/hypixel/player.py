@@ -428,6 +428,7 @@ class Player(commands.Cog):
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
             embed.add_field(name="Total Games",
                             value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
+
             await ctx.send(embed=embed)
         elif stat in ["truecombat", "true combat"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
@@ -438,6 +439,7 @@ class Player(commands.Cog):
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
             embed.add_field(name="Coins", value=truecombat.get("coins"), inline=True)
             embed.add_field(name="\uFEFF", value=f"\uFEFF")
+
             await ctx.send(embed=embed)
         elif stat in ["tntgames", "tnt games", "tnt game"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s TNT Games Stats",
@@ -457,6 +459,7 @@ class Player(commands.Cog):
 
             embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=True)
             embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"), inline=True)
+
             await ctx.send(embed=embed)
         elif stat in ["supersmash", "super smash"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nSuper Smash Stats",
@@ -483,6 +486,7 @@ class Player(commands.Cog):
             embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
 
             embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup"), inline=False)
+
             await ctx.send(embed=embed)
         elif stat in ["mcgo", "mc go", "cops and crims", "cops and criminals", "cops and robbers", "cops & crims",
                       "cops & criminals"]:
