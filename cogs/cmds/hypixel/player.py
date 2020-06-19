@@ -510,6 +510,7 @@ class Player(commands.Cog):
             embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired"), inline=False)
             embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
             embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills"), inline=False)
+
             await ctx.send(embed=embed)
         elif stat in ["skyclash", "sky clash"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Sky Clash Stats",

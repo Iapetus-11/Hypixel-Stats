@@ -504,6 +504,143 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.cooldown(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def cops_and_criminals(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Cops & Crims Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        mcgo = p.STATS["MCGO"]
+
+        embed.add_field(name="Coins", value=mcgo.get("coins"), inline=True)
+        embed.add_field(name="Wins", value=mcgo.get("game_wins"), inline=True)
+        embed.add_field(name="Round Wins", value=mcgo.get("round_wins"), inline=True)
+
+        kills = mcgo.get("kills", 0)
+        deaths = mcgo.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round(
+            (kills + .00001) / (deaths + .00001), 2),
+                        inline=True)
+
+        embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired"), inline=False)
+        embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills"), inline=False)
+        embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills"), inline=False)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="skyclash", aliases=["skc", "sky_clash"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def sky_clash(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Clash Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        clash = p.STATS["SkyClash"]
+
+        embed.add_field(name="Coins", value=clash.get("coins"), inline=True)
+        embed.add_field(name="Wins", value=clash.get("wins"), inline=True)
+        embed.add_field(name="Losses", value=clash.get("losses"), inline=True)
+
+        kills = clash.get("kills", 0)
+        deaths = clash.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round(
+            (kills + .00001) / (deaths + .00001), 2),
+                        inline=True)
+
+        embed.add_field(name="Kill Streak", value=clash.get("killstreak"), inline=True)
+        embed.add_field(name="Win Streak", value=clash.get("win_streak"), inline=True)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="duels", aliases=["hypixel_duels", "dd"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def duels(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        duels = p.STATS["Duels"]
+
+        embed.add_field(name="Coins", value=duels.get("coins"), inline=False)
+
+        embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0), inline=True)
+        embed.add_field(name="Wins", value=duels.get("wins"), inline=True)
+        embed.add_field(name="Losses", value=duels.get("losses"), inline=True)
+
+        kills = duels.get("kills", 0)
+        deaths = duels.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round(
+            (kills + .00001) / (deaths + .00001), 2),
+                        inline=True)
+
+        bow_shots = duels.get("bow_shots", 0)
+        bow_hits = duels.get("bow_hits", 0)
+        embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
+        embed.add_field(name="Bow Hits", value=bow_shots, inline=True)
+        embed.add_field(name="Accuracy", value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100}%")
+
+        melee_swings = duels.get("melee_swings")
+        melee_hits = duels.get("melee_hits")
+        embed.add_field(name="Melee Swings", value=melee_swings, inline=True)
+        embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
+        embed.add_field(name="Accuracy",
+                        value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100}%")
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="pit", aliases=["hypixelpit", "hp", "hypixel_pit", "thepit"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def hypixel_pit(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Hypixel Pit Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        armpit = p.STATS["Pit"]["pit_stats_ptl"]
+
+        embed.add_field(name="Cash", value=armpit.get("cash_earned"), inline=True)
+        embed.add_field(name="Joins", value=armpit.get("joins"), inline=True)
+        embed.add_field(name="Playtime", value=f"{armpit.get('playtime_minutes')} minutes")
+
+        kills = armpit.get("kills", 0)
+        deaths = armpit.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round(
+            (kills + .00001) / (deaths + .00001), 2),
+                        inline=True)
+
+        bow_shots = armpit.get("arrows_fired", 0)
+        bow_hits = armpit.get("arrow_hits", 0)
+        embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
+        embed.add_field(name="Bow Hits", value=bow_hits, inline=True)
+        embed.add_field(name="Accuracy", value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100}%")
+
+        embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt"), inline=True)
+        embed.add_field(name="Damage Received", value=armpit.get("damage_received"), inline=True)
+
+        embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed"), inline=False)
+
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Games(bot))
