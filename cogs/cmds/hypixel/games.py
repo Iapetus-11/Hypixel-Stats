@@ -568,7 +568,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.cooldown(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
+    @commands.command(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def cops_and_criminals(self, ctx, *, player):
         p = await self.cache.get_player(player)
