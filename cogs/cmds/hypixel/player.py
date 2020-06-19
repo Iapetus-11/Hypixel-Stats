@@ -628,7 +628,7 @@ class Player(commands.Cog):
 
                 await ctx.send(embed=embed)
 
-                if stop:
+                if stop or len(player_friends) < 31:
                     return
 
                 if len(chonks) - 3 < 1:
