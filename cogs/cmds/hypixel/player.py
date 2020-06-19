@@ -44,7 +44,7 @@ class Player(commands.Cog):
 
         guild = p.GUILD
         if guild is None:
-            guild = "none"
+            guild = "None"
         else:
             guild = await self.cache.get_guild_name_from_id(p.GUILD)
             guild = f"[{discord.utils.escape_markdown(guild)}](https://hypixel.net/guilds/{guild})"
