@@ -4,6 +4,7 @@ import asyncio
 import discord
 from discord.ext import commands
 from math import floor, ceil
+from typing import Any
 
 
 class NoStatError(Exception):
@@ -17,6 +18,7 @@ class NoStatError(Exception):
 
 
 class Games(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -24,15 +26,21 @@ class Games(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-    @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
-    @commands.cooldown(1, 2, commands.BucketType.user)
-    async def arcade(self, ctx, *, player):
-        await ctx.trigger_typing()
+        self.games = [
+            'arcade', 'arena', 'battleground', 'hungergames', 'paintball', 'quake', 'uhc', 'vampirez', 'walls',
+            'turbokartracer', 'skywars', 'speeduhc', 'buildbattle', 'bedwars', 'truecombat', 'tntgames', 'supersmash',
+            'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit'
+        ]﻿
 
-        p = await self.cache.get_player(player)
+        @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
+        @commands.cooldown(1, 2, commands.BucketType.user)
+        async def arcade(self, ctx, *, player):
+            await ctx.trigger_typing()
 
-        try:
-            arcade = p.STATS["Arcade"]
+            p = await self.cache.get_player(player)
+
+            try:
+                arcade = p.STATS["Arcade"]
         except KeyError:
             raise NoStatError
 
