@@ -54,6 +54,8 @@ class Player(commands.Cog):
         else:
             prefix = await self.filter_prefix(p.PREFIX) + " "
 
+        rank = p.RANK
+
         if rank is None:
             if prefix != "":
                 rank = prefix[1:len(prefix) - 1]
