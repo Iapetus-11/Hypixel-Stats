@@ -411,8 +411,7 @@ class Player(commands.Cog):
 
             embed.add_field(name="XP", value=bedwars.get("Experience"))
             embed.add_field(name="Coins", value=bedwars.get("coins"))
-            embed.add_field(name="Total Games",
-                            value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
+            embed.add_field(name="Stars", value=p.ACHIEVEMENTS.get("bedwars_level"), inline=True)
 
             embed.add_field(name="Losses", value=bedwars.get("beds_lost_bedwars"))
             embed.add_field(name="Wins", value=bedwars.get("wins_bedwars"))
@@ -426,8 +425,9 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
-            embed.add_field(name="Stars", value=p.ACHIEVEMENTS.get("bedwars_level"), inline=True)
             embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
+            embed.add_field(name="Total Games",
+                            value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
             await ctx.send(embed=embed)
         elif stat in ["truecombat", "true combat"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
