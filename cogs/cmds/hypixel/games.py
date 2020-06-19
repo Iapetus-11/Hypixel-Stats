@@ -24,7 +24,7 @@ class Games(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-    @commands.group(name="stats")
+    @commands.group(name="stats2")
     async def stats(self, ctx):
         await ctx.trigger_typing()
 
