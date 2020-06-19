@@ -42,7 +42,8 @@ class Player(commands.Cog):
         else:
             player_guild = await self.cache.get_guild_name_from_id(p.GUILD)
 
-        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile", icon_url=player_pfp)
+        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Profile",
+                         url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Status", value=online)
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
         embed.add_field(name="Last Online", value=f"{last_online}")
