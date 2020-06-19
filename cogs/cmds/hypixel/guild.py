@@ -56,10 +56,10 @@ class Guild(commands.Cog):
     @commands.command(name="guildmembers", aliases=["gmembers", "guildplayers", "gms", "members"])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def guild_members(self, ctx, *, guild_name):
-        await ctx.trigger_typing()
-
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
+        await ctx.send(guild_id)
         g = await self.cache.get_guild(guild_id)
+        await ctx.send(g)
         members = g.MEMBERS
 
         if len(members) > 1024:
@@ -69,9 +69,6 @@ class Guild(commands.Cog):
 
         async with ctx.typing():
             names = [await self.cache.get_player_name(uuid) for uuid in members]
-
-            await ctx.send(members[0])
-            await ctx.send(type(names))
 
             chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
 
