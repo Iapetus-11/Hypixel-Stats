@@ -615,8 +615,6 @@ class Player(commands.Cog):
                     else:
                         embed = discord.Embed(color=self.bot.cc)
 
-                    await ctx.send("DEBUG")
-
                     embed.set_author(name=f"Page {page} of {player}'s friends ({len(player_friends)} total!)",
                                      icon_url=await self.cache.get_player_head(puuid))
 
