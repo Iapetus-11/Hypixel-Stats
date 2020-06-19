@@ -62,14 +62,55 @@ class Guild(commands.Cog):
         g = await self.cache.get_guild(guild_id)
         members = g.MEMBERS
 
-        embed = discord.Embed(color=self.bot.cc,
-                              title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)")
-
         if len(members) > 1024:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                                description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
             return
 
+        async with ctx.typing():
+            names = [await self.cache.get_player_name(uuid) for uuid in members]
+
+            chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
+
+        try:
+            stop = False
+            page = 0
+            max_pages = ceil(len(chonks) / 3)
+
+            while True:
+                page += 1
+
+                if not stop and len(chonks) > 3:
+                    embed = discord.Embed(color=self.bot.cc,
+                                          title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)",
+                                          description="Type ``more`` for more!")
+                else:
+                    embed = discord.Embed(color=self.bot.cc,
+                                          title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)")
+
+                embed.set_footer(text=f"[Page {page}/{max_pages}]")
+
+                for i in range(0, 3, 1):
+                    try:
+                        embed.add_field(name="\uFEFF",
+                                        value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+                    except IndexError:
+                        pass
+
+                await ctx.send(embed=embed)
+
+                if stop or len(members) < 31:
+                    return
+
+                if len(chonks) - 3 < 1:
+                    stop = True
+
+                def check(m):
+                    return m.author.id == ctx.author.id and m.content == "more"
+
+                await self.bot.wait_for("message", check=check, timeout=20)
+        except asyncio.TimeoutError:
+            pass
 
 
 def setup(bot):
