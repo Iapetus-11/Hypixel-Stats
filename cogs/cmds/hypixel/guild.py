@@ -70,6 +70,9 @@ class Guild(commands.Cog):
         async with ctx.typing():
             names = [await self.cache.get_player_name(uuid) for uuid in members]
 
+            await ctx.send(members[0])
+            await ctx.send(type(names))
+
             chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
 
         try:
