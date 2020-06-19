@@ -621,7 +621,7 @@ class Player(commands.Cog):
                                      icon_url=await self.cache.get_player_head(puuid))
 
                     for i in range(0, 3, 1):
-                        embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+                        embed.add_field(name="\uFEFF", value="\n\n".join(chonks.pop(0)))
 
                     await ctx.send(embed=embed)
 
