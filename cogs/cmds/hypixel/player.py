@@ -623,8 +623,6 @@ class Player(commands.Cog):
                         name=f"Page {page}/{max_pages} of {player}'s friends ({len(player_friends)} total!)",
                         icon_url=head)
 
-                    await ctx.send(type(chonks))
-
                     for i in range(0, 3, 1):
                         try:
                             embed.add_field(name="\uFEFF",
