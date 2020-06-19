@@ -21,6 +21,8 @@ class Guild(commands.Cog):
         g = await self.cache.get_guild(guild_id)
 
         author = discord.utils.escape_markdown(g.NAME)
+        og_len = len(author)
+        author = f"[{author}](https://hypixel.net/guilds/{g.NAME})"
 
         desc = g.DESCRIPTION
         if desc is None:
