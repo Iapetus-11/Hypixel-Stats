@@ -239,6 +239,56 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="skyblock", aliases=["sb"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def skyblock(self, ctx, *, player):
+        """command to display skyblock stats of the mentioned player"""
+
+        def author_check(message):
+            return message.author == ctx.message.author and ctx.guild == message.guild and ctx.channel == message.channel
+
+        await ctx.trigger_typing()
+
+        p = await self.cache.get_player(player)
+
+        try:
+            skyblock = p.STATS["SkyBlock"]
+        except KeyError:
+            raise NoStatError
+
+        profiles = skyblock.get("profiles").keys()
+        profile_names = "This user has two islands (including co-ops). Choose one with the provided indexes: \n\n"
+
+        iteration = 1
+
+        for profile in profiles:
+            profile_names += f'``{str(iteration)}.`` {profile.get("cute_name")} ``({profile.get("profile_id")})``\n'
+
+        iteration = 0
+        while True:
+            await ctx.send(profile_names)
+            index = await self.bot.wait_for('message', check=author_check, timeout=120)
+
+            try:
+                if int(index.content) > len(profiles) or int(index.content) <= 0:
+                    if iteration > 3:
+                        await ctx.send("**Please enter a valid index.** Cancelling process.")
+                        return
+                    await ctx.send(f"**Invalid Index!** Please try again.")
+                    iteration +=1
+                    continue
+            except ValueError:
+                if iteration > 3:
+                    await ctx.send("**Please enter a valid index.** Cancelling process.")
+                    return
+                await ctx.send(f"**Invalid Index!** Please try again.")
+                iteration += 1
+                continue
+
+            index = int(index.content) - 1
+
+        await ctx.send(f"Test - you chose {profiles[index].get('cute_name')}")
+
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def uhc(self, ctx, *, player):
