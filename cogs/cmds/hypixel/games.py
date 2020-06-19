@@ -708,7 +708,9 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=duels.get("coins"), inline=False)
+        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
+        embed.add_field(name="Coins", value=duels.get("coins"), inline=True)
+        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
 
         embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0), inline=True)
         embed.add_field(name="Wins", value=duels.get("wins"), inline=True)
