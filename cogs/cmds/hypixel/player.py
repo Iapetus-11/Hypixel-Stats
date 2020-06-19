@@ -43,7 +43,7 @@ class Player(commands.Cog):
         player_pfp = await self.cache.get_player_head(p.UUID)
 
         guild = p.GUILD
-        if player_guild is None:
+        if guild is None:
             guild = "none"
         else:
             guild = await self.cache.get_guild_name_from_id(p.GUILD)
