@@ -257,6 +257,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         profiles = skyblock.get("profiles").keys()
+        profiles = list(profiles)
         profile_names = "This user has two islands (including co-ops). Choose one with the provided indexes: \n\n"
 
         iteration = 1
