@@ -426,8 +426,8 @@ class Player(commands.Cog):
                 (kills + .00001) / (deaths + .00001), 2),
                             inline=True)
 
-            embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
             embed.add_field(name="Stars", value=p.ACHIEVEMENTS.get("bedwars_level"), inline=True)
+            embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
             await ctx.send(embed=embed)
         elif stat in ["truecombat", "true combat"]:
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s\nTrue Combat Stats",
