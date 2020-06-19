@@ -7,6 +7,8 @@ from math import floor, ceil
 
 
 class NoStatError(Exception):
+    """Raised when a given player doesn't have a certain statistic"""
+
     def __init__(self):
         self.msg = "This user doesn't have that stat!"
 
