@@ -57,10 +57,9 @@ class Guild(commands.Cog):
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def guild_members(self, ctx, *, guild_name):
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
-        await ctx.send(guild_id)
         g = await self.cache.get_guild(guild_id)
-        await ctx.send(g)
         members = g.MEMBERS
+        await ctx.send(type(members))
 
         if len(members) > 1024:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
