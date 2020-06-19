@@ -21,16 +21,14 @@ class Guild(commands.Cog):
         g = await self.cache.get_guild(guild_id)
 
         author = discord.utils.escape_markdown(g.NAME)
-        og_len = len(author)
-        author = f"[{author}](https://hypixel.net/guilds/{g.NAME})"
 
         desc = g.DESCRIPTION
         if desc is None:
-            embed = discord.Embed(color=self.bot.cc)
+            embed = discord.Embed(color=self.bot.cc, url=f"https://hypixel.net/guilds/{g.NAME}")
         else:
             length = len(author) + 2
             length = length if length > 30 else 30
-            embed = discord.Embed(color=self.bot.cc,
+            embed = discord.Embed(color=self.bot.cc, url=f"https://hypixel.net/guilds/{g.NAME}",
                                   description='\n'.join(
                                       desc[i:i + length] for i in
                                       range(0, len(desc), length)))
