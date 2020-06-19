@@ -24,6 +24,7 @@ class Errors(commands.Cog):
 
         if "NoStatError" in str(e):
             await self.send(ctx, "They don't have stats for that game!")
+            return
 
         if "InvalidPlayerError" in str(e):
             await self.send(ctx, "That player is invalid or doesn't exist!")
