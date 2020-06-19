@@ -59,7 +59,7 @@ class Guild(commands.Cog):
         guild_id = await self.cache.get_guild_id_from_name(guild_name)
         g = await self.cache.get_guild(guild_id)
         members = g.MEMBERS
-        await ctx.send(type(members))
+        await ctx.send(members[0])
 
         if len(members) > 1024:
             await ctx.send(embed=discord.Embed(color=self.bot.cc,
