@@ -590,9 +590,11 @@ class Player(commands.Cog):
                                                description=f"**{discord.utils.escape_markdown(player)}** has too many friends to show! :cry:"))
             return
 
+        head = await self.cache.get_player_head(puuid)
+
         embed = discord.Embed(color=self.bot.cc)
         embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
-                         icon_url=await self.cache.get_player_head(puuid))
+                         icon_url=head)
 
         names = [await self.cache.get_player_name(uuid) for uuid in player_friends]
 
@@ -615,7 +617,7 @@ class Player(commands.Cog):
                         embed = discord.Embed(color=self.bot.cc)
 
                     embed.set_author(name=f"Page {page} of {player}'s friends ({len(player_friends)} total!)",
-                                     icon_url=await self.cache.get_player_head(puuid))
+                                     icon_url=head)
 
                     await ctx.send(type(chonks))
 
