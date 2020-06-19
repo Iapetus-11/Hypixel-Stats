@@ -614,7 +614,10 @@ class Player(commands.Cog):
                         embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
                     else:
                         embed = discord.Embed(color=self.bot.cc)
-                    embed.set_author(name=f"Page ``{page}`` of {player}'s friends ({len(player_friends)} total!)",
+
+                    await ctx.send("DEBUG")
+
+                    embed.set_author(name=f"Page {page} of {player}'s friends ({len(player_friends)} total!)",
                                      icon_url=await self.cache.get_player_head(puuid))
 
                     for i in range(0, 3, 1):
