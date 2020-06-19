@@ -11,6 +11,7 @@ class NoStatError(Exception):
 
     def __init__(self):
         self.msg = "This user doesn't have that stat!"
+        await ctx.trigger_typing()
 
     def __str__(self):
         return self.msg
@@ -24,11 +25,7 @@ class Games(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-    @commands.group(name="stats2")
-    async def stats(self, ctx):
-        await ctx.trigger_typing()
-
-    @stats.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
+    @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def arcade(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -51,7 +48,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="arena", aliases=["hypixelarena", "hypixel_arena", "ar"])
+    @commands.command(name="arena", aliases=["hypixelarena", "hypixel_arena", "ar"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def arena(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -90,7 +87,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="battleground", aliases=["battle ground", "battlegrounds", "battle_ground", "bg"])
+    @commands.command(name="battleground", aliases=["battle ground", "battlegrounds", "battle_ground", "bg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def battleground(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -123,7 +120,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="hungergames", aliases=["hungergame", "hunger_games", "hg"])
+    @commands.command(name="hungergames", aliases=["hungergame", "hunger_games", "hg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def hunger_games(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -152,7 +149,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="paintball", aliases=["paint_ball", "pb"])
+    @commands.command(name="paintball", aliases=["paint_ball", "pb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def paintball(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -182,7 +179,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="quake", aliases=["qk"])
+    @commands.command(name="quake", aliases=["qk"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def quake(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -215,7 +212,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
+    @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def uhc(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -245,7 +242,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="vampirez", aliases=["vampiresandzombies", "vz", "vampirezombies", "vampire_zombies"])
+    @commands.command(name="vampirez", aliases=["vampiresandzombies", "vz", "vampirezombies", "vampire_zombies"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def vampirez(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -282,7 +279,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="walls", aliases=["ww", "hypixel_walls"])
+    @commands.command(name="walls", aliases=["ww", "hypixel_walls"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def walls(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -308,7 +305,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="turbokartracer", aliases=["karts", "racing", "tkr", "tbkr", "turbokarts", "turboracer"])
+    @commands.command(name="turbokartracer", aliases=["karts", "racing", "tkr", "tbkr", "turbokarts", "turboracer"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def turbo_kart_racer(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -337,7 +334,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="skywars", aliases=["skywar", "skw"])
+    @commands.command(name="skywars", aliases=["skywar", "skw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skywars(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -376,7 +373,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="speeduhc", aliases=["suhc", "speedultrahardcore", "succ"])
+    @commands.command(name="speeduhc", aliases=["suhc", "speedultrahardcore", "succ"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def speed_uhc(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -412,7 +409,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="buildbattle", aliases=["buildbattles", "blingblingboy", "bb"])
+    @commands.command(name="buildbattle", aliases=["buildbattles", "blingblingboy", "bb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def build_battle(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -437,7 +434,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
+    @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def bedwars(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -473,7 +470,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="truecombat", aliases=["tc", "true_combat"])
+    @commands.command(name="truecombat", aliases=["tc", "true_combat"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def true_combat(self, ctx, *player):
         p = await self.cache.get_player(player)
@@ -494,7 +491,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="tntgames", aliases=["tntgame", "tnt", "tntg"])
+    @commands.command(name="tntgames", aliases=["tntgame", "tnt", "tntg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def tnt_games(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -524,7 +521,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="supersmash", aliases=["supasmash", "super_smash", "ss"])
+    @commands.command(name="supersmash", aliases=["supasmash", "super_smash", "ss"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def super_smash(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -545,7 +542,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="murdermystery", aliases=["murder_mystery", "mm"])
+    @commands.command(name="murdermystery", aliases=["murder_mystery", "mm"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def murder_mystery(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -572,7 +569,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
+    @commands.command(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def cops_and_criminals(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -605,7 +602,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="skyclash", aliases=["skc", "sky_clash"])
+    @commands.command(name="skyclash", aliases=["skc", "sky_clash"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def sky_clash(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -637,7 +634,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="duels", aliases=["hypixel_duels", "dd"])
+    @commands.command(name="duels", aliases=["hypixel_duels", "dd"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def duels(self, ctx, *, player):
         p = await self.cache.get_player(player)
@@ -681,7 +678,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @stats.command(name="pit", aliases=["hypixelpit", "hp", "hypixel_pit", "thepit"])
+    @commands.command(name="pit", aliases=["hypixelpit", "hp", "hypixel_pit", "thepit"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def hypixel_pit(self, ctx, *, player):
         p = await self.cache.get_player(player)
