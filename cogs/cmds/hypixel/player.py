@@ -123,8 +123,6 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=self.bot.cc)
 
-        embed.set_footer(text="Made by Iapetus11\n& TrustedMercury")
-
         if stat == "arcade":
             embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Arcade Stats",
                              icon_url=await self.cache.get_player_head(p.UUID))
