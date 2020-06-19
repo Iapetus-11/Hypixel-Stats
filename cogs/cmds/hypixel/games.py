@@ -459,7 +459,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
+    @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw", "bw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def bedwars(self, ctx, *, player):
         await ctx.trigger_typing()
