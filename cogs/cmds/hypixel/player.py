@@ -15,7 +15,7 @@ class Player(commands.Cog):
 
         self.games_to_ignore = ["Walls3", "Legacy", "SkyBlock", "Housing"]
 
-    @commands.group(name="playerprofile", aliases=["profile", "pp"])
+    @commands.group(name="playerprofile", aliases=["profile", "pp", "player"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):
         await ctx.trigger_typing()
