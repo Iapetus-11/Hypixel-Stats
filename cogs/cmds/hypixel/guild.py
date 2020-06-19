@@ -1,5 +1,6 @@
 import arrow
 import discord
+import urllib.parse
 from discord.ext import commands
 from math import ceil
 
@@ -24,11 +25,11 @@ class Guild(commands.Cog):
 
         desc = g.DESCRIPTION
         if desc is None:
-            embed = discord.Embed(color=self.bot.cc, url=f"https://hypixel.net/guilds/{g.NAME}")
+            embed = discord.Embed(color=self.bot.cc, url=urllib.parse.quote(f"https://hypixel.net/guilds/{g.NAME}"))
         else:
             length = len(author) + 2
             length = length if length > 30 else 30
-            embed = discord.Embed(color=self.bot.cc, url=f"https://hypixel.net/guilds/{g.NAME}",
+            embed = discord.Embed(color=self.bot.cc, url=urllib.parse.quote(f"https://hypixel.net/guilds/{g.NAME}"),
                                   description='\n'.join(
                                       desc[i:i + length] for i in
                                       range(0, len(desc), length)))
