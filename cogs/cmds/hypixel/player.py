@@ -585,21 +585,55 @@ class Player(commands.Cog):
                                                description=f"**{discord.utils.escape_markdown(player)}** doesn't have any friends! :cry:"))
             return
 
+        if len(player_friends) > 1024:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"**{discord.utils.escape_markdown(player)}** has too many friends to show! :cry:"))
+            return
+
         embed = discord.Embed(color=self.bot.cc)
         embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
                          icon_url=await self.cache.get_player_head(puuid))
 
-        chonks = [player_friends[i:i + 10] for i in range(0, len(player_friends), 10)]
+        names = [await self.cache.get_player_name(uuid) for uuid in player_friends]
 
-        if len(chonks) <= 20:
+        chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
+
+        if len(chonks) <= 3:
             for chonk in chonks:
-                embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(
-                    "\n\n".join([await self.cache.get_player_name(bigpp) for bigpp in chonk])))
+                embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown("\n\n".join(chonk)))
 
             await ctx.send(embed=embed)
         else:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc,
-                                               description="At this time, we can't show that many friends, sorry!"))
+            try:
+                stop = False
+
+                page = 1
+
+                while True:
+                    if not stop:
+                        embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
+                    else:
+                        embed = discord.Embed(color=self.bot.cc)
+                    embed.set_author(name=f"Page ``{page}`` of {player}'s friends ({len(player_friends)} total!)",
+                                     icon_url=await self.cache.get_player_head(puuid))
+
+                    for i in range(0, 3, 1):
+                        embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+
+                    await ctx.send(embed=embed)
+
+                    if stop:
+                        return
+
+                    if len(chonks) - 3 < 1:
+                        stop = True
+
+                    def check(m):
+                        return m.author.id == ctx.author.id and m.content == "more"
+
+                    await self.bot.wait_for("message", check=check, timeout=20)
+            except asyncio.TimeoutError:
+                pass
 
     @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer", "player_guild"])
     @commands.cooldown(1, 5, commands.BucketType.user)
