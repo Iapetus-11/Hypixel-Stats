@@ -155,7 +155,7 @@ class Useful(commands.Cog):
         p = ctx.prefix
 
         player_stats = f"``{p}profile <username>`` *shows some general information for that player*\n\n" \
-                       f"``{p}playerstats <username>`` *shows stats for that user for each hypixel game*\n\n" \
+                       f"``{p}playerstats`` *lists player stats available*\n\n" \
                        f"``{p}friends <username>`` *shows that user's friends*\n\n" \
                        f"``{p}playerguild <username>`` *shows that player's guild*\n\uFEFF"
         embed.add_field(name="Player Stats", value=player_stats, inline=False)
