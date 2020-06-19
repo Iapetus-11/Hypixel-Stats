@@ -133,8 +133,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Paintball Stats",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Paintball Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         paint = p.STATS["Paintball"]
 
@@ -161,8 +160,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Quake Stats",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Quake Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         quake = p.STATS["Quake"]
 
@@ -192,8 +190,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s UHC Stats",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         uhc = p.STATS["UHC"]
 
@@ -212,6 +209,94 @@ class Games(commands.Cog):
         embed.add_field(name="Heads Eaten", value=uhc.get("heads_eaten"), inline=False)
 
         await ctx.send(embed=embed)
+
+    @commands.command(name="vampirez", aliases=["vampiresandzombies", "vz", "vampirezombies", "vampire_zombies"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def vampirez(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s VampireZ Stats", icon_url=await self.cache.get_player_head(p.UUID))
+
+        vampire = p.STATS["VampireZ"]
+
+        embed.add_field(name="Coins", value=vampire.get("coins"), inline=False)
+
+        human_kills = vampire.get("human_kills", 0)
+        vampire_kills = vampire.get("vampire_kills", 0)
+        zombie_kills = vampire.get("zombie_kills", 0)
+        embed.add_field(name="Human Kills", value=human_kills, inline=True)
+        embed.add_field(name="Vampire Kills", value=vampire_kills, inline=True)
+        embed.add_field(name="Zombie Kills", value=zombie_kills, inline=True)
+
+        human_deaths = vampire.get("human_deaths", 0)
+        vampire_deaths = vampire.get("vampire_deaths", 0)
+        embed.add_field(name="Human Deaths", value=human_deaths, inline=True)
+        embed.add_field(name="Vampire Deaths", value=vampire_deaths, inline=True)
+        embed.add_field(name="Zombie Deaths", value="N/A", inline=True)
+
+        embed.add_field(name="Human KDR", value=round((human_kills + .00001) / (human_deaths + .00001), 2),
+                        inline=True)
+        embed.add_field(name="Vampire KDR", value=round((vampire_kills + .00001) / (vampire_deaths + .00001), 2),
+                        inline=True)
+        embed.add_field(name="Zombie KDR", value="N/A", inline=True)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="walls", aliases=["ww", "hypixel_walls"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def walls(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Walls Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        walls = p.STATS["Walls"]
+
+        embed.add_field(name="Coins", value=walls.get("coins"), inline=True)
+        embed.add_field(name="Wins", value=walls.get("wins"), inline=True)
+        embed.add_field(name="Losses", value=walls.get("losses"), inline=True)
+
+        kills = walls.get("kills", 0)
+        deaths = walls.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills, inline=True)
+        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2), inline=True)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="turbokartracer", aliases=["karts", "racing", "tkr", "tbkr", "turbokarts", "turboracer"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def turbo_kart_racer(self, ctx, *, player):
+        p = await self.cache.get_player(player)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Turbo Kart Racer Stats",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        bread = p.STATS["GingerBread"]
+
+        embed.add_field(name="Coins", value=bread.get("coins"), inline=True)
+        embed.add_field(name="Wins", value=bread.get("wins"), inline=True)
+        embed.add_field(name="Laps", value=bread.get("laps_completed"), inline=True)
+
+        embed.add_field(name="Gold Trophies", value=bread.get("gold_trophy"), inline=True)
+        embed.add_field(name="Silver Trophies", value=bread.get("silver_trophy"), inline=True)
+        embed.add_field(name="Bronze Trophies", value=bread.get("bronze_trophy"), inline=True)
+
+        embed.add_field(name="Boxes Picked Up", value=bread.get("box_pickups"), inline=True)
+        embed.add_field(name="Coins Picked Up", value=bread.get("coins_picked_up"), inline=True)
+        embed.add_field(name="Bananas Hit", value=bread.get("banana_hits_received"), inline=False)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="skywars", aliases=["skywar", "skw"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def skywars(self, ctx, *, player):
 
     @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
