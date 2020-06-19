@@ -608,9 +608,11 @@ class Player(commands.Cog):
         else:
             try:
                 stop = False
-                page = 1
+                page = 0
 
                 while True:
+                    page += 1
+
                     if not stop:
                         embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
                     else:
@@ -622,7 +624,11 @@ class Player(commands.Cog):
                     await ctx.send(type(chonks))
 
                     for i in range(0, 3, 1):
-                        embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+                        try:
+                            embed.add_field(name="\uFEFF",
+                                            value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+                        except IndexError:
+                            pass
 
                     await ctx.send(embed=embed)
 
