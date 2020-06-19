@@ -608,7 +608,7 @@ class Player(commands.Cog):
             while True:
                 page += 1
 
-                if not stop:
+                if not stop and len(chonks) > 3:
                     embed = discord.Embed(color=self.bot.cc, description="Type ``more`` for more!")
                 else:
                     embed = discord.Embed(color=self.bot.cc)
