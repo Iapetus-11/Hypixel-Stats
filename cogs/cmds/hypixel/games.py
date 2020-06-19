@@ -708,10 +708,6 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
-        embed.add_field(name="Coins", value=duels.get("coins"), inline=True)
-        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
-
         embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0), inline=True)
         embed.add_field(name="Wins", value=duels.get("wins"), inline=True)
         embed.add_field(name="Losses", value=duels.get("losses"), inline=True)
@@ -736,6 +732,8 @@ class Games(commands.Cog):
         embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
         embed.add_field(name="Accuracy",
                         value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100}%")
+        
+        embed.add_field(name="Total Coins", value=duels.get("coins"), inline=False)
 
         await ctx.send(embed=embed)
 
