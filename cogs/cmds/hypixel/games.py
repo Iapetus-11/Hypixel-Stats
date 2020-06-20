@@ -1,5 +1,6 @@
 import aiopypixel
 import arrow
+import math
 import asyncio
 import discord
 from discord.ext import commands
@@ -296,7 +297,55 @@ class Games(commands.Cog):
 
         stats = await self.cache.get_skyblock_stats(profile)
 
-        
+        if stats["profile_id"] == profile:
+            coop = True
+        else:
+            coop = False
+
+        members = []
+
+        for member in stats.get('members', []).keys():
+            if member == profile:
+                members.append(f"**{self.cache.get_player_name(member)}**")
+            else:
+                members.append(self.cache.get_player_name(member))
+
+        user_stats = stats["members"].get(profile, None)
+        firstJoin = user_stats.get("first_join", None)
+        kills = user_stats['stats'].get('kills', None)
+        deaths = user_stats.get('deaths', None)
+        voidDeaths = user_stats['stats'].get('deaths_void', None)
+        coinPurse = math.ceil(user_stats.get('coin_purse', None))
+        lastDeath = user_stats.get('last_death', None)
+        fairySouls = user_stats.get('fairy_souls', None)
+        fairySoulsCollected = user_stats.get('fairy_souls_collected', None)
+
+        embed = self.embed.copy()
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=await self.cache.get_player_head(p.UUID))
+
+        embed.description = f'**Skyblock - {skyblock["profiles"][profiles[index]].get("cute_name")}** - ``{profile}``'
+
+        embed.add_field(name="Co-Op",
+                        value=str(coop))
+        embed.add_field(name="Members",
+                        value=', '.join(members))
+        embed.add_field(name="First Join",
+                        value=f"{firstJoin if firstJoin else 'Unknown'}")
+        embed.add_field(name="Coin Purse",
+                        value=f"{coinPurse if coinPurse else 'Unknown'}")
+        embed.add_field(name="Kills",
+                        value=f"{kills if kills else 'Unknown'}")
+        embed.add_field(name="Deaths",
+                        value=f"{deaths if deaths else 'Unknown'}{f' | {voidDeaths}' if voidDeaths else ''}")
+        embed.add_field(name="Fairy Souls",
+                        value=f"{fairySouls if fairySouls else 'Unknown'}")
+        embed.add_field(name="Fairy Souls Collected",
+                        value=f"{fairySoulsCollected if fairySoulsCollected else 'Unknown'}")
+        embed.add_field(name="Last Death",
+                        value=f"{lastDeath if lastDeath else 'Unknown'}")
+
+        await ctx.send(embed)
 
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
