@@ -283,7 +283,7 @@ class Games(commands.Cog):
             return
 
         await ctx.send(profiles)
-        profile = skyblock['profiles'][profiles[index]]["profile_id"]
+        profile = skyblock['profiles'][profiles[index - 1]]["profile_id"]
 
         stats = await self.cache.get_skyblock_stats(profile)
 
