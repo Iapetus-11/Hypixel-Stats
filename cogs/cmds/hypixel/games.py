@@ -240,6 +240,60 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def julian_to_regular(self, jd):
+        intgr = floor(jd)
+        frac = jd - intgr
+
+        gregjd = 2299161
+
+        if intgr >= gregjd:
+            tmp = floor(((intgr - 1867216) - 0.25) / 36524.25)
+            j1 = intgr + 1 + tmp - floor(.25 * tmp)
+        else:
+            j1 = intgr
+
+        dayfrac = frac + .5
+
+        if dayfrac >= 1:
+            dayfrac -= 1.0
+            j1 += 1
+
+        j2 = j1 + 1524
+        j3 = floor(6680.0 + ((j2 - 2439870) - 122.1) / 365.25)
+        j4 = floor(j3 * 365.25)
+        j5 = floor((j2 - j4) / 30.6001)
+
+        d = floor(js - j4 - floor(j5 * 30.6001))
+
+        m = floor(j5 - 1)
+        if m > 12:
+            m -= 12
+
+        y = floor(j3 - 4715)
+
+        if m > 2:
+            y -= 1
+
+        if y <= 0:
+            y -= 1
+
+        hr = floor(dayfrac * 24)
+
+        mn = floor((dayfrac * 24 - hr) * 60)
+        f = ((dayfrac * 24 - hr) * 60 - mn) * 60
+
+        sc = floor(f)
+        f -= sc
+
+        if f > .5:
+            sc += 1
+
+        if y < 0:
+            y = 0 - y
+
+        ar15 = arrow.get(f"{y}-{m}-{d} {hr}:{mn}:{sc}")
+        return ar15
+
     @commands.command(name="skyblock", aliases=["sb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skyblock(self, ctx, *, player):
@@ -324,7 +378,8 @@ class Games(commands.Cog):
         embed.add_field(name="Deaths", value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
         embed.add_field(name="Fairy Souls", value=fairySouls)
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
-        embed.add_field(name="Last Death", value=arrow.Arrow.fromtimestamp(lastDeath * 1000 * 7).humanize())
+        embed.add_field(name="Last Death",
+                        value=arrow.Arrow.fromtimestamp(await self.julian_to_regular(lastDeath)).humanize())
 
         await ctx.send(embed=embed)
 
@@ -821,7 +876,7 @@ class Games(commands.Cog):
         embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
         embed.add_field(name="Accuracy",
                         value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100}%")
-        
+
         embed.add_field(name="Total Coins", value=duels.get("coins"), inline=False)
 
         await ctx.send(embed=embed)
