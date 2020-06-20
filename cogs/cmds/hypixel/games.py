@@ -245,10 +245,10 @@ class Games(commands.Cog):
     async def skyblock(self, ctx, *, player):
         """command to display skyblock stats of the mentioned player"""
 
-        def author_check(message):
+        def author_check(message):  # Basic check to make sure author and other stuff is proper right
             return message.author == ctx.message.author and ctx.guild == message.guild and ctx.channel == message.channel
 
-        async with ctx.typing():
+        async with ctx.typing():  # Fetch player from cache or api
             p = await self.cache.get_player(player)
 
         try:
