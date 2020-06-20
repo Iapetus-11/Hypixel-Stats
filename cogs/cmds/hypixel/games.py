@@ -358,7 +358,7 @@ class Games(commands.Cog):
         user_stats = stats["members"].get(p.UUID)
 
         firstJoin = user_stats.get("first_join")
-        kills = user_stats['stats'].get('kills')
+        kills = ceil(user_stats['stats'].get('kills'))
         deaths = user_stats.get('deaths')
         voidDeaths = user_stats['stats'].get('deaths_void')
         coinPurse = ceil(user_stats.get('coin_purse'))
