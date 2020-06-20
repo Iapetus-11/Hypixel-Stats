@@ -13,8 +13,6 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-        self.games_to_ignore = ["Walls3", "Legacy", "SkyBlock", "Housing"]
-
     async def filter_prefix(self, pp):
         cleaned = ""
         for i in range(1, len(pp), 1):
