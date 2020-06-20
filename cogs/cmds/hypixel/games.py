@@ -291,9 +291,9 @@ class Games(commands.Cog):
             index = int(index.content) - 1
             break
 
-        await ctx.send(f"Test - you chose {skyblock['profiles'][profiles[index]].get('cute_name')}")
-
         profile = skyblock['profiles'][profiles[index]]
+
+        await ctx.send(profile)
 
         stats = await self.cache.get_skyblock_stats(profile)
 
