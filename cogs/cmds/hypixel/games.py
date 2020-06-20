@@ -307,25 +307,25 @@ class Games(commands.Cog):
         kills = user_stats['stats'].get('kills')
         deaths = user_stats.get('deaths')
         voidDeaths = user_stats['stats'].get('deaths_void')
-        coinPurse = math.ceil(user_stats.get('coin_purse'))
+        coinPurse = ceil(user_stats.get('coin_purse'))
         lastDeath = user_stats.get('last_death')
         fairySouls = user_stats.get('fairy_souls')
         fairySoulsCollected = user_stats.get('fairy_souls_collected')
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
 
         embed.description = f'**Skyblock - {skyblock["profiles"][profiles[index]].get("cute_name")}** - ``{profile}``'
 
         embed.add_field(name="Co-Op",
-                        value=str(coop))
+                        value=coop)
         embed.add_field(name="Members",
                         value=', '.join(members))
         embed.add_field(name="First Join",
-                        value=f"{firstJoin if firstJoin else 'Unknown'}")
+                        value=f"{firstJoin}")
         embed.add_field(name="Coin Purse",
-                        value=f"{coinPurse if coinPurse else 'Unknown'}")
+                        value=f"{coinPurse}")
         embed.add_field(name="Kills",
                         value=f"{kills}")
         embed.add_field(name="Deaths",
