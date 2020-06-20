@@ -263,8 +263,8 @@ class Games(commands.Cog):
         profile_names = f"Choose one with the provided indexes:\n\n"
 
         for profile_id in profiles:
-            profile_names += f'``{profiles.index(profile_id) + 1}.`` **{skyblock["profiles"][profile_id].get("cute_name")}** ' \
-                             f'``({skyblock["profiles"][profile_id].get("profile_id")})``\n'
+            profile_names += f'`{profiles.index(profile_id) + 1}.` **{skyblock["profiles"][profile_id].get("cute_name")}** ' \
+                             f'[`{skyblock["profiles"][profile_id].get("profile_id")}`]\n'
         picker_embed = discord.Embed(color=self.bot.cc, description=profile_names)
         picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:", icon_url=head)
         picker_embed.set_footer(text="Just send one of the above numbers!")
