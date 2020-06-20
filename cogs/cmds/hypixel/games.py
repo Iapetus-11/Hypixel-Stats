@@ -30,7 +30,7 @@ class Games(commands.Cog):
         self.games = [  # Don't forget to add sky block!
             'arcade', 'arena', 'battleground', 'hungergames', 'paintball', 'quake', 'uhc', 'vampirez', 'walls',
             'turbokartracer', 'skywars', 'speeduhc', 'buildbattle', 'bedwars', 'truecombat', 'tntgames', 'supersmash',
-            'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit'
+            'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit', "skyblock"
         ]
 
     @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats"])
