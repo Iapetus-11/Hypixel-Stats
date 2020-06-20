@@ -324,7 +324,7 @@ class Games(commands.Cog):
         embed.add_field(name="Deaths", value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
         embed.add_field(name="Fairy Souls", value=fairySouls)
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
-        embed.add_field(name="Last Death", value=arrow.Arrow.fromtimestamp(lastDeath * 10000).humanize())
+        embed.add_field(name="Last Death", value=arrow.Arrow.fromtimestamp(lastDeath * 1000 * 7).humanize())
 
         await ctx.send(embed=embed)
 
