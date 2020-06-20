@@ -269,7 +269,7 @@ class Games(commands.Cog):
         iteration = 0
         while iteration <= 3:
             await ctx.send(profile_names)
-            index = await self.bot.wait_for('message', check=author_check, timeout=120)
+            index = await self.bot.wait_for('message', check=author_check, timeout=20)
 
             try:
                 if int(index.content) > len(profiles) or int(index.content) <= 0:
