@@ -1,8 +1,8 @@
 import aiopypixel
 import arrow
-import math
 import asyncio
 import discord
+import math
 from discord.ext import commands
 from math import floor, ceil
 from typing import Any
@@ -310,15 +310,15 @@ class Games(commands.Cog):
             else:
                 members.append(self.cache.get_player_name(member))
 
-        user_stats = stats["members"].get(profile, None)
-        firstJoin = user_stats.get("first_join", None)
-        kills = user_stats['stats'].get('kills', None)
-        deaths = user_stats.get('deaths', None)
-        voidDeaths = user_stats['stats'].get('deaths_void', None)
-        coinPurse = math.ceil(user_stats.get('coin_purse', None))
-        lastDeath = user_stats.get('last_death', None)
-        fairySouls = user_stats.get('fairy_souls', None)
-        fairySoulsCollected = user_stats.get('fairy_souls_collected', None)
+        user_stats = stats["members"].get(profile)
+        firstJoin = user_stats.get("first_join")
+        kills = user_stats['stats'].get('kills')
+        deaths = user_stats.get('deaths')
+        voidDeaths = user_stats['stats'].get('deaths_void')
+        coinPurse = math.ceil(user_stats.get('coin_purse'))
+        lastDeath = user_stats.get('last_death')
+        fairySouls = user_stats.get('fairy_souls')
+        fairySoulsCollected = user_stats.get('fairy_souls_collected')
 
         embed = self.embed.copy()
 
@@ -335,15 +335,15 @@ class Games(commands.Cog):
         embed.add_field(name="Coin Purse",
                         value=f"{coinPurse if coinPurse else 'Unknown'}")
         embed.add_field(name="Kills",
-                        value=f"{kills if kills else 'Unknown'}")
+                        value=f"{kills}")
         embed.add_field(name="Deaths",
-                        value=f"{deaths if deaths else 'Unknown'}{f' | {voidDeaths}' if voidDeaths else ''}")
+                        value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
         embed.add_field(name="Fairy Souls",
-                        value=f"{fairySouls if fairySouls else 'Unknown'}")
+                        value=f"{fairySouls}")
         embed.add_field(name="Fairy Souls Collected",
-                        value=f"{fairySoulsCollected if fairySoulsCollected else 'Unknown'}")
+                        value=f"{fairySoulsCollected}")
         embed.add_field(name="Last Death",
-                        value=f"{lastDeath if lastDeath else 'Unknown'}")
+                        value=f"{lastDeath}")
 
         await ctx.send(embed)
 
