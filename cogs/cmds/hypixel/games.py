@@ -258,7 +258,7 @@ class Games(commands.Cog):
 
         profiles = list(skyblock.get("profiles"))
 
-        profile_names = f"This user has {len(profiles)} islands (including co-ops). Choose one with the provided indexes:\n\n"
+        profile_names = f"This user has {len(profiles)} islands (including co-ops).\nChoose one with the provided indexes:\n\n"
 
         for profile in profiles:
             profile_names += f'``{profiles.index(profile) + 1}.`` **{skyblock["profiles"][profile].get("cute_name")}** ' \
