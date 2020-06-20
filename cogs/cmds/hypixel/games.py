@@ -284,8 +284,6 @@ class Games(commands.Cog):
 
         profile = skyblock['profiles'][profiles[index]]["profile_id"]
 
-        await ctx.send(profile)
-
         stats = await self.cache.get_skyblock_stats(profile)
 
         if stats["profile_id"] == profile:
