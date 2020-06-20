@@ -359,8 +359,8 @@ class Games(commands.Cog):
 
         firstJoin = user_stats.get("first_join")
         kills = ceil(user_stats['stats'].get('kills'))
-        deaths = user_stats.get('deaths')
-        voidDeaths = user_stats['stats'].get('deaths_void')
+        deaths = user_stats.get('deaths', 0)
+        voidDeaths = user_stats['stats'].get('deaths_void', 0)
         coinPurse = ceil(user_stats.get('coin_purse'))
         lastDeath = user_stats.get('last_death')
         fairySouls = user_stats.get('fairy_souls')
@@ -377,7 +377,7 @@ class Games(commands.Cog):
         embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(firstJoin / 1000).humanize())
         embed.add_field(name="Coin Purse", value=coinPurse)
         embed.add_field(name="Kills", value=kills)
-        embed.add_field(name="Deaths", value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
+        embed.add_field(name="Deaths", value=f"{deaths + voidDeaths}")
         embed.add_field(name="Fairy Souls", value=fairySouls)
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
         embed.add_field(name="Last Death",
