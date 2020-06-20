@@ -311,7 +311,7 @@ class Games(commands.Cog):
                 members.append(discord.utils.escape_markdown(await self.cache.get_player_name(member)))
 
         if len(members) > 3:
-            members = [f"**{p.DISPLAY_NAME}**", f"+ {len(members) - 1} others"]
+            members = [f"**{p.DISPLAY_NAME}**", f"{len(members) - 1} others"]
 
         user_island_stats = stats["members"].get(p.UUID)
 
