@@ -291,7 +291,7 @@ class Games(commands.Cog):
             index = int(index.content) - 1
             break
 
-        profile = skyblock['profiles'][profiles[index]]
+        profile = skyblock['profiles'][profiles[index]]["profile_id"]
 
         await ctx.send(profile)
 
