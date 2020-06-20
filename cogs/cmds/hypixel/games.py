@@ -302,15 +302,15 @@ class Games(commands.Cog):
         if len(members) > 4:
             members = [members[0], f"and {len(members) - 1} more"]
 
-        user_stats = stats["members"].get(p.UUID)
+        island_stats = stats["members"].get(p.UUID)
 
-        firstJoin = user_stats.get("first_join")
-        kills = ceil(user_stats['stats'].get('kills'))
-        deaths = floor(user_stats.get('deaths', 0))
-        voidDeaths = user_stats['stats'].get('deaths_void', 0)
-        coinPurse = ceil(user_stats.get('coin_purse'))
-        fairySouls = user_stats.get('fairy_souls')
-        fairySoulsCollected = user_stats.get('fairy_souls_collected')
+        firstJoin = island_stats.get("first_join")
+        kills = ceil(island_stats['stats'].get('kills'))
+        deaths = floor(island_stats.get('deaths', 0))
+        voidDeaths = island_stats['stats'].get('deaths_void', 0)
+        coinPurse = ceil(island_stats.get('coin_purse'))
+        fairySouls = island_stats.get('fairy_souls')
+        fairySoulsCollected = island_stats.get('fairy_souls_collected')
 
         embed = self.embed.copy()
 
