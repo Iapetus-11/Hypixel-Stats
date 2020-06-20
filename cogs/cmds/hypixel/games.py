@@ -326,10 +326,9 @@ class Games(commands.Cog):
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=f"{deaths + voidDeaths}")
 
+        embed.add_field(name="Armor", value="We're working on it!")
         embed.add_field(name="Fairy Souls", value=fairySouls)
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
-
-        embed.add_field(name="Armor", value="We're working on it!", inline=False)
 
         await ctx.send(embed=embed)
 
