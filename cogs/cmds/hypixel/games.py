@@ -250,6 +250,7 @@ class Games(commands.Cog):
 
         async with ctx.typing():  # Fetch player from cache or api
             p = await self.cache.get_player(player)
+            head = await self.cache.get_player_head(player)
 
         try:
             skyblock = p.STATS["SkyBlock"]
@@ -258,12 +259,15 @@ class Games(commands.Cog):
 
         profiles = list(skyblock.get("profiles"))
 
-        profile_names = f"This user has {len(profiles)} islands (including co-ops).\nChoose one with the provided indexes:\n\n"
+        profile_names = f"Choose one with the provided indexes:\n\n"
 
         for profile in profiles:
             profile_names += f'``{profiles.index(profile) + 1}.`` **{skyblock["profiles"][profile].get("cute_name")}** ' \
                              f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
-        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=profile_names))
+
+        picker_embed = discord.Embed(color=self.bot.cc, description=profile_names)
+        picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:")
+        picker_embed.set_footer(text="Just send one of the above numbers!")
 
         index = await self.bot.wait_for('message', check=author_check, timeout=20)
         index = index.content
