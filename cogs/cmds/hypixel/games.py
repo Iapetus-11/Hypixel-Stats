@@ -328,7 +328,7 @@ class Games(commands.Cog):
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
         embed.add_field(name="Last Death", value=lastDeath)
 
-        await ctx.send(embed)
+        await ctx.send(embed=embed)
 
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
