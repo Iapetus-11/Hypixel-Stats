@@ -306,9 +306,9 @@ class Games(commands.Cog):
 
         for member in list(stats.get('members', [])):
             if member == profile_id:
-                members.append(f"**{await self.cache.get_player_name(member)}**")
+                members.append(f"**{discord.utils.escape_markdown(await self.cache.get_player_name(member))}**")
             else:
-                members.append(await self.cache.get_player_name(member))
+                members.append(discord.utils.escape_markdown(await self.cache.get_player_name(member)))
 
         user_island_stats = stats["members"].get(p.UUID)
 
