@@ -270,8 +270,10 @@ class Games(commands.Cog):
         picker_embed.set_footer(text="Just send one of the above numbers!")
         await ctx.send(embed=picker_embed)
 
+        valid = False
+
         try:
-            while True:
+            for i in range(0, 3, 1):
                 index = await self.bot.wait_for('message', check=author_check, timeout=20)
 
                 try:
@@ -282,7 +284,10 @@ class Games(commands.Cog):
                     if index > len(profiles) or index <= 0:
                         await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
                     else:
+                        valid = True
                         break
+            if not valid:
+                await ctx.send(embed=discord.Embed(color=self.bot.cc, description="The command was canceled."))
         except asyncio.TimeoutError:
             return
 
