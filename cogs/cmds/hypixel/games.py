@@ -318,13 +318,13 @@ class Games(commands.Cog):
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
-        embed.add_field(name="First Join", value=firstJoin)
+        embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(firstJoin / 1000).humanize())
         embed.add_field(name="Coin Purse", value=coinPurse)
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
         embed.add_field(name="Fairy Souls", value=fairySouls)
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
-        embed.add_field(name="Last Death", value=lastDeath)
+        embed.add_field(name="Last Death", value=arrow.Arrow.fromtimestamp(lastDeath).humanize())
 
         await ctx.send(embed=embed)
 
