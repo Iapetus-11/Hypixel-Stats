@@ -292,6 +292,12 @@ class Games(commands.Cog):
 
         await ctx.send(f"Test - you chose {skyblock['profiles'][profiles[index]].get('cute_name')}")
 
+        profile = skyblock['profiles'][profiles[index]]
+
+        stats = await self.cache.get_skyblock_stats(profile)
+
+        
+
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def uhc(self, ctx, *, player):
