@@ -310,9 +310,6 @@ class Games(commands.Cog):
             else:
                 members.append(await self.cache.get_player_name(member))
 
-        if len(members) > 4:
-            members = [members[0], f"and {len(members) - 1} more"]
-
         user_island_stats = stats["members"].get(p.UUID)
 
         first_join = user_island_stats.get("first_join")
