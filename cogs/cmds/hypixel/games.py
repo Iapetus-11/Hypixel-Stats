@@ -297,9 +297,9 @@ class Games(commands.Cog):
 
         for member in stats.get('members', []).keys():
             if member == profile:
-                members.append(f"**{self.cache.get_player_name(member)}**")
+                members.append(f"**{await self.cache.get_player_name(member)}**")
             else:
-                members.append(self.cache.get_player_name(member))
+                members.append(await self.cache.get_player_name(member))
 
         user_stats = stats["members"].get(p.UUID)
 
