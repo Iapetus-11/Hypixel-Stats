@@ -306,7 +306,7 @@ class Games(commands.Cog):
 
         firstJoin = user_stats.get("first_join")
         kills = ceil(user_stats['stats'].get('kills'))
-        deaths = user_stats.get('deaths', 0)
+        deaths = floor(user_stats.get('deaths', 0))
         voidDeaths = user_stats['stats'].get('deaths_void', 0)
         coinPurse = ceil(user_stats.get('coin_purse'))
         fairySouls = user_stats.get('fairy_souls')
