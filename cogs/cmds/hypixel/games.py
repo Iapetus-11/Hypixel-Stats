@@ -282,9 +282,8 @@ class Games(commands.Cog):
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
             return
 
-        await ctx.send(profiles)
-        await ctx.send(index - 1)
         profile = skyblock['profiles'][profiles[index - 1]]["profile_id"]
+        await ctx.send("line 285")
 
         stats = await self.cache.get_skyblock_stats(profile)
 
