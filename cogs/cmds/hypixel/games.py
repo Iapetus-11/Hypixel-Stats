@@ -248,9 +248,8 @@ class Games(commands.Cog):
         def author_check(message):
             return message.author == ctx.message.author and ctx.guild == message.guild and ctx.channel == message.channel
 
-        await ctx.trigger_typing()
-
-        p = await self.cache.get_player(player)
+        async with ctx.typing():
+            p = await self.cache.get_player(player)
 
         try:
             skyblock = p.STATS["SkyBlock"]
