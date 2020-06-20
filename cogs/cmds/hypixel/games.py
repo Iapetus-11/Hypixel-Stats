@@ -262,9 +262,9 @@ class Games(commands.Cog):
 
         profile_names = f"Choose one with the provided indexes:\n\n"
 
-        for profile in profiles:
-            profile_names += f'``{profiles.index(profile) + 1}.`` **{skyblock["profiles"][profile].get("cute_name")}** ' \
-                             f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
+        for profile_id in profiles:
+            profile_names += f'``{profiles.index(profile_id) + 1}.`` **{skyblock["profiles"][profile_id].get("cute_name")}** ' \
+                             f'``({skyblock["profiles"][profile_id].get("profile_id")})``\n'
         picker_embed = discord.Embed(color=self.bot.cc, description=profile_names)
         picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:", icon_url=head)
         picker_embed.set_footer(text="Just send one of the above numbers!")
@@ -292,11 +292,12 @@ class Games(commands.Cog):
         except asyncio.TimeoutError:
             return
 
-        profile = skyblock['profiles'][profiles[index - 1]]["profile_id"]
+        base = skyblock['profiles'][profiles[index - 1]]
+        profile_id = base["profile_id"]
 
-        stats = await self.cache.get_skyblock_stats(profile)
+        stats = await self.cache.get_skyblock_stats(profile_id)
 
-        if stats["profile_id"] == profile:
+        if stats["profile_id"] == profile_id:
             coop = True
         else:
             coop = False
@@ -304,7 +305,7 @@ class Games(commands.Cog):
         members = []
 
         for member in list(stats.get('members', [])):
-            if member == profile:
+            if member == profile_id:
                 members.append(f"**{await self.cache.get_player_name(member)}**")
             else:
                 members.append(await self.cache.get_player_name(member))
@@ -312,21 +313,21 @@ class Games(commands.Cog):
         if len(members) > 4:
             members = [members[0], f"and {len(members) - 1} more"]
 
-        island_stats = stats["members"].get(p.UUID)
+        user_island_stats = stats["members"].get(p.UUID)
 
-        first_join = island_stats.get("first_join")
-        kills = ceil(island_stats['stats'].get('kills'))
-        deaths = floor(island_stats.get('deaths', 0))
-        void_deaths = island_stats['stats'].get('deaths_void', 0)
-        coin_purse = ceil(island_stats.get('coin_purse'))
-        fairy_souls = island_stats.get('fairy_souls')
-        fairy_souls_collected = island_stats.get('fairy_souls_collected')
+        first_join = user_island_stats.get("first_join")
+        kills = ceil(user_island_stats['stats'].get('kills'))
+        deaths = floor(user_island_stats.get('deaths', 0))
+        void_deaths = floor(user_island_stats['stats'].get('deaths_void', 0))
+        coin_purse = ceil(user_island_stats.get('coin_purse'))
+        fairy_souls = user_island_stats.get('fairy_souls')
+        fairy_souls_collected = user_island_stats.get('fairy_souls_collected')
 
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
 
-        embed.description = f'**{skyblock["profiles"][profiles[index - 1]].get("cute_name")}** - [``{profile}``]'
+        embed.description = f'**{skyblock["profiles"][profiles[index - 1]].get("cute_name")}** - [``{profile_id}``]'
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
