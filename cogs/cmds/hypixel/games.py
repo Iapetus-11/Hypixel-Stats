@@ -291,7 +291,7 @@ class Games(commands.Cog):
         if y < 0:
             y = 0 - y
 
-        ar15 = arrow.get(f"{y}-{m}-{d} {hr}:{mn}:{sc}")
+        ar15 = arrow.get(f"{y}-{m}-{d} {hr}:{mn}:{sc}", "YYYY-MM-DD HH:mm:ss")
         return ar15
 
     @commands.command(name="skyblock", aliases=["sb"])
