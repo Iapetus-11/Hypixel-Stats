@@ -266,8 +266,9 @@ class Games(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description=profile_names))
 
         index = await self.bot.wait_for('message', check=author_check, timeout=20)
+        index = index.content
 
-        if int(index.content) > len(profiles) or int(index.content) <= 0:
+        if int(index) > len(profiles) or int(index) <= 0:
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
             return
 
