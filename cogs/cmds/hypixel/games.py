@@ -270,16 +270,20 @@ class Games(commands.Cog):
         picker_embed.set_footer(text="Just send one of the above numbers!")
         await ctx.send(embed=picker_embed)
 
-        index = await self.bot.wait_for('message', check=author_check, timeout=20)
-
         try:
-            index = int(index.content)
-        except ValueError:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
-            return
+            while True:
+                index = await self.bot.wait_for('message', check=author_check, timeout=20)
 
-        if index > len(profiles) or index <= 0:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
+                try:
+                    index = int(index.content)
+                except ValueError:
+                    await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
+                else:
+                    if index > len(profiles) or index <= 0:
+                        await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
+                    else:
+                        break
+        except asyncio.TimeoutError:
             return
 
         profile = skyblock['profiles'][profiles[index - 1]]["profile_id"]
