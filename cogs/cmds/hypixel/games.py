@@ -293,7 +293,7 @@ class Games(commands.Cog):
 
         members = []
 
-        for member in stats.get('members', []).keys():
+        for member in list(stats.get('members', [])):
             if member == profile:
                 members.append(f"**{await self.cache.get_player_name(member)}**")
             else:
