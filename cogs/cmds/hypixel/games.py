@@ -379,7 +379,7 @@ class Games(commands.Cog):
         embed.add_field(name="Fairy Souls", value=fairySouls)
         embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
         embed.add_field(name="Last Death",
-                        value=arrow.Arrow.fromtimestamp(await self.julian_to_regular(lastDeath)).humanize())
+                        value=(await self.julian_to_regular(lastDeath)).humanize())
 
         await ctx.send(embed=embed)
 
