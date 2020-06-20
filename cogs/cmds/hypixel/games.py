@@ -283,7 +283,6 @@ class Games(commands.Cog):
             return
 
         profile = skyblock['profiles'][profiles[index - 1]]["profile_id"]
-        await ctx.send("line 285")
 
         stats = await self.cache.get_skyblock_stats(profile)
 
@@ -317,7 +316,7 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
 
-        embed.description = f'**{skyblock["profiles"][profiles[index]].get("cute_name")}** - [``{profile}``]'
+        embed.description = f'**{skyblock["profiles"][profiles[index - 1]].get("cute_name")}** - [``{profile}``]'
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
