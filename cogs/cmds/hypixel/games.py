@@ -256,36 +256,19 @@ class Games(commands.Cog):
         except KeyError:
             raise NoStatError
 
-        profiles = skyblock.get("profiles").keys()
-        profiles = list(profiles)
-        profile_names = "This user has two islands (including co-ops). Choose one with the provided indexes: \n\n"
+        profiles = list(skyblock.get("profiles"))
 
-        iteration = 1
+        profile_names = f"This user has {len(profiles)} islands (including co-ops). Choose one with the provided indexes:\n\n"
 
         for profile in profiles:
-            profile_names += f'``{str(iteration)}.`` **{skyblock["profiles"][profile].get("cute_name")}** ' \
+            profile_names += f'``{profiles.index(profile) + 1}.`` **{skyblock["profiles"][profile].get("cute_name")}** ' \
                              f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description=profile_names))
 
-        iteration = 0
-        while iteration <= 3:
-            await ctx.send(profile_names)
-            index = await self.bot.wait_for('message', check=author_check, timeout=20)
+        index = await self.bot.wait_for('message', check=author_check, timeout=20)
 
-            try:
-                if int(index.content) > len(profiles) or int(index.content) <= 0:
-                    if iteration > 3:
-                        await ctx.send("**Please enter a valid index.** Cancelling process.")
-                        return
-                    await ctx.send(f"**Invalid Index!** Please try again.")
-                    iteration += 1
-                    continue
-            except ValueError:
-                if iteration > 3:
-                    await ctx.send("**Please enter a valid index.** Cancelling process.")
-                    return
-                await ctx.send(f"**Invalid Index!** Please try again.")
-                iteration += 1
-                continue
+        if int(index.content) > len(profiles) or int(index.content) <= 0:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
 
             index = int(index.content) - 1
             break
