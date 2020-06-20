@@ -598,7 +598,7 @@ class Games(commands.Cog):
 
         embed.add_field(name="XP", value=bedwars.get("Experience"))
         embed.add_field(name="Coins", value=bedwars.get("coins"))
-        embed.add_field(name="Stars", value=p.ACHIEVEMENTS.get("bedwars_level"), inline=True)
+        embed.add_field(name="Stars", value=p.ACHIEVEMENTS.get("bedwars_level"))
 
         embed.add_field(name="Losses", value=bedwars.get("beds_lost_bedwars"))
         embed.add_field(name="Wins", value=bedwars.get("wins_bedwars"))
@@ -611,6 +611,12 @@ class Games(commands.Cog):
         embed.add_field(name="KDR", value=round(
             (kills + .00001) / (deaths + .00001), 2),
                         inline=True)
+
+        final_kills = bedwars.get("final_kills_bedwars", .00001)
+        final_deaths = bedwars.get("final_deaths_bedwars", .00001)
+        embed.add_field(name="Final Kills", value=final_kills)
+        embed.add_field(name="Final Deaths", value=final_deaths)
+        embed.add_field(name="Final KDR", value=round(final_kills / final_deaths, 2))
 
         embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"), inline=True)
         embed.add_field(name="Total Games",
