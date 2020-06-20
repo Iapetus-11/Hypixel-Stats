@@ -243,6 +243,8 @@ class Games(commands.Cog):
     @commands.command(name="skyblock", aliases=["sb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skyblock(self, ctx, *, player):
+        """command to display skyblock stats of the mentioned player"""
+
         def author_check(message):  # Basic check to make sure author and other stuff is proper right
             return message.author == ctx.message.author and ctx.guild == message.guild and ctx.channel == message.channel
 
