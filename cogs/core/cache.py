@@ -205,6 +205,13 @@ class Cache(commands.Cog):
             self.guild_cache[guild_id] = guild
         return guild
 
+    async def get_skyblock_stats(self, profile: str) -> dict:
+        """gets skyblock statistics of the provided profile"""
+
+        data = await self.hypixel.getSkyblockStats(profile)
+
+        return data
+
 
 def setup(bot):
     bot.add_cog(Cache(bot))
