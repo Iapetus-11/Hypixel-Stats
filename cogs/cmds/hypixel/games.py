@@ -314,13 +314,13 @@ class Games(commands.Cog):
 
         island_stats = stats["members"].get(p.UUID)
 
-        firstJoin = island_stats.get("first_join")
+        first_join = island_stats.get("first_join")
         kills = ceil(island_stats['stats'].get('kills'))
         deaths = floor(island_stats.get('deaths', 0))
-        voidDeaths = island_stats['stats'].get('deaths_void', 0)
-        coinPurse = ceil(island_stats.get('coin_purse'))
-        fairySouls = island_stats.get('fairy_souls')
-        fairySoulsCollected = island_stats.get('fairy_souls_collected')
+        void_deaths = island_stats['stats'].get('deaths_void', 0)
+        coin_purse = ceil(island_stats.get('coin_purse'))
+        fairy_souls = island_stats.get('fairy_souls')
+        fairy_souls_collected = island_stats.get('fairy_souls_collected')
 
         embed = self.embed.copy()
 
@@ -330,15 +330,15 @@ class Games(commands.Cog):
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
-        embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(firstJoin / 1000).humanize())
+        embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(first_join / 1000).humanize())
 
-        embed.add_field(name="Coin Purse", value=coinPurse)
+        embed.add_field(name="Coin Purse", value=coin_purse)
         embed.add_field(name="Kills", value=kills)
-        embed.add_field(name="Deaths", value=f"{deaths + voidDeaths}")
+        embed.add_field(name="Deaths", value=f"{deaths + void_deaths}")
 
         embed.add_field(name="Armor", value="Work in progress!")
-        embed.add_field(name="Fairy Souls", value=fairySouls)
-        embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
+        embed.add_field(name="Fairy Souls", value=fairy_souls)
+        embed.add_field(name="Fairy Souls Collected", value=fairy_souls_collected)
 
         await ctx.send(embed=embed)
 
