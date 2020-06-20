@@ -263,7 +263,7 @@ class Games(commands.Cog):
         j4 = floor(j3 * 365.25)
         j5 = floor((j2 - j4) / 30.6001)
 
-        d = floor(js - j4 - floor(j5 * 30.6001))
+        d = floor(j2 - j4 - floor(j5 * 30.6001))
 
         m = floor(j5 - 1)
         if m > 12:
