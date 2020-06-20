@@ -251,8 +251,6 @@ class Games(commands.Cog):
         async with ctx.typing():  # Fetch player from cache or api
             p = await self.cache.get_player(player)
 
-            _id = p.HYPIXEL_ID  # IMPORTANT LATER
-
             head = await self.cache.get_player_head(player)
 
         try:
@@ -303,7 +301,7 @@ class Games(commands.Cog):
             else:
                 members.append(self.cache.get_player_name(member))
 
-        user_stats = stats["members"].get(_id)
+        user_stats = stats["members"].get(p.UUID)
 
         firstJoin = user_stats.get("first_join")
         kills = user_stats['stats'].get('kills')
