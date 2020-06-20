@@ -327,7 +327,7 @@ class Games(commands.Cog):
         embed.description = f'**{base.get("cute_name")}** - [``{profile_id}``]'
 
         embed.add_field(name="Co-Op", value=coop)
-        embed.add_field(name="Members", value=', '.join(members))
+        embed.add_field(name="Members", value=',\n'.join(members))
         embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(first_join / 1000).humanize())
 
         embed.add_field(name="Coin Purse", value=coin_purse)
