@@ -318,24 +318,15 @@ class Games(commands.Cog):
 
         embed.description = f'**Skyblock - {skyblock["profiles"][profiles[index]].get("cute_name")}** - ``{profile}``'
 
-        embed.add_field(name="Co-Op",
-                        value=coop)
-        embed.add_field(name="Members",
-                        value=', '.join(members))
-        embed.add_field(name="First Join",
-                        value=f"{firstJoin}")
-        embed.add_field(name="Coin Purse",
-                        value=f"{coinPurse}")
-        embed.add_field(name="Kills",
-                        value=f"{kills}")
-        embed.add_field(name="Deaths",
-                        value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
-        embed.add_field(name="Fairy Souls",
-                        value=f"{fairySouls}")
-        embed.add_field(name="Fairy Souls Collected",
-                        value=f"{fairySoulsCollected}")
-        embed.add_field(name="Last Death",
-                        value=f"{lastDeath}")
+        embed.add_field(name="Co-Op", value=coop)
+        embed.add_field(name="Members", value=', '.join(members))
+        embed.add_field(name="First Join", value=firstJoin)
+        embed.add_field(name="Coin Purse", value=coinPurse)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=f"{deaths}{f' | {voidDeaths}' if voidDeaths else ''}")
+        embed.add_field(name="Fairy Souls", value=fairySouls)
+        embed.add_field(name="Fairy Souls Collected", value=fairySoulsCollected)
+        embed.add_field(name="Last Death", value=lastDeath)
 
         await ctx.send(embed)
 
