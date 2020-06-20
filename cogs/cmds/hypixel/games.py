@@ -310,6 +310,9 @@ class Games(commands.Cog):
             else:
                 members.append(discord.utils.escape_markdown(await self.cache.get_player_name(member)))
 
+        if len(members) > 3:
+            members = [members[0], f"+ {len(members) - 1}"]
+
         user_island_stats = stats["members"].get(p.UUID)
 
         first_join = user_island_stats.get("first_join")
@@ -327,7 +330,7 @@ class Games(commands.Cog):
         embed.description = f'**{base.get("cute_name")}** - [``{profile_id}``]'
 
         embed.add_field(name="Co-Op", value=coop)
-        embed.add_field(name="Members", value=',\n'.join(members))
+        embed.add_field(name="Members", value=', '.join(members))
         embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(first_join / 1000).humanize())
 
         embed.add_field(name="Coin Purse", value=coin_purse)
