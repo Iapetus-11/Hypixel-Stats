@@ -266,7 +266,7 @@ class Games(commands.Cog):
                              f'``({skyblock["profiles"][profile].get("profile_id")})``\n'
 
         picker_embed = discord.Embed(color=self.bot.cc, description=profile_names)
-        picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:")
+        picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:", icon_url=head)
         picker_embed.set_footer(text="Just send one of the above numbers!")
 
         index = await self.bot.wait_for('message', check=author_check, timeout=20)
