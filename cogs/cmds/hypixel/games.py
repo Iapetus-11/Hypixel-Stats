@@ -288,6 +288,7 @@ class Games(commands.Cog):
                         break
             if not valid:
                 await ctx.send(embed=discord.Embed(color=self.bot.cc, description="The command was canceled."))
+                return
         except asyncio.TimeoutError:
             return
 
