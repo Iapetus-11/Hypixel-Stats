@@ -269,9 +269,7 @@ class Games(commands.Cog):
 
         if int(index.content) > len(profiles) or int(index.content) <= 0:
             await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
-
-            index = int(index.content) - 1
-            break
+            return
 
         profile = skyblock['profiles'][profiles[index]]["profile_id"]
 
