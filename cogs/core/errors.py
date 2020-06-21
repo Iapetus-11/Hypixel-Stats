@@ -91,7 +91,7 @@ class Errors(commands.Cog):
                 e) and "discord.errors.Forbidden" not in str(e):
             await self.send(ctx, f"**Unknown Error.** The error has been magically broadcasted to our support "
                                  f"team. If this bug continues, please report it on our "
-                                 f"[support server](https://discord.gg/{self.bot.guild_invite_code}")
+                                 f"[support server](https://discord.gg/{self.bot.guild_invite_code})")
 
             error_channel = self.bot.get_channel(self.bot.error_channel_id)
 
