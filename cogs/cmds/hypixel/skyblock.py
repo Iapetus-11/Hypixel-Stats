@@ -150,7 +150,7 @@ class SkyBlock(commands.Cog):
         embed.add_field(name="Kills", value=ceil(user_island_stats['stats'].get('kills', 0)))
         embed.add_field(name="Deaths", value=floor(user_island_stats['stats'].get('deaths', 0)))
 
-        embed.add_field(name="Void Deaths", value=user_island_stats['stats'].get("deaths_void", 0))
+        embed.add_field(name="Void Deaths", value=floor(user_island_stats['stats'].get("deaths_void", 0)))
         embed.add_field(name="Fairy Souls", value=user_island_stats.get('fairy_souls', 0))
         embed.add_field(name="Fairy Souls Collected", value=user_island_stats.get('fairy_souls_collected', 0))
 
