@@ -1,6 +1,7 @@
 import arrow
 import discord
 from discord.ext import commands
+from random import choice
 
 
 class Events(commands.Cog):
@@ -12,7 +13,8 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"\n\u001b[36;1m CONNECTED \u001b[0m [{self.bot.shard_count} Shards]\n")
-        await self.bot.change_presence(activity=discord.Game("on Hypixel"), status=discord.Status.idle)
+        await self.bot.change_presence(activity=discord.Game(choice(["on Hypixel", "SkyBlock", "Bedwars", "Sky Wars"])),
+                                       status=discord.Status.idle)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
