@@ -57,9 +57,9 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Arcade Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="All Time Coins", value=floor(arcade.get("coins", 0)), inline=False)
-        embed.add_field(name="Coins This Month", value=arcade.get("monthly_coins_a", 0), inline=False)
-        embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a", 0), inline=False)
+        embed.add_field(name="All Time Coins", value=floor(arcade.get("coins", 0)))
+        embed.add_field(name="Coins This Month", value=arcade.get("monthly_coins_a", 0))
+        embed.add_field(name="Coins This Week", value=arcade.get("weekly_coins_a", 0))
 
         await ctx.send(embed=embed)
 
@@ -79,28 +79,26 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Arena Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=arena.get("coins", 0), inline=True)
+        embed.add_field(name="Coins", value=arena.get("coins", 0))
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Coins Spent", value=arena.get("coins_spent", 0), inline=True)
+        embed.add_field(name="Coins Spent", value=arena.get("coins_spent", 0))
 
         kills = sum({k: v for k, v in arena.items() if "kills_" in k}.values())
         deaths = sum({k: v for k, v in arena.items() if "deaths_" in k}.values())
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         games = sum({k: v for k, v in arena.items() if "games_" in k}.values())
         wins = arena.get("wins", 0)
         losses = sum({k: v for k, v in arena.items() if "losses_" in k}.values())
-        embed.add_field(name="Games", value=games, inline=True)
-        embed.add_field(name="Wins", value=wins, inline=True)
-        embed.add_field(name="Losses", value=losses, inline=True)
+        embed.add_field(name="Games", value=games)
+        embed.add_field(name="Wins", value=wins)
+        embed.add_field(name="Losses", value=losses)
 
         total_dmg = sum({k: v for k, v in arena.items() if "games_" in k}.values())
-        embed.add_field(name="Total Damage", value=total_dmg, inline=True)
-        embed.add_field(name="Rating", value=round(arena.get("rating", 0), 2), inline=True)
+        embed.add_field(name="Total Damage", value=total_dmg)
+        embed.add_field(name="Rating", value=round(arena.get("rating", 0), 2))
 
         await ctx.send(embed=embed)
 
@@ -121,17 +119,15 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Battleground Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=battle.get("coins", 0), inline=True)
-        embed.add_field(name="Wins", value=battle.get("wins", 0), inline=True)
-        embed.add_field(name="Losses", value=battle.get("losses", 0), inline=True)
+        embed.add_field(name="Coins", value=battle.get("coins", 0))
+        embed.add_field(name="Wins", value=battle.get("wins", 0))
+        embed.add_field(name="Losses", value=battle.get("losses", 0))
 
         kills = battle.get("kills", 0)
         deaths = battle.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         embed.add_field(name="Damage Inflicted", value=battle.get("damage", 0))
         embed.add_field(name="Damage Taken", value=battle.get("damage_taken", 0))
@@ -156,17 +152,15 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hungergames Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=hunger.get("coins", 0), inline=True)
+        embed.add_field(name="Coins", value=hunger.get("coins", 0))
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Wins", value=hunger.get("wins", 0), inline=True)
+        embed.add_field(name="Wins", value=hunger.get("wins", 0))
 
         kills = hunger.get("kills", 0)
         deaths = hunger.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         await ctx.send(embed=embed)
 
@@ -186,17 +180,15 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Paintball Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=paint.get("coins", 0), inline=True)
+        embed.add_field(name="Coins", value=paint.get("coins", 0))
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Wins", value=paint.get("wins", 0), inline=True)
+        embed.add_field(name="Wins", value=paint.get("wins", 0))
 
         kills = paint.get("kills", 0)
         deaths = paint.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         embed.add_field(name="Shots Fired", value=paint.get("shots_fired", 0), inline=False)
 
@@ -218,20 +210,20 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Quake Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=quake.get("coins", 0), inline=True)
+        embed.add_field(name="Coins", value=quake.get("coins", 0))
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Wins", value=quake.get("wins", 0), inline=True)
+        embed.add_field(name="Wins", value=quake.get("wins", 0))
 
         kills = quake.get("kills", 0)
         deaths = quake.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round(
             (kills + .00001) / (deaths + .00001), 2),
                         inline=True)
 
-        embed.add_field(name="Shots Fired", value=quake.get("shots_fired", 0), inline=True)
-        embed.add_field(name="Headshots", value=quake.get("headshots", 0), inline=True)
+        embed.add_field(name="Shots Fired", value=quake.get("shots_fired", 0))
+        embed.add_field(name="Headshots", value=quake.get("headshots", 0))
 
         embed.add_field(name="Highest Killstreak", value=quake.get("highest_killstreak", 0), inline=False)
 
@@ -353,17 +345,15 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=uhc.get("coins", 0), inline=True)
-        embed.add_field(name="Wins", value=uhc.get("wins", 0), inline=True)
-        embed.add_field(name="Score", value=uhc.get("score", 0), inline=True)
+        embed.add_field(name="Coins", value=uhc.get("coins", 0))
+        embed.add_field(name="Wins", value=uhc.get("wins", 0))
+        embed.add_field(name="Score", value=uhc.get("score", 0))
 
         kills = uhc.get("kills", 0)
         deaths = uhc.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         embed.add_field(name="Heads Eaten", value=uhc.get("heads_eaten", 0), inline=False)
 
@@ -385,28 +375,26 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s VampireZ Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=vampire.get("coins", 0), inline=True)
-        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
-        embed.add_field(nname="Gold Bought", value=vampire.get("gold_bought", 0), inline=True)
+        embed.add_field(name="Coins", value=vampire.get("coins", 0))
+        embed.add_field(name="\uFEFF", value="\uFEFF")
+        embed.add_field(nname="Gold Bought", value=vampire.get("gold_bought", 0))
 
         human_kills = vampire.get("human_kills", 0)
         vampire_kills = vampire.get("vampire_kills", 0)
         zombie_kills = vampire.get("zombie_kills", 0)
-        embed.add_field(name="Human Kills", value=human_kills, inline=True)
-        embed.add_field(name="Vampire Kills", value=vampire_kills, inline=True)
-        embed.add_field(name="Zombie Kills", value=zombie_kills, inline=True)
+        embed.add_field(name="Human Kills", value=human_kills)
+        embed.add_field(name="Vampire Kills", value=vampire_kills)
+        embed.add_field(name="Zombie Kills", value=zombie_kills)
 
         human_deaths = vampire.get("human_deaths", 0)
         vampire_deaths = vampire.get("vampire_deaths", 0)
-        embed.add_field(name="Human Deaths", value=human_deaths, inline=True)
-        embed.add_field(name="Vampire Deaths", value=vampire_deaths, inline=True)
-        embed.add_field(name="Zombie Deaths", value="N/A", inline=True)
+        embed.add_field(name="Human Deaths", value=human_deaths)
+        embed.add_field(name="Vampire Deaths", value=vampire_deaths)
+        embed.add_field(name="Zombie Deaths", value="N/A")
 
-        embed.add_field(name="Human KDR", value=round((human_kills + .00001) / (human_deaths + .00001), 2),
-                        inline=True)
-        embed.add_field(name="Vampire KDR", value=round((vampire_kills + .00001) / (vampire_deaths + .00001), 2),
-                        inline=True)
-        embed.add_field(name="Zombie KDR", value="N/A", inline=True)
+        embed.add_field(name="Human KDR", value=round((human_kills + .00001) / (human_deaths + .00001), 2))
+        embed.add_field(name="Vampire KDR", value=round((vampire_kills + .00001) / (vampire_deaths + .00001), 2))
+        embed.add_field(name="Zombie KDR", value="N/A")
 
         await ctx.send(embed=embed)
 
@@ -426,15 +414,15 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Walls Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=walls.get("coins", 0), inline=True)
-        embed.add_field(name="Wins", value=walls.get("wins", 0), inline=True)
-        embed.add_field(name="Losses", value=walls.get("losses", 0), inline=True)
+        embed.add_field(name="Coins", value=walls.get("coins", 0))
+        embed.add_field(name="Wins", value=walls.get("wins", 0))
+        embed.add_field(name="Losses", value=walls.get("losses", 0))
 
         kills = walls.get("kills", 0)
         deaths = walls.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2), inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         await ctx.send(embed=embed)
 
@@ -455,17 +443,17 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Turbo Kart Racer Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=bread.get("coins", 0), inline=True)
-        embed.add_field(name="Wins", value=bread.get("wins", 0), inline=True)
-        embed.add_field(name="Laps", value=bread.get("laps_completed", 0), inline=True)
+        embed.add_field(name="Coins", value=bread.get("coins", 0))
+        embed.add_field(name="Wins", value=bread.get("wins", 0))
+        embed.add_field(name="Laps", value=bread.get("laps_completed", 0))
 
-        embed.add_field(name="Gold Trophies", value=bread.get("gold_trophy", 0), inline=True)
-        embed.add_field(name="Silver Trophies", value=bread.get("silver_trophy", 0), inline=True)
-        embed.add_field(name="Bronze Trophies", value=bread.get("bronze_trophy", 0), inline=True)
+        embed.add_field(name="Gold Trophies", value=bread.get("gold_trophy", 0))
+        embed.add_field(name="Silver Trophies", value=bread.get("silver_trophy", 0))
+        embed.add_field(name="Bronze Trophies", value=bread.get("bronze_trophy", 0))
 
-        embed.add_field(name="Boxes Picked Up", value=bread.get("box_pickups", 0), inline=True)
-        embed.add_field(name="Coins Picked Up", value=bread.get("coins_picked_up", 0), inline=True)
-        embed.add_field(name="Bananas Hit", value=bread.get("banana_hits_received", 0), inline=False)
+        embed.add_field(name="Boxes Picked Up", value=bread.get("box_pickups", 0))
+        embed.add_field(name="Coins Picked Up", value=bread.get("coins_picked_up", 0))
+        embed.add_field(name="Bananas Hit", value=bread.get("banana_hits_received", 0))
 
         await ctx.send(embed=embed)
 
@@ -528,24 +516,23 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Speed UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=suhc.get("coins", 0), inline=True)
-        embed.add_field(name="Games", value=suhc.get("games", 0), inline=True)
-        embed.add_field(name="Quits", value=suhc.get("quits", 0), inline=True)
+        embed.add_field(name="Coins", value=suhc.get("coins", 0))
+        embed.add_field(name="Games", value=suhc.get("games", 0))
+        embed.add_field(name="Quits", value=suhc.get("quits", 0))
 
-        embed.add_field(name="Wins", value=suhc.get("wins", 0), inline=True)
-        embed.add_field(name="Winstreak", value=suhc.get("win_streak", 0), inline=True)
-        embed.add_field(name="Losses", value=suhc.get("losses", 0), inline=True)
+        embed.add_field(name="Wins", value=suhc.get("wins", 0))
+        embed.add_field(name="Winstreak", value=suhc.get("win_streak", 0))
+        embed.add_field(name="Losses", value=suhc.get("losses", 0))
 
         kills = suhc.get("kills", 0)
         deaths = suhc.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
-        embed.add_field(name="Killstreak", value=suhc.get("killstreak", 0), inline=True)
-        embed.add_field(name="Players Survived", value=suhc.get("survived_players", 0), inline=True)
+        embed.add_field(name="Killstreak", value=suhc.get("killstreak", 0))
+        embed.add_field(name="Players Survived", value=suhc.get("survived_players", 0))
+
         embed.add_field(name="Blocks Broken", value=suhc.get("blocks_broken", 0), inline=False)
 
         await ctx.send(embed=embed)
@@ -567,13 +554,13 @@ class Games(commands.Cog):
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Build Battle Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=bb.get("coins", 0), inline=True)
-        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
-        embed.add_field(name="Score", value=bb.get("score", 0), inline=True)
+        embed.add_field(name="Coins", value=bb.get("coins", 0))
+        embed.add_field(name="\uFEFF", value="\uFEFF")
+        embed.add_field(name="Score", value=bb.get("score", 0))
 
-        embed.add_field(name="Games", value=bb.get("games_played", 0), inline=True)
-        embed.add_field(name="\uFEFF", value="\uFEFF", inline=True)
-        embed.add_field(name="Wins", value=bb.get("wins", 0), inline=True)
+        embed.add_field(name="Games", value=bb.get("games_played", 0))
+        embed.add_field(name="\uFEFF", value="\uFEFF")
+        embed.add_field(name="Wins", value=bb.get("wins", 0))
 
         await ctx.send(embed=embed)
 
@@ -638,7 +625,7 @@ class Games(commands.Cog):
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Coins", value=truecombat.get("coins", 0), inline=True)
+        embed.add_field(name="Coins", value=truecombat.get("coins", 0))
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
         await ctx.send(embed=embed)
@@ -670,8 +657,8 @@ class Games(commands.Cog):
         embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
-        embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"), inline=True)
-        embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"), inline=True)
+        embed.add_field(name="TNT Run Record", value=tntgames.get("record_tntrun"))
+        embed.add_field(name="PvP Run Record", value=tntgames.get("record_pvprun"))
 
         await ctx.send(embed=embed)
 
@@ -693,7 +680,7 @@ class Games(commands.Cog):
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
-        embed.add_field(name="Coins", value=supersmash.get("coins", 0), inline=True)
+        embed.add_field(name="Coins", value=supersmash.get("coins", 0))
         embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
         await ctx.send(embed=embed)
@@ -715,15 +702,15 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Murder Mystery Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=mystery.get("coins", 0), inline=True)
-        embed.add_field(name="Deaths", value=mystery.get("deaths", 0), inline=True)
-        embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
+        embed.add_field(name="Coins", value=mystery.get("coins", 0))
+        embed.add_field(name="Deaths", value=mystery.get("deaths", 0))
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
-        embed.add_field(name="Games", value=mystery.get("games", 0), inline=True)
-        embed.add_field(name="Wins", value=mystery.get("wins", 0), inline=True)
-        embed.add_field(name="\uFEFF", value=f"\uFEFF", inline=True)
+        embed.add_field(name="Games", value=mystery.get("games", 0))
+        embed.add_field(name="Wins", value=mystery.get("wins", 0))
+        embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
-        embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup", 0), inline=False)
+        embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup", 0))
 
         await ctx.send(embed=embed)
 
@@ -744,21 +731,19 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Cops & Crims Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=mcgo.get("coins", 0), inline=True)
-        embed.add_field(name="Wins", value=mcgo.get("game_wins", 0), inline=True)
-        embed.add_field(name="Round Wins", value=mcgo.get("round_wins", 0), inline=True)
+        embed.add_field(name="Coins", value=mcgo.get("coins", 0))
+        embed.add_field(name="Wins", value=mcgo.get("game_wins", 0))
+        embed.add_field(name="Round Wins", value=mcgo.get("round_wins", 0))
 
         kills = mcgo.get("kills", 0)
         deaths = mcgo.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
-        embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired", 0), inline=False)
-        embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills", 0), inline=False)
-        embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills", 0), inline=False)
+        embed.add_field(name="Shots Fired", value=mcgo.get("shots_fired", 0))
+        embed.add_field(name="Cop Kills", value=mcgo.get("cop_kills", 0))
+        embed.add_field(name="Criminal Kills", value=mcgo.get("criminal_kills", 0))
 
         await ctx.send(embed=embed)
 
@@ -779,20 +764,18 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Clash Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=clash.get("coins", 0), inline=True)
-        embed.add_field(name="Wins", value=clash.get("wins", 0), inline=True)
-        embed.add_field(name="Losses", value=clash.get("losses", 0), inline=True)
+        embed.add_field(name="Coins", value=clash.get("coins", 0))
+        embed.add_field(name="Wins", value=clash.get("wins", 0))
+        embed.add_field(name="Losses", value=clash.get("losses", 0))
 
         kills = clash.get("kills", 0)
         deaths = clash.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
-        embed.add_field(name="Kill Streak", value=clash.get("killstreak", 0), inline=True)
-        embed.add_field(name="Win Streak", value=clash.get("win_streak", 0), inline=True)
+        embed.add_field(name="Kill Streak", value=clash.get("killstreak", 0))
+        embed.add_field(name="Win Streak", value=clash.get("win_streak", 0))
 
         await ctx.send(embed=embed)
 
@@ -813,29 +796,27 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0), inline=True)
-        embed.add_field(name="Wins", value=duels.get("wins", 0), inline=True)
-        embed.add_field(name="Losses", value=duels.get("losses", 0), inline=True)
+        embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0))
+        embed.add_field(name="Wins", value=duels.get("wins", 0))
+        embed.add_field(name="Losses", value=duels.get("losses", 0))
 
         kills = duels.get("kills", 0)
         deaths = duels.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         bow_shots = duels.get("bow_shots", 0)
         bow_hits = duels.get("bow_hits", 0)
-        embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
-        embed.add_field(name="Bow Hits", value=bow_shots, inline=True)
+        embed.add_field(name="Bow Shots", value=bow_shots)
+        embed.add_field(name="Bow Hits", value=bow_shots)
         embed.add_field(name="Accuracy",
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
 
         melee_swings = duels.get("melee_swings", 0)
         melee_hits = duels.get("melee_hits", 0)
-        embed.add_field(name="Melee Swings", value=melee_swings, inline=True)
-        embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
+        embed.add_field(name="Melee Swings", value=melee_swings)
+        embed.add_field(name="Melee Hits", value=melee_hits)
         embed.add_field(name="Accuracy",
                         value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * 0 if melee_swings == 0 else 1}%")
 
@@ -860,25 +841,25 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hypixel Pit Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Cash", value=armpit.get("cash_earned", 0), inline=True)
-        embed.add_field(name="Joins", value=armpit.get("joins", 0), inline=True)
+        embed.add_field(name="Cash", value=armpit.get("cash_earned", 0))
+        embed.add_field(name="Joins", value=armpit.get("joins", 0))
         embed.add_field(name="Playtime", value=f"{armpit.get('playtime_minutes', 0)} minutes")
 
         kills = armpit.get("kills", 0)
         deaths = armpit.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         bow_shots = armpit.get("arrows_fired", 0)
         bow_hits = armpit.get("arrow_hits", 0)
-        embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
-        embed.add_field(name="Bow Hits", value=bow_hits, inline=True)
+        embed.add_field(name="Bow Shots", value=bow_shots)
+        embed.add_field(name="Bow Hits", value=bow_hits)
         embed.add_field(name="Accuracy",
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
 
-        embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt", 0), inline=True)
-        embed.add_field(name="Damage Received", value=armpit.get("damage_received", 0), inline=True)
+        embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt", 0))
+        embed.add_field(name="Damage Received", value=armpit.get("damage_received", 0))
 
         embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed", 0), inline=False)
 
