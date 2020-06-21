@@ -160,7 +160,7 @@ class SkyBlock(commands.Cog):
         embed.add_field(name="Fairy Souls", value=user_island_stats.get('fairy_souls', 0))
         embed.add_field(name="Fairy Souls Collected", value=user_island_stats.get('fairy_souls_collected', 0))
 
-        embed.add_field(name="Armor", value= if, inline = False)
+        embed.add_field(name="Armor", value=armor_final)
 
         await ctx.send(embed=embed)
 
