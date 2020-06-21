@@ -8,6 +8,7 @@ from functools import partial
 from math import floor, ceil
 from nbt import *
 from os import remove
+from random import randint
 
 
 class SkyBlock(commands.Cog):
@@ -18,13 +19,10 @@ class SkyBlock(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-        self.counter1 = 0
-
     def get_nbt(self, data):
-        self.counter1 += 1
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
-        fname = f"{counter1}.{arrow.utcnow().timestamp}.nbt"
+        fname = f"{arrow.utcnow().timestamp}.{randint(10000, 99999)}.nbt"
         with open(fname, "wb") as f:
             f.write(bytes)
         nbt_data = nbt.NBTFile(fname, "rb")
