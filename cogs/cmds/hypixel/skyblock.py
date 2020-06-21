@@ -30,7 +30,7 @@ class SkyBlock(commands.Cog):
         return nbt_data
 
     async def get_armor(self, uuid, user_island_stats):
-        cached_armor = await self.cache.armor_cache.get(uuid)
+        cached_armor = self.cache.armor_cache.get(uuid)
         if cached_armor is not None:
             return cached_armor
 
