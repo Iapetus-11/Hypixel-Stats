@@ -89,19 +89,21 @@ class Errors(commands.Cog):
 
         if "HTTPException: 503 Service Unavailable (error code: 0)" not in str(
                 e) and "discord.errors.Forbidden" not in str(e):
-            excls = ['OH SNAP', 'OH FU\*\*!', 'OH \*\*\*\*!', 'OH SH-']
-            await self.send(ctx, f"{choice(excls)} "
-                                 "You found an actual error, please take a screenshot and report it on our "
-                                 f"**[support server](https://discord.gg/{self.bot.guild_invite_code})**, thank you!")
+            await self.send(ctx, f"**Unknown Error.** The error has been magically broadcasted to our support "
+                                 f"team. If this bug continues, please report it on our "
+                                 f"[support server](https://discord.gg/{self.bot.guild_invite_code}")
 
             error_channel = self.bot.get_channel(self.bot.error_channel_id)
 
             # Thanks TrustedMercury!
+            # yw
             etype = type(e)
             trace = e.__traceback__
-            verbosity = 1
+            verbosity = 4
             lines = traceback.format_exception(etype, e, trace, verbosity)
             traceback_text = ''.join(lines)
+
+            traceback_text = traceback_text[:1023]
 
             await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
 
