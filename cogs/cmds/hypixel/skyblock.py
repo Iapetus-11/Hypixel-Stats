@@ -3,6 +3,7 @@ import asyncio
 import base64
 import concurrent.futures
 import discord
+import gzip
 import nbt
 from discord.ext import commands
 from functools import partial
