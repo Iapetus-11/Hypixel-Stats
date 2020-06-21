@@ -106,8 +106,8 @@ class SkyBlock(commands.Cog):
 
         if ctx.author.id == 536986067140608041:
             with concurrent.futures.ThreadPoolExecutor() as pool:
-                nbt_partial = partial(self.get_nbt, user_island_stats)
-                armor = await self.bot.loop.run_in_executor(pool, nbt_partial)
+                get_nbt_partial = partial(self.get_nbt, user_island_stats)
+                armor = await self.bot.loop.run_in_executor(pool, get_nbt_partial)
 
                 armor = [
                     armor['i'][3].get('tag')['display']['Name'] if armor['i'][3].get('tag') is not None else None,
