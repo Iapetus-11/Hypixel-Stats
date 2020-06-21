@@ -100,7 +100,7 @@ class SkyBlock(commands.Cog):
 
         if ctx.author.id == 536986067140608041:
             with concurrent.futures.ThreadPoolExecutor() as pool:
-                armor = await self.bot.loop.run_in_executor(pool, self.unzip(user_island_stats))
+                armor = await self.bot.loop.run_in_executor(pool, self.unzip, args=(user_island_stats,))
 
         first_join = user_island_stats.get("first_join", 0)
         kills = ceil(user_island_stats['stats'].get('kills', 0))
