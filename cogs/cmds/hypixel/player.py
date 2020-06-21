@@ -13,7 +13,7 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-    async def filter_prefix(self, pp):
+    async def filter_sections(self, pp):
         cleaned = ""
         for i in range(1, len(pp), 1):
             if pp[i - 1] != "§" and pp[i] != "§":
@@ -50,7 +50,7 @@ class Player(commands.Cog):
         if p.PREFIX is None:
             prefix = ""
         else:
-            prefix = await self.filter_prefix(p.PREFIX) + " "
+            prefix = await self.filter_sections(p.PREFIX) + " "
 
         rank = p.RANK
 
