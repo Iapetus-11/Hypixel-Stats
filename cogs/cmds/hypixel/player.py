@@ -74,7 +74,7 @@ class Player(commands.Cog):
         embed.add_field(name="Status", value=online, inline=True)
         embed.add_field(name="Last Online", value=f"{last_online}", inline=True)
 
-        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
+        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}")
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
