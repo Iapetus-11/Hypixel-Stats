@@ -29,7 +29,6 @@ class SkyBlock(commands.Cog):
             f.write(bytes)
         nbt_data = nbt.NBTFile(fname, "rb")
         remove(f"./{fname}")
-        test_nbt = nbt_data
         return nbt_data
 
     @commands.command(name="skyblock", aliases=["sb"])
@@ -110,6 +109,7 @@ class SkyBlock(commands.Cog):
                 nbt_partial = partial(self.get_nbt, user_island_stats)
                 armor = await self.bot.loop.run_in_executor(pool, nbt_partial)
                 await ctx.send(f"```{armor}```")
+                self.test_nbt = armor
 
         first_join = user_island_stats.get("first_join", 0)
         kills = ceil(user_island_stats['stats'].get('kills', 0))
