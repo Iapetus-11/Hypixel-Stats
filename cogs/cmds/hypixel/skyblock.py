@@ -135,14 +135,6 @@ class SkyBlock(commands.Cog):
                 except Exception:
                     break
 
-        first_join = user_island_stats.get("first_join", 0)
-        kills = ceil(user_island_stats['stats'].get('kills', 0))
-        deaths = floor(user_island_stats.get('deaths', 0))
-        coin_purse = ceil(user_island_stats.get('coin_purse', 0))
-        fairy_souls = user_island_stats.get('fairy_souls', 0)
-        fairy_souls_collected = user_island_stats.get('fairy_souls_collected', 0)
-        void_deaths = user_island_stats.get("deaths_void", 0)
-
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
@@ -151,15 +143,16 @@ class SkyBlock(commands.Cog):
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
-        embed.add_field(name="First Join", value=arrow.Arrow.fromtimestamp(first_join / 1000).humanize())
+        embed.add_field(name="First Join",
+                        value=arrow.Arrow.fromtimestamp(user_island_stats.get("first_join", 0) / 1000).humanize())
 
-        embed.add_field(name="Coin Purse", value=coin_purse)
-        embed.add_field(name="Kills", value=kills)
-        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="Coin Purse", value=ceil(user_island_stats.get('coin_purse', 0)))
+        embed.add_field(name="Kills", value=ceil(user_island_stats['stats'].get('kills', 0)))
+        embed.add_field(name="Deaths", value=floor(user_island_stats['stats'].get('deaths', 0)))
 
-        embed.add_field(name="Void Deaths", value=void_deaths)
-        embed.add_field(name="Fairy Souls", value=fairy_souls)
-        embed.add_field(name="Fairy Souls Collected", value=fairy_souls_collected)
+        embed.add_field(name="Void Deaths", value=user_island_stats['stats'].get("deaths_void", 0))
+        embed.add_field(name="Fairy Souls", value=user_island_stats.get('fairy_souls', 0))
+        embed.add_field(name="Fairy Souls Collected", value=user_island_stats.get('fairy_souls_collected', 0))
 
         embed.add_field(name="Armor", value="`" + "`\n`".join(armor) + "`", inline=False)
 
