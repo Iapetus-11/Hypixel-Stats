@@ -49,6 +49,10 @@ class SkyBlock(commands.Cog):
 
         profiles = list(skyblock.get("profiles"))
 
+        if len(profiles) == 0:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="This user doesn't have any islands!"))
+            return
+
         profile_names = f"Choose one with the provided indexes:\n\n"
 
         for profile_id in profiles:
