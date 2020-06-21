@@ -613,7 +613,7 @@ class Games(commands.Cog):
         deaths = bedwars.get("deaths_bedwars", 0)
         final_kills = bedwars.get("final_kills_bedwars", 0)
         final_deaths = bedwars.get('final_deaths_bedwars', 0)
-        win_lose_ratio = wins // losses
+        win_lose_ratio = (wins + .00001) // (losses + .00001)
 
         embed.add_field(name="Losses", value=wins)
         embed.add_field(name="Wins", value=losses)
