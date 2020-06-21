@@ -29,7 +29,9 @@ class SkyBlock(commands.Cog):
         remove(fname)
         return nbt_data
 
-    async def get_armor(self, uuid, user_island_stats):
+    async def get_armor(self, uuid, profile, user_island_stats):
+        uuid = str(uuid) + str(profile)
+
         cached_armor = self.cache.armor_cache.get(uuid)
         if cached_armor is not None:
             return cached_armor
@@ -148,7 +150,7 @@ class SkyBlock(commands.Cog):
 
         user_island_stats = stats["members"].get(p.UUID)
 
-        armor = await self.get_armor(p.UUID, user_island_stats)
+        armor = await self.get_armor(p.UUID, base, user_island_stats)
 
         embed = self.embed.copy()
 
