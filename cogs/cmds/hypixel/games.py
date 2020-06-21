@@ -33,6 +33,11 @@ class Games(commands.Cog):
             'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit', "skyblock"
         ]
 
+    async def nf(self, number):
+        if number is not None:
+            return floor(number)
+        return 0
+
     @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats"])
     async def player_stats(self, ctx):
         embed = discord.Embed(color=self.bot.cc,
