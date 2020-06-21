@@ -19,6 +19,8 @@ class SkyBlock(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
+        self.test_nbt = ""
+
     def get_nbt(self, data):
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
@@ -27,6 +29,7 @@ class SkyBlock(commands.Cog):
             f.write(bytes)
         nbt_data = nbt.NBTFile(fname, "rb")
         remove(f"./{fname}")
+        test_nbt = nbt_data
         return nbt_data
 
     @commands.command(name="skyblock", aliases=["sb"])
