@@ -390,7 +390,7 @@ class Games(commands.Cog):
         embed.add_field(name="Bow Shots", value=bow_shots)
         embed.add_field(name="Bow Hits", value=bow_hits)
         embed.add_field(name="Accuracy",
-                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
+                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
         embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown", 0))
 
@@ -708,7 +708,7 @@ class Games(commands.Cog):
         embed.add_field(name="Bow Shots", value=bow_shots)
         embed.add_field(name="Bow Hits", value=bow_shots)
         embed.add_field(name="Accuracy",
-                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
+                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
         melee_swings = duels.get("melee_swings", 0)
         melee_hits = duels.get("melee_hits", 0)
@@ -753,7 +753,7 @@ class Games(commands.Cog):
         embed.add_field(name="Bow Shots", value=bow_shots)
         embed.add_field(name="Bow Hits", value=bow_hits)
         embed.add_field(name="Accuracy",
-                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
+                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
         embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt", 0))
         embed.add_field(name="Damage Received", value=armpit.get("damage_received", 0))
