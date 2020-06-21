@@ -214,7 +214,7 @@ class Cache(commands.Cog):
         sb = self.skyblock_cache.get(profile)
 
         if sb is None:
-            sb = await self.rate_limit_wait(hypixel.getSkyblockStats(profile))
+            sb = await self.rate_limit_wait(self.hypixel.getSkyblockStats(profile))
             self.skyblock_cache[profile] = sb
 
         return sb
