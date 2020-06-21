@@ -623,7 +623,7 @@ class Games(commands.Cog):
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Final Kills", value=final_kills)
         embed.add_field(name="Deaths", value=deaths)
-        embed.add_field(name="Void Deaths (only noobs)", value=void_deaths)
+        embed.add_field(name="Void Deaths", value=void_deaths)
         embed.add_field(name="Final Deaths", value=final_deaths)
         embed.add_field(name="KDR", value=round(
             (kills + .00001) / (deaths + .00001), 2),
