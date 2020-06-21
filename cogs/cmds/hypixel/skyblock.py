@@ -150,7 +150,7 @@ class SkyBlock(commands.Cog):
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
 
-        embed.add_field(name="Armor", value="Work in progress!")
+        embed.add_field(name="Armor", value="`" + "`\n`".join(armor) + "`")
         embed.add_field(name="Fairy Souls", value=fairy_souls)
         embed.add_field(name="Fairy Souls Collected", value=fairy_souls_collected)
 
