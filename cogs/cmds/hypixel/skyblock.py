@@ -22,7 +22,7 @@ class SkyBlock(commands.Cog):
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
         decomp = gzip.decompress(bytes)
-        nbt_data = NBTFile(buffer=decomp)
+        nbt_data = nbt.NBTFile(buffer=decomp)
         return nbt_data
 
     @commands.command(name="skyblock", aliases=["sb"])
