@@ -603,17 +603,18 @@ class Games(commands.Cog):
 
         embed.add_field(name="XP", value=bedwars.get("Experience"))
         embed.add_field(name="Coins", value=bedwars.get("coins"))
-        embed.add_field(name="Stars", value=p.ACHIEVEMENTS.get("bedwars_level"), inline=True)
+        embed.add_field(name="Level", value=p.ACHIEVEMENTS.get("bedwars_level"), inline=True)
 
         wins = bedwars.get("wins_bedwars", 0)
         losses = bedwars.get("beds_lost_bedwars")
-        winstreak = bedwars.get("winstreak", 0), 0
+        winstreak = bedwars.get("winstreak", 0)
 
         kills = bedwars.get("kills_bedwars", 0)
         deaths = bedwars.get("deaths_bedwars", 0)
         final_kills = bedwars.get("final_kills_bedwars", 0)
+        void_deaths = bedwars.get("void_deaths_bedwars", 0)
         final_deaths = bedwars.get('final_deaths_bedwars', 0)
-        win_lose_ratio = (wins + .00001) // (losses + .00001)
+        win_lose_ratio = int(ceil((wins + .00001) // (losses + .00001)))
 
         embed.add_field(name="Losses", value=wins)
         embed.add_field(name="Wins", value=losses)
@@ -622,6 +623,7 @@ class Games(commands.Cog):
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Final Kills", value=final_kills)
         embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="Void Deaths (only noobs)", value=void_deaths)
         embed.add_field(name="Final Deaths", value=final_deaths)
         embed.add_field(name="KDR", value=round(
             (kills + .00001) / (deaths + .00001), 2),
