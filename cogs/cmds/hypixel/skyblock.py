@@ -22,12 +22,46 @@ class SkyBlock(commands.Cog):
     def get_nbt(self, data):
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
-        fname = f"{arrow.utcnow().timestamp}.{randint(10000, 99999)}.nbt"
+        fname = f"tmp/{arrow.utcnow().timestamp}.{randint(10000, 99999)}.nbt"
         with open(fname, "wb") as f:
             f.write(bytes)
         nbt_data = nbt.NBTFile(fname, "rb")
-        remove(f"./{fname}")
+        remove(fname)
         return nbt_data
+
+    async def get_armor(self, user_island_stats):
+        with concurrent.futures.ThreadPoolExecutor() as pool:
+            get_nbt_partial = partial(self.get_nbt, user_island_stats)
+            armor = await self.bot.loop.run_in_executor(pool, get_nbt_partial)
+
+        armor = [
+            armor['i'][3].get('tag')['display']['Name'] if armor['i'][3].get('tag') is not None else None,
+            # Helmet
+            armor['i'][2].get('tag')['display']['Name'] if armor['i'][2].get('tag') is not None else None,
+            # Chestplate
+            armor['i'][1].get('tag')['display']['Name'] if armor['i'][1].get('tag') is not None else None,
+            # Leggings
+            armor['i'][0].get('tag')['display']['Name'] if armor['i'][0].get('tag') is not None else None,
+            # Boots
+        ]
+
+        def filter(piece):
+            if piece is None: return
+            cleaned = ""
+            for i in range(1, len(piece), 1):
+                if piece[i - 1] != "§" and piece[i] != "§":
+                    cleaned += piece[i]
+            return cleaned
+
+        armor = [filter(piece) for piece in armor]
+
+        for i in range(0, 5, 1):
+            try:
+                armor.pop(armor.index(None))
+            except Exception:
+                break
+
+        return ("`" + "`\n`".join(armor) + "`") if len(armor) > 0 else "No Armor"
 
     @commands.command(name="skyblock", aliases=["sb"])
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -106,38 +140,7 @@ class SkyBlock(commands.Cog):
 
         user_island_stats = stats["members"].get(p.UUID)
 
-        with concurrent.futures.ThreadPoolExecutor() as pool:
-            get_nbt_partial = partial(self.get_nbt, user_island_stats)
-            armor = await self.bot.loop.run_in_executor(pool, get_nbt_partial)
-
-            armor = [
-                armor['i'][3].get('tag')['display']['Name'] if armor['i'][3].get('tag') is not None else None,
-                # Helmet
-                armor['i'][2].get('tag')['display']['Name'] if armor['i'][2].get('tag') is not None else None,
-                # Chestplate
-                armor['i'][1].get('tag')['display']['Name'] if armor['i'][1].get('tag') is not None else None,
-                # Leggings
-                armor['i'][0].get('tag')['display']['Name'] if armor['i'][0].get('tag') is not None else None,
-                # Boots
-            ]
-
-            def filter(piece):
-                if piece is None: return
-                cleaned = ""
-                for i in range(1, len(piece), 1):
-                    if piece[i - 1] != "§" and piece[i] != "§":
-                        cleaned += piece[i]
-                return cleaned
-
-            armor = [filter(piece) for piece in armor]
-
-            for i in range(0, 5, 1):
-                try:
-                    armor.pop(armor.index(None))
-                except Exception:
-                    break
-
-            armor_final = ("`" + "`\n`".join(armor) + "`") if len(armor) > 0 else "No Armor"
+        armor = await self.get_armor(user_island_stats)
 
         embed = self.embed.copy()
 
@@ -158,7 +161,7 @@ class SkyBlock(commands.Cog):
         embed.add_field(name="Fairy Souls", value=user_island_stats.get('fairy_souls', 0))
         embed.add_field(name="Fairy Souls Collected", value=user_island_stats.get('fairy_souls_collected', 0))
 
-        embed.add_field(name="Armor", value=armor_final)
+        embed.add_field(name="Armor", value=armor)
 
         await ctx.send(embed=embed)
 
