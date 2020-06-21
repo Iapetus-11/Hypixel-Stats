@@ -104,37 +104,36 @@ class SkyBlock(commands.Cog):
 
         user_island_stats = stats["members"].get(p.UUID)
 
-        if ctx.author.id == 536986067140608041:
-            with concurrent.futures.ThreadPoolExecutor() as pool:
-                get_nbt_partial = partial(self.get_nbt, user_island_stats)
-                armor = await self.bot.loop.run_in_executor(pool, get_nbt_partial)
+        with concurrent.futures.ThreadPoolExecutor() as pool:
+            get_nbt_partial = partial(self.get_nbt, user_island_stats)
+            armor = await self.bot.loop.run_in_executor(pool, get_nbt_partial)
 
-                armor = [
-                    armor['i'][3].get('tag')['display']['Name'] if armor['i'][3].get('tag') is not None else None,
-                    # Helmet
-                    armor['i'][2].get('tag')['display']['Name'] if armor['i'][2].get('tag') is not None else None,
-                    # Chestplate
-                    armor['i'][1].get('tag')['display']['Name'] if armor['i'][1].get('tag') is not None else None,
-                    # Leggings
-                    armor['i'][0].get('tag')['display']['Name'] if armor['i'][0].get('tag') is not None else None,
-                    # Boots
-                ]
+            armor = [
+                armor['i'][3].get('tag')['display']['Name'] if armor['i'][3].get('tag') is not None else None,
+                # Helmet
+                armor['i'][2].get('tag')['display']['Name'] if armor['i'][2].get('tag') is not None else None,
+                # Chestplate
+                armor['i'][1].get('tag')['display']['Name'] if armor['i'][1].get('tag') is not None else None,
+                # Leggings
+                armor['i'][0].get('tag')['display']['Name'] if armor['i'][0].get('tag') is not None else None,
+                # Boots
+            ]
 
-                def filter(piece):
-                    if piece is None: return
-                    cleaned = ""
-                    for i in range(1, len(piece), 1):
-                        if piece[i - 1] != "§" and piece[i] != "§":
-                            cleaned += piece[i]
-                    return cleaned
+            def filter(piece):
+                if piece is None: return
+                cleaned = ""
+                for i in range(1, len(piece), 1):
+                    if piece[i - 1] != "§" and piece[i] != "§":
+                        cleaned += piece[i]
+                return cleaned
 
-                armor = [filter(piece) for piece in armor]
+            armor = [filter(piece) for piece in armor]
 
-                for i in range(0, 5, 1):
-                    try:
-                        armor.pop(armor.index(None))
-                    except Exception:
-                        break
+            for i in range(0, 5, 1):
+                try:
+                    armor.pop(armor.index(None))
+                except Exception:
+                    break
 
         first_join = user_island_stats.get("first_join", 0)
         kills = ceil(user_island_stats['stats'].get('kills', 0))
@@ -142,6 +141,7 @@ class SkyBlock(commands.Cog):
         coin_purse = ceil(user_island_stats.get('coin_purse', 0))
         fairy_souls = user_island_stats.get('fairy_souls', 0)
         fairy_souls_collected = user_island_stats.get('fairy_souls_collected', 0)
+        void_deaths = user_island_stats.get("deaths_void", 0)
 
         embed = self.embed.copy()
 
@@ -157,9 +157,11 @@ class SkyBlock(commands.Cog):
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
 
-        embed.add_field(name="Armor", value="`" + "`\n`".join(armor) + "`")
+        embed.add_field(name="Void Deaths", value=void_deaths)
         embed.add_field(name="Fairy Souls", value=fairy_souls)
         embed.add_field(name="Fairy Souls Collected", value=fairy_souls_collected)
+
+        embed.add_field(name="Armor", value="`" + "`\n`".join(armor) + "`", inline=False)
 
         await ctx.send(embed=embed)
 
