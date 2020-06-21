@@ -67,7 +67,7 @@ class SkyBlock(commands.Cog):
 
         final_armor = ("`" + "`\n`".join(armor) + "`") if len(armor) > 0 else "No Armor"
 
-        cache.armor_cache[uuid] = final_armor
+        self.cache.armor_cache[uuid] = final_armor
 
         return final_armor
 
