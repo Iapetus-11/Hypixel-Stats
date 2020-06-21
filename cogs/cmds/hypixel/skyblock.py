@@ -108,8 +108,26 @@ class SkyBlock(commands.Cog):
             with concurrent.futures.ThreadPoolExecutor() as pool:
                 nbt_partial = partial(self.get_nbt, user_island_stats)
                 armor = await self.bot.loop.run_in_executor(pool, nbt_partial)
-                await ctx.send(f"```{armor}```")
-                self.test_nbt = armor
+
+                armor = [
+                    armor['i'][3].get('tag')['display']['Name'] if armor['i'][3].get('tag') is not None else None,
+                    # Helmet
+                    armor['i'][2].get('tag')['display']['Name'] if armor['i'][2].get('tag') is not None else None,
+                    # Chestplate
+                    armor['i'][1].get('tag')['display']['Name'] if armor['i'][1].get('tag') is not None else None,
+                    # Leggings
+                    armor['i'][0].get('tag')['display']['Name'] if armor['i'][0].get('tag') is not None else None,
+                    # Boots
+                ]
+
+                def filter(piece):
+                    cleaned = ""
+                    for i in range(1, len(piece), 1):
+                        if piece[i - 1] != "§" and piece[i] != "§":
+                            cleaned += piece[i]
+                    return cleaned
+
+                armor = [filter(piece) for piece in armor]
 
         first_join = user_island_stats.get("first_join", 0)
         kills = ceil(user_island_stats['stats'].get('kills', 0))
