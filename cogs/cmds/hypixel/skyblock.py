@@ -16,7 +16,7 @@ class SkyBlock(commands.Cog):
 
     def unzip(self, data):
         b64 = data["inv_armor"]["data"]
-        bytes = base64.decode(b64)
+        bytes = base64.b64decode(b64)
         print(bytes)
         print("\n\n\n\n\n\n")
         decomp = gzip.decompress(bytes)
