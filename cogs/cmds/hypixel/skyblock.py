@@ -121,8 +121,7 @@ class SkyBlock(commands.Cog):
                 ]
 
                 def filter(piece):
-                    if piece is None:
-                        return ""
+                    if piece is None: return
                     cleaned = ""
                     for i in range(1, len(piece), 1):
                         if piece[i - 1] != "§" and piece[i] != "§":
@@ -130,6 +129,12 @@ class SkyBlock(commands.Cog):
                     return cleaned
 
                 armor = [filter(piece) for piece in armor]
+
+                for i in range(0, 5, 1):
+                    try:
+                        armor.pop(armor.index(None))
+                    except Exception:
+                        break
 
         first_join = user_island_stats.get("first_join", 0)
         kills = ceil(user_island_stats['stats'].get('kills', 0))
