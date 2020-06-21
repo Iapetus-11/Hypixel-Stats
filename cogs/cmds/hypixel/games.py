@@ -827,14 +827,15 @@ class Games(commands.Cog):
         bow_hits = duels.get("bow_hits", 0)
         embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
         embed.add_field(name="Bow Hits", value=bow_shots, inline=True)
-        embed.add_field(name="Accuracy", value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100}%")
+        embed.add_field(name="Accuracy",
+                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
 
         melee_swings = duels.get("melee_swings", 0)
         melee_hits = duels.get("melee_hits", 0)
         embed.add_field(name="Melee Swings", value=melee_swings, inline=True)
         embed.add_field(name="Melee Hits", value=melee_hits, inline=True)
         embed.add_field(name="Accuracy",
-                        value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100}%")
+                        value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * 0 if melee_swings == 0 else 1}%")
 
         embed.add_field(name="Total Coins", value=duels.get("coins", 0), inline=False)
 
@@ -865,15 +866,14 @@ class Games(commands.Cog):
         deaths = armpit.get("deaths", 0)
         embed.add_field(name="Kills", value=kills, inline=True)
         embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         bow_shots = armpit.get("arrows_fired", 0)
         bow_hits = armpit.get("arrow_hits", 0)
         embed.add_field(name="Bow Shots", value=bow_shots, inline=True)
         embed.add_field(name="Bow Hits", value=bow_hits, inline=True)
-        embed.add_field(name="Accuracy", value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100}%")
+        embed.add_field(name="Accuracy",
+                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
 
         embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt", 0), inline=True)
         embed.add_field(name="Damage Received", value=armpit.get("damage_received", 0), inline=True)
