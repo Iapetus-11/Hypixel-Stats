@@ -60,6 +60,8 @@ class Player(commands.Cog):
             else:
                 rank = "None"
 
+        friends = await self.cache.get_player_friends(player)
+
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
@@ -73,6 +75,7 @@ class Player(commands.Cog):
         embed.add_field(name="Last Online", value=f"{last_online}", inline=True)
 
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
+        embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
 
