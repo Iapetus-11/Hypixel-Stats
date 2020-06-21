@@ -121,6 +121,8 @@ class SkyBlock(commands.Cog):
                 ]
 
                 def filter(piece):
+                    if piece is None:
+                        return ""
                     cleaned = ""
                     for i in range(1, len(piece), 1):
                         if piece[i - 1] != "§" and piece[i] != "§":
