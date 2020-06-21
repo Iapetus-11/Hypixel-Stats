@@ -14,6 +14,8 @@ class SkyBlock(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
+        self.embed = discord.Embed(color=self.bot.cc)
+
     def unzip(self, data):
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
