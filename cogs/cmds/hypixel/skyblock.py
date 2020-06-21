@@ -3,8 +3,9 @@ import asyncio
 import base64
 import concurrent.futures
 import discord
-import gzip
+import nbt
 from discord.ext import commands
+from functools import partial
 from math import floor, ceil
 
 
@@ -16,14 +17,12 @@ class SkyBlock(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-    def unzip(self, data):
+    def get_nbt(self, data):
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
-        print(bytes)
-        print("\n\n\n\n\n\n")
         decomp = gzip.decompress(bytes)
-        print(decomp)
-        return decomp
+        nbt_data = nbt.NBTFile(buffer=decomp)
+        return nbt_data
 
     @commands.command(name="skyblock", aliases=["sb"])
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -100,7 +99,9 @@ class SkyBlock(commands.Cog):
 
         if ctx.author.id == 536986067140608041:
             with concurrent.futures.ThreadPoolExecutor() as pool:
-                armor = await self.bot.loop.run_in_executor(pool, self.unzip, args=(user_island_stats,))
+                nbt_partial = partial(self.get_nbt, user_island_stats)
+                armor = await self.bot.loop.run_in_executor(pool, nbt_partial)
+                await ctx.send(f"```{armor}```")
 
         first_join = user_island_stats.get("first_join", 0)
         kills = ceil(user_island_stats['stats'].get('kills', 0))
