@@ -20,7 +20,7 @@ class Player(commands.Cog):
                 cleaned += pp[i]
         return cleaned
 
-    @commands.group(name="playerprofile", aliases=["profile", "pp", "player", "p"])
+    @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):
         await ctx.trigger_typing()
