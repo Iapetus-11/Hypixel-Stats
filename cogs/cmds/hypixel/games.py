@@ -501,8 +501,12 @@ class Games(commands.Cog):
             (kills + .00001) / (deaths + .00001), 2),
                         inline=True)
 
-        embed.add_field(name="Bow Shots", value=sky.get("arrows_shot", 0), inline=True)
-        embed.add_field(name="Bow Hits", value=sky.get("arrows_hit", 0), inline=True)
+        bow_shots = sky.get("arrows_shot", 0)
+        bow_hits = sky.get("arrows_hit", 0)
+        embed.add_field(name="Bow Shots", value=bow_shots)
+        embed.add_field(name="Bow Hits", value=bow_hits)
+        embed.add_field(name="Accuracy",
+                        value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
 
         embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown", 0), inline=False)
 
