@@ -622,7 +622,7 @@ class Games(commands.Cog):
         embed.add_field(name="Final KDR", value=round((final_kills + .00001) / (final_deaths + .00001), 2))
 
         embed.add_field(name="Void Deaths", value=bedwars.get("void_deaths_bedwars", 0))
-        embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars"))
+        embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars", 0))
         embed.add_field(name="Total Games",
                         value=sum({k: v for k, v in bedwars.items() if "games_played" in k}.values()))
 
