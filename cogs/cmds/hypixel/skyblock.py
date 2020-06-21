@@ -3,11 +3,11 @@ import asyncio
 import base64
 import concurrent.futures
 import discord
-import gzip
 from discord.ext import commands
 from functools import partial
 from math import floor, ceil
 from nbt import *
+from os import remove
 
 
 class SkyBlock(commands.Cog):
@@ -18,11 +18,17 @@ class SkyBlock(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
+        self.counter1 = 0
+
     def get_nbt(self, data):
+        self.counter1 += 1
         b64 = data["inv_armor"]["data"]
         bytes = base64.b64decode(b64)
-        decomp = gzip.decompress(bytes)
-        nbt_data = nbt.NBTFile(buffer=decomp)
+        fname = f"{counter1}.{arrow.utcnow().timestamp}.nbt"
+        with open(fname, "wb") as f:
+            f.write(bytes)
+        nbt_data = nbt.NBTFile(fname, "rb")
+        remove(f"./{fname}")
         return nbt_data
 
     @commands.command(name="skyblock", aliases=["sb"])
