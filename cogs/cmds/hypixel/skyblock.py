@@ -29,7 +29,11 @@ class SkyBlock(commands.Cog):
         remove(fname)
         return nbt_data
 
-    async def get_armor(self, user_island_stats):
+    async def get_armor(self, uuid, user_island_stats):
+        cached_armor = await self.cache.armor_cache.get(uuid)
+        if cached_armor is not None:
+            return cached_armor
+
         with concurrent.futures.ThreadPoolExecutor() as pool:
             get_nbt_partial = partial(self.get_nbt, user_island_stats)
             armor = await self.bot.loop.run_in_executor(pool, get_nbt_partial)
@@ -61,7 +65,11 @@ class SkyBlock(commands.Cog):
             except Exception:
                 break
 
-        return ("`" + "`\n`".join(armor) + "`") if len(armor) > 0 else "No Armor"
+        final_armor = ("`" + "`\n`".join(armor) + "`") if len(armor) > 0 else "No Armor"
+
+        cache.armor_cache[uuid] = final_armor
+
+        return final_armor
 
     @commands.command(name="skyblock", aliases=["sb"])
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -140,7 +148,7 @@ class SkyBlock(commands.Cog):
 
         user_island_stats = stats["members"].get(p.UUID)
 
-        armor = await self.get_armor(user_island_stats)
+        armor = await self.get_armor(p.UUID, user_island_stats)
 
         embed = self.embed.copy()
 
