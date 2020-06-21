@@ -13,7 +13,6 @@ class Events(commands.Cog):
     async def on_ready(self):
         print(f"\n\u001b[36;1m CONNECTED \u001b[0m [{self.bot.shard_count} Shards]\n")
         await self.bot.change_presence(activity=discord.Game("on Hypixel"), status=discord.Status.idle)
-        self.bot.start_time = arrow.utcnow()
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):

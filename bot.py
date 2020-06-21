@@ -7,6 +7,7 @@ basic initialization and configuration of hypixel-stats
 - creates bot instance
 """
 
+import arrow
 import asyncio
 import asyncpg
 import discord
@@ -62,6 +63,7 @@ bot.timeout_message = "You took too long to answer, the command was canceled."
 bot.ratelimited_wait_time = .75  # seconds, obviously
 bot.hypixel_key = HYPIXEL
 bot.cmd_count = 0
+bot.start_time = arrow.utcnow()
 
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
