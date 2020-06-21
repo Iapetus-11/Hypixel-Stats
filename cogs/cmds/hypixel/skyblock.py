@@ -139,6 +139,8 @@ class SkyBlock(commands.Cog):
                 except Exception:
                     break
 
+            armor_final = ("`" + "`\n`".join(armor) + "`") if len(armor) > 0 else "No Armor"
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
@@ -158,7 +160,7 @@ class SkyBlock(commands.Cog):
         embed.add_field(name="Fairy Souls", value=user_island_stats.get('fairy_souls', 0))
         embed.add_field(name="Fairy Souls Collected", value=user_island_stats.get('fairy_souls_collected', 0))
 
-        embed.add_field(name="Armor", value="`" + "`\n`".join(armor) + "`", inline=False)
+        embed.add_field(name="Armor", value= if, inline = False)
 
         await ctx.send(embed=embed)
 
