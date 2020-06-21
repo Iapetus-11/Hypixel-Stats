@@ -355,7 +355,7 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="skywars", aliases=["skywar", "skw"])
+    @commands.command(name="skywars", aliases=["skywar", "skw", "sw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skywars(self, ctx, *, player):
         await ctx.trigger_typing()
