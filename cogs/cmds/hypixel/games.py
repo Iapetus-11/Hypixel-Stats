@@ -485,21 +485,19 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Wars Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=sky.get("coins", 0), inline=True)
-        embed.add_field(name="Games", value=sky.get("games", 0), inline=True)
-        embed.add_field(name="Quits", value=sky.get("quits", 0), inline=True)
+        embed.add_field(name="Coins", value=sky.get("coins", 0))
+        embed.add_field(name="Games", value=sky.get("games", 0))
+        embed.add_field(name="Quits", value=sky.get("quits", 0))
 
-        embed.add_field(name="Wins", value=sky.get("wins", 0), inline=True)
-        embed.add_field(name="Winstreak", value=sky.get("win_streak", 0), inline=True)
-        embed.add_field(name="Losses", value=sky.get("losses", 0), inline=True)
+        embed.add_field(name="Wins", value=sky.get("wins", 0))
+        embed.add_field(name="Winstreak", value=sky.get("win_streak", 0))
+        embed.add_field(name="Losses", value=sky.get("losses", 0))
 
         kills = sky.get("kills", 0)
         deaths = sky.get("deaths", 0)
-        embed.add_field(name="Kills", value=kills, inline=True)
-        embed.add_field(name="Deaths", value=deaths, inline=True)
-        embed.add_field(name="KDR", value=round(
-            (kills + .00001) / (deaths + .00001), 2),
-                        inline=True)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         bow_shots = sky.get("arrows_shot", 0)
         bow_hits = sky.get("arrows_hit", 0)
@@ -508,9 +506,9 @@ class Games(commands.Cog):
         embed.add_field(name="Accuracy",
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * 0 if bow_shots == 0 else 1}%")
 
-        embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown", 0), inline=False)
+        embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown", 0))
 
-        embed.add_field(name="Killstreak", value=sky.get("killstreak", 0), inline=False)
+        embed.add_field(name="Killstreak", value=sky.get("killstreak", 0))
 
         await ctx.send(embed=embed)
 
