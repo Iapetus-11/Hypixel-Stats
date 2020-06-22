@@ -7,6 +7,7 @@ basic initialization and configuration of hypixel-stats
 - creates bot instance
 """
 
+import arrow
 import asyncio
 import asyncpg
 import discord
@@ -62,6 +63,7 @@ bot.timeout_message = "You took too long to answer, the command was canceled."
 bot.ratelimited_wait_time = .75  # seconds, obviously
 bot.hypixel_key = HYPIXEL
 bot.cmd_count = 0
+bot.start_time = arrow.utcnow()
 
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
@@ -92,7 +94,8 @@ bot.cog_list = [
     "cogs.cmds.basic_mc",
     "cogs.cmds.hypixel.player",
     "cogs.cmds.hypixel.guild",
-    "cogs.cmds.hypixel.games"
+    "cogs.cmds.hypixel.games",
+    "cogs.cmds.hypixel.skyblock"
 ]
 
 for cog in bot.cog_list:
@@ -111,7 +114,7 @@ async def bot_check(ctx):
         await ctx.send(embed=embed)
         return False
 
-    if randint(0, 30) == 15:
+    if randint(0, 45) == 15:
         await ctx.send(embed=discord.Embed(color=bot.cc,
                                            description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
 

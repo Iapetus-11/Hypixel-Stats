@@ -23,6 +23,8 @@ class Cache(commands.Cog):
         self.guild_id_name_cache = {}  # {id: name or name: id}
         self.player_object_cache = {}  # {uuid: Player}
         self.guild_cache = {}  # {id: Guild}
+        self.armor_cache = {}  # {uuid: armor_str}
+        self.skyblock_cache = {}
 
         self.stop_loops = False
 
@@ -60,6 +62,7 @@ class Cache(commands.Cog):
                     return
 
             self.player_guild_cache = {}
+            self.armor_cache = {}
 
     async def reset_2_hours(self):
         while True:
@@ -208,9 +211,13 @@ class Cache(commands.Cog):
     async def get_skyblock_stats(self, profile: str) -> dict:
         """gets skyblock statistics of the provided profile"""
 
-        data = await self.hypixel.getSkyblockStats(profile)
+        sb = self.skyblock_cache.get(profile)
 
-        return data
+        if sb is None:
+            sb = await self.rate_limit_wait(self.hypixel.getSkyblockStats(profile))
+            self.skyblock_cache[profile] = sb
+
+        return sb
 
 
 def setup(bot):

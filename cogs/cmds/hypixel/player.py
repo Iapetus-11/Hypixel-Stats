@@ -13,14 +13,14 @@ class Player(commands.Cog):
 
         self.cache = self.bot.get_cog("Cache")
 
-    async def filter_prefix(self, pp):
+    async def filter_sections(self, pp):
         cleaned = ""
         for i in range(1, len(pp), 1):
             if pp[i - 1] != "§" and pp[i] != "§":
                 cleaned += pp[i]
         return cleaned
 
-    @commands.group(name="playerprofile", aliases=["profile", "pp", "player"])
+    @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):
         await ctx.trigger_typing()
@@ -31,10 +31,11 @@ class Player(commands.Cog):
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
-            last_online = arrow.Arrow.fromtimestamp(p.LAST_LOGOUT / 1000).humanize()  # I love arrow
+            last_online = ["Last Online", arrow.Arrow.fromtimestamp(p.LAST_LOGOUT / 1000).humanize()]  # I love arrow
             if p.LAST_LOGIN > p.LAST_LOGOUT:
                 online = f"{self.bot.EMOJIS['online_status']} online"
-                last_online = "now"  # bc this value is obtained from last_login
+                last_online = ["Online Since", arrow.Arrow.fromtimestamp(
+                    p.LAST_LOGIN / 1000).humanize()]  # bc this value is obtained from last_login
         else:
             last_online = "Never"
 
@@ -50,7 +51,7 @@ class Player(commands.Cog):
         if p.PREFIX is None:
             prefix = ""
         else:
-            prefix = await self.filter_prefix(p.PREFIX) + " "
+            prefix = await self.filter_sections(p.PREFIX) + " "
 
         rank = p.RANK
 
@@ -59,6 +60,8 @@ class Player(commands.Cog):
                 rank = prefix[1:len(prefix) - 2]
             else:
                 rank = "None"
+
+        friends = await self.cache.get_player_friends(player)
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
@@ -70,9 +73,10 @@ class Player(commands.Cog):
 
         embed.add_field(name="Guild", value=guild, inline=True)
         embed.add_field(name="Status", value=online, inline=True)
-        embed.add_field(name="Last Online", value=f"{last_online}", inline=True)
+        embed.add_field(name=last_online[0], value=last_online[1], inline=True)
 
-        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}", inline=False)
+        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}")
+        embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
 

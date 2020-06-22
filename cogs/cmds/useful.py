@@ -71,9 +71,11 @@ class Useful(commands.Cog):
                   f""f"valid names & uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
-                  f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n"
+                  f"skyblock endpoint cache: ``{len(self.cache.skyblock_cache)}``\n" \
+                  f"skyblock armor cache: ``{len(self.cache.armor_cache)}``\n"
 
-        caching2 = f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
+        caching2 = f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n" \
+                   f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
                    f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
                    f"player object cache: ``{len(self.cache.player_object_cache)}``\n" \
                    f"guild object cache: ``{len(self.cache.guild_cache)}``\n"
