@@ -62,7 +62,7 @@ class Player(commands.Cog):
                 rank = "None"
         else:
             if prefix == "":
-                prefix = f"[{rank}]"
+                prefix = f"[{rank}]".replace("_", "").replace("PLUS", "+")
 
         friends = await self.cache.get_player_friends(player)
 
