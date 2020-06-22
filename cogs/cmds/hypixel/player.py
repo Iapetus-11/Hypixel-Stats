@@ -60,6 +60,9 @@ class Player(commands.Cog):
                 rank = prefix[1:len(prefix) - 2]
             else:
                 rank = "None"
+        else:
+            if prefix == "":
+                prefix = f"[{rank}]"
 
         friends = await self.cache.get_player_friends(player)
 
