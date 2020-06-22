@@ -777,9 +777,12 @@ class Games(commands.Cog):
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
         embed.add_field(name="Damage Dealt", value=armpit.get("damage_dealt", 0))
+        embed.add_field(name="\uFEFF", value="\uFEFF")
         embed.add_field(name="Damage Received", value=armpit.get("damage_received", 0))
 
-        embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed", 0), inline=False)
+        embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed", 0))
+        embed.add_field(name="\uFEFF", value="\uFEFF")
+        embed.add_field(name="Max Killstreak", value=armpit.get("max_streak", 0))
 
         await ctx.send(embed=embed)
 
