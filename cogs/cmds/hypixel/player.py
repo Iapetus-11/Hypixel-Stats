@@ -47,7 +47,11 @@ class Player(commands.Cog):
             await ctx.author.send("I stopped waiting for you to reply.")
             return
 
-        key_owner_uuid = (await self.db.get_key_data(key))["owner"]
+        try:
+            key_owner_uuid = (await self.cache.get_key_data(key))["owner"]
+        except Exception:
+            await ctx.author.send("That doesn't appear to be a valid key. Please try linking your account again.")
+            return
 
         del key  # see?
 
