@@ -225,7 +225,7 @@ class Cache(commands.Cog):
         """returns watchdog stats"""
 
         if self.watchdog_cached is None:
-            return self.hypixel.getWatchdogStats()
+            return await self.hypixel.getWatchdogStats()
         return self.watchdog_cached
 
 
