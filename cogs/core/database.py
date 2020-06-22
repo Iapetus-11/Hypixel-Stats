@@ -39,6 +39,10 @@ class Database(commands.Cog):
     async def get_linked_account_via_uuid(self, uuid):
         return await self.db.fetchrow("SELECT * FROM accounts WHERE uuid=$1", uuid)
 
+    async def drop_linked_account(self, id):
+        async with self.db.acquire() as con:
+            con.execute("DELETE FROM accounts WHERE id=$1", id)
+
     """
     async def is_premium(self, gid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE gid=$1", gid)

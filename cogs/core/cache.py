@@ -9,6 +9,8 @@ class Cache(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+        self.db = self.bot.get_cog("Database")
+
         self.hypixel = aiopypixel.Client(self.bot.hypixel_key)
 
         self.session = aiohttp.ClientSession()
@@ -106,6 +108,9 @@ class Cache(commands.Cog):
 
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
+
+        if discord.utils.escape_markdown(player).startswith("@"):
+            await self.db.
 
         if len(player) > 16:
             if player in self.valid_names_and_uuids:
