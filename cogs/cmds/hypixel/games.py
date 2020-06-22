@@ -394,9 +394,9 @@ class Games(commands.Cog):
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
         assists = sky.get("assists", 0)
-        embed.add_field(name="Avg Deaths\nPer Game", value=round((deaths + .00001) / (games + .00001), 2))
-        embed.add_field(name="Avg Kills\nPer Game", value=round((kills + .00001) / (games + .00001), 2))
-        embed.add_field(name="Avg Assists\nPer Game", value=round((assists + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Kills per Game", value=round((kills + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Assists per Game", value=round((assists + .00001) / (games + .00001), 2))
 
         embed.add_field(name="Killstreak", value=sky.get("killstreak", 0))
         embed.add_field(name="Assists", value=assists)
@@ -510,10 +510,10 @@ class Games(commands.Cog):
         embed.add_field(name="Beds Broken", value=beds_broken)
         embed.add_field(name="Total Games", value=total_games)
 
-        embed.add_field(name="Avg Final Kills\nPer Game",
+        embed.add_field(name="Avg. Final Kills per Game",
                         value=round((final_kills + 0.00001) / (total_games + 0.00001)))
-        embed.add_field(name="Avg Deaths\nPer Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
-        embed.add_field(name="Avg Beds Broken\nPer Game",
+        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
+        embed.add_field(name="Avg. Beds Broken per Game",
                         value=round((beds_broken + 0.00001) / (total_games + 0.00001), 2))
 
         await ctx.send(embed=embed)
