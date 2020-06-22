@@ -624,7 +624,7 @@ class Games(commands.Cog):
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
         embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup", 0), inline=False)
-        embed.add_field(name="Total Time Survived", value=f"{mystery.get('total_time_survived_seconds')} seconds")
+        embed.add_field(name="Total Time Survived", value=f"{mystery.get('total_time_survived_seconds', 0)} seconds")
 
         await ctx.send(embed=embed)
 
