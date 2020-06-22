@@ -714,7 +714,8 @@ class Games(commands.Cog):
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Games", value=duels.get("wins", 0) + duels.get("losses", 0))
+        total_games = duels.get("wins", 0) + duels.get("losses", 0)
+        embed.add_field(name="Games", value=total_games)
         embed.add_field(name="Wins", value=duels.get("wins", 0))
         embed.add_field(name="Losses", value=duels.get("losses", 0))
 
@@ -739,7 +740,7 @@ class Games(commands.Cog):
                         value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * 0 if melee_swings == 0 else 1}%")
 
         embed.add_field(name="Avg. Kills per Game",
-                        value=round((final_kills + 0.00001) / (total_games + 0.00001)))
+                        value=round((kills + 0.00001) / (total_games + 0.00001)))
         embed.add_field(name="Avg. Deaths per Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
         embed.add_field(name="Total Coins", value=duels.get("coins", 0))
 
