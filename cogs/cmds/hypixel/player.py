@@ -53,6 +53,7 @@ class Player(commands.Cog):
         except Exception:
             await ctx.author.send(embed=discord.Embed(color=self.bot.cc,
                                                       description="Uh oh, that key appears to be invalid, are you sure it's right?"))
+            return
 
         del key  # see?
 
