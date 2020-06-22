@@ -78,8 +78,9 @@ class Player(commands.Cog):
         embed.add_field(name="Status", value=online, inline=True)
         embed.add_field(name=last_online[0], value=last_online[1], inline=True)
 
-        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}")
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
+        embed.add_field(name="Discord", value="Work In Progress!")
+        embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}")
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
 
