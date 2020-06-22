@@ -506,9 +506,9 @@ class Games(commands.Cog):
 
         embed.add_field(name="Avg Final Kills\nPer Game",
                         value=round((final_kills + 0.00001) / (total_games + 0.00001)))
-        embed.add_field(name="Avg Deaths\nPer Game", value=round((deaths + 0.00001) / (total_games + 0.00001)))
+        embed.add_field(name="Avg Deaths\nPer Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
         embed.add_field(name="Avg Beds Broken\nPer Game",
-                        value=round((beds_broken + 0.00001) / (total_games + 0.00001)))
+                        value=round((beds_broken + 0.00001) / (total_games + 0.00001), 2))
 
         await ctx.send(embed=embed)
 
