@@ -132,7 +132,7 @@ class SkyBlock(commands.Cog):
 
         stats = await self.cache.get_skyblock_stats(profile_id)
 
-        if stats["profile_id"] == profile_id:
+        if stats.get("profile_id") == profile_id:
             coop = True
         else:
             coop = False
