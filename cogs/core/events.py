@@ -13,7 +13,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"\n\u001b[36;1m CONNECTED \u001b[0m [{self.bot.shard_count} Shards]\n")
-        await self.bot.change_presence(activity=discord.Game(choice(["on Hypixel", "SkyBlock", "Bedwars", "Sky Wars"])),
+        await self.bot.change_presence(activity=discord.Game(choice(["on Hypixel", "SkyBlock", "Bedwars", "Skywars"])),
                                        status=discord.Status.idle)
 
     @commands.Cog.listener()
