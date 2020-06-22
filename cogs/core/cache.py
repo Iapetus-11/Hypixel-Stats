@@ -24,7 +24,8 @@ class Cache(commands.Cog):
         self.player_object_cache = {}  # {uuid: Player}
         self.guild_cache = {}  # {id: Guild}
         self.armor_cache = {}  # {uuid: armor_str}
-        self.skyblock_cache = {}
+        self.skyblock_cache = {}  # {profile_str: data}
+        self.watchdog_cached = None
 
         self.stop_loops = False
 
@@ -63,6 +64,7 @@ class Cache(commands.Cog):
 
             self.player_guild_cache = {}
             self.armor_cache = {}
+            self.watchdog_cached = None
 
     async def reset_2_hours(self):
         while True:
@@ -218,6 +220,13 @@ class Cache(commands.Cog):
             self.skyblock_cache[profile] = sb
 
         return sb
+
+    async def get_watchdog_stats(self):
+        """returns watchdog stats"""
+
+        if self.watchdog_cached is None:
+            return self.hypixel.getWatchdogStats()
+        return self.watchdog_cached
 
 
 def setup(bot):
