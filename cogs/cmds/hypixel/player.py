@@ -35,7 +35,7 @@ class Player(commands.Cog):
         desc = "Login to Hypixel and type `/api` in the chat. Then, send that text here to link your account!"
         embed = discord.Embed(color=self.bot.cc, description=desc,
                               title=":link: Link your Discord and MC accounts :link:")
-        embed.set_footer(text="API keys are not stored and are used purely for verification purposes.")
+        embed.set_footer(text="API keys are NOT stored and are used purely for verification purposes.")
         await ctx.author.send(embed=embed)
 
         def author_check(m):
@@ -44,7 +44,8 @@ class Player(commands.Cog):
         try:
             key = await self.bot.wait_for("message", check=author_check, timeout=(10 * 60))
         except asyncio.TimeoutError:
-            await ctx.author.send("I stopped waiting for you to reply.")
+            await ctx.author.send(
+                embed=discord.Embed(color=self.bot.cc, description="I stopped waiting for you to reply."))
             return
 
         key_owner_uuid = (await self.cache.get_key_data(key.content))["record"]["owner"]
@@ -53,11 +54,12 @@ class Player(commands.Cog):
 
         if uuid != key_owner_uuid and uuid != key_owner_uuid.replace("-",
                                                                      ""):  # Hypixel API sometimes returns uuids with dashes
-            await ctx.author.send("Nice try, but you have to send **your** key.")
+            await ctx.author.send(embed=discord.Embed(color=self.bot.cc,
+                                                      description="Hmm that didn't work. Did you type the api key and your username correctly?"))
             return
 
         await self.db.link_account(ctx.author.id, uuid)  # Insert uuid and discord id into db
-        await ctx.author.send("Account linked successfully!")
+        await ctx.author.send(embed=discord.Embed(color=self.bot.cc, description="Account linked successfully!"))
 
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
