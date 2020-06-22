@@ -617,7 +617,7 @@ class Games(commands.Cog):
         embed.add_field(name="Games", value=mystery.get("games", 0))
         embed.add_field(name="Wins", value=mystery.get("wins", 0))
 
-        kills = myster.get("kills", 0)
+        kills = mystery.get("kills", 0)
         deaths = mystery.get("deaths", 0)
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
