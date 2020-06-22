@@ -155,6 +155,8 @@ class SkyBlock(commands.Cog):
         now = arrow.utcnow().timestamp * 1000
         last_save = user_island_stats.get("last_save")
 
+        await ctx.send(f"DEBUG (IGNORE): ``{now}\n{last_save}``")
+
         status = self.bot.EMOJIS['offline_status']
         if last_save > now - 2000:
             status = self.bot.EMOJIS['online_status']
