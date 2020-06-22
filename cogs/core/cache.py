@@ -88,6 +88,22 @@ class Cache(commands.Cog):
             self.name_uuid_cache = {}
             self.uuid_name_cache = {}
 
+    @commands.command(name="clearcache", aliases=["resetcache"])
+    async def clearcache(self, ctx):
+        self.waiting = 0
+        self.valid_names_and_uuids = []
+        self.name_uuid_cache = {}
+        self.uuid_name_cache = {}
+        self.player_friends_cache = {}
+        self.player_guild_cache = {}
+        self.guild_id_name_cache = {}
+        self.player_object_cache = {}
+        self.guild_cache = {}
+        self.armor_cache = {}
+        self.skyblock_cache = {}
+        self.watchdog_cached = None
+        await ctx.send(embed=discord.Embed(color=self.bot.cc, description="Reset the all caches."))
+
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
 
