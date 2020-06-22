@@ -47,7 +47,7 @@ class Player(commands.Cog):
             await ctx.author.send("I stopped waiting for you to reply.")
             return
 
-        key_owner_uuid = (await self.cache.get_key_data(key))["owner"]
+        key_owner_uuid = (await self.cache.get_key_data(key))["record"]["owner"]
 
         del key  # see?
 
