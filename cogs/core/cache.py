@@ -245,6 +245,11 @@ class Cache(commands.Cog):
             return await self.hypixel.getWatchdogStats()
         return self.watchdog_cached
 
+    async def get_key_data(self, key: str):
+        """returns data for a given key"""
+
+        return await self.hypixel.getKeyData(key)  # See? Not storing the keys ty very much
+
 
 def setup(bot):
     bot.add_cog(Cache(bot))

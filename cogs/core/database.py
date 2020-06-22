@@ -29,6 +29,16 @@ class Database(commands.Cog):
         async with self.db.acquire() as con:
             await con.execute("DELETE FROM prefixes WHERE gid=$1", gid)
 
+    async def link_account(self, id, uuid):
+        async with self.db.acquire() as con:
+            con.execute("INSERT INTO accounts VALUES ($1, $2)", id, uuid)
+
+    async def get_linked_account_via_id(self, id):
+        return await self.db.fetchrow("SELECT * FROM accounts WHERE id=$1", id)
+
+    async def get_linked_account_via_uuid(self, uuid):
+        return await self.db.fetchrow("SELECT * FROM accounts WHERE uuid=$1", uuid)
+
     async def is_premium(self, gid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE gid=$1", gid)
         return prem is not None

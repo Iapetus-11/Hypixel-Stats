@@ -12,6 +12,7 @@ class Player(commands.Cog):
         self.bot = bot
 
         self.cache = self.bot.get_cog("Cache")
+        self.db = self.bot.get_cog("Database")
 
     async def filter_sections(self, pp):
         cleaned = ""
@@ -26,16 +27,35 @@ class Player(commands.Cog):
         uuid = await self.cache.get_player_uuid(mc_username)
 
         desc = "Login to Hypixel and type `/api` in the chat. Then, send that text here to link your account!"
-        embed = discord.Embed(color=self.bot.cc, description=desc)
-        embed.set_footer(text="API Keys are not stored and are used purely for verification purposes.")
+        embed = discord.Embed(color=self.bot.cc, description=desc,
+                              title=":link: Link your Discord and MC accounts :link:")
+        embed.set_footer(text="API keys are not stored and are used purely for verification purposes.")
         await ctx.author.send(embed=embed)
 
         def author_check(m):
             return m.author.id == ctx.author.id and m.guild is None
 
-        key = await self.bot.wait_for("message")
+        try:
+            key = await self.bot.wait_for("message", check=author_check, timeout=(10 * 60))
+        except asyncio.TimeoutError:
+            await ctx.author.send("I stopped waiting for you to reply.")
+            return
 
-        key_owner = (await self.db.get_key_data(key))
+        try:
+            key_owner_uuid = (await self.db.get_key_data(key))["owner"]
+        except Exception:
+            await ctx.author.send("That doesn't appear to be a valid key. Please try linking your account again.")
+            return
+
+        del key  # see?
+
+        if uuid != key_owner_uuid and uuid != key_owner_uuid.replace("-",
+                                                                     ""):  # Hypixel API sometimes returns uuids with dashes
+            await ctx.author.send("Nice try, but you have to send **your** key.")
+            return
+
+        await self.db.link_account(ctx.author.id, uuid)  # Insert uuid and discord id into db
+        await ctx.author.send("Account linked successfully!")
 
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
