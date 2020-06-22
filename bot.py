@@ -95,7 +95,8 @@ bot.cog_list = [
     "cogs.cmds.hypixel.player",
     "cogs.cmds.hypixel.guild",
     "cogs.cmds.hypixel.games",
-    "cogs.cmds.hypixel.skyblock"
+    "cogs.cmds.hypixel.skyblock",
+    "cogs.cmds.hypixel.general"
 ]
 
 for cog in bot.cog_list:
