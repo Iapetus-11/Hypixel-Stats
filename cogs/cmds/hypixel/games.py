@@ -738,7 +738,10 @@ class Games(commands.Cog):
         embed.add_field(name="Accuracy",
                         value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * 0 if melee_swings == 0 else 1}%")
 
-        embed.add_field(name="Total Coins", value=duels.get("coins", 0), inline=False)
+        embed.add_field(name="Avg. Kills per Game",
+                        value=round((final_kills + 0.00001) / (total_games + 0.00001)))
+        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
+        embed.add_field(name="Total Coins", value=duels.get("coins", 0))
 
         await ctx.send(embed=embed)
 
