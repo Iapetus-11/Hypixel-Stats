@@ -369,7 +369,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Wars Stats", icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Skywars Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
         games = sky.get("games", 0)
         embed.add_field(name="Coins", value=sky.get("coins", 0))
