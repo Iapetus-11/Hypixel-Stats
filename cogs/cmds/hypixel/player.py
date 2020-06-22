@@ -24,6 +24,12 @@ class Player(commands.Cog):
     @commands.command(name="link", aliases=["discordlink", "linkmc", "mclink", "linkaccount", "linkacc"])
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def link_account(self, ctx, mc_username: str):
+        linked = await self.db.get_linked_account_via_id(ctx.author.id)
+
+        if linked is not None:
+            await ctx.send("It appears you've already linked your account!")
+            return
+
         uuid = await self.cache.get_player_uuid(mc_username)
 
         desc = "Login to Hypixel and type `/api` in the chat. Then, send that text here to link your account!"

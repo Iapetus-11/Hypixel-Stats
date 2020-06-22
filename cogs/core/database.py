@@ -39,6 +39,7 @@ class Database(commands.Cog):
     async def get_linked_account_via_uuid(self, uuid):
         return await self.db.fetchrow("SELECT * FROM accounts WHERE uuid=$1", uuid)
 
+    """
     async def is_premium(self, gid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE gid=$1", gid)
         return prem is not None
@@ -51,6 +52,7 @@ class Database(commands.Cog):
     async def remove_premium(self, gid):
         async with self.db.acquire() as con:
             con.execute("DELETE FROM premium WHERE gid=$1", gid)
+    """
 
 
 def setup(bot):
