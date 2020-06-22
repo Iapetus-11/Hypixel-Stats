@@ -48,12 +48,16 @@ class Player(commands.Cog):
                 embed=discord.Embed(color=self.bot.cc, description="I stopped waiting for you to reply."))
             return
 
-        key_owner_uuid = (await self.cache.get_key_data(key.content))["record"]["owner"]
+        try:
+            key_owner_uuid = (await self.cache.get_key_data(key.content))["record"]["owner"]
+        except Exception:
+            await ctx.author.send(embed=discord.Embed(color=self.bot.cc,
+                                                      description="Uh oh, that key appears to be invalid, are you sure it's right?"))
 
         del key  # see?
 
-        if uuid != key_owner_uuid and uuid != key_owner_uuid.replace("-",
-                                                                     ""):  # Hypixel API sometimes returns uuids with dashes
+        # Hypixel API sometimes returns uuids with dashes
+        if uuid != key_owner_uuid and uuid != key_owner_uuid.replace("-", ""):
             await ctx.author.send(embed=discord.Embed(color=self.bot.cc,
                                                       description="Hmm that didn't work. Did you type the api key and your username correctly?"))
             return
