@@ -152,11 +152,18 @@ class SkyBlock(commands.Cog):
 
         armor = await self.get_armor(p.UUID, base, user_island_stats)
 
+        now = arrow.utcnow().timestamp * 1000
+        last_save = user_island_stats.get("last_save")
+
+        status = self.bot.EMOJIS['offline_status']
+        if last_save > now - 2000:
+            status = self.bot.EMOJIS['online_status']
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
 
-        embed.description = f'**{base.get("cute_name")}** - [``{profile_id}``]'
+        embed.description = f'{status} **{base.get("cute_name")}** - [``{profile_id}``]'
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
