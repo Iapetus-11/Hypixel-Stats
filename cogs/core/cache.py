@@ -65,6 +65,7 @@ class Cache(commands.Cog):
             self.player_guild_cache = {}
             self.armor_cache = {}
             self.watchdog_cached = None
+            self.skyblock_cache = {}
 
     async def reset_2_hours(self):
         while True:
