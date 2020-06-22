@@ -20,6 +20,23 @@ class Player(commands.Cog):
                 cleaned += pp[i]
         return cleaned
 
+    @commands.command(name="link", aliases=["discordlink", "linkmc", "mclink", "linkaccount", "linkacc"])
+    @commands.cooldown(1, 1, commands.BucketType.user)
+    async def link_account(self, ctx, mc_username: str):
+        uuid = await self.cache.get_player_uuid(mc_username)
+
+        desc = "Login to Hypixel and type `/api` in the chat. Then, send that text here to link your account!"
+        embed = discord.Embed(color=self.bot.cc, description=desc)
+        embed.set_footer(text="API Keys are not stored and are used purely for verification purposes.")
+        await ctx.author.send(embed=embed)
+
+        def author_check(m):
+            return m.author.id == ctx.author.id and m.guild is None
+
+        key = await self.bot.wait_for("message")
+
+        key_owner = (await self.db.get_key_data(key))
+
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):
