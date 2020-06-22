@@ -373,7 +373,7 @@ class Games(commands.Cog):
 
         games = sky.get("games", 0)
         embed.add_field(name="Coins", value=sky.get("coins", 0))
-        embed.add_field(name="Games", value=gamess)
+        embed.add_field(name="Games", value=games)
         embed.add_field(name="Quits", value=sky.get("quits", 0))
 
         embed.add_field(name="Wins", value=sky.get("wins", 0))
