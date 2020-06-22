@@ -157,15 +157,11 @@ class SkyBlock(commands.Cog):
 
         await ctx.send(f"DEBUG (IGNORE): ``{now}\n{last_save}``")
 
-        status = self.bot.EMOJIS['offline_status']
-        if last_save > now - 7500:
-            status = self.bot.EMOJIS['online_status']
-
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
 
-        embed.description = f'{status} **{base.get("cute_name")}** - [``{profile_id}``]'
+        embed.description = f'**{base.get("cute_name")}** - [``{profile_id}``]'
 
         embed.add_field(name="Co-Op", value=coop)
         embed.add_field(name="Members", value=', '.join(members))
