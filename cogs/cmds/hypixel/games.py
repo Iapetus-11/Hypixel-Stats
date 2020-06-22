@@ -371,8 +371,9 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Wars Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
+        games = sky.get("games", 0)
         embed.add_field(name="Coins", value=sky.get("coins", 0))
-        embed.add_field(name="Games", value=sky.get("games", 0))
+        embed.add_field(name="Games", value=gamess)
         embed.add_field(name="Quits", value=sky.get("quits", 0))
 
         embed.add_field(name="Wins", value=sky.get("wins", 0))
@@ -392,9 +393,14 @@ class Games(commands.Cog):
         embed.add_field(name="Accuracy",
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
-        embed.add_field(name="Eggs Thrown", value=sky.get("egg_thrown", 0))
+        assists = sky.get("assists", 0)
+        embed.add_field(name="Avg Deaths\nPer Game", value=round((deaths + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg Kills\nPer Game", value=round((kills + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg Assists\nPer Game", value=round((assists + .00001) / (games + .00001), 2))
 
         embed.add_field(name="Killstreak", value=sky.get("killstreak", 0))
+        embed.add_field(name="Assists", value=assists)
+        embed.add_field(name="Players Survived", value=sky.get("survived_players", 0))
 
         await ctx.send(embed=embed)
 
