@@ -614,14 +614,17 @@ class Games(commands.Cog):
                          icon_url=await self.cache.get_player_head(p.UUID))
 
         embed.add_field(name="Coins", value=mystery.get("coins", 0))
-        embed.add_field(name="Deaths", value=mystery.get("deaths", 0))
-        embed.add_field(name="\uFEFF", value=f"\uFEFF")
-
         embed.add_field(name="Games", value=mystery.get("games", 0))
         embed.add_field(name="Wins", value=mystery.get("wins", 0))
-        embed.add_field(name="\uFEFF", value=f"\uFEFF")
 
-        embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup", 0))
+        kills = myster.get("kills", 0)
+        deaths = mystery.get("deaths", 0)
+        embed.add_field(name="Kills", value=kills)
+        embed.add_field(name="Deaths", value=deaths)
+        embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
+
+        embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup", 0), inline=False)
+        embed.add_field(name="Total Time Survived", value=f"{mystery.get('total_time_survived_seconds')} seconds")
 
         await ctx.send(embed=embed)
 
