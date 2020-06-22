@@ -29,6 +29,19 @@ class Database(commands.Cog):
         async with self.db.acquire() as con:
             await con.execute("DELETE FROM prefixes WHERE gid=$1", gid)
 
+    async def is_premium(self, gid):
+        prem = await self.db.fetchrow("SELECT * FROM premium WHERE gid=$1", gid)
+        return prem is not None
+
+    async def set_premium(self, gid):
+        if not await self.is_premium(gid):
+            async with self.db.acquire() as con:
+                con.execute("INSERT INTO premium VALUES ($1)", gid)
+
+    async def remove_premium(self, gid):
+        async with self.db.acquire() as con:
+            con.execute("DELETE FROM premium WHERE gid=$1", gid)
+
 
 def setup(bot):
     bot.add_cog(Database(bot))
