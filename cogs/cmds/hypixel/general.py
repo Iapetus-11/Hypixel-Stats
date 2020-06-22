@@ -26,10 +26,6 @@ class General(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="hypixel", aliases=["hypixel"])
-    async def hypixel(self, ctx):
-        pass
-
 
 def setup(bot):
     bot.add_cog(General(bot))
