@@ -158,7 +158,7 @@ class SkyBlock(commands.Cog):
         await ctx.send(f"DEBUG (IGNORE): ``{now}\n{last_save}``")
 
         status = self.bot.EMOJIS['offline_status']
-        if last_save > now - 2000:
+        if last_save > now - 7500:
             status = self.bot.EMOJIS['online_status']
 
         embed = self.embed.copy()
