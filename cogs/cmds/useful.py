@@ -160,11 +160,14 @@ class Useful(commands.Cog):
                        f"``{p}playerstats`` *lists player stats available*\n\n" \
                        f"``{p}friends <username>`` *shows that user's friends*\n\n" \
                        f"``{p}playerguild <username>`` *shows that player's guild*\n\uFEFF"
-        embed.add_field(name="Player Stats", value=player_stats, inline=False)
+        embed.add_field(name="Player", value=player_stats, inline=False)
 
         guild_stats = f"``{p}guild <guild name>`` *shows that hypixel guild*\n\n" \
                       f"``{p}members <guild name>`` *shows the members in that guild*\n\uFEFF"
-        embed.add_field(name="Guild Stats", value=guild_stats, inline=False)
+        embed.add_field(name="Guild", value=guild_stats, inline=False)
+
+        other_stats = f"``{p}watchdog`` *shows watchdog stats*\n\uFEFF"
+        embed.add_field(name="Other", value=other_stats)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
 
