@@ -394,13 +394,13 @@ class Games(commands.Cog):
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
         assists = sky.get("assists", 0)
-        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + .00001) / (games + .00001), 2))
-        embed.add_field(name="Avg. Kills per Game", value=round((kills + .00001) / (games + .00001), 2))
-        embed.add_field(name="Avg. Assists per Game", value=round((assists + .00001) / (games + .00001), 2))
-
         embed.add_field(name="Killstreak", value=sky.get("killstreak", 0))
         embed.add_field(name="Assists", value=assists)
         embed.add_field(name="Players Survived", value=sky.get("survived_players", 0))
+
+        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Kills per Game", value=round((kills + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Assists per Game", value=round((assists + .00001) / (games + .00001), 2))
 
         await ctx.send(embed=embed)
 
