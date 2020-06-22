@@ -498,9 +498,17 @@ class Games(commands.Cog):
         embed.add_field(name="Final Deaths", value=final_deaths)
         embed.add_field(name="Final KDR", value=round((final_kills + .00001) / (final_deaths + .00001), 2))
 
+        beds_broken = bedwars.get("beds_broken_bedwars", 0)
+        total_games = bedwars.get("wins_bedwars", 0) + bedwars.get("beds_lost_bedwars", 0)
         embed.add_field(name="Void Deaths", value=bedwars.get("void_deaths_bedwars", 0))
-        embed.add_field(name="Beds Broken", value=bedwars.get("beds_broken_bedwars", 0))
-        embed.add_field(name="Total Games", value=bedwars.get("wins_bedwars", 0) + bedwars.get("beds_lost_bedwars", 0))
+        embed.add_field(name="Beds Broken", value=beds_broken)
+        embed.add_field(name="Total Games", value=total_games)
+
+        embed.add_field(name="Avg Final Kills\nPer Game",
+                        value=round((final_kills + 0.00001) / (total_games + 0.00001)))
+        embed.add_field(name="Avg Deaths\nPer Game", value=round((deaths + 0.00001) / (total_games + 0.00001)))
+        embed.add_field(name="Avg Beds Broken\nPer Game",
+                        value=round((beds_broken + 0.00001) / (total_games + 0.00001)))
 
         await ctx.send(embed=embed)
 
