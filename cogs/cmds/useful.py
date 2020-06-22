@@ -146,7 +146,7 @@ class Useful(commands.Cog):
 
             await ctx.send(embed=embed)
 
-    @help.command(name="stats", aliases=["info", "statistics"])
+    @help.command(name="stats", aliases=["info", "statistics", "stat"])
     async def help_stats(self, ctx):
         embed = discord.Embed(
             color=self.bot.cc,
