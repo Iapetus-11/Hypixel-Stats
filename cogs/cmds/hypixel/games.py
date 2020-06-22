@@ -31,8 +31,12 @@ class Games(commands.Cog):
             'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit', "skyblock"
         ]
 
-    @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats"])
-    async def player_stats(self, ctx):
+    @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats", "games", "gamestats"])
+    async def player_stats(self, ctx, user=None):
+        if user is not None:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description=f"Each game has its own command! You have to do `{ctx.prefix}<stat> <player>`"))
+            return
         embed = discord.Embed(color=self.bot.cc,
                               title=":chart_with_upwards_trend: Available Statistics :chart_with_downwards_trend:",
                               description=f"`{'`, `'.join(self.games)}`\n\nDo `{ctx.prefix}<stat> <player>` to view a certain stat!")
