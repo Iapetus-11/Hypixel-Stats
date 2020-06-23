@@ -129,6 +129,11 @@ class Cache(commands.Cog):
         if len(player) > 16:
             if player in self.valid_names_and_uuids:
                 return player
+            else:
+                actual = (await self.db.get_linked_account_via_uuid(player))
+                if actual is not None:
+                    self.valid_names_and_uuids.append(actual[1])
+                    return actual[1]
 
         # By this point, player must be a username
         uuid = self.name_uuid_cache.get(player)
@@ -212,7 +217,7 @@ class Cache(commands.Cog):
 
     async def get_player_head(self, player):
         """Returns a valid craftatar url for a player's head, prefers uuid"""
-        print(player)
+
         player = await self.get_player_uuid(player)
         return f"https://crafatar.com/avatars/{player}"
 
