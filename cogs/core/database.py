@@ -31,8 +31,7 @@ class Database(commands.Cog):
 
     async def link_account(self, id, uuid):
         async with self.db.acquire() as con:
-            cawait
-            on.execute("INSERT INTO accounts VALUES ($1, $2)", id, uuid)
+            await con.execute("INSERT INTO accounts VALUES ($1, $2)", id, uuid)
 
     async def get_linked_account_via_id(self, id):
         return await self.db.fetchrow("SELECT * FROM accounts WHERE id=$1", id)
