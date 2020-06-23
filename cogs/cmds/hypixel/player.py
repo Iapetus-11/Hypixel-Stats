@@ -120,7 +120,7 @@ class Player(commands.Cog):
 
         friends = await self.cache.get_player_friends(player)
 
-        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
+        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile", description=f"[`{p.UUID}`]",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
         embed.add_field(name="Level",
