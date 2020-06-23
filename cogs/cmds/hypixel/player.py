@@ -83,7 +83,7 @@ class Player(commands.Cog):
         await ctx.trigger_typing()
 
         if player is None:
-            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            player = (await self.db.get_linked_account_via_id(ctx.author.id))[1]
 
         p = await self.cache.get_player(player)
 
