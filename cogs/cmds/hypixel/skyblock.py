@@ -151,9 +151,6 @@ class SkyBlock(commands.Cog):
 
         armor = await self.get_armor(p.UUID, base, user_island_stats)
 
-        now = arrow.utcnow().timestamp * 1000
-        last_save = user_island_stats.get("last_save")
-
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
