@@ -154,8 +154,6 @@ class SkyBlock(commands.Cog):
         now = arrow.utcnow().timestamp * 1000
         last_save = user_island_stats.get("last_save")
 
-        await ctx.send(f"DEBUG (IGNORE): ``{now}\n{last_save}``")
-
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
