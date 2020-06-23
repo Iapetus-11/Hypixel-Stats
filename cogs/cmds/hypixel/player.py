@@ -28,7 +28,8 @@ class Player(commands.Cog):
 
         if linked is not None:
             await ctx.send(
-                embed=discord.Embed(color=self.bot.cc, description="It appears you've already linked your account!"))
+                embed=discord.Embed(color=self.bot.cc, description=f"It appears you've already linked your account!\n"
+                                                                   f"If you'd like to unlink it, do `{ctx.prefix}unlink`"))
             return
 
         uuid = await self.cache.get_player_uuid(mc_username)
@@ -75,7 +76,8 @@ class Player(commands.Cog):
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def unlink_account(self, ctx):
         if await self.db.get_linked_account_via_id(ctx.author.id) is None:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="You don't have an account linked!"))
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="You don't have an account linked!\n"
+                                                                              f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
             return
 
         await self.db.drop_linked_account(ctx.author.id)
@@ -94,7 +96,7 @@ class Player(commands.Cog):
             else:
                 await ctx.send(
                     embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
-                                                                       f"Do `{ctx.prefix}link <username>` to link your account!"))
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
 
         p = await self.cache.get_player(player)
