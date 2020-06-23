@@ -97,7 +97,7 @@ class Player(commands.Cog):
             guild = "None"
         else:
             guild = await self.cache.get_guild_name_from_id(p.GUILD)
-            guild = f"[{discord.utils.escape_markdown(guild)}]({'https://hypixel.net/guilds/{guild}'})"
+            guild = f"[{discord.utils.escape_markdown(guild)}]({f'https://hypixel.net/guilds/{guild}'.replace(''' ''', '''%20''')})"
 
         if p.PREFIX is None:
             prefix = ""
