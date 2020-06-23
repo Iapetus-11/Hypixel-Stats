@@ -37,7 +37,11 @@ class Player(commands.Cog):
         embed = discord.Embed(color=self.bot.cc, description=desc,
                               title=":link: Link your Discord and MC accounts :link:")
         embed.set_footer(text="API keys are NOT stored and are used purely for verification purposes.")
-        await ctx.author.send(embed=embed)
+
+        try:
+            await ctx.author.send(embed=embed)
+        except discord.errors.Forbidden:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="You have to let the bot dm you!"))
 
         def author_check(m):
             return m.author.id == ctx.author.id and m.guild is None
