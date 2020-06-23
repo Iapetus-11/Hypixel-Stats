@@ -27,7 +27,7 @@ class Player(commands.Cog):
         linked = await self.db.get_linked_account_via_id(ctx.author.id)
 
         if linked is not None:
-            await ctx.send("It appears you've already linked your account!")
+            embed = discord.Embed(color=self.bot.cc, description="It appears you've already linked your account!"))
             return
 
         uuid = await self.cache.get_player_uuid(mc_username)
