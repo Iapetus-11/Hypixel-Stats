@@ -79,9 +79,9 @@ class Player(commands.Cog):
         if player is None:
             player = ctx.author.mention
 
-        embed = discord.Embed(color=self.bot.cc)
-
         p = await self.cache.get_player(player)
+
+        embed = discord.Embed(color=self.bot.cc, description=f"[`{p.UUID}`]")
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
@@ -120,7 +120,7 @@ class Player(commands.Cog):
 
         friends = await self.cache.get_player_friends(player)
 
-        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile", description=f"[`{p.UUID}`]",
+        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
         embed.add_field(name="Level",
