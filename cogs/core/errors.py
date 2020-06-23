@@ -39,7 +39,8 @@ class Errors(commands.Cog):
             return
 
         if "InvalidDiscordUser" in str(e):
-            await self.send(ctx, "That user doesn't have their account linked, or doesn't exist!")
+            await self.send(ctx,
+                            "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link`")
             return
 
         if isinstance(e, commands.errors.NoPrivateMessage):
