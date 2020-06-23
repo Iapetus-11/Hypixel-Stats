@@ -212,7 +212,7 @@ class Cache(commands.Cog):
 
     async def get_player_head(self, player):
         """Returns a valid craftatar url for a player's head, prefers uuid"""
-
+        print(player)
         player = await self.get_player_uuid(player)
         return f"https://crafatar.com/avatars/{player}"
 
