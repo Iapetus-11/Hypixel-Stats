@@ -88,7 +88,14 @@ class Player(commands.Cog):
         await ctx.trigger_typing()
 
         if player is None:
-            player = (await self.db.get_linked_account_via_id(ctx.author.id))[1]
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
