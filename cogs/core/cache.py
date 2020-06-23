@@ -119,13 +119,14 @@ class Cache(commands.Cog):
 
         if discord.utils.escape_mentions(player).startswith("<@​!"):
             disc_user = discord.utils.escape_mentions(player).replace("<@​!", "").replace(">", "")
+            print(disc_user)
             try:
                 uuid = await self.db.get_linked_account_via_id(int(disc_user))
             except ValueError:
                 raise InvalidDiscordUser
             if uuid is None:
                 raise InvalidDiscordUser
-            return uuid
+            return uuid[1]
 
         if len(player) > 16:
             if player in self.valid_names_and_uuids:
