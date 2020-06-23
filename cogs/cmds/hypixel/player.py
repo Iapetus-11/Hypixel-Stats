@@ -80,8 +80,7 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=self.bot.cc, description=f"[`{p.UUID}`]")
 
-        linked_acc = await self.db.get_linked_account_via_uuid(p.UUID)
-        linked_acc = linked_acc[0]
+        linked_acc = (await self.db.get_linked_account_via_uuid(p.UUID))[0]
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
