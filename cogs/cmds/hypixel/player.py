@@ -92,6 +92,8 @@ class Player(commands.Cog):
         else:
             last_online = "Never"
 
+        print(p.UUID)
+
         player_pfp = await self.cache.get_player_head(p.UUID)
 
         guild = p.GUILD
