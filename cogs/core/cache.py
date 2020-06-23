@@ -118,10 +118,8 @@ class Cache(commands.Cog):
         """Fetches a player's uuid via their username"""
 
         if discord.utils.escape_mentions(player).startswith("<@​!"):
-            disc_user = player[3:-1]
-            print(int(disc_user))
             try:
-                uuid = await self.db.get_linked_account_via_id(int(disc_user))
+                uuid = await self.db.get_linked_account_via_id(int(player[3:-1]))
             except ValueError:
                 raise InvalidDiscordUser
             if uuid is None:
