@@ -83,6 +83,8 @@ class Player(commands.Cog):
 
         embed = discord.Embed(color=self.bot.cc, description=f"[`{p.UUID}`]")
 
+        linked_acc = await self.db.get_linked_account_via_uuid(p.UUID)
+
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
             last_online = ["Last Online", arrow.Arrow.fromtimestamp(p.LAST_LOGOUT / 1000).humanize()]  # I love arrow
@@ -133,7 +135,7 @@ class Player(commands.Cog):
         embed.add_field(name=last_online[0], value=last_online[1], inline=True)
 
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
-        embed.add_field(name="Discord", value=self.bot.get_user(await self.db.get_linked_account_via_uuid(p.UUID)))
+        embed.add_field(name="Discord", value=linked_acc)
         embed.add_field(name="Achievements", value=f"{len(p.ONE_TIME_ACHIEVEMENTS)}")
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
