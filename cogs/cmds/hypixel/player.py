@@ -34,7 +34,7 @@ class Player(commands.Cog):
 
         uuid = await self.cache.get_player_uuid(mc_username)
 
-        desc = "Login to Hypixel and type `/api` in the chat. Then, send that text here to link your account!"
+        desc = "**Login to Hypixel** and type `/api` in the chat. Then, **send that text here** to link your account!"
         embed = discord.Embed(color=self.bot.cc, description=desc,
                               title=":link: Link your Discord and MC accounts :link:")
         embed.set_footer(text="API keys are NOT stored and are used purely for verification purposes.")
