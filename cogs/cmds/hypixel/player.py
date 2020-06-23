@@ -69,7 +69,13 @@ class Player(commands.Cog):
     @commands.command(name="unlink", aliases=["unlinkacc", "unlinkaccount", "deletelink", "removeaccount"])
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def unlink_account(self, ctx):
-        pass
+        if await self.db.get_linked_account_via_id(ctx.author.id) is not None:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="You don't have an account linked!"))
+            return
+
+        await self.db.drop_linked_account(ctx.author.id)
+        await ctx.send(
+            embed=discord.Embed(color=self.bot.cc, description="You have unlinked your account successfully."))
 
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
