@@ -66,6 +66,11 @@ class Player(commands.Cog):
         await self.db.link_account(ctx.author.id, uuid)  # Insert uuid and discord id into db
         await ctx.author.send(embed=discord.Embed(color=self.bot.cc, description="Account linked successfully!"))
 
+    @commands.command(name="unlink", aliases=["unlinkacc", "unlinkaccount", "deletelink", "removeaccount"])
+    @commands.cooldown(1, 1, commands.BucketType.user)
+    async def unlink_account(self, ctx):
+        pass
+
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_profile(self, ctx, player):

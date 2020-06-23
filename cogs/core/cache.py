@@ -5,6 +5,14 @@ import discord
 from discord.ext import commands
 
 
+class InvalidDiscordUser(Exception):
+    def __init__(self):
+        self.msg = "Invalid Discord user was supplied."
+
+    def __str__(self):
+        return self.msg
+
+
 class Cache(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -109,8 +117,12 @@ class Cache(commands.Cog):
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
 
-        if discord.utils.escape_markdown(player).startswith("@"):
-            await self.db.
+        if discord.utils.escape_mentions(player).startswith("<@​!"):
+            disc_user = discord.utils.escape_mentions(player)[4:-1]
+            uuid = await self.db.get_linked_account_via_id(disc_user)
+            if uuid is None:
+                raise InvalidDiscordUser
+            return uuid
 
         if len(player) > 16:
             if player in self.valid_names_and_uuids:
