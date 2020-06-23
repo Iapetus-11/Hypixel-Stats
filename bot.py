@@ -31,7 +31,8 @@ logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying e
 tips = [
     "Need more help? Check out the [support server](https://discord.gg/MZ2cXxF)!",
     "Hey! Check out one of our other bots, [vidio](https://top.gg/bot/689210550680682560), a YouTube sim/roleplay bot!",
-    "Hey! Check out another of our bots, [Villager Bot!](https://top.gg/bot/639498607632056321), a Minecraft themed bot with a ton of features!"
+    "Hey! Check out another of our bots, [Villager Bot!](https://top.gg/bot/639498607632056321), a Minecraft themed bot with a ton of features!",
+    "Want to link your account? Do `h!link <mc_username>` to link it!"
 ]
 
 
