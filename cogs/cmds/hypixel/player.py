@@ -73,8 +73,11 @@ class Player(commands.Cog):
 
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def player_profile(self, ctx, player):
+    async def player_profile(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = ctx.author.mention
 
         embed = discord.Embed(color=self.bot.cc)
 
