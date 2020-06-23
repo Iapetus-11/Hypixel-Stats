@@ -208,7 +208,7 @@ class Useful(commands.Cog):
         embed = discord.Embed(
             color=self.bot.cc,
             title=f":gear: Config Commands",
-            description=self.need_more_halp
+            description=self.need_more_halp + "\n\uFEFF"
         )
 
         p = ctx.prefix
