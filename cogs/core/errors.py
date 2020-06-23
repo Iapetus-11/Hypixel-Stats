@@ -38,6 +38,10 @@ class Errors(commands.Cog):
             await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
             return
 
+        if "InvalidDiscordUser" in str(e):
+            await self.send(ctx, "That user doesn't have their account linked, or doesn't exist!")
+            return
+
         if isinstance(e, commands.errors.NoPrivateMessage):
             await self.send(ctx, "This command can't be used in private chat channels.")
             return
