@@ -180,7 +180,10 @@ class Cache(commands.Cog):
         try_again = True
         while try_again:
             try:
-                awaited = await to_be_awaited
+                try:
+                    awaited = await asyncio.wait_for(to_be_awaited(), timeout=5)
+                except asyncio.TimeoutError:
+                    raise RatelimitTimeoutError
                 try_again = False
             except aiopypixel.exceptions.exceptions.RateLimitError:
                 await asyncio.sleep(self.bot.ratelimited_wait_time)
