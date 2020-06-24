@@ -105,28 +105,18 @@ class Useful(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
-    @commands.command(name="vote", aliases=["votelink"])
-    async def vote_link(self, ctx):
-        _vote_link = discord.Embed(description="[**Click Here!**](https://top.gg/bot/718523903147900998/vote)",
-                                   color=self.bot.cc)
-        _vote_link.set_author(name="Vote for Hypixel Stats!",
-                              icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
-        await ctx.send(embed=_vote_link)
+    @commands.command(name="links",
+                      aliases=["usefullinks", "invite", "invitebot", "support", "supportserver", "helpme", "discord",
+                               "vote", "votelink"])
+    async def useful_links(self, ctx):
+        desc = f"[**Invite Hypixel Stats**](https://bit.ly/3fAUmPV)\n\n" \
+               f"[**Support Server**](https://discord.gg/{self.bot.guild_invite_code})\n\n" \
+               f"[**Vote for us**](https://top.gg/bot/718523903147900998/vote)\n\n"
 
-    @commands.command(name="invite", aliases=["invitelink"])
-    async def invite_link(self, ctx):
-        inv_l = discord.Embed(description="[**Click Here!**](https://bit.ly/3fAUmPV)", color=self.bot.cc)
-        inv_l.set_author(name="Add Hypixel Stats to your server!",
+        embed = discord.Embed(description=desc, color=self.bot.cc)
+        embed.set_author(name=":link: Useful Links :link:",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
-        await ctx.send(embed=inv_l)
-
-    @commands.command(name="discord", aliases=["support"])
-    async def discord_link(self, ctx):
-        inv_l = discord.Embed(description=f"[**Click Here!**](https://discord.gg/{self.bot.guild_invite_code})",
-                              color=self.bot.cc)
-        inv_l.set_author(name="Join the support server!",
-                         icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
-        await ctx.send(embed=inv_l)
+        await ctx.send(embed=embed)
 
     @commands.group(name="help", aliases=["helpme", "halp", "hlp"])
     async def help(self, ctx):
@@ -193,9 +183,7 @@ class Useful(commands.Cog):
                 f"``{p}uptime`` *shows the uptime of the bot*\n\n" \
                 f"``{p}info`` *shows information about the bot*\n\n" \
                 f"``{p}botstats`` *shows some bot statistics*\n\n" \
-                f"``{p}invite`` *gives a link to invite the bot*\n\n" \
-                f"``{p}vote`` *gives a link to vote for the bot*\n\n" \
-                f"``{p}support`` *gives the invite link for the support server*\n\n" \
+                f"``{p}links`` *sends useful links, like an invite link for the bot*\n\n" \
                 f"``{p}math <math`` *solves the given math problem*\n\uFEFF"
         embed.add_field(name="Other", value=other, inline=False)
 
