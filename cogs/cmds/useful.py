@@ -107,7 +107,7 @@ class Useful(commands.Cog):
 
     @commands.command(name="links", aliases=["invite", "vote", "discord", "support"])
     async def useful_links(self, ctx):
-        desc = f"[**Invite Hypixel Stats**](https://bit.ly/3fAUmPV)\n\n" \
+        desc = f"\uFEFF\n[**Invite Hypixel Stats**](https://bit.ly/3fAUmPV)\n\n" \
                f"[**Support Server**](https://discord.gg/{self.bot.guild_invite_code})\n\n" \
                f"[**Vote for us**](https://top.gg/bot/718523903147900998/vote)\n\n"
 
