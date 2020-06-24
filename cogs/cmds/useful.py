@@ -225,6 +225,36 @@ class Useful(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="math", aliases=["solve", "domath", "meth"])
+    @commands.cooldown(1, .5, commands.BucketType.user)
+    async def do_math(self, ctx):
+        try:
+            problem = str(ctx.message.clean_content.replace(f"{ctx.prefix}math", ""))
+
+            if problem == "":
+                await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+                                                   description="You have to put a problem in for the bot to solve!"))
+                return
+
+            if len(problem) > 250:
+                await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+                                                   description="That's a bit too long, don't you think?"))
+                return
+
+            problem = problem.replace("÷", "/").replace("x", "*").replace("•", "*").replace("=", "==").replace("π",
+                                                                                                               "3.14159")
+            for letter in "abcdefghijklmnopqrstuvwxyz\\_@~`,<>?|'\"{}[]":
+                if letter in problem:
+                    await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+                                                       description="That math problem contains invalid characters, please try again."))
+                    return
+            await ctx.send(
+                embed=discord.Embed(color=discord.Color.green(),
+                                    description=f"```{str(round(eval(problem), 5))}```"))
+        except Exception:
+            await ctx.send(
+                embed=discord.Embed(color=discord.Color.green(), description="Oops, something went wrong."))
+
 
 def setup(bot):
     bot.add_cog(Useful(bot))
