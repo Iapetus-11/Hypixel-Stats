@@ -105,7 +105,7 @@ class Useful(commands.Cog):
         await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
-    @commands.command(name="links")
+    @commands.command(name="links", aliases=["invite", "vote", "discord", "support"])
     async def useful_links(self, ctx):
         desc = f"[**Invite Hypixel Stats**](https://bit.ly/3fAUmPV)\n\n" \
                f"[**Support Server**](https://discord.gg/{self.bot.guild_invite_code})\n\n" \
