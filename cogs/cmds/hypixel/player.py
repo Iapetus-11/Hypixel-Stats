@@ -54,7 +54,7 @@ class Player(commands.Cog):
                 embed=discord.Embed(color=self.bot.cc, description="I stopped waiting for you to reply."))
             return
 
-        if key.content.lower() == "cancel":
+        if key.content.lower() in ["cancel", "stop", "end"]:
             await ctx.author.send(
                 embed=discord.Embed(color=self.bot.cc, description="Ok, verification has been canceled."))
             return
