@@ -111,9 +111,7 @@ class Useful(commands.Cog):
                f"[**Support Server**](https://discord.gg/{self.bot.guild_invite_code})\n\n" \
                f"[**Vote for us**](https://top.gg/bot/718523903147900998/vote)\n\n"
 
-        embed = discord.Embed(description=desc, color=self.bot.cc)
-        embed.set_author(title=":link: Useful Links :link:",
-                         icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
+        embed = discord.Embed(description=desc, color=self.bot.cc, title=":link: Useful Links :link:")
 
         await ctx.send(embed=embed)
 
