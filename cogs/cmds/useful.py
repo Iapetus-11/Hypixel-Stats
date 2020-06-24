@@ -112,7 +112,7 @@ class Useful(commands.Cog):
                f"[**Vote for us**](https://top.gg/bot/718523903147900998/vote)\n\n"
 
         embed = discord.Embed(description=desc, color=self.bot.cc)
-        embed.set_author(name=":link: Useful Links :link:",
+        embed.set_author(title=":link: Useful Links :link:",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
         await ctx.send(embed=embed)
