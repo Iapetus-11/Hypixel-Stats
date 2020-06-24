@@ -45,7 +45,7 @@ class Games(commands.Cog):
 
     @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def arcade(self, ctx, *, player):
+    async def arcade(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -67,7 +67,7 @@ class Games(commands.Cog):
 
     @commands.command(name="arena", aliases=["hypixelarena", "hypixel_arena", "ar"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def arena(self, ctx, *, player):
+    async def arena(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -106,7 +106,7 @@ class Games(commands.Cog):
 
     @commands.command(name="battleground", aliases=["battle ground", "battlegrounds", "battle_ground", "bg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def battleground(self, ctx, *, player):
+    async def battleground(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -139,7 +139,7 @@ class Games(commands.Cog):
 
     @commands.command(name="hungergames", aliases=["hungergame", "hunger_games", "hg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def hunger_games(self, ctx, *, player):
+    async def hunger_games(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -168,7 +168,7 @@ class Games(commands.Cog):
 
     @commands.command(name="paintball", aliases=["paint_ball", "pb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def paintball(self, ctx, *, player):
+    async def paintball(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -198,7 +198,7 @@ class Games(commands.Cog):
 
     @commands.command(name="quake", aliases=["qk"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def quake(self, ctx, *, player):
+    async def quake(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -233,7 +233,7 @@ class Games(commands.Cog):
 
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def uhc(self, ctx, *, player):
+    async def uhc(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -263,7 +263,7 @@ class Games(commands.Cog):
 
     @commands.command(name="vampirez", aliases=["vampiresandzombies", "vz", "vampirezombies", "vampire_zombies"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def vampirez(self, ctx, *, player):
+    async def vampirez(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -302,7 +302,7 @@ class Games(commands.Cog):
 
     @commands.command(name="walls", aliases=["ww", "hypixel_walls"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def walls(self, ctx, *, player):
+    async def walls(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -330,7 +330,7 @@ class Games(commands.Cog):
 
     @commands.command(name="turbokartracer", aliases=["karts", "racing", "tkr", "tbkr", "turbokarts", "turboracer"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def turbo_kart_racer(self, ctx, *, player):
+    async def turbo_kart_racer(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -361,7 +361,7 @@ class Games(commands.Cog):
 
     @commands.command(name="skywars", aliases=["skywar", "skw", "sw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def skywars(self, ctx, *, player):
+    async def skywars(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -410,7 +410,7 @@ class Games(commands.Cog):
 
     @commands.command(name="speeduhc", aliases=["suhc", "speedultrahardcore", "succ"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def speed_uhc(self, ctx, *, player):
+    async def speed_uhc(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -447,7 +447,7 @@ class Games(commands.Cog):
 
     @commands.command(name="buildbattle", aliases=["buildbattles", "blingblingboy", "bb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def build_battle(self, ctx, *, player):
+    async def build_battle(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -474,7 +474,7 @@ class Games(commands.Cog):
 
     @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw", "bw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def bedwars(self, ctx, *, player):
+    async def bedwars(self, ctx, player, _type=None):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -484,33 +484,53 @@ class Games(commands.Cog):
         except KeyError:
             raise NoStatError
 
+        if _type in ["1", "1s", "solos", "solo", "singles"]:
+            type_clean = "SOLO"
+            actual_type = "eight_one_"
+        elif _type in ["2", "doubles", "2s", "double"]:
+            type_clean = "DOUBLES"
+            actual_type = "eight_two_"
+        elif _type in ["3", "threes", "3s", "3x3x3x3"]:
+            type_clean = "3x3x3x3"
+            actual_type = "four_three_"
+        elif _type in ["4", "fours", "4s", "4x4x4x4"]:
+            type_clean = "4x4x4x4"
+            actual_type = "four_four_"
+        elif _type in ["5", "fourvsfour", "4v4", "2x4", "4x4"]:
+            type_clean = "4x4"
+            actual_type = "two_four_"
+        else:
+            type_clean = "ALL"
+            actual_type = ""
+
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats", icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats ({type_clean})",
+                         icon_url=await self.cache.get_player_head(p.UUID))
 
         embed.add_field(name="XP", value=bedwars.get("Experience", 0))
         embed.add_field(name="Coins", value=bedwars.get("coins", 0))
         embed.add_field(name="Level", value=p.ACHIEVEMENTS.get("bedwars_level", 0))
 
-        embed.add_field(name="Wins", value=bedwars.get("wins_bedwars", 0))
-        embed.add_field(name="Losses", value=bedwars.get("beds_lost_bedwars", 0))
-        embed.add_field(name="Winstreak", value=bedwars.get("winstreak", 0))
+        embed.add_field(name="Wins", value=bedwars.get(f"{actual_type}wins_bedwars", 0))
+        embed.add_field(name="Losses", value=bedwars.get(f"{actual_type}beds_lost_bedwars", 0))
+        embed.add_field(name="Winstreak", value=bedwars.get(f"{actual_type}winstreak", 0))
 
-        kills = bedwars.get("kills_bedwars", 0)
-        deaths = bedwars.get("deaths_bedwars", 0)
+        kills = bedwars.get(f"{actual_type}kills_bedwars", 0)
+        deaths = bedwars.get(f"{actual_type}deaths_bedwars", 0)
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
 
-        final_kills = bedwars.get("final_kills_bedwars", 0)
-        final_deaths = bedwars.get('final_deaths_bedwars', 0)
+        final_kills = bedwars.get(f"{actual_type}final_kills_bedwars", 0)
+        final_deaths = bedwars.get(f"{actual_type}final_deaths_bedwars", 0)
         embed.add_field(name="Final Kills", value=final_kills)
         embed.add_field(name="Final Deaths", value=final_deaths)
         embed.add_field(name="Final KDR", value=round((final_kills + .00001) / (final_deaths + .00001), 2))
 
-        beds_broken = bedwars.get("beds_broken_bedwars", 0)
-        total_games = bedwars.get("wins_bedwars", 0) + bedwars.get("beds_lost_bedwars", 0)
-        embed.add_field(name="Void Deaths", value=bedwars.get("void_deaths_bedwars", 0))
+        beds_broken = bedwars.get(f"{actual_type}beds_broken_bedwars", 0)
+        total_games = bedwars.get(f"{actual_type}wins_bedwars", 0) + bedwars.get("beds_lost_bedwars", 0)
+        embed.add_field(name="Void Deaths", value=bedwars.get(f"{actual_type}void_deaths_bedwars", 0))
         embed.add_field(name="Beds Broken", value=beds_broken)
         embed.add_field(name="Total Games", value=total_games)
 
@@ -524,7 +544,7 @@ class Games(commands.Cog):
 
     @commands.command(name="truecombat", aliases=["tc", "true_combat"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def true_combat(self, ctx, *, player):
+    async def true_combat(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -547,7 +567,7 @@ class Games(commands.Cog):
 
     @commands.command(name="tntgames", aliases=["tntgame", "tnt", "tntg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def tnt_games(self, ctx, *, player):
+    async def tnt_games(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -579,7 +599,7 @@ class Games(commands.Cog):
 
     @commands.command(name="supersmash", aliases=["supasmash", "super_smash", "ss"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def super_smash(self, ctx, *, player):
+    async def super_smash(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -602,7 +622,7 @@ class Games(commands.Cog):
 
     @commands.command(name="murdermystery", aliases=["murder_mystery", "mm"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def murder_mystery(self, ctx, *, player):
+    async def murder_mystery(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -634,7 +654,7 @@ class Games(commands.Cog):
 
     @commands.command(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def cops_and_criminals(self, ctx, *, player):
+    async def cops_and_criminals(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -667,7 +687,7 @@ class Games(commands.Cog):
 
     @commands.command(name="skyclash", aliases=["skc", "sky_clash"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def sky_clash(self, ctx, *, player):
+    async def sky_clash(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -699,7 +719,7 @@ class Games(commands.Cog):
 
     @commands.command(name="duels", aliases=["hypixel_duels", "dd"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def duels(self, ctx, *, player):
+    async def duels(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
@@ -748,7 +768,7 @@ class Games(commands.Cog):
 
     @commands.command(name="pit", aliases=["hypixelpit", "hp", "hypixel_pit", "thepit"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def hypixel_pit(self, ctx, *, player):
+    async def hypixel_pit(self, ctx, player):
         await ctx.trigger_typing()
 
         p = await self.cache.get_player(player)
