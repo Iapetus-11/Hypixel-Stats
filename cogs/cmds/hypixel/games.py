@@ -505,6 +505,8 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
+        embed.description = f"You can specify which gamemode by doing `{ctx.prefix}bedwars <player> <gamemode>`"
+
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats ({type_clean})",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
