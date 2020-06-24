@@ -183,10 +183,12 @@ class Cache(commands.Cog):
                 try:
                     awaited = await asyncio.wait_for(to_be_awaited, timeout=5)
                 except asyncio.TimeoutError:
+                    await self.bot.get_channel(718983583779520540).send(f"```{to_be_awaited}```")
                     raise RatelimitTimeoutError
                 try_again = False
             except aiopypixel.exceptions.exceptions.RateLimitError:
                 await asyncio.sleep(self.bot.ratelimited_wait_time)
+                await self.bot.get_channel(718983583779520540).send(f"```{to_be_awaited}```")
         self.waiting.pop(self.waiting.index(ts))
         return awaited
 
