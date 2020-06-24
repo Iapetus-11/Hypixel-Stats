@@ -402,9 +402,9 @@ class Games(commands.Cog):
         embed.add_field(name="Assists", value=assists)
         embed.add_field(name="Players Survived", value=sky.get("survived_players", 0))
 
-        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + .00001) / (games + .00001), 2))
-        embed.add_field(name="Avg. Kills per Game", value=round((kills + .00001) / (games + .00001), 2))
-        embed.add_field(name="Avg. Assists per Game", value=round((assists + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Deaths\nper Game", value=round((deaths + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Kills\nper Game", value=round((kills + .00001) / (games + .00001), 2))
+        embed.add_field(name="Avg. Assists\nper Game", value=round((assists + .00001) / (games + .00001), 2))
 
         await ctx.send(embed=embed)
 
@@ -534,10 +534,10 @@ class Games(commands.Cog):
         embed.add_field(name="Beds Broken", value=beds_broken)
         embed.add_field(name="Total Games", value=total_games)
 
-        embed.add_field(name="Avg. Final Kills per Game",
+        embed.add_field(name="Avg. Final Kills\nper Game",
                         value=round((final_kills + 0.00001) / (total_games + 0.00001)))
-        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
-        embed.add_field(name="Avg. Beds Broken per Game",
+        embed.add_field(name="Avg. Deaths\nper Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
+        embed.add_field(name="Avg. Beds Broken\nper Game",
                         value=round((beds_broken + 0.00001) / (total_games + 0.00001), 2))
 
         await ctx.send(embed=embed)
@@ -759,9 +759,9 @@ class Games(commands.Cog):
         embed.add_field(name="Accuracy",
                         value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * 0 if melee_swings == 0 else 1}%")
 
-        embed.add_field(name="Avg. Kills per Game",
+        embed.add_field(name="Avg. Kills\nper Game",
                         value=round((kills + 0.00001) / (total_games + 0.00001)))
-        embed.add_field(name="Avg. Deaths per Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
+        embed.add_field(name="Avg. Deaths\nper Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
         embed.add_field(name="Total Coins", value=duels.get("coins", 0))
 
         await ctx.send(embed=embed)
