@@ -217,7 +217,7 @@ class Useful(commands.Cog):
                         f"``{p}config prefix <prefix>`` *changes the prefix of the server you're in*\n\uFEFF"
         embed.add_field(name="Server Config", value=server_config, inline=False)
 
-        user_config = f"`{p}link <username>` *links your minecraft and discord accounts*\n\n" \
+        user_config = f"`{p}link <mc username>` *links your minecraft and discord accounts*\n\n" \
                       f"`{p}unlink` *unlinks your accounts*\n\uFEFF"
         embed.add_field(name="User Config", value=user_config, inline=False)
 
