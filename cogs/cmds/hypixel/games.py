@@ -505,7 +505,7 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
 
-        embed.description = f"You can specify which gamemode by doing `{ctx.prefix}bedwars <player> <gamemode>`"
+        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}bedwars <player> <gamemode>`"
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats ({type_clean})",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -531,7 +531,7 @@ class Games(commands.Cog):
         embed.add_field(name="Final KDR", value=round((final_kills + .00001) / (final_deaths + .00001), 2))
 
         beds_broken = bedwars.get(f"{actual_type}beds_broken_bedwars", 0)
-        total_games = bedwars.get(f"{actual_type}wins_bedwars", 0) + bedwars.get("beds_lost_bedwars", 0)
+        total_games = bedwars.get(f"{actual_type}wins_bedwars", 0) + bedwars.get(f"{actual_type}beds_lost_bedwars", 0)
         embed.add_field(name="Void Deaths", value=bedwars.get(f"{actual_type}void_deaths_bedwars", 0))
         embed.add_field(name="Beds Broken", value=beds_broken)
         embed.add_field(name="Total Games", value=total_games)
