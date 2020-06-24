@@ -242,8 +242,8 @@ class Useful(commands.Cog):
                     embed=discord.Embed(color=self.bot.cc, description="That's a bit too long, don't you think?"))
                 return
 
-            problem = problem[1:].replace("÷", "/").replace("x", "*").replace("•", "*").replace("=", "==").replace("π",
-                                                                                                                   "3.14159")
+            problem = problem[1:].replace("÷", "/").replace("x", "*").replace("•", "*").replace("=", "==")
+            problem = problem.replace("π", "3.14159").replace(" ", "")
 
             for letter in problem:
                 if letter not in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "/", "(", ")"]:
