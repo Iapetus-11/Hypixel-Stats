@@ -67,7 +67,7 @@ class Useful(commands.Cog):
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n"
         embed.add_field(name="General", value=general)
 
-        caching = f"waiting api requests: ``{self.cache.waiting}``\n" \
+        caching = f"waiting api requests: ``{len(self.cache.waiting)}``\n" \
                   f""f"valid names & uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \

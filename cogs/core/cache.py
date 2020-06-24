@@ -1,5 +1,6 @@
 import aiohttp
 import aiopypixel
+import arrow
 import asyncio
 import discord
 from discord.ext import commands
@@ -13,6 +14,11 @@ class InvalidDiscordUser(Exception):
         return self.msg
 
 
+class RatelimitTimeoutError(Exception):
+    def __str__(self):
+        return "Timeout in ratelimit wait!"
+
+
 class Cache(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -23,7 +29,7 @@ class Cache(commands.Cog):
 
         self.session = aiohttp.ClientSession()
 
-        self.waiting = 0
+        self.waiting = []
 
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
@@ -100,7 +106,7 @@ class Cache(commands.Cog):
 
     @commands.command(name="clearcache", aliases=["resetcache"])
     async def clearcache(self, ctx):
-        self.waiting = 0
+        self.waiting = []
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}
         self.uuid_name_cache = {}
@@ -168,16 +174,17 @@ class Cache(commands.Cog):
     async def rate_limit_wait(self, to_be_awaited):
         """Gets something from the api and if ratelimited, waits and tries again"""
 
+        ts = arrow.utcnow().timestamp
+        self.waiting.append(ts)
+
         try_again = True
-        self.waiting += 1
         while try_again:
             try:
                 awaited = await to_be_awaited
                 try_again = False
             except aiopypixel.exceptions.exceptions.RateLimitError:
-                await self.bot.get_channel(718983583779520540).send(str(to_be_awaited))
                 await asyncio.sleep(self.bot.ratelimited_wait_time)
-        self.waiting -= 1
+        self.waiting.pop(ts)
         return awaited
 
     async def get_player(self, player):  # uuid preferred
