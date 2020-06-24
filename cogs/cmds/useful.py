@@ -233,13 +233,13 @@ class Useful(commands.Cog):
             problem = str(ctx.message.clean_content.replace(f"{ctx.prefix}math", ""))
 
             if problem == "":
-                await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+                await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                                    description="You have to put a problem in for the bot to solve!"))
                 return
 
             if len(problem) > 250:
-                await ctx.send(embed=discord.Embed(color=discord.Color.green(),
-                                                   description="That's a bit too long, don't you think?"))
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description="That's a bit too long, don't you think?"))
                 return
 
             problem = problem[1:].replace("÷", "/").replace("x", "*").replace("•", "*").replace("=", "==").replace("π",
@@ -247,16 +247,15 @@ class Useful(commands.Cog):
 
             for letter in problem:
                 if letter not in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "/", "(", ")"]:
-                    await ctx.send(embed=discord.Embed(color=discord.Color.green(),
+                    await ctx.send(embed=discord.Embed(color=self.bot.cc,
                                                        description="That math problem contains invalid characters, please try again."))
                     return
 
             await ctx.send(
-                embed=discord.Embed(color=discord.Color.green(),
-                                    description=f"```{str(round(eval(problem), 5))}```"))
+                embed=discord.Embed(color=self.bot.cc, description=f"```{str(round(eval(problem), 5))}```"))
         except Exception:
             await ctx.send(
-                embed=discord.Embed(color=discord.Color.green(), description="Oops, something went wrong."))
+                embed=discord.Embed(color=self.bot.cc, description="Oops, something went wrong."))
 
 
 def setup(bot):
