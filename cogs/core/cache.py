@@ -181,7 +181,7 @@ class Cache(commands.Cog):
         while try_again:
             try:
                 try:
-                    awaited = await asyncio.wait_for(to_be_awaited(), timeout=5)
+                    awaited = await asyncio.wait_for(to_be_awaited, timeout=5)
                 except asyncio.TimeoutError:
                     raise RatelimitTimeoutError
                 try_again = False
