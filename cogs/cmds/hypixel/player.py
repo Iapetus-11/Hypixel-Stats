@@ -34,7 +34,7 @@ class Player(commands.Cog):
 
         uuid = await self.cache.get_player_uuid(mc_username)
 
-        desc = "**Login to Hypixel** and type `/api` in the chat. Then, **send that text here** to link your account!"
+        desc = "**Login to Hypixel** and type `/api` in the chat. Then, **send that text here** to link your account! Type `cancel` to cancel this process."
         embed = discord.Embed(color=self.bot.cc, description=desc,
                               title=":link: Link your Discord and MC accounts :link:")
         embed.set_footer(text="API keys are NOT stored and are used purely for verification purposes.")
@@ -52,6 +52,11 @@ class Player(commands.Cog):
         except asyncio.TimeoutError:
             await ctx.author.send(
                 embed=discord.Embed(color=self.bot.cc, description="I stopped waiting for you to reply."))
+            return
+
+        if key.content.lower() == "cancel":
+            await ctx.author.send(
+                embed=discord.Embed(color=self.bot.cc, description="Ok, verification has been canceled."))
             return
 
         try:
