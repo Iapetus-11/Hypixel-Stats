@@ -196,7 +196,8 @@ class Useful(commands.Cog):
                 f"``{p}botstats`` *shows some bot statistics*\n\n" \
                 f"``{p}invite`` *gives a link to invite the bot*\n\n" \
                 f"``{p}vote`` *gives a link to vote for the bot*\n\n" \
-                f"``{p}support`` *gives the invite link for the support server*\n\uFEFF"
+                f"``{p}support`` *gives the invite link for the support server*\n\n" \
+                f"``{p}math <math`` *solves the given math problem*\n\uFEFF"
         embed.add_field(name="Other", value=other, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
