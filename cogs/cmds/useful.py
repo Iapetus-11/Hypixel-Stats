@@ -243,11 +243,13 @@ class Useful(commands.Cog):
 
             problem = problem.replace("÷", "/").replace("x", "*").replace("•", "*").replace("=", "==").replace("π",
                                                                                                                "3.14159")
-            for letter in "abcdefghijklmnopqrstuvwxyz\\_@~`,<>?|'\"{}[]":
-                if letter in problem:
+
+            for letter in problem:
+                if letter not in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "/", "(", ")"]:
                     await ctx.send(embed=discord.Embed(color=discord.Color.green(),
                                                        description="That math problem contains invalid characters, please try again."))
                     return
+
             await ctx.send(
                 embed=discord.Embed(color=discord.Color.green(),
                                     description=f"```{str(round(eval(problem), 5))}```"))
