@@ -136,7 +136,9 @@ class Player(commands.Cog):
         else:
             prefix = await self.filter_sections(p.PREFIX) + " "
 
-        rank = p.RANK
+        monthly = p.MONTHLY_RANK.replace("SUPERSTAR", "MVP_PLUS_PLUS")
+
+        rank = p.RANK if monthly is not None else monthly
 
         if rank is None:
             if prefix != "":
