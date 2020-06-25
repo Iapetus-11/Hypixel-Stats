@@ -26,7 +26,7 @@ class Games(commands.Cog):
 
         self.embed = discord.Embed(color=self.bot.cc)
 
-        self.games = [  # Don't forget to add sky block!
+        self.games = [
             'arcade', 'arena', 'battleground', 'hungergames', 'paintball', 'quake', 'uhc', 'vampirez', 'walls',
             'turbokartracer', 'skywars', 'speeduhc', 'buildbattle', 'bedwars', 'truecombat', 'tntgames', 'supersmash',
             'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit', "skyblock"
