@@ -71,7 +71,7 @@ class Errors(commands.Cog):
                 return
 
         if isinstance(e, commands.MaxConcurrencyReached):
-            await self.send(ctx, "Hold on! you're using that command way too fast...")
+            await self.send(ctx, "Hold on! You can't use multiple of that command at once!")
             return
 
         if isinstance(e, commands.CommandOnCooldown):
