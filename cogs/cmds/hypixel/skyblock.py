@@ -16,6 +16,7 @@ class SkyBlock(commands.Cog):
         self.bot = bot
 
         self.cache = self.bot.get_cog("Cache")
+        self.db = self.bot.get_cog("Database")
 
         self.embed = discord.Embed(color=self.bot.cc)
 
