@@ -75,7 +75,17 @@ class SkyBlock(commands.Cog):
 
     @commands.command(name="skyblock", aliases=["sb"])
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def skyblock(self, ctx, *, player):
+    async def skyblock(self, ctx, player=None):
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
+
         def author_check(message):  # Basic check to make sure author and other stuff is proper right
             return message.author == ctx.message.author and ctx.guild == message.guild and ctx.channel == message.channel
 
