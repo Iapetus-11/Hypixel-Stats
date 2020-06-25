@@ -138,9 +138,8 @@ class Player(commands.Cog):
 
         monthly = p.MONTHLY_RANK
         if monthly is not None: monthly = monthly.replace("SUPERSTAR", "MVP_PLUS_PLUS")
-        await ctx.send(f"DEBUG: `{monthly}`")
 
-        rank = p.RANK if monthly is not None else monthly
+        rank = monthly if monthly is not None else p.RANK
 
         if rank is None:
             if prefix != "":
