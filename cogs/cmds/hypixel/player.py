@@ -23,6 +23,7 @@ class Player(commands.Cog):
 
     @commands.command(name="link", aliases=["discordlink", "linkmc", "mclink", "linkaccount", "linkacc"])
     @commands.cooldown(1, 1, commands.BucketType.user)
+    @commands.max_concurrency(1, per=commands.BucketType.user, wait=False)
     async def link_account(self, ctx, mc_username: str):
         linked = await self.db.get_linked_account_via_id(ctx.author.id)
 
