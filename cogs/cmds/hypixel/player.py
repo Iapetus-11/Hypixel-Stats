@@ -141,7 +141,7 @@ class Player(commands.Cog):
 
         rank = monthly if monthly is not None and monthly != "NONE" else p.RANK
 
-        if p.RANK == "YOUTUBER": rank = "YOUTUBER"
+        if p.RANK == "YOUTUBER": prefix = "[YOUTUBER]"
 
         if rank is None:
             if prefix != "":
