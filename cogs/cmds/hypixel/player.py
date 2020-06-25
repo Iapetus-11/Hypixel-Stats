@@ -139,7 +139,7 @@ class Player(commands.Cog):
         monthly = p.MONTHLY_RANK
         if monthly is not None: monthly = monthly.replace("SUPERSTAR", "MVP_PLUS_PLUS")
 
-        rank = monthly if monthly is not None and monthly != "NONE" else p.RANK
+        rank = monthly if monthly is not None and monthly != "NONE" and p.RANK != "YOUTUBER" else p.RANK
 
         if rank is None:
             if prefix != "":
