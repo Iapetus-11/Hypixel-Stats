@@ -45,8 +45,18 @@ class Games(commands.Cog):
 
     @commands.command(name="arcade", aliases=["hypixelarcade", "hypixel_arcade", "ak"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def arcade(self, ctx, player):
+    async def arcade(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -67,8 +77,18 @@ class Games(commands.Cog):
 
     @commands.command(name="arena", aliases=["hypixelarena", "hypixel_arena", "ar"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def arena(self, ctx, player):
+    async def arena(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -106,8 +126,18 @@ class Games(commands.Cog):
 
     @commands.command(name="battleground", aliases=["battle ground", "battlegrounds", "battle_ground", "bg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def battleground(self, ctx, player):
+    async def battleground(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -139,8 +169,18 @@ class Games(commands.Cog):
 
     @commands.command(name="hungergames", aliases=["hungergame", "hunger_games", "hg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def hunger_games(self, ctx, player):
+    async def hunger_games(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -168,8 +208,18 @@ class Games(commands.Cog):
 
     @commands.command(name="paintball", aliases=["paint_ball", "pb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def paintball(self, ctx, player):
+    async def paintball(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -198,8 +248,18 @@ class Games(commands.Cog):
 
     @commands.command(name="quake", aliases=["qk"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def quake(self, ctx, player):
+    async def quake(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -233,8 +293,18 @@ class Games(commands.Cog):
 
     @commands.command(name="uhc", aliases=["ultrahc", "ultrahardcore", "uhardcore"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def uhc(self, ctx, player):
+    async def uhc(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -263,8 +333,18 @@ class Games(commands.Cog):
 
     @commands.command(name="vampirez", aliases=["vampiresandzombies", "vz", "vampirezombies", "vampire_zombies"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def vampirez(self, ctx, player):
+    async def vampirez(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -302,8 +382,18 @@ class Games(commands.Cog):
 
     @commands.command(name="walls", aliases=["ww", "hypixel_walls"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def walls(self, ctx, player):
+    async def walls(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -330,8 +420,18 @@ class Games(commands.Cog):
 
     @commands.command(name="turbokartracer", aliases=["karts", "racing", "tkr", "tbkr", "turbokarts", "turboracer"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def turbo_kart_racer(self, ctx, player):
+    async def turbo_kart_racer(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -361,8 +461,18 @@ class Games(commands.Cog):
 
     @commands.command(name="skywars", aliases=["skywar", "skw", "sw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def skywars(self, ctx, player):
+    async def skywars(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -410,8 +520,18 @@ class Games(commands.Cog):
 
     @commands.command(name="speeduhc", aliases=["suhc", "speedultrahardcore", "succ"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def speed_uhc(self, ctx, player):
+    async def speed_uhc(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -447,8 +567,18 @@ class Games(commands.Cog):
 
     @commands.command(name="buildbattle", aliases=["buildbattles", "blingblingboy", "bb"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def build_battle(self, ctx, player):
+    async def build_battle(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -474,8 +604,18 @@ class Games(commands.Cog):
 
     @commands.command(name="bedwars", aliases=["bed_wars", "bed", "bedw", "bw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def bedwars(self, ctx, player, _type=None):
+    async def bedwars(self, ctx, player=None, _type=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -546,8 +686,18 @@ class Games(commands.Cog):
 
     @commands.command(name="truecombat", aliases=["tc", "true_combat"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def true_combat(self, ctx, player):
+    async def true_combat(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -569,8 +719,18 @@ class Games(commands.Cog):
 
     @commands.command(name="tntgames", aliases=["tntgame", "tnt", "tntg"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def tnt_games(self, ctx, player):
+    async def tnt_games(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -601,8 +761,18 @@ class Games(commands.Cog):
 
     @commands.command(name="supersmash", aliases=["supasmash", "super_smash", "ss"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def super_smash(self, ctx, player):
+    async def super_smash(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -624,8 +794,18 @@ class Games(commands.Cog):
 
     @commands.command(name="murdermystery", aliases=["murder_mystery", "mm"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def murder_mystery(self, ctx, player):
+    async def murder_mystery(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -656,8 +836,18 @@ class Games(commands.Cog):
 
     @commands.command(name="copsandcrims", aliases=["mcgo", "copsandcriminals", "copsnrobbers", "copsncrims"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def cops_and_criminals(self, ctx, player):
+    async def cops_and_criminals(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -689,8 +879,18 @@ class Games(commands.Cog):
 
     @commands.command(name="skyclash", aliases=["skc", "sky_clash"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def sky_clash(self, ctx, player):
+    async def sky_clash(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -721,8 +921,18 @@ class Games(commands.Cog):
 
     @commands.command(name="duels", aliases=["hypixel_duels", "dd"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def duels(self, ctx, player):
+    async def duels(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
@@ -770,8 +980,18 @@ class Games(commands.Cog):
 
     @commands.command(name="pit", aliases=["hypixelpit", "hp", "hypixel_pit", "thepit"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def hypixel_pit(self, ctx, player):
+    async def hypixel_pit(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
+                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p = await self.cache.get_player(player)
 
