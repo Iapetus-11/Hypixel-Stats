@@ -64,7 +64,8 @@ class Useful(commands.Cog):
                   f"User Count: ``{len(self.bot.users)}``\n" \
                   f"Shard Count: ``{self.bot.shard_count}``\n" \
                   f"CMD Count: ``{self.bot.cmd_count}``\n" \
-                  f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n"
+                  f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
+                  f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``"
         embed.add_field(name="General", value=general)
 
         caching = f"waiting api requests: ``{len(self.cache.waiting)}``\n" \
