@@ -1000,6 +1000,8 @@ class Games(commands.Cog):
             armpit = p.STATS["Pit"]["pit_stats_ptl"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         if armpit is None:
             raise NoStatError
