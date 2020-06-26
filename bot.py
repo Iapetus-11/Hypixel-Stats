@@ -23,6 +23,7 @@ load_dotenv()
 TOKEN = os.getenv('discord_token')
 DB_PASSWORD = os.getenv('db_password')
 HYPIXEL = os.getenv('hypixel_key')
+DBL = [os.getenv("dbl1"), os.getenv("dbl2")]
 
 # sets up logging methods
 logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
@@ -65,6 +66,7 @@ bot.ratelimited_wait_time = .75  # seconds, obviously
 bot.hypixel_key = HYPIXEL
 bot.cmd_count = 0
 bot.start_time = arrow.utcnow()
+bot.dbl_keys = DBL
 
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
