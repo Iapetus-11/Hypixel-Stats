@@ -360,7 +360,7 @@ class Games(commands.Cog):
 
         embed.add_field(name="Coins", value=vampire.get("coins", 0))
         embed.add_field(name="\uFEFF", value="\uFEFF")
-        embed.add_field(nname="Gold Bought", value=vampire.get("gold_bought", 0))
+        embed.add_field(name="Gold Bought", value=vampire.get("gold_bought", 0))
 
         human_kills = vampire.get("human_kills", 0)
         vampire_kills = vampire.get("vampire_kills", 0)
