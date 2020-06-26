@@ -68,10 +68,10 @@ class Useful(commands.Cog):
         embed.add_field(name="General", value=general)
 
         caching = f"waiting api requests: ``{len(self.cache.waiting)}``\n" \
-                  f""f"valid names & uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
+                  f""f"valid name&uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
-                  f"skyblock endpoint cache: ``{len(self.cache.skyblock_cache)}``\n" \
+                  f"skyblock endp cache: ``{len(self.cache.skyblock_cache)}``\n" \
                   f"skyblock armor cache: ``{len(self.cache.armor_cache)}``\n"
         caching2 = f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n" \
                    f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
