@@ -13,5 +13,12 @@ class TopGG(commands.Cog):
                                    webhook_port=5000, autopost=True)
 
     @commands.Cog.listener()
+    async def on_dbl_test(self, data):
+        self.logger.info("\u001b[35m DBL WEBHOOK TEST \u001b[0m")
+        channel = self.bot.get_channel(718983583779520540)
+        await channel.send(embed=discord.Embed(color=self.bot.cc, description="DBL WEBHOOK TEST"))
+
+    @commands.Cog.listener()
     async def on_dbl_vote(self, data):
-        pass
+        user_id = int(data["user"])
+        print(f"\u001b[32;1m {user_id} VOTED ON TOP.GG \u001b[0m")
