@@ -1001,6 +1001,9 @@ class Games(commands.Cog):
         except KeyError:
             raise NoStatError
 
+        if armpit is None:
+            raise NoStatError
+
         embed = self.embed.copy()
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hypixel Pit Stats",
