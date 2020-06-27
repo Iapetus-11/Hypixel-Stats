@@ -508,17 +508,18 @@ class Games(commands.Cog):
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skywars Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
-        games = sky.get("games", 0)
+        deaths = sky.get("deaths", 0)
+        sky.get("wins", 0)
+        games = deaths + wins
         embed.add_field(name="Coins", value=sky.get("coins", 0))
         embed.add_field(name="Games", value=games)
         embed.add_field(name="Quits", value=sky.get("quits", 0))
 
-        embed.add_field(name="Wins", value=sky.get("wins", 0))
+        embed.add_field(name="Wins", value=wins)
         embed.add_field(name="Winstreak", value=sky.get("win_streak", 0))
         embed.add_field(name="Losses", value=sky.get("losses", 0))
 
         kills = sky.get("kills", 0)
-        deaths = sky.get("deaths", 0)
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
