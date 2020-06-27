@@ -11,6 +11,16 @@ from os import remove
 from random import randint
 
 
+class NoStatError(Exception):
+    """Raised when a given player doesn't have a certain statistic"""
+
+    def __init__(self):
+        self.msg = "This user doesn't have that stat!"
+
+    def __str__(self):
+        return self.msg
+
+
 class SkyBlock(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -98,6 +108,8 @@ class SkyBlock(commands.Cog):
         try:
             skyblock = p.STATS["SkyBlock"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         profiles = list(skyblock.get("profiles"))
