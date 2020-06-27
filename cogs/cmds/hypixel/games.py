@@ -65,6 +65,8 @@ class Games(commands.Cog):
             arcade = p.STATS["Arcade"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -96,6 +98,8 @@ class Games(commands.Cog):
         try:
             arena = p.STATS["Arena"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -146,6 +150,8 @@ class Games(commands.Cog):
             battle = p.STATS["Battleground"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -189,6 +195,8 @@ class Games(commands.Cog):
             hunger = p.STATS["HungerGames"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -227,6 +235,8 @@ class Games(commands.Cog):
         try:
             paint = p.STATS["Paintball"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -267,6 +277,8 @@ class Games(commands.Cog):
         try:
             quake = p.STATS["Quake"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -313,6 +325,8 @@ class Games(commands.Cog):
             uhc = p.STATS["UHC"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -352,6 +366,8 @@ class Games(commands.Cog):
         try:
             vampire = p.STATS["VampireZ"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -402,6 +418,8 @@ class Games(commands.Cog):
             walls = p.STATS["Walls"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -439,6 +457,8 @@ class Games(commands.Cog):
         try:
             bread = p.STATS["GingerBread"]  # WHAT THE FUCK HYPIXEL DEVS
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -480,6 +500,8 @@ class Games(commands.Cog):
         try:
             sky = p.STATS["SkyWars"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -540,6 +562,8 @@ class Games(commands.Cog):
             suhc = p.STATS["SpeedUHC"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -587,6 +611,8 @@ class Games(commands.Cog):
             bb = p.STATS["BuildBattle"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -623,6 +649,8 @@ class Games(commands.Cog):
         try:
             bedwars = p.STATS["Bedwars"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         if _type in ["1", "1s", "solos", "solo", "singles"]:
@@ -706,6 +734,8 @@ class Games(commands.Cog):
             truecombat = p.STATS["TrueCombat"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -738,6 +768,8 @@ class Games(commands.Cog):
         try:
             tntgames = p.STATS["TNTGames"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -781,6 +813,8 @@ class Games(commands.Cog):
             supersmash = p.STATS["SuperSmash"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -813,6 +847,8 @@ class Games(commands.Cog):
         try:
             mystery = p.STATS["MurderMystery"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -855,6 +891,8 @@ class Games(commands.Cog):
         try:
             mcgo = p.STATS["MCGO"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
@@ -899,6 +937,8 @@ class Games(commands.Cog):
             clash = p.STATS["SkyClash"]
         except KeyError:
             raise NoStatError
+        except TypeError:
+            raise NoStatError
 
         embed = self.embed.copy()
 
@@ -940,6 +980,8 @@ class Games(commands.Cog):
         try:
             duels = p.STATS["Duels"]
         except KeyError:
+            raise NoStatError
+        except TypeError:
             raise NoStatError
 
         embed = self.embed.copy()
