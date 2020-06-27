@@ -10,7 +10,7 @@ class TopGG(commands.Cog):
         self.dblpy = dbl.DBLClient(self.bot, self.bot.dbl_keys[0],
                                    webhook_path="/updoot_topgg",
                                    webhook_auth=self.bot.dbl_keys[1],
-                                   webhook_port=5000, autopost=True)
+                                   webhook_port=3209, autopost=True)
 
     @commands.Cog.listener()
     async def on_dbl_test(self, data):
