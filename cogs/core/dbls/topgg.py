@@ -12,6 +12,9 @@ class TopGG(commands.Cog):
                                    webhook_auth=self.bot.dbl_keys[1],
                                    webhook_port=3209, autopost=True)
 
+    def cog_unload(self):
+        self.bot.loop.create_task(self.dblpy.close())
+
     @commands.Cog.listener()
     async def on_dbl_test(self, data):
         self.logger.info("\u001b[35m DBL WEBHOOK TEST \u001b[0m")
