@@ -29,7 +29,7 @@ class Cache(commands.Cog):
 
         self.session = aiohttp.ClientSession()
 
-        self.waiting = []
+        self.waiting = 0
 
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
@@ -106,7 +106,7 @@ class Cache(commands.Cog):
 
     @commands.command(name="clearcache", aliases=["resetcache"])
     async def clearcache(self, ctx):
-        self.waiting = []
+        self.waiting = 0
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}
         self.uuid_name_cache = {}
