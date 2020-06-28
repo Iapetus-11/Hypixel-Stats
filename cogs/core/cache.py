@@ -174,22 +174,23 @@ class Cache(commands.Cog):
     async def rate_limit_wait(self, to_be_awaited):
         """Gets something from the api and if ratelimited, waits and tries again"""
 
-        ts = arrow.utcnow().timestamp
-        self.waiting.append(ts)
-
         try_again = True
+
         while try_again:
             try:
                 try:
-                    awaited = await asyncio.wait_for(to_be_awaited, timeout=5)
+                    awaited = await asyncio.wait_for(to_be_awaited, timeout=10)
                 except asyncio.TimeoutError:
-                    await self.bot.get_channel(718983583779520540).send(f"```{to_be_awaited}```")
+                    await self.bot.get_channel(718983583779520540).send(
+                        f"RATE LIMIT TIMEOUT ({arrow.utcnow().timestamp}): ```{to_be_awaited}```")
                     raise RatelimitTimeoutError
+
                 try_again = False
+
             except aiopypixel.exceptions.exceptions.RateLimitError:
+                self.waiting += 1
                 await asyncio.sleep(self.bot.ratelimited_wait_time)
-                await self.bot.get_channel(718983583779520540).send(f"```{to_be_awaited}```")
-        self.waiting.pop(self.waiting.index(ts))
+
         return awaited
 
     async def get_player(self, player):  # uuid preferred
