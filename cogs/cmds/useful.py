@@ -68,7 +68,7 @@ class Useful(commands.Cog):
                   f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``"
         embed.add_field(name="General", value=general)
 
-        caching = f"waiting api requests: ``{len(self.cache.waiting)}``\n" \
+        caching = f"failed api requests: ``{len(self.cache.failed)}``\n" \
                   f""f"valid name&uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
