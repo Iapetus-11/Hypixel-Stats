@@ -203,7 +203,7 @@ class Player(commands.Cog):
                 try:
                     names.append(await self.cache.get_player_name(uuid))
                 except Exception:
-                    names.append("**[Invalid User]**")
+                    names.append("[Invalid User]")
 
             chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
 
