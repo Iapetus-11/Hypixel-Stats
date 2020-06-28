@@ -480,6 +480,15 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def sw_xp_to_lvl(self, xp):
+        xps = [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000]
+        if xp >= 15000:
+            return (xp - 15000) / 10000. + 12
+        else:
+            for i in range(len(xps)):
+                if xp < xps[i]:
+                    return 1 + i + float(xp - xps[i - 1]) / (xps[i] - xps[i - 1])
+
     @commands.command(name="skywars", aliases=["skywar", "skw", "sw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def skywars(self, ctx, player=None):
@@ -511,9 +520,10 @@ class Games(commands.Cog):
         deaths = sky.get("deaths", 0)
         wins = sky.get("wins", 0)
         games = deaths + wins
+        lvl = self.sw_xp_to_lvl(sky.get("skywars_experience", 0))
         embed.add_field(name="Coins", value=sky.get("coins", 0))
         embed.add_field(name="Games", value=games)
-        embed.add_field(name="Quits", value=sky.get("quits", 0))
+        embed.add_field(name="Level", value=lvl)
 
         embed.add_field(name="Wins", value=wins)
         embed.add_field(name="Winstreak", value=sky.get("win_streak", 0))
