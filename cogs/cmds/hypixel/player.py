@@ -198,7 +198,12 @@ class Player(commands.Cog):
                          icon_url=head)
 
         async with ctx.typing():
-            names = [await self.cache.get_player_name(uuid) for uuid in player_friends]
+            names = []
+            for name in player_friends:
+                try:
+                    names.append(await self.cache.get_player_name(uuid))
+                except Exception:
+                    names.append("**[Invalid User]**")
 
             chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
 
