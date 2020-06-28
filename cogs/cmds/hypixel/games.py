@@ -520,7 +520,7 @@ class Games(commands.Cog):
         deaths = sky.get("deaths", 0)
         wins = sky.get("wins", 0)
         games = deaths + wins
-        lvl = self.sw_xp_to_lvl(sky.get("skywars_experience", 0))
+        lvl = await self.sw_xp_to_lvl(sky.get("skywars_experience", 0))
         embed.add_field(name="Coins", value=sky.get("coins", 0))
         embed.add_field(name="Games", value=games)
         embed.add_field(name="Level", value=lvl)
