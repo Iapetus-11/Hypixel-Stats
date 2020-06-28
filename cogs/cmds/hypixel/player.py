@@ -199,9 +199,9 @@ class Player(commands.Cog):
 
         async with ctx.typing():
             names = []
-            for name in player_friends:
+            for f_uuid in player_friends:
                 try:
-                    names.append(await self.cache.get_player_name(uuid))
+                    names.append(await self.cache.get_player_name(f_uuid))
                 except Exception:
                     names.append("[Invalid User]")
 
