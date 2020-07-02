@@ -175,6 +175,11 @@ class SkyBlock(commands.Cog):
 
         user_island_stats = stats["members"].get(p.UUID)
 
+        if user_island_stats.get("stats") is None:
+            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                                               description="The bot doesn't have sufficient data to show this island!"))
+            return
+
         armor = await self.get_armor(p.UUID, base, user_island_stats)
 
         embed = self.embed.copy()
