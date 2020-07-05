@@ -124,9 +124,7 @@ class Cache(commands.Cog):
         self.achievement_pts_cache = {}
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description="Reset the all caches."))
 
-    async def slothpixel_get_player_achievement_pts(self, player):
-        username = await self.get_player_name(player)
-
+    async def slothpixel_get_player_achievement_pts(self, username):
         pts = self.achievement_pts_cache.get(username)
         if self.achievement_pts_cache.get(username) is not None:
             return pts
