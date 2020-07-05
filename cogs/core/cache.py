@@ -42,6 +42,7 @@ class Cache(commands.Cog):
         self.armor_cache = {}  # {uuid: armor_str}
         self.skyblock_cache = {}  # {profile_str: data}
         self.watchdog_cached = None
+        self.achievement_pts_cache = {}  # {username: achievement_points: int, }
 
         self.stop_loops = False
 
@@ -70,6 +71,7 @@ class Cache(commands.Cog):
                     return
 
             self.player_object_cache = {}
+            self.achievement_pts_cache = {}
 
     async def reset_1_hour(self):
         while True:
@@ -119,7 +121,28 @@ class Cache(commands.Cog):
         self.armor_cache = {}
         self.skyblock_cache = {}
         self.watchdog_cached = None
+        self.achievement_pts_cache = {}
         await ctx.send(embed=discord.Embed(color=self.bot.cc, description="Reset the all caches."))
+
+    async def slothpixel_get_player_achievement_pts(self, player):
+        username = await self.get_player_name(player)
+
+        pts = self.achievement_pts_cache.get(username)
+        if self.achievement_pts_cache.get(username) is not None:
+            return pts
+
+        resp = await self.session.get(f"https://api.slothpixel.me/api/players/{username}/achievements")
+
+        if resp.status == 404:
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+
+        if resp.status == 429:
+            return "Error"
+
+        pts = (await resp.json()).get("achievement_points", 0)
+
+        self.achievement_pts_cache[username] = pts
+        return pts
 
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
