@@ -59,16 +59,20 @@ class Useful(commands.Cog):
         embed.set_author(name="Bot Statistics",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
+        uptime = arrow.utcnow() - self.bot.start_time
+
         general = f"Guild Count: ``{len(self.bot.guilds)}``\n" \
                   f"DM Channels ``{len(self.bot.private_channels)}``\n" \
                   f"User Count: ``{len(self.bot.users)}``\n" \
                   f"Shard Count: ``{self.bot.shard_count}``\n" \
                   f"CMD Count: ``{self.bot.cmd_count}``\n" \
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
-                  f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``"
+                  f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``\n" \
+                  f"Average CPS: ``{self.bot.cmd_count / (diff.seconds + diff.days * 3600 * 24)}``\n"
         embed.add_field(name="General", value=general)
 
         caching = f"ratelimited api requests: ``{self.cache.failed}``\n" \
+                  f"ratelimited slothapi requests: ``{self.cache.failed_sloth}``\n" \
                   f""f"valid name&uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
@@ -78,7 +82,8 @@ class Useful(commands.Cog):
                    f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
                    f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
                    f"player object cache: ``{len(self.cache.player_object_cache)}``\n" \
-                   f"guild object cache: ``{len(self.cache.guild_cache)}``\n"
+                   f"guild object cache: ``{len(self.cache.guild_cache)}``\n" \
+                   f"achievement pts cache: ``{len(self.cache.achievement_pts_cache)}``\n"
         embed.add_field(name="Caching", value=caching)
         embed.add_field(name="Caching", value=caching2)
 

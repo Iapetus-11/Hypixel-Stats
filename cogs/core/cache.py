@@ -30,6 +30,7 @@ class Cache(commands.Cog):
         self.session = aiohttp.ClientSession()
 
         self.failed = 0
+        self.failed_sloth = 0
 
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
@@ -135,6 +136,7 @@ class Cache(commands.Cog):
             raise aiopypixel.exceptions.exceptions.InvalidPlayerError
 
         if resp.status == 429:
+            self.failed_sloth += 1
             return "Error"
 
         pts = (await resp.json()).get("achievement_points", 0)
