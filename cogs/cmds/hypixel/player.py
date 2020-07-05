@@ -166,10 +166,10 @@ class Player(commands.Cog):
         embed.add_field(name="Status", value=online, inline=True)
         embed.add_field(name=last_online[0], value=last_online[1], inline=True)
 
-        embed.add_field(name="Friends", value=len([] if friends is None else friends))
-        embed.add_field(name="Discord", value=self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked")
         embed.add_field(name="Achievement\nPoints",
                         value=f"{await self.cache.slothpixel_get_player_achievement_pts(p.DISPLAY_NAME)}")
+        embed.add_field(name="Discord", value=self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked")
+        embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
 
