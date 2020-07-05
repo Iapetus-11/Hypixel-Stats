@@ -105,6 +105,7 @@ class Cache(commands.Cog):
             self.uuid_name_cache = {}
 
     @commands.command(name="clearcache", aliases=["resetcache"])
+    @commands.is_owner()
     async def clearcache(self, ctx):
         self.failed = 0
         self.valid_names_and_uuids = []
