@@ -68,7 +68,7 @@ class Useful(commands.Cog):
                   f"CMD Count: ``{self.bot.cmd_count}``\n" \
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
                   f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``\n" \
-                  f"Average CPS: ``{self.bot.cmd_count / (diff.seconds + diff.days * 3600 * 24)}``\n"
+                  f"Average CPS: ``{self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24)}``\n"
         embed.add_field(name="General", value=general)
 
         caching = f"ratelimited api requests: ``{self.cache.failed}``\n" \
