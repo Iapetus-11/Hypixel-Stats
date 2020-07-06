@@ -119,14 +119,14 @@ async def bot_check(ctx):
 
     if not bot.is_ready():
         embed = discord.Embed(
-            color=bot.cc,
+            color=await bot.cc(),
             description="Hold on! We're starting up!"
         )
         await ctx.send(embed=embed)
         return False
 
     if randint(0, 60) == 15:
-        await ctx.send(embed=discord.Embed(color=bot.cc,
+        await ctx.send(embed=discord.Embed(color=await bot.cc(),
                                            description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
 
     return not ctx.author.bot
