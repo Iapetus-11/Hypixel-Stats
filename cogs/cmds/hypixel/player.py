@@ -141,8 +141,6 @@ class Player(commands.Cog):
 
         rank = monthly if monthly is not None and monthly != "NONE" else p.RANK
 
-        if p.RANK == "YOUTUBER": prefix = "[YOUTUBER]"
-
         if rank is None:
             if prefix != "":
                 rank = prefix[1:len(prefix) - 2]
@@ -151,6 +149,8 @@ class Player(commands.Cog):
         else:
             if prefix == "":
                 prefix = f"[{rank}] ".replace("_", "").replace("PLUS", "+")
+
+        if prefix == "[NONE]": prefix = ""
 
         friends = await self.cache.get_player_friends(player)
 
