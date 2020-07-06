@@ -35,6 +35,14 @@ class Player(commands.Cog):
 
         uuid = await self.cache.get_player_uuid(mc_username)
 
+        p_obj = await self.cache.get_player(uuid)
+        api_returned_disc = p_obj.get("links", {}).get("DISCORD")
+        if api_returned_disc is not None:
+            if api_returned_disc == str(ctx.author):
+                await self.db.link_account(ctx.author.id, uuid)
+                await ctx.send(
+                    embed=discord.Embed(colo=self.bot.cc, description="You've successfully linked your account!"))
+
         desc = "**Login to Hypixel** and type `/api` in the chat. Then, **send that text here** to link your account! Type `cancel` to cancel this process."
         embed = discord.Embed(color=self.bot.cc, description=desc,
                               title=":link: Link your Discord and MC accounts :link:")
