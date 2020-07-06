@@ -33,9 +33,8 @@ class Player(commands.Cog):
                                                                    f"If you'd like to unlink it, do `{ctx.prefix}unlink`"))
             return
 
-        uuid = await self.cache.get_player_uuid(mc_username)
-
-        p_obj = await self.cache.get_player(uuid)
+        p_obj = await self.cache.get_player(mc_username)
+        uuid = p_obj.UUID
         api_returned_disc = p_obj.get("links", {}).get("DISCORD")
         if api_returned_disc is not None:
             if api_returned_disc == str(ctx.author):
