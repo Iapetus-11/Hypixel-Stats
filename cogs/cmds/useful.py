@@ -25,15 +25,15 @@ class Useful(commands.Cog):
         elif "shing" in c or "shling" in c:
             pp = "Schlong"
         elif "schlong" in c:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                description="Magnum Dong! \uFEFF ``69.00 ms``"))
             return
-        await ctx.send(embed=discord.Embed(color=self.bot.cc,
+        await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                            description=f"{pp}! \uFEFF ``{round(self.bot.latency * 1000, 2)} ms``"))
 
     @commands.command(name="info", aliases=["information"])
     async def information(self, ctx):
-        info_msg = discord.Embed(color=self.bot.cc)
+        info_msg = discord.Embed(color=await self.bot.cc())
 
         info_msg.add_field(name="Bot Library", value="Discord.py", inline=True)
         info_msg.add_field(name="Command Prefix", value=ctx.prefix, inline=True)
@@ -54,7 +54,7 @@ class Useful(commands.Cog):
 
     @commands.command(name="botstats", aliases=["botstatistics", "bs"])
     async def stats(self, ctx):
-        embed = discord.Embed(color=self.bot.cc)
+        embed = discord.Embed(color=await self.bot.cc())
 
         embed.set_author(name="Bot Statistics",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
@@ -108,7 +108,7 @@ class Useful(commands.Cog):
             mm = "minute"
         else:
             mm = "minutes"
-        await ctx.send(embed=discord.Embed(color=self.bot.cc,
+        await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                            description=f"Bot has been online for {days} {dd}, {hours} {hh}, and {minutes} {mm}!"))
 
     @commands.command(name="links", aliases=["invite", "vote", "discord", "support"])
@@ -117,7 +117,7 @@ class Useful(commands.Cog):
                f"[**Support Server**](https://discord.gg/{self.bot.guild_invite_code})\n\n" \
                f"[**Vote for us**](https://top.gg/bot/718523903147900998/vote)\n\n"
 
-        embed = discord.Embed(description=desc, color=self.bot.cc, title=":link: Useful Links :link:")
+        embed = discord.Embed(description=desc, color=await self.bot.cc(), title=":link: Useful Links :link:")
 
         await ctx.send(embed=embed)
 
@@ -125,7 +125,7 @@ class Useful(commands.Cog):
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(
-                color=self.bot.cc,
+                color=await self.bot.cc(),
                 title="Hypixel Stats Command Help",
                 description=self.need_more_halp + "\n\uFEFF"
             )
@@ -141,7 +141,7 @@ class Useful(commands.Cog):
     @help.command(name="stats", aliases=["info", "statistics", "stat"])
     async def help_stats(self, ctx):
         embed = discord.Embed(
-            color=self.bot.cc,
+            color=await self.bot.cc(),
             title=f":bar_chart: Stats/Info Commands",
             description=self.need_more_halp + "\n\uFEFF"
         )
@@ -168,7 +168,7 @@ class Useful(commands.Cog):
     @help.command(name="other", aliases=["utility"])
     async def help_utility(self, ctx):
         embed = discord.Embed(
-            color=self.bot.cc,
+            color=await self.bot.cc(),
             title=f":tools: Other/Utility Commands",
             description=self.need_more_halp + "\n\uFEFF"
         )
@@ -197,7 +197,7 @@ class Useful(commands.Cog):
     @help.command(name="config", aliases=["settings"])
     async def help_config(self, ctx):
         embed = discord.Embed(
-            color=self.bot.cc,
+            color=await self.bot.cc(),
             title=f":gear: Config Commands",
             description=self.need_more_halp + "\n\uFEFF"
         )
@@ -223,13 +223,14 @@ class Useful(commands.Cog):
             problem = str(ctx.message.clean_content.replace(f"{ctx.prefix}math", ""))
 
             if problem == "":
-                await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                    description="You have to put a problem in for the bot to solve!"))
                 return
 
             if len(problem) > 250:
                 await ctx.send(
-                    embed=discord.Embed(color=self.bot.cc, description="That's a bit too long, don't you think?"))
+                    embed=discord.Embed(color=await self.bot.cc(),
+                                        description="That's a bit too long, don't you think?"))
                 return
 
             problem = problem[1:].replace("÷", "/").replace("x", "*").replace("•", "*").replace("=", "==")
@@ -237,15 +238,15 @@ class Useful(commands.Cog):
 
             for letter in problem:
                 if letter not in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "/", "(", ")"]:
-                    await ctx.send(embed=discord.Embed(color=self.bot.cc,
+                    await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                        description="That math problem contains invalid characters, please try again."))
                     return
 
             await ctx.send(
-                embed=discord.Embed(color=self.bot.cc, description=f"```{str(round(eval(problem), 5))}```"))
+                embed=discord.Embed(color=await self.bot.cc(), description=f"```{str(round(eval(problem), 5))}```"))
         except Exception:
             await ctx.send(
-                embed=discord.Embed(color=self.bot.cc, description="Oops, something went wrong."))
+                embed=discord.Embed(color=await self.bot.cc(), description="Oops, something went wrong."))
 
 
 def setup(bot):

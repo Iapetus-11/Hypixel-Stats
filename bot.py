@@ -49,6 +49,10 @@ async def get_prefix(_bot, message):
     return "H!" if message.content.startswith("H!") else "h!"
 
 
+async def cc(ctx=None):
+    return discord.Color.gold()
+
+
 bot = commands.AutoShardedBot(
     command_prefix=get_prefix,
     case_insensitive=True,
@@ -56,8 +60,10 @@ bot = commands.AutoShardedBot(
     max_messages=512
 )
 
+bot.cc = cc.__get__(bot)  # Bind the async cc() method to the bot class without subclassing commands.AutoShardedBot
+
 # Don't even think about it Hg
-bot.cc = discord.Color.gold()  # color of the embeds
+# bot.cc = discord.Color.gold()  # color of the embeds
 bot.guild_invite_code = "MZ2cXxF"
 bot.error_channel_id = 718983583779520541
 bot.start_time = None  # Will be set later in cogs.core.events

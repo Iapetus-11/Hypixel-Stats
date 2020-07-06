@@ -28,7 +28,7 @@ class SkyBlock(commands.Cog):
         self.cache = self.bot.get_cog("Cache")
         self.db = self.bot.get_cog("Database")
 
-        self.embed = discord.Embed(color=self.bot.cc)
+        self.embed = discord.Embed(color=await self.bot.cc())
 
     def get_nbt(self, data):
         b64 = data["inv_armor"]["data"]
@@ -96,8 +96,9 @@ class SkyBlock(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=self.bot.cc, description=f"You need to link your account to do this!\n"
-                                                                       f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                    embed=discord.Embed(color=await self.bot.cc(),
+                                        description=f"You need to link your account to do this!\n"
+                                                    f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
 
         def author_check(message):  # Basic check to make sure author and other stuff is proper right
@@ -118,7 +119,8 @@ class SkyBlock(commands.Cog):
         profiles = list(skyblock.get("profiles"))
 
         if len(profiles) == 0:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc, description="This user doesn't have any islands!"))
+            await ctx.send(
+                embed=discord.Embed(color=await self.bot.cc(), description="This user doesn't have any islands!"))
             return
 
         profile_names = f"Choose one with the provided indexes:\n\n"
@@ -126,7 +128,7 @@ class SkyBlock(commands.Cog):
         for profile_id in profiles:
             profile_names += f'`{profiles.index(profile_id) + 1}.` **{skyblock["profiles"][profile_id].get("cute_name")}** ' \
                              f'[`{skyblock["profiles"][profile_id].get("profile_id")}`]\n'
-        picker_embed = discord.Embed(color=self.bot.cc, description=profile_names)
+        picker_embed = discord.Embed(color=await self.bot.cc(), description=profile_names)
         picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:", icon_url=head)
         picker_embed.set_footer(text="Just send one of the above numbers!")
         await ctx.send(embed=picker_embed)
@@ -140,15 +142,17 @@ class SkyBlock(commands.Cog):
                 try:
                     index = int(index.content)
                 except ValueError:
-                    await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
+                    await ctx.send(
+                        embed=discord.Embed(color=await self.bot.cc(), description="That's not a valid index!"))
                 else:
                     if index > len(profiles) or index <= 0:
-                        await ctx.send(embed=discord.Embed(color=self.bot.cc, description="That's not a valid index!"))
+                        await ctx.send(
+                            embed=discord.Embed(color=await self.bot.cc(), description="That's not a valid index!"))
                     else:
                         valid = True
                         break
             if not valid:
-                await ctx.send(embed=discord.Embed(color=self.bot.cc, description="The command was canceled."))
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="The command was canceled."))
                 return
         except asyncio.TimeoutError:
             return
@@ -176,7 +180,7 @@ class SkyBlock(commands.Cog):
         user_island_stats = stats["members"].get(p.UUID)
 
         if user_island_stats.get("stats") is None:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                description="The bot doesn't have sufficient data to show this island!"))
             return
 

@@ -25,11 +25,13 @@ class Guild(commands.Cog):
 
         desc = g.DESCRIPTION
         if desc is None:
-            embed = discord.Embed(color=self.bot.cc, url=f"https://hypixel.net/guilds/{g.NAME}".replace(" ", "%20"))
+            embed = discord.Embed(color=await self.bot.cc(),
+                                  url=f"https://hypixel.net/guilds/{g.NAME}".replace(" ", "%20"))
         else:
             length = len(author) + 2
             length = length if length > 30 else 30
-            embed = discord.Embed(color=self.bot.cc, url=f"https://hypixel.net/guilds/{g.NAME}".replace(" ", "%20"),
+            embed = discord.Embed(color=await self.bot.cc(),
+                                  url=f"https://hypixel.net/guilds/{g.NAME}".replace(" ", "%20"),
                                   description='\n'.join(
                                       desc[i:i + length] for i in
                                       range(0, len(desc), length)))
@@ -64,7 +66,7 @@ class Guild(commands.Cog):
         members = [g["uuid"] for g in g.MEMBERS]
 
         if len(members) > 1024:
-            await ctx.send(embed=discord.Embed(color=self.bot.cc,
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
             return
 
@@ -82,11 +84,11 @@ class Guild(commands.Cog):
                 page += 1
 
                 if not stop and len(chonks) > 3:
-                    embed = discord.Embed(color=self.bot.cc,
+                    embed = discord.Embed(color=await self.bot.cc(),
                                           title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)",
                                           description="Type ``more`` for more!")
                 else:
-                    embed = discord.Embed(color=self.bot.cc,
+                    embed = discord.Embed(color=await self.bot.cc(),
                                           title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)")
 
                 embed.set_footer(text=f"[Page {page}/{max_pages}]")
