@@ -35,7 +35,7 @@ class Player(commands.Cog):
 
         p_obj = await self.cache.get_player(mc_username)
         uuid = p_obj.UUID
-        api_returned_disc = p_obj.get("links", {}).get("DISCORD")
+        api_returned_disc = p_obj.LINKED_ACCOUNTS.get("links", {}).get("DISCORD")
         if api_returned_disc is not None:
             if api_returned_disc == str(ctx.author):
                 await self.db.link_account(ctx.author.id, uuid)
