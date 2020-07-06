@@ -242,9 +242,9 @@ class Player(commands.Cog):
                     stop = True
 
                 def check(m):
-                    return m.author.id == ctx.author.id and m.content == "more"
+                    return m.content in ["more", "next", "nextpage", "showmore"]
 
-                await self.bot.wait_for("message", check=check, timeout=20)
+                await self.bot.wait_for("message", check=check, timeout=30)
         except asyncio.TimeoutError:
             pass
 
