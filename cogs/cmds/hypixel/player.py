@@ -24,7 +24,7 @@ class Player(commands.Cog):
     @commands.command(name="link", aliases=["discordlink", "linkmc", "mclink", "linkaccount", "linkacc"])
     @commands.cooldown(1, 1, commands.BucketType.user)
     @commands.max_concurrency(1, per=commands.BucketType.user, wait=False)
-    async def link_account(self, ctx, mc_username: str):
+    async def link_account(self, ctx, mc_username: str = None):
         linked = await self.db.get_linked_account_via_id(ctx.author.id)
 
         if linked is not None:
@@ -33,6 +33,11 @@ class Player(commands.Cog):
                                     description=f"It appears you've already linked your account!\n"
                                                 f"If you'd like to unlink it, do `{ctx.prefix}unlink`"))
             return
+
+        assumed = False
+        if mc_username is None:
+            assumed = True
+            mc_username = ctx.author.name
 
         p_obj = await self.cache.get_player(mc_username)
         uuid = p_obj.UUID
@@ -44,6 +49,14 @@ class Player(commands.Cog):
                     embed=discord.Embed(color=await self.bot.cc(),
                                         description="You've successfully linked your account!"))
                 return
+            elif assumed:
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                                   description="Your Discord username and Minecraft username have to be the same to do this!"))
+                return
+        elif assumed:
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                               description=f"{discord.utils.escape_markdown(mc_username)} Doesn't have their Discord account linked to Hypixel. [Click here to link your account via Hypixel's website](https://hypixel.net/discord)"))
+            return
 
         desc = "**Login to Hypixel** and type `/api` in the chat. Then, **send that text here** to link your account! Type `cancel` to cancel this process."
         embed = discord.Embed(color=await self.bot.cc(), description=desc,
