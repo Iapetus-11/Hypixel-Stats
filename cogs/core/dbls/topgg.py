@@ -26,5 +26,6 @@ class TopGG(commands.Cog):
         user_id = int(data["user"])
         print(f"\u001b[32;1m {user_id} VOTED ON TOP.GG \u001b[0m")
 
+
 def setup(bot):
     bot.add_cog(TopGG(bot))
