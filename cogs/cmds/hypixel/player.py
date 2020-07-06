@@ -63,12 +63,12 @@ class Player(commands.Cog):
             key = await self.bot.wait_for("message", check=author_check, timeout=(10 * 60))
         except asyncio.TimeoutError:
             await ctx.author.send(
-                embed=discord.Embed(color=await self.bot.cc(), description="I stopped waiting for you to reply."))
+                embed=discord.Embed(color=await self.bot.cc(), description=self.bot.timeout_message))
             return
 
         if key.content.lower() in ["cancel", "stop", "end"]:
             await ctx.author.send(
-                embed=discord.Embed(color=await self.bot.cc(), description="Ok, verification has been canceled."))
+                embed=discord.Embed(color=await self.bot.cc(), description="Verification has been canceled."))
             return
 
         try:
