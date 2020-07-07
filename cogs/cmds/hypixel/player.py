@@ -203,8 +203,32 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    async def edit_show_online(self, msg):
-        return
+    async def edit_show_online(self, msg, sent_users, page, max_pages, player_friends, stop):
+        if not stop and len(chonks) > 3:
+            embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
+        else:
+            embed = discord.Embed(color=await self.bot.cc())
+
+        embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)", icon_url=head)
+
+        embed.set_footer(text=f"[Page {page}/{max_pages}]")
+
+        for i in range(0, 3, 1):
+            try:
+                body = ""
+                for user in sent_users:
+                    p_obj = None if " " in user else await self.cache.get_player(user)
+                    online = self.bot.EMOJIS['offline_status']
+                    if p_obj is not None:
+                        if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
+                            if p.LAST_LOGIN > p.LAST_LOGOUT:
+                                online = self.bot.EMOJIS['online_status']
+                    body += f"\n\n{online} {p.DISPLAY_NAME}"
+                embed.add_field(name="\uFEFF", value=discord.utils.escape_markdown(body))  # "\n\n".join(sent_users)
+            except IndexError:
+                pass
+
+        await msg.edit(embed=embed)
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -265,7 +289,6 @@ class Player(commands.Cog):
                     try:
                         smol_chonk = chonks.pop(0)
                         smol_chonks.extend(smol_chonk)
-                        await ctx.send(f"__**DEBUG:**__ ```{smol_chonks}```")
                         embed.add_field(name="\uFEFF",
                                         value=discord.utils.escape_markdown("\n\n".join(smol_chonk)))
                     except IndexError:
@@ -274,7 +297,7 @@ class Player(commands.Cog):
                 sent = await ctx.send(embed=embed)
 
                 if premium:
-                    await self.edit_show_online(sent, users)
+                    await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop)
 
                 if stop or len(player_friends) < 31:
                     return
