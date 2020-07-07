@@ -148,6 +148,7 @@ class Cache(commands.Cog):
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
 
+        # Check if user has a linked account in the db
         if discord.utils.escape_mentions(player).startswith("<@​!"):
             try:
                 uuid = await self.db.get_linked_account_via_id(int(player[3:-1]))

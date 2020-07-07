@@ -10,11 +10,14 @@ class BasicMC(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
         self.session = aiohttp.ClientSession()
+
+        self.cache = self.bot.get_cog("Cache")
 
     @commands.command(name="stealskin", aliases=["skinsteal", "skin"])
     @commands.cooldown(1, 4, commands.BucketType.user)
-    async def skinner(self, ctx, *, gamertag: str):
+    async def skinner(self, ctx, gamertag: str):
         response = await self.session.get(f"https://api.mojang.com/users/profiles/minecraft/{gamertag}")
         if response.status == 204:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That player doesn't exist!"))
@@ -23,15 +26,17 @@ class BasicMC(commands.Cog):
         if uuid is None:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That player doesn't exist!"))
             return
-        response = await self.session.get(f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}?unsigned=false")
+        response = await self.session.get(
+            f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}?unsigned=false")
         content = json.loads(await response.text())
         if "error" in content:
             if content["error"] == "TooManyRequestsException":
-                await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="Hey! Slow down!"))
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                                   description="Oops, we're being ratelimited by the Mojang API, try again later!"))
                 return
         if len(content["properties"]) == 0:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                               description="This user's skin can't be stolen for some reason..."))
+                                               description="We can't get this person's skin for some reason..."))
             return
         undec = base64.b64decode(content["properties"][0]["value"])
         try:
@@ -48,9 +53,9 @@ class BasicMC(commands.Cog):
 
     @commands.command(name="nametouuid", aliases=["uuid", "getuuid"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def get_uuid(self, ctx, *, gamertag: str):
+    async def get_uuid(self, ctx, gamertag: str):
         r = await self.session.post("https://api.mojang.com/profiles/minecraft", json=[gamertag])
-        j = json.loads(await r.text()) # [0]['id']
+        j = json.loads(await r.text())  # [0]['id']
         if not j:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That user could not be found."))
             return
@@ -58,13 +63,13 @@ class BasicMC(commands.Cog):
 
     @commands.command(name="uuidtoname", aliases=["getgamertag"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def get_gamertag(self, ctx, *, uuid: str):
+    async def get_gamertag(self, ctx, uuid: str):
         response = await self.session.get(f"https://api.mojang.com/user/profiles/{uuid}/names")
         if response.status == 204:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That player doesn't exist!"))
             return
         j = json.loads(await response.text())
-        name = j[len(j)-1]["name"]
+        name = j[len(j) - 1]["name"]
         await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description=f"{uuid}: ``{name}``"))
 
     @commands.command(name="colorcodes", aliases=["mccolorcodes", "colors", "cc"])
