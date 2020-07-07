@@ -68,6 +68,7 @@ class Player(commands.Cog):
         except discord.errors.Forbidden:
             await ctx.send(
                 embed=discord.Embed(color=await self.bot.cc(), description="You have to let the bot dm you!"))
+            return
 
         def author_check(m):
             return m.author.id == ctx.author.id and m.guild is None
