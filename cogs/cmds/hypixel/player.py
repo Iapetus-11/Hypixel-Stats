@@ -215,17 +215,22 @@ class Player(commands.Cog):
 
         for j in range(0, 3, 1):
             try:
+                length = len(sent_users)
                 body = "\uFEFF"
                 for i in range(0, len(sent_users), 1):
                     user = sent_users[0]
                     sent_users.pop(0)
-                    p = None if " " in user else await self.cache.get_player(user)
-                    online = self.bot.EMOJIS['offline_status']
-                    if p is not None:
-                        if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
-                            if p.LAST_LOGIN > p.LAST_LOGOUT:
-                                online = self.bot.EMOJIS['online_status']
-                    body += f"{online} {discord.utils.escape_markdown(p.DISPLAY_NAME)}\n\n"
+                    try:
+                        p = None if " " in user else await self.cache.get_player(user)
+                    except Exception:
+                        body += f"{self.bot.EMOJIS['offline_status']} [Invalid User]\n\n"
+                    else:
+                        online = self.bot.EMOJIS['offline_status']
+                        if p is not None:
+                            if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
+                                if p.LAST_LOGIN > p.LAST_LOGOUT:
+                                    online = self.bot.EMOJIS['online_status']
+                        body += f"{online} {discord.utils.escape_markdown(p.DISPLAY_NAME)}\n\n"
                 embed.add_field(name="\uFEFF", value=body)  # "\n\n".join(sent_users)
             except IndexError:
                 pass
@@ -255,6 +260,7 @@ class Player(commands.Cog):
                          icon_url=head)
 
         premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
+        premium = False
 
         async with ctx.typing():
             names = []
@@ -264,7 +270,7 @@ class Player(commands.Cog):
                 except Exception:
                     names.append("[Invalid User]")
 
-            chonks = [names[i:i + 7] for i in range(0, len(names), 7)]  # groups of 7 of the usernames
+            chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames, 7 good 2
 
         try:
             stop = False
