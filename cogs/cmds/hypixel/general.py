@@ -3,6 +3,8 @@ from discord.ext import commands
 
 
 class General(commands.Cog):
+    """For non player, non guild, non games related statistics utilizing the Hypixel API"""
+
     def __init__(self, bot):
         self.bot = bot
 
