@@ -225,8 +225,10 @@ class Player(commands.Cog):
         embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
                          icon_url=head)
 
+        premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
+
         async with ctx.typing():
-            names = []
+            players = []
             for f_uuid in player_friends:
                 try:
                     names.append(await self.cache.get_player_name(f_uuid))
