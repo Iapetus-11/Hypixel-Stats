@@ -217,8 +217,8 @@ class Player(commands.Cog):
             try:
                 body = ""
                 for i in range(0, len(sent_users), 1):
-                    user = sent_users[i]
-                    sent_users.pop(i)
+                    user = sent_users[0]
+                    sent_users.pop(0)
                     p = None if " " in user else await self.cache.get_player(user)
                     online = self.bot.EMOJIS['offline_status']
                     if p is not None:
