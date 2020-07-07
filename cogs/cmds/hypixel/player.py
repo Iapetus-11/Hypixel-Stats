@@ -296,7 +296,6 @@ class Player(commands.Cog):
 
                 sent = await ctx.send(embed=embed)
 
-                await ctx.send(premium)
                 if premium:
                     await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop)
 
