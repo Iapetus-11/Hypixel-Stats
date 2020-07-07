@@ -203,7 +203,8 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    async def edit_show_online(self, msg, ):
+    async def edit_show_online(self, msg):
+        return
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
