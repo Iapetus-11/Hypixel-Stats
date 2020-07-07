@@ -147,6 +147,7 @@ class Cache(commands.Cog):
         try:
             pts = (await resp.json()).get("achievement_points", 0)
         except Exception:
+            self.failed_sloth += 1
             return "Error"
 
         self.achievement_pts_cache[username] = pts
