@@ -225,7 +225,7 @@ class Player(commands.Cog):
                         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
                             if p.LAST_LOGIN > p.LAST_LOGOUT:
                                 online = self.bot.EMOJIS['online_status']
-                    body += f"\n\n{online} {discord.utils.escape_markdown(p.DISPLAY_NAME)}"
+                    body += f"{online} {discord.utils.escape_markdown(p.DISPLAY_NAME)}\n\n"
                 embed.add_field(name="\uFEFF", value=body)  # "\n\n".join(sent_users)
             except IndexError:
                 pass
