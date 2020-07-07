@@ -264,7 +264,7 @@ class Player(commands.Cog):
                 except Exception:
                     names.append("[Invalid User]")
 
-            chonks = [names[i:i + 9] for i in range(0, len(names), 9)]  # groups of 10 of the usernames
+            chonks = [names[i:i + 8] for i in range(0, len(names), 8)]  # groups of 10 of the usernames
 
         try:
             stop = False
@@ -302,7 +302,7 @@ class Player(commands.Cog):
                     await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop, chonks,
                                                 player, head)
 
-                if stop or len(player_friends) <= 27:
+                if stop or len(player_friends) < 31:
                     return
 
                 if len(chonks) - 3 < 1:
