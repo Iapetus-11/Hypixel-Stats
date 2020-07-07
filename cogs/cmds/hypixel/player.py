@@ -203,6 +203,8 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def edit_show_online(self, msg, ):
+
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def player_friends(self, ctx, player):
@@ -256,14 +258,22 @@ class Player(commands.Cog):
 
                 embed.set_footer(text=f"[Page {page}/{max_pages}]")
 
+                smol_chonks = []
+
                 for i in range(0, 3, 1):
                     try:
+                        smol_chonk = chonks.pop(0)
+                        smol_chonks.extend(smol_chonk)
+                        await ctx.send(f"__**DEBUG:**__ ```{smol_chonks}```")
                         embed.add_field(name="\uFEFF",
-                                        value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
+                                        value=discord.utils.escape_markdown("\n\n".join(smol_chonk)))
                     except IndexError:
                         pass
 
-                await ctx.send(embed=embed)
+                sent = await ctx.send(embed=embed)
+
+                if premium:
+                    await self.edit_show_online(sent, users)
 
                 if stop or len(player_friends) < 31:
                     return
