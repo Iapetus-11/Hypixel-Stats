@@ -130,8 +130,12 @@ class Cache(commands.Cog):
         if self.achievement_pts_cache.get(username) is not None:
             return pts
 
-        resp = await self.session.get(
-            f"https://api.slothpixel.me/api/players/{username}/achievements?key={self.bot.hypixel_key}")
+        try:
+            resp = await self.session.get(
+                f"https://api.slothpixel.me/api/players/{username}/achievements?key={self.bot.hypixel_key}")
+        except Exception:
+            self.bot.failed_sloth += 1
+            return "Error"
 
         if resp.status == 404:
             raise aiopypixel.exceptions.exceptions.InvalidPlayerError
@@ -140,7 +144,10 @@ class Cache(commands.Cog):
             self.failed_sloth += 1
             return "Error"
 
-        pts = (await resp.json()).get("achievement_points", 0)
+        try:
+            pts = (await resp.json()).get("achievement_points", 0)
+        except Exception:
+            return "Error"
 
         self.achievement_pts_cache[username] = pts
         return pts
