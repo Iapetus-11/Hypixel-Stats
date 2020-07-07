@@ -217,9 +217,9 @@ class Player(commands.Cog):
             try:
                 body = ""
                 for user in sent_users:
-                    p_obj = None if " " in user else await self.cache.get_player(user)
+                    p = None if " " in user else await self.cache.get_player(user)
                     online = self.bot.EMOJIS['offline_status']
-                    if p_obj is not None:
+                    if p is not None:
                         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
                             if p.LAST_LOGIN > p.LAST_LOGOUT:
                                 online = self.bot.EMOJIS['online_status']
