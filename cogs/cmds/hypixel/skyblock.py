@@ -28,8 +28,7 @@ class SkyBlock(commands.Cog):
         self.cache = self.bot.get_cog("Cache")
         self.db = self.bot.get_cog("Database")
 
-        c_task = self.bot.loop.create_task(self.bot.cc())
-        self.embed = discord.Embed(color=c_task.result())
+        self.embed = discord.Embed(color=discord.Color.gold())
 
     def get_nbt(self, data):
         b64 = data["inv_armor"]["data"]

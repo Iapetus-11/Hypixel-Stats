@@ -24,8 +24,7 @@ class Games(commands.Cog):
         self.cache = self.bot.get_cog("Cache")
         self.db = self.bot.get_cog("Database")
 
-        c_task = self.bot.loop.create_task(self.bot.cc())
-        self.embed = discord.Embed(color=c_task.result())
+        self.embed = discord.Embed(color=discord.Color.gold())
 
         self.games = [
             'arcade', 'arena', 'battleground', 'hungergames', 'paintball', 'quake', 'uhc', 'vampirez', 'walls',
