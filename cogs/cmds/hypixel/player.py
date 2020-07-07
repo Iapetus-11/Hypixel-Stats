@@ -231,7 +231,7 @@ class Player(commands.Cog):
         premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
 
         async with ctx.typing():
-            players = []
+            names = []
             for f_uuid in player_friends:
                 try:
                     names.append(await self.cache.get_player_name(f_uuid))
