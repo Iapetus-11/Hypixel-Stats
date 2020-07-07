@@ -215,7 +215,7 @@ class Player(commands.Cog):
 
         for j in range(0, 3, 1):
             try:
-                body = ""
+                body = "\uFEFF"
                 for i in range(0, len(sent_users), 1):
                     user = sent_users[0]
                     sent_users.pop(0)
