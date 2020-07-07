@@ -13,8 +13,6 @@ class BasicMC(commands.Cog):
 
         self.session = aiohttp.ClientSession()
 
-        self.cache = self.bot.get_cog("Cache")
-
     @commands.command(name="stealskin", aliases=["skinsteal", "skin"])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def skinner(self, ctx, gamertag: str):
