@@ -305,7 +305,7 @@ class Player(commands.Cog):
                 sent = await ctx.send(embed=embed)
 
                 if premium:
-                    await self.edit_show_online(sent, embed, smol_chonks)
+                    self.bot.loop.create_task(self.edit_show_online(sent, embed, smol_chonks))
 
                 if stop or len(player_friends) <= 21:
                     return
