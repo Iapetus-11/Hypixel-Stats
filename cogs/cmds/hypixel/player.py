@@ -203,7 +203,7 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    async def edit_show_online(self, msg, chonks, page, max_pages, player_friends, stop, chonks, player, head):
+    async def edit_show_online(self, msg, chonks, page, max_pages, player_friends, stop, player, head):
         if not stop and len(chonks) > 3:
             embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
         else:
@@ -303,7 +303,7 @@ class Player(commands.Cog):
                 sent = await ctx.send(embed=embed)
 
                 if premium:
-                    await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop, chonks,
+                    await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop,
                                                 player, head)
 
                 if stop or len(player_friends) <= 21:
