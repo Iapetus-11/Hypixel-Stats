@@ -205,8 +205,7 @@ class Player(commands.Cog):
 
     async def edit_show_online(self, msg, prev_embed, chonks):
         embed = discord.Embed(color=await self.bot.cc(), description=prev_embed.description)
-        await msg.channel.send(prev_embed.footer.text)
-        embed.set_footer(prev_embed.footer.text)
+        embed.set_footer(text=prev_embed.footer.text)
 
         await msg.edit(embed=embed)
 
