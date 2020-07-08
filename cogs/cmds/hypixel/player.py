@@ -203,7 +203,7 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    async def edit_show_online(self, msg, sent_users, page, max_pages, player_friends, stop, chonks, player, head):
+    async def edit_show_online(self, msg, chonks, page, max_pages, player_friends, stop, chonks, player, head):
         if not stop and len(chonks) > 3:
             embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
         else:
@@ -215,11 +215,10 @@ class Player(commands.Cog):
 
         for j in range(0, 3, 1):
             try:
-                length = len(sent_users)
+                usrs = chonks.pop(0)
                 body = "\uFEFF"
-                for i in range(0, len(sent_users), 1):
+                for i in range(0, len(usrs), 1):
                     user = sent_users[0]
-                    sent_users.pop(0)
                     try:
                         p = None if " " in user else await self.cache.get_player(user)
                     except Exception:
@@ -295,7 +294,7 @@ class Player(commands.Cog):
                 for i in range(0, 3, 1):
                     try:
                         smol_chonk = chonks.pop(0)
-                        smol_chonks.extend(smol_chonk)
+                        smol_chonks.append(smol_chonk)
                         embed.add_field(name="\uFEFF",
                                         value=discord.utils.escape_markdown("\n\n".join(smol_chonk)))
                     except IndexError:
