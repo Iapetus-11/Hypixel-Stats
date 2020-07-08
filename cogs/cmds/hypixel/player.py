@@ -218,7 +218,7 @@ class Player(commands.Cog):
                 usrs = chonks.pop(0)
                 body = "\uFEFF"
                 for i in range(0, len(usrs), 1):
-                    user = sent_users[0]
+                    user = usrs[0]
                     try:
                         p = None if " " in user else await self.cache.get_player(user)
                     except Exception:
