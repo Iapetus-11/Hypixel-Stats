@@ -203,36 +203,11 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    async def edit_show_online(self, msg, chonks, page, max_pages, player_friends, stop, player, head):
-        if not stop and len(chonks) > 3:
-            embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
-        else:
-            embed = discord.Embed(color=await self.bot.cc())
-
-        embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)", icon_url=head)
-
-        embed.set_footer(text=f"[Page {page}/{max_pages}]")
-
-        for j in range(0, 3, 1):
-            try:
-                usrs = chonks.pop(0)
-                body = "\uFEFF"
-                for i in range(0, len(usrs), 1):
-                    user = usrs[0]
-                    try:
-                        p = None if " " in user else await self.cache.get_player(user)
-                    except Exception:
-                        body += f"{self.bot.EMOJIS['offline_status']} [Invalid User]\n\n"
-                    else:
-                        online = self.bot.EMOJIS['offline_status']
-                        if p is not None:
-                            if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
-                                if p.LAST_LOGIN > p.LAST_LOGOUT:
-                                    online = self.bot.EMOJIS['online_status']
-                        body += f"{online} {discord.utils.escape_markdown(p.DISPLAY_NAME)}\n\n"
-                embed.add_field(name="\uFEFF", value=body)  # "\n\n".join(sent_users)
-            except IndexError:
-                pass
+    async def edit_show_online(self, msg, prev_embed, chonks):
+        embed = discord.Embed(color=await self.bot.cc(), description=prev_embed.description)
+        await ctx.sned(prev_embed.footer)
+        return
+        embed.set_footer(prev_embed.footer)
 
         await msg.edit(embed=embed)
 
@@ -303,8 +278,7 @@ class Player(commands.Cog):
                 sent = await ctx.send(embed=embed)
 
                 if premium:
-                    await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop,
-                                                player, head)
+                    await self.edit_show_online(sent, embed, smol_chonks)
 
                 if stop or len(player_friends) <= 21:
                     return
