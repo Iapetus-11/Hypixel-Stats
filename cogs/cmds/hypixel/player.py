@@ -203,9 +203,38 @@ class Player(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def get_user_status(self, user):
+        if " " in user:
+            return self.bot.EMOJIS['offline_status']
+
+        try:
+            p = await self.cache.get_player(user)
+        except Exception:
+            return self.bot.EMOJIS['offline_status']
+
+        if p is None:
+            return self.bot.EMOJIS['offline_status']
+
+        status = self.bot.EMOJIS['offline_status']
+        if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
+            if p.LAST_LOGIN > p.LAST_LOGOUT:
+                status = self.bot.EMOJIS['online_status']
+
+        return status
+
     async def edit_show_online(self, msg, prev_embed, chonks):
-        embed = discord.Embed(color=await self.bot.cc(), description=prev_embed.description)
-        embed.set_footer(text=prev_embed.footer.text)
+        embed = prev_embed.copy()
+        embed.clear_fields()
+
+        for i in range(0, 3, 1):
+            try:
+                body = "\uFEFF"
+                users = chonks.pop(0)
+                for user in users:
+                    body += f"{await self.get_user_status(user)} {discord.utils.escape_markdown(user)}\n\n"
+                embed.add_field(name="\uFEFF", value=body)
+            except IndexError:
+                pass
 
         await msg.edit(embed=embed)
 
