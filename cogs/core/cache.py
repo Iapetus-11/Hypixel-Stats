@@ -210,7 +210,7 @@ class Cache(commands.Cog):
 
         if name is None:
             try:
-                raise Exception
+                int("jakjdf")
                 name = await self.hypixel.UUIDToUsername(player)
             except Exception:
                 self.failed_mojang += 1
