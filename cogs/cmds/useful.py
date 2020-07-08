@@ -71,9 +71,9 @@ class Useful(commands.Cog):
                   f"Avg cmds / sec: ``{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}``\n"
         embed.add_field(name="General", value=general)
 
-        caching = f"failed api requests: ``{self.cache.failed}``\n" \
-                  f"failed sloth requests: ``{self.cache.failed_sloth}``\n" \
-                  f"failed mojang requests: ``{self.cache.failed_mojang}``" \
+        caching = f"failed Hypixel: ``{self.cache.failed}``\n" \
+                  f"failed sloth: ``{self.cache.failed_sloth}``\n" \
+                  f"failed Mojang: ``{self.cache.failed_mojang}``\n" \
                   f"name & uuid cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \

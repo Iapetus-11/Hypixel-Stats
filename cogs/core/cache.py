@@ -214,14 +214,6 @@ class Cache(commands.Cog):
                 name = await self.hypixel.UUIDToUsername(player)
             except Exception:
                 self.failed_mojang += 1
-                gotten = await self.session.get(f"https://api.ashcon.app/mojang/v2/user/{player}")
-                name = gotten.get("username")
-                if name is None:
-                    self.failed_mojang2 += 1
-                    if gotten.get("code") == 404:
-                        raise aiopypixel.exceptions.exceptions.InvalidPlayerError
-                    raise CustomErrorMsg(
-                        f"Uh Oh! It appears there's a serious problem... **PLEASE CONTACT US [HERE](https://discord.gg/MZ2cXxF)**\n\nDEBUG: ```{gotten}```")
             self.uuid_name_cache[player] = name
 
         if name not in self.valid_names_and_uuids:
