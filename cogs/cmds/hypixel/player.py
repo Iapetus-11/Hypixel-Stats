@@ -260,7 +260,6 @@ class Player(commands.Cog):
                          icon_url=head)
 
         premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
-        premium = False
 
         async with ctx.typing():
             names = []
@@ -270,7 +269,7 @@ class Player(commands.Cog):
                 except Exception:
                     names.append("[Invalid User]")
 
-            chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames, 7 good 2
+            chonks = [names[i:i + 7] for i in range(0, len(names), 7)]  # groups of 10 of the usernames, 7 good 2
 
         try:
             stop = False
@@ -308,7 +307,7 @@ class Player(commands.Cog):
                     await self.edit_show_online(sent, smol_chonks, page, max_pages, player_friends, stop, chonks,
                                                 player, head)
 
-                if stop or len(player_friends) < 31:
+                if stop or len(player_friends) <= 21:
                     return
 
                 if len(chonks) - 3 < 1:
