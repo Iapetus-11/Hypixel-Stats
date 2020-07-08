@@ -219,6 +219,7 @@ class Cache(commands.Cog):
                 if name is None:
                     self.failed_mojang2 += 1
                     if gotten.get("code") == 404:
+                        raise CustomErrorMsg(f"DEBUG: ```{gotten}```")
                         raise aiopypixel.exceptions.exceptions.InvalidPlayerError
                     raise CustomErrorMsg(f"DEBUG: ```{gotten}```")
             self.uuid_name_cache[player] = name
