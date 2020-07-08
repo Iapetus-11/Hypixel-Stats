@@ -147,7 +147,7 @@ class Cache(commands.Cog):
             resp = await self.session.get(
                 f"https://api.slothpixel.me/api/players/{username}/achievements?key={self.bot.hypixel_key}")
         except Exception:
-            self.bot.failed_sloth += 1
+            self.failed_sloth += 1
             return "Error"
 
         if resp.status == 404:
