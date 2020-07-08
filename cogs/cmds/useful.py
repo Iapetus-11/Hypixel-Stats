@@ -73,7 +73,8 @@ class Useful(commands.Cog):
 
         caching = f"failed api requests: ``{self.cache.failed}``\n" \
                   f"failed sloth requests: ``{self.cache.failed_sloth}``\n" \
-                  f""f"valid name&uuids cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
+                  f"failed mojang requests: ``{self.cache.failed_mojang}``" \
+                  f"name & uuid cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
                   f"skyblock endp cache: ``{len(self.cache.skyblock_cache)}``\n" \

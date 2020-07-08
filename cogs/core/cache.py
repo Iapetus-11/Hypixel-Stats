@@ -19,6 +19,14 @@ class RatelimitTimeoutError(Exception):
         return "Timeout in ratelimit wait!"
 
 
+class CustomErrorMsg(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+
 class Cache(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -31,6 +39,8 @@ class Cache(commands.Cog):
 
         self.failed = 0
         self.failed_sloth = 0
+        self.failed_mojang = 0
+        self.failed_mojang2 = 0
 
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
@@ -111,6 +121,9 @@ class Cache(commands.Cog):
     @commands.is_owner()
     async def clearcache(self, ctx):
         self.failed = 0
+        self.failed_sloth = 0
+        self.failed_mojang = 0
+        self.failed_mojang2 = 0
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}
         self.uuid_name_cache = {}
@@ -193,15 +206,25 @@ class Cache(commands.Cog):
             if player in self.valid_names_and_uuids:
                 return player
 
-        # By this point, player is a uuid
         name = self.uuid_name_cache.get(player)
 
         if name is None:
-            name = await self.hypixel.UUIDToUsername(player)
-            self.uuid_name_cache[player] = name.lower()
+            try:
+                name = await self.hypixel.UUIDToUsername(player)
+            except Exception:
+                self.failed_mojang += 1
+                gotten = await self.session.get(f"https://api.ashcon.app/mojang/v2/user/{player}")
+                name = gotten.get("username")
+                if name is None:
+                    self.failed_mojang2 += 1
+                    if gotten.get("code") == 404:
+                        raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+                    raise CustomErrorMsg(
+                        f"Uh Oh! It appears there's a serious problem... **PLEASE CONTACT US [HERE](https://discord.gg/MZ2cXxF)**\n\nDEBUG: ```{gotten}```")
+            self.uuid_name_cache[player] = name
 
         if name not in self.valid_names_and_uuids:
-            self.valid_names_and_uuids.append(name.lower())
+            self.valid_names_and_uuids.append(name)
 
         return name
 
