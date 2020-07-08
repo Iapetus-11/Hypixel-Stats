@@ -40,7 +40,6 @@ class Cache(commands.Cog):
         self.failed = 0
         self.failed_sloth = 0
         self.failed_mojang = 0
-        self.failed_mojang2 = 0
 
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
@@ -123,7 +122,6 @@ class Cache(commands.Cog):
         self.failed = 0
         self.failed_sloth = 0
         self.failed_mojang = 0
-        self.failed_mojang2 = 0
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}
         self.uuid_name_cache = {}
@@ -209,19 +207,9 @@ class Cache(commands.Cog):
         name = self.uuid_name_cache.get(player)
 
         if name is None:
-            try:
-                int("jakjdf")
-                name = await self.hypixel.UUIDToUsername(player)
-            except Exception:
-                self.failed_mojang += 1
-                gotten = await self.session.get(f"https://api.ashcon.app/mojang/v2/user/{player}")
-                name = gotten.get("username")
-                if name is None:
-                    self.failed_mojang2 += 1
-                    if gotten.get("code") == 404:
-                        print(gotten)
-                        raise aiopypixel.exceptions.exceptions.InvalidPlayerError
-                    raise CustomErrorMsg(f"DEBUG: ```{gotten}```")
+            self.failed_mojang += 1
+            name = await self.hypixel.UUIDToUsername(player)
+            self.failed_mojang -= 1
             self.uuid_name_cache[player] = name
 
         if name not in self.valid_names_and_uuids:
