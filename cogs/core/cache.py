@@ -164,6 +164,16 @@ class Cache(commands.Cog):
         self.achievement_pts_cache[username] = pts
         return pts
 
+    async def mojang2_get_user(self, player):
+        resp = await self.session.get(f"https://api.ashcon.app/mojang/v2/user/{player}")
+
+        if resp.get("code") == 404:
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+
+        j = await resp.json()
+
+        return {"uuid": j["uuid"], "username": j["username"]}
+
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
 
@@ -186,11 +196,14 @@ class Cache(commands.Cog):
                     self.valid_names_and_uuids.append(actual[1])
                     return actual[1]
 
-        # By this point, player must be a username
         uuid = self.name_uuid_cache.get(player)
 
         if uuid is None:
-            uuid = await self.hypixel.usernameToUUID(player)
+            try:
+                uuid = await self.hypixel.usernameToUUID(player)
+            except Exception:
+                self.failed_mojang += 1
+                uuid = (await self.mojang2_get_user(player))["uuid"]
             self.name_uuid_cache[player] = uuid
 
         if uuid not in self.valid_names_and_uuids:
@@ -207,9 +220,11 @@ class Cache(commands.Cog):
         name = self.uuid_name_cache.get(player)
 
         if name is None:
-            self.failed_mojang += 1
-            name = await self.hypixel.UUIDToUsername(player)
-            self.failed_mojang -= 1
+            try:
+                name = await self.hypixel.UUIDToUsername(player)
+            except Exception:
+                self.failed_mojang += 1
+                name = (await self.mojang2_get_user(player))["username"]
             self.uuid_name_cache[player] = name
 
         if name not in self.valid_names_and_uuids:
