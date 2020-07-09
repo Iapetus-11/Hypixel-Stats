@@ -26,6 +26,7 @@ class Errors(commands.Cog):
             ctx.handled = False
 
         try:
+            await self.send(e)
 
             if isinstance(e.original, RateLimitError):
                 await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
