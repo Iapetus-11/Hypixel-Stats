@@ -134,7 +134,7 @@ class Player(commands.Cog):
                 return
 
         p = await self.cache.get_player(player)
-
+        if p == 'Invalid Minecraft Username':
             embed = discord.Embed(color=await self.bot.cc(),
                                   description='Invalid Minecraft Username!')
             await ctx.send(embed=embed)
