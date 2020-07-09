@@ -28,7 +28,7 @@ class Errors(commands.Cog):
 
         try:
 
-            await self.send(f"DEBUG: `{e.original}`")
+            await self.send(ctx, f"DEBUG: `{e.original}`")
 
             if isinstance(e.original, RateLimitError):
                 await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
