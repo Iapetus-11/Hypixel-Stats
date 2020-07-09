@@ -1,9 +1,10 @@
 import discord
 import traceback
-from random import choice
-from ..core.cache import *
-from discord.ext import commands
 from aiopypixel.exceptions.exceptions import *
+from discord.ext import commands
+from random import choice
+
+from ..core.cache import *
 
 
 class Errors(commands.Cog):
@@ -36,7 +37,7 @@ class Errors(commands.Cog):
                 await self.send(ctx, "No stats available!")
                 return
 
-            elif isinstance(e.original, InvalidPlayerError) or isinstance(e.original, RuntimeError):
+            elif isinstance(e.original, InvalidPlayerError):
                 await self.send(ctx, "That player is invalid or doesn't exist!")
                 return
 

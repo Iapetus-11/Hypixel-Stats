@@ -409,7 +409,10 @@ class Player(commands.Cog):
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
 
-        p_name = await self.cache.get_player_name(player)
+        try:
+            p_name = await self.cache.get_player_name(player)
+        except Exception:
+            p_name = player
 
         embed = discord.Embed(color=await self.bot.cc())
         embed.set_author(name=f"{p_name}'s Name History",
