@@ -1,9 +1,8 @@
 import discord
 import traceback
-import aiopypixel
-from discord.ext import commands
 from random import choice
-
+from discord.ext import commands
+from aiopypixel.exceptions.exceptions import *
 
 class Errors(commands.Cog):
     def __init__(self, bot):
@@ -23,31 +22,35 @@ class Errors(commands.Cog):
         except AttributeError:
             ctx.handled = False
 
-        if "RatelimitTimeoutError" in str(e):
-            await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
-                                 f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
-            return
+        try:
 
-        if "NoStatError" in str(e):
-            await self.send(ctx, "They don't have stats for that game!")
-            return
+            if isinstance(e.original, RateLimitError):
+                await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
+                                     f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
+                return
 
-        if "InvalidPlayerError" in str(e):
-            await self.send(ctx, "That player is invalid or doesn't exist!")
-            return
+            elif "NoStatError" in str(e):
+                await self.send(ctx, "No stats available!")
+                return
 
-        if "InvalidGuildError" in str(e):
-            await self.send(ctx, "That guild is invalid or doesn't exist!")
-            return
+            elif isinstance(e.original, InvalidPlayerError):
+                await self.send(ctx, "That player is invalid or doesn't exist!")
+                return
 
-        if "NullPlayerError" in str(e):
-            await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
-            return
+            elif isinstance(e.original, InvalidGuildError):
+                await self.send(ctx, "That guild is invalid or doesn't exist!")
+                return
 
-        if "InvalidDiscordUser" in str(e):
-            await self.send(ctx,
-                            "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
-            return
+            elif isinstance(e.original, NullPlayerError):
+                await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
+                return
+
+            elif "InvalidDiscordUser" in str(e):
+                await self.send(ctx, "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
+                return
+
+        except AttributeError:
+            pass
 
         if isinstance(e, commands.errors.NoPrivateMessage):
             await self.send(ctx, "This command can't be used in private chat channels.")
@@ -90,10 +93,6 @@ class Errors(commands.Cog):
 
         if isinstance(e, commands.errors.MissingRequiredArgument):
             await self.send(ctx, "Looks like you're forgetting to put something in!")
-            return
-
-        if isinstance(e, aiopypixel.InvalidPlayerError):
-            await self.send(ctx, "Invalid Minecraft username provided.")
             return
 
         if isinstance(e, commands.BadArgument):
