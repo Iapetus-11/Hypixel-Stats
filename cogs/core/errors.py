@@ -26,7 +26,6 @@ class Errors(commands.Cog):
             ctx.handled = False
 
         try:
-            await self.send(ctx, str(e))
 
             if isinstance(e.original, RateLimitError):
                 await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
@@ -37,7 +36,7 @@ class Errors(commands.Cog):
                 await self.send(ctx, "No stats available!")
                 return
 
-            elif isinstance(e.original, InvalidPlayerError):
+            elif isinstance(e.original, InvalidPlayerError) or isinstance(e.original, RuntimeError):
                 await self.send(ctx, "That player is invalid or doesn't exist!")
                 return
 
