@@ -260,7 +260,7 @@ class Cache(commands.Cog):
         try:
             player = await self.get_player_uuid(player)
         except aiopypixel.InvalidPlayerError:
-            raise aiopypixel.InvalidPlayerError
+            return 'Invalid Minecraft Username'
 
         player_object = self.player_object_cache.get(player)
 
