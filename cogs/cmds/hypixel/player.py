@@ -392,7 +392,7 @@ class Player(commands.Cog):
 
     @commands.command(name="namehistory", aliases=["names", "namehist", "name_history"])
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def name_history(self, player=None):
+    async def name_history(self, ctx, player=None):
         if player is None:
             player = await self.db.get_linked_account_via_id(ctx.author.id)
             if player is not None:
