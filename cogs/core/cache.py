@@ -167,6 +167,9 @@ class Cache(commands.Cog):
     async def mojang2_get_user(self, player):
         resp = await self.session.get(f"https://api.ashcon.app/mojang/v2/user/{player}")
 
+        if resp.status == 404:
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+
         j = await resp.json()
 
         if j.get("code") == 404:
