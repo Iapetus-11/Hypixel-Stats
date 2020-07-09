@@ -1,10 +1,13 @@
 import discord
 import traceback
 from random import choice
+from ..core.cache import *
 from discord.ext import commands
 from aiopypixel.exceptions.exceptions import *
 
+
 class Errors(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -45,7 +48,7 @@ class Errors(commands.Cog):
                 await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
                 return
 
-            elif "InvalidDiscordUser" in str(e):
+            elif isinstance(e.original, InvalidDiscordUser):
                 await self.send(ctx, "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
                 return
 
