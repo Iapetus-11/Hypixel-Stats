@@ -184,6 +184,7 @@ class Player(commands.Cog):
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
+
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
         embed.add_field(name="Level",
                         value=f"{await self.cache.hypixel.calcPlayerLevel(p.EXP if p.EXP is not None else 0)}",
@@ -240,7 +241,18 @@ class Player(commands.Cog):
 
     @commands.command(name="friends", aliases=["pf", "pfriends", "playerfriends", "friendsof", "player_friends"])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def player_friends(self, ctx, player):
+    async def player_friends(self, ctx, player=None):
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=await self.bot.cc(),
+                                        description=f"You need to link your account to do this!\n"
+                                                    f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
+
         puuid = await self.cache.get_player_uuid(player)
 
         player_friends = await self.cache.get_player_friends(player)
@@ -321,9 +333,20 @@ class Player(commands.Cog):
             pass
 
     @commands.command(name="playerguild", aliases=["pg", "playerg", "pguild", "guildofplayer", "player_guild"])
-    @commands.cooldown(1, 5, commands.BucketType.user)
-    async def player_guild(self, ctx, player):
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def player_guild(self, ctx, player=None):
         await ctx.trigger_typing()
+
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=await self.bot.cc(),
+                                        description=f"You need to link your account to do this!\n"
+                                                    f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         player_guild = await self.cache.get_player_guild(player)
 
@@ -366,6 +389,32 @@ class Player(commands.Cog):
         embed.add_field(name="Created", value=created, inline=False)
 
         await ctx.send(embed=embed)
+
+    @commands.command(name="namehistory", aliases=["names", "namehist", "name_history"])
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def name_history(self, player=None):
+        if player is None:
+            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player is not None:
+                player = player[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=await self.bot.cc(),
+                                        description=f"You need to link your account to do this!\n"
+                                                    f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
+
+        p_name = await self.cache.get_player_name(player)
+
+        embed = discord.Embed(color=await self.bot.cc())
+        embed.set_author(name=f"{p_name}'s Name History",
+                         icon_url=await self.cache.get_player_head(p_name))
+
+        names_descending = await self.cache.get_player_names(await self.cache.get_player_uuid(player))
+        name_hist_text = "\uFEFF"
+
+        for i in range(0, len(names_descending), 1):
+            name_hist_text += f"**{len(names_descending) - i + 1}.** `{discord.utils.escape_markdown(names_descending[i])}`"
 
 
 def setup(bot):

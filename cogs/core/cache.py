@@ -349,6 +349,18 @@ class Cache(commands.Cog):
 
         return await self.hypixel.getKeyData(key)  # See? Not storing the keys ty very much
 
+    async def get_player_names(self, player):
+        uuid = await self.get_player_uuid(player)
+
+        resp = await self.session.get(f"https://api.mojang.com/user/profiles/{uuid}/names")
+
+        if resp.status == 204:
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+
+        j = await resp.json()
+
+        return [record.get("name") for record in sorted(j, reverse=False)]  # returns names from newest to oldest
+
 
 def setup(bot):
     bot.add_cog(Cache(bot))
