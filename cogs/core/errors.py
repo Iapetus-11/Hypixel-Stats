@@ -28,6 +28,8 @@ class Errors(commands.Cog):
 
         try:
 
+            await self.send(f"DEBUG: `{e.original}`")
+
             if isinstance(e.original, RateLimitError):
                 await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
                                      f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
