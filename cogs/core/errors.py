@@ -1,5 +1,6 @@
 import discord
 import traceback
+import aiopypixel
 from discord.ext import commands
 from random import choice
 
@@ -89,6 +90,10 @@ class Errors(commands.Cog):
 
         if isinstance(e, commands.errors.MissingRequiredArgument):
             await self.send(ctx, "Looks like you're forgetting to put something in!")
+            return
+
+        if isinstance(e, aiopypixel.InvalidPlayerError):
+            await self.send(ctx, "Invalid Minecraft username provided.")
             return
 
         if isinstance(e, commands.BadArgument):
