@@ -416,6 +416,8 @@ class Player(commands.Cog):
         for i in range(0, len(names_descending), 1):
             name_hist_text += f"**{len(names_descending) - i + 1}.** `{discord.utils.escape_markdown(names_descending[i])}`"
 
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Player(bot))
