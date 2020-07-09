@@ -135,6 +135,11 @@ class Player(commands.Cog):
 
         p = await self.cache.get_player(player)
 
+            embed = discord.Embed(color=await self.bot.cc(),
+                                  description='Invalid Minecraft Username!')
+            await ctx.send(embed=embed)
+            return # next level bad code (the error handler wasnt working for some reason)
+
         embed = discord.Embed(color=await self.bot.cc(), description=f"[`{p.UUID}`]")
 
         linked_acc = await self.db.get_linked_account_via_uuid(p.UUID)

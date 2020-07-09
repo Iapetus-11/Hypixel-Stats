@@ -257,7 +257,10 @@ class Cache(commands.Cog):
     async def get_player(self, player):  # uuid preferred
         """Gets a player object via uuid or username, prefers a uuid"""
 
-        player = await self.get_player_uuid(player)
+        try:
+            player = await self.get_player_uuid(player)
+        except aiopypixel.InvalidPlayerError:
+            return 'Invalid Minecraft Username'
 
         player_object = self.player_object_cache.get(player)
 
