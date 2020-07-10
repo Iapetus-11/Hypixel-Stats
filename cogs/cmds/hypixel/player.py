@@ -138,7 +138,7 @@ class Player(commands.Cog):
             embed = discord.Embed(color=await self.bot.cc(),
                                   description='Invalid Minecraft Username!')
             await ctx.send(embed=embed)
-            return # next level bad code (the error handler wasnt working for some reason)
+            return  # next level bad code (the error handler wasnt working for some reason)
 
         embed = discord.Embed(color=await self.bot.cc(), description=f"[`{p.UUID}`]")
 

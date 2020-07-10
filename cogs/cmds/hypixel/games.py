@@ -708,8 +708,10 @@ class Games(commands.Cog):
         embed.add_field(name="Coins", value=bedwars.get("coins", 0))
         embed.add_field(name="Level", value=p.ACHIEVEMENTS.get("bedwars_level", 0))
 
-        embed.add_field(name="Wins", value=bedwars.get(f"{actual_type}wins_bedwars", 0))
-        embed.add_field(name="Losses", value=bedwars.get(f"{actual_type}beds_lost_bedwars", 0))
+        wins = bedwars.get(f"{actual_type}wins_bedwars", 0)
+        losses = bedwars.get(f"{actual_type}losses_bedwars", 0)
+        embed.add_field(name="Wins", value=wins)
+        embed.add_field(name="Losses", value= losses)
         embed.add_field(name="Winstreak", value=bedwars.get(f"{actual_type}winstreak", 0))
 
         kills = bedwars.get(f"{actual_type}kills_bedwars", 0)
@@ -733,8 +735,8 @@ class Games(commands.Cog):
         embed.add_field(name="Avg. Kills\nper Game",
                         value=round((kills + 0.00001) / (total_games + 0.00001), 2))
         embed.add_field(name="Avg. Deaths\nper Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
-        embed.add_field(name="Avg. Beds Broken\nper Game",
-                        value=round((beds_broken + 0.00001) / (total_games + 0.00001), 2))
+        embed.add_field(name="WLR",
+                        value=round((winsA + 0.00001) / (losses + 0.00001), 2))
 
         await ctx.send(embed=embed)
 
