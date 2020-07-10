@@ -736,7 +736,7 @@ class Games(commands.Cog):
                         value=round((kills + 0.00001) / (total_games + 0.00001), 2))
         embed.add_field(name="Avg. Deaths\nper Game", value=round((deaths + 0.00001) / (total_games + 0.00001), 2))
         embed.add_field(name="WLR",
-                        value=round((winsA + 0.00001) / (losses + 0.00001), 2))
+                        value=round((wins + 0.00001) / (losses + 0.00001), 2))
 
         await ctx.send(embed=embed)
 
