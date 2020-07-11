@@ -125,6 +125,9 @@ class Errors(commands.Cog):
 
             traceback_text = traceback_text[:1023]
 
+            if "discord.errors.Forbidden" in traceback_text:
+                return
+
             await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
 
 
