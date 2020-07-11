@@ -202,9 +202,14 @@ class Cache(commands.Cog):
         uuid = self.name_uuid_cache.get(player)
 
         if uuid is None:
-            self.failed_mojang += 1
-            uuid = await self.hypixel.usernameToUUID(player)
-            self.failed_mojang -= 1
+            try:
+                uuid = await self.hypixel.usernameToUUID(player)
+            except Exception as e:
+                if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
+                    raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+                else:
+                    self.failed_mojang += 1
+                    uuid = (await self.mojang2_get_user(player))["uuid"]
             self.name_uuid_cache[player] = uuid
 
         if uuid not in self.valid_names_and_uuids:
@@ -221,9 +226,14 @@ class Cache(commands.Cog):
         name = self.uuid_name_cache.get(player)
 
         if name is None:
-            self.failed_mojang += 1
-            name = await self.hypixel.UUIDToUsername(player)
-            self.failed_mojang -= 1
+            try:
+                name = await self.hypixel.UUIDToUsername(player)
+            except Exception as e:
+                if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
+                    raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+                else:
+                    self.failed_mojang += 1
+                    name = (await self.mojang2_get_user(player))["username"]
             self.uuid_name_cache[player] = name
 
         if name not in self.valid_names_and_uuids:
