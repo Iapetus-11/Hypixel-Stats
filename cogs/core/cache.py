@@ -202,11 +202,9 @@ class Cache(commands.Cog):
         uuid = self.name_uuid_cache.get(player)
 
         if uuid is None:
-            try:
-                uuid = await self.hypixel.usernameToUUID(player)
-            except Exception:
-                self.failed_mojang += 1
-                uuid = (await self.mojang2_get_user(player))["uuid"]
+            self.failed_mojang += 1
+            uuid = await self.hypixel.usernameToUUID(player)
+            self.failed_mojang -= 1
             self.name_uuid_cache[player] = uuid
 
         if uuid not in self.valid_names_and_uuids:
