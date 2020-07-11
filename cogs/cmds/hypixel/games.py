@@ -913,14 +913,26 @@ class Games(commands.Cog):
         embed.add_field(name="Games", value=mystery.get(f"games{type_actual}", 0))
         embed.add_field(name="Wins", value=mystery.get(f"wins{type_actual}", 0))
 
-        if type_actual in ["", "_MURDER_CLASSIC", "_MURDER_DOUBLE_UP", "_MURDER_ASSASSINS"]:
-            pass
-
         kills = mystery.get(f"kills{type_actual}", 0)
         deaths = mystery.get(f"deaths{type_actual}", 0)
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
+
+        if type_actual in ["", "_MURDER_CLASSIC", "_MURDER_DOUBLE_UP", "_MURDER_ASSASSINS"]:
+            embed.add_field(name="Knife Kills", value=mystery.get(f"knife_kills{type_actual}", 0))
+            embed.add_field(name="\uFEFF", value="\uFEFF")
+            embed.add_field(name="Thrown Knife\nKills", value=mystery.get(f"thrown_knife_kills{type_actual}", 0))
+
+            embed.add_field(name="Bow Kills", value=mystery.get(f"bow_kills{type_actual}", 0))
+            embed.add_field(name="\uFEFF", value="\uFEFF")
+            embed.add_field(name="Trap Kills", value=mystery.get(f"trap_kills{type_actual}", 0))
+
+        elif type_actual == "_MURDER_INFECTION":
+            embed.add_field(name="Total Time Survived", value=mystery.get("total_time_survived_seconds", 0),
+                            inline=False)
+
+        embed.add_field(name="Total Coins", value=mystery.get("coins", 0), inline=False)
 
         await ctx.send(embed=embed)
 
