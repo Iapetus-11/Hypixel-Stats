@@ -658,8 +658,13 @@ class Games(commands.Cog):
     async def bedwars(self, ctx, player=None, _type=None):
         await ctx.trigger_typing()
 
+        linked = await self.db.get_linked_account_via_id(ctx.author.id)
+
+        if linked is not None:
+            _type = player + ((" " + _type) if _type is not None else "")
+
         if player is None:
-            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            player = linked
             if player is not None:
                 player = player[1]
             else:
@@ -864,8 +869,13 @@ class Games(commands.Cog):
     async def murder_mystery(self, ctx, player=None, *, _type=None):
         await ctx.trigger_typing()
 
+        linked = await self.db.get_linked_account_via_id(ctx.author.id)
+
+        if linked is not None:
+            _type = player + ((" " + _type) if _type is not None else "")
+
         if player is None:
-            player = await self.db.get_linked_account_via_id(ctx.author.id)
+            player = linked
             if player is not None:
                 player = player[1]
             else:
@@ -886,16 +896,16 @@ class Games(commands.Cog):
 
         _type = str(_type).lower()
 
-        if _type in ["classic", "1", "original", "normal"]:
+        if _type in ["classic"]:
             type_clean = "CLASSIC"
             type_actual = "_MURDER_CLASSIC"
-        elif _type in ["doubleup", "double", "2", "double_up", "double up", "double up!"]:
+        elif _type in ["doubleup", "double up", "double up!"]:
             type_clean = "DOUBLE UP!"
             type_actual = "_MURDER_DOUBLE_UP"
-        elif _type in ["assasins", "assassins", "assassin", "3"]:
+        elif _type in ["assassins"]:
             type_clean = "ASSASSINS"
             type_actual = "_MURDER_ASSASSINS"
-        elif _type in ["infection", "infection_v2", "infectionv2", "4", "infection v2"]:
+        elif _type in ["infection", "infectionv2", "infection v2"]:
             type_clean = "INFECTION V2"
             type_actual = "_MURDER_INFECTION"
         else:
