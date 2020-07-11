@@ -37,9 +37,7 @@ class Errors(commands.Cog):
                 await self.send(ctx, "No stats available!")
                 return
 
-            elif isinstance(e.original, InvalidPlayerError) or isinstance(e,
-                                                                          InvalidPlayerError) or "InvalidPlayer" in str(
-                    e):
+            elif isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
                 await self.send(ctx, "That player is invalid or doesn't exist!")
                 return
 
@@ -132,6 +130,10 @@ class Errors(commands.Cog):
                     await self.send(ctx, "It looks like I don't have the proper permissions to do this!")
                 except Exception:
                     pass
+                return
+
+            if "InvalidPlayerError" in traceback_text:
+                await self.send(ctx, "That player is invalid or doesn't exist!")
                 return
 
             await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
