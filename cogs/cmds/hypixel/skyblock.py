@@ -162,6 +162,11 @@ class SkyBlock(commands.Cog):
 
         stats = await self.cache.get_skyblock_stats(profile_id)
 
+        if stats is None:
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                               description="The bot doesn't have sufficient data to show this!"))
+            return
+
         members = []
 
         for member in list(stats.get('members', [])):
