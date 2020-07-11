@@ -889,14 +889,14 @@ class Games(commands.Cog):
         if _type in ["classic", "1", "original", "normal"]:
             type_clean = "CLASSIC"
             type_actual = "_MURDER_CLASSIC"
-        elif _type in ["doubleup", "double", "2", "double_up", "double up"]:
-            type_clean = "DOUBLE_UP"
+        elif _type in ["doubleup", "double", "2", "double_up", "double up", "double up!"]:
+            type_clean = "DOUBLE UP!"
             type_actual = "_MURDER_DOUBLE_UP"
         elif _type in ["assasins", "assassins", "assassin", "3"]:
             type_clean = "ASSASSINS"
             type_actual = "_MURDER_ASSASSINS"
         elif _type in ["infection", "infection_v2", "infectionv2", "4", "infection v2"]:
-            type_clean = "INFECTION"
+            type_clean = "INFECTION V2"
             type_actual = "_MURDER_INFECTION"
         else:
             type_clean = "ALL"
