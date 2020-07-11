@@ -678,6 +678,8 @@ class Games(commands.Cog):
         except TypeError:
             raise NoStatError
 
+        _type = str(_type).lower()
+
         if _type in ["1", "1s", "solos", "solo", "singles"]:
             type_clean = "SOLO"
             actual_type = "eight_one_"
@@ -859,7 +861,7 @@ class Games(commands.Cog):
 
     @commands.command(name="murdermystery", aliases=["murder_mystery", "mm"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def murder_mystery(self, ctx, player=None):
+    async def murder_mystery(self, ctx, player=None, *, _type=None):
         await ctx.trigger_typing()
 
         if player is None:
@@ -882,23 +884,43 @@ class Games(commands.Cog):
         except TypeError:
             raise NoStatError
 
+        _type = str(_type).lower()
+
+        if _type in ["classic", "1", "original", "normal"]:
+            type_clean = "CLASSIC"
+            type_actual = "_MURDER_CLASSIC"
+        elif _type in ["doubleup", "double", "2", "double_up", "double up"]:
+            type_clean = "DOUBLE_UP"
+            type_actual = "_MURDER_DOUBLE_UP"
+        elif _type in ["assasins", "assassins", "assassin", "3"]:
+            type_clean = "ASSASSINS"
+            type_actual = "_MURDER_ASSASSINS"
+        elif _type in ["infection", "infection_v2", "infectionv2", "4", "infection v2"]:
+            type_clean = "INFECTION"
+            type_actual = "_MURDER_INFECTION"
+        else:
+            type_clean = "ALL"
+            type_actual = ""
+
         embed = self.embed.copy()
 
-        embed.set_author(name=f"{p.DISPLAY_NAME}'s Murder Mystery Stats",
+        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}murdermystery <player> <gamemode>`"
+
+        embed.set_author(name=f"{p.DISPLAY_NAME}'s Murder Mystery Stats [{type_clean}]",
                          icon_url=await self.cache.get_player_head(p.UUID))
 
-        embed.add_field(name="Coins", value=mystery.get("coins", 0))
-        embed.add_field(name="Games", value=mystery.get("games", 0))
-        embed.add_field(name="Wins", value=mystery.get("wins", 0))
+        embed.add_field(name="Coins\nPicked Up", value=mystery.get(f"coins_pickedup{type_actual}", 0))
+        embed.add_field(name="Games", value=mystery.get(f"games{type_actual}", 0))
+        embed.add_field(name="Wins", value=mystery.get(f"wins{type_actual}", 0))
 
-        kills = mystery.get("kills", 0)
-        deaths = mystery.get("deaths", 0)
+        if type_actual in ["", "_MURDER_CLASSIC", "_MURDER_DOUBLE_UP", "_MURDER_ASSASSINS"]:
+            pass
+
+        kills = mystery.get(f"kills{type_actual}", 0)
+        deaths = mystery.get(f"deaths{type_actual}", 0)
         embed.add_field(name="Kills", value=kills)
         embed.add_field(name="Deaths", value=deaths)
         embed.add_field(name="KDR", value=round((kills + .00001) / (deaths + .00001), 2))
-
-        embed.add_field(name="Coins Picked Up", value=mystery.get("coins_pickedup", 0), inline=False)
-        embed.add_field(name="Total Time Survived", value=f"{mystery.get('total_time_survived_seconds', 0)} seconds")
 
         await ctx.send(embed=embed)
 
