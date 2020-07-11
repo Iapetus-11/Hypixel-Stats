@@ -132,10 +132,6 @@ class Errors(commands.Cog):
                     pass
                 return
 
-            if "InvalidPlayerError" in traceback_text:
-                await self.send(ctx, "That player is invalid or doesn't exist!")
-                return
-
             await self.send(error_channel, f"```{ctx.author}: {ctx.message.content}\n\n{traceback_text}```")
 
 
