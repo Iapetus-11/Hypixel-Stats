@@ -665,6 +665,7 @@ class Games(commands.Cog):
                 _type = player + " " + _type
             else:
                 _type = player
+            player = None
 
         if player is None:
             player = linked
@@ -879,6 +880,7 @@ class Games(commands.Cog):
                 _type = player + " " + _type
             else:
                 _type = player
+            player = None
 
         if player is None:
             player = linked
