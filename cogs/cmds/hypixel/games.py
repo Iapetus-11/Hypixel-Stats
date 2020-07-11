@@ -661,7 +661,10 @@ class Games(commands.Cog):
         linked = await self.db.get_linked_account_via_id(ctx.author.id)
 
         if linked is not None:
-            _type = player + ((" " + _type) if _type is not None else "")
+            if _type is not None:
+                _type = player + " " + _type
+            else:
+                _type = player
 
         if player is None:
             player = linked
@@ -872,7 +875,10 @@ class Games(commands.Cog):
         linked = await self.db.get_linked_account_via_id(ctx.author.id)
 
         if linked is not None:
-            _type = player + ((" " + _type) if _type is not None else "")
+            if _type is not None:
+                _type = player + " " + _type
+            else:
+                _type = player
 
         if player is None:
             player = linked
