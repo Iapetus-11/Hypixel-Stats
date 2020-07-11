@@ -37,7 +37,9 @@ class Errors(commands.Cog):
                 await self.send(ctx, "No stats available!")
                 return
 
-            elif isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
+            elif isinstance(e.original, InvalidPlayerError) or isinstance(e,
+                                                                          InvalidPlayerError) or "InvalidPlayer" in str(
+                    e):
                 await self.send(ctx, "That player is invalid or doesn't exist!")
                 return
 
