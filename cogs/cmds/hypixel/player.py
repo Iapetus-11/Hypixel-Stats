@@ -424,7 +424,7 @@ class Player(commands.Cog):
         name_hist_text = "\uFEFF"
 
         for i in range(0, len(names_descending), 1):
-            name_hist_text += f"**{len(names_descending) - i + 1}.** `{names_descending[i]}`\n"
+            name_hist_text += f"**{len(names_descending) - i}.** `{names_descending[i]}`\n"
 
         embed.description = name_hist_text
 
