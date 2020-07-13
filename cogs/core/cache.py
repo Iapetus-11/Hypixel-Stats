@@ -205,10 +205,10 @@ class Cache(commands.Cog):
             try:
                 uuid = await self.hypixel.usernameToUUID(player)
             except Exception as e:
-                print(type(e))
                 if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
                     raise aiopypixel.exceptions.exceptions.InvalidPlayerError
                 else:
+                    print(type(e))
                     self.failed_mojang += 1
                     uuid = (await self.mojang2_get_user(player))["uuid"]
             self.name_uuid_cache[player] = uuid
