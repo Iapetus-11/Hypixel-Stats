@@ -205,6 +205,7 @@ class Cache(commands.Cog):
             try:
                 uuid = await self.hypixel.usernameToUUID(player)
             except Exception as e:
+                print(e)
                 if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
                     raise aiopypixel.exceptions.exceptions.InvalidPlayerError
                 else:
