@@ -120,8 +120,6 @@ class Player(commands.Cog):
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def player_profile(self, ctx, player=None):
-        await ctx.trigger_typing()
-
         if player is None:
             player = await self.db.get_linked_account_via_id(ctx.author.id)
             if player is not None:
@@ -133,7 +131,8 @@ class Player(commands.Cog):
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
 
-        p = await self.cache.get_player(player)
+        async with ctx.typing():
+            p = await self.cache.get_player(player)
         if p == 'Invalid Minecraft Username':
             embed = discord.Embed(color=await self.bot.cc(),
                                   description='Invalid Minecraft Username!')
