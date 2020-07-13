@@ -160,7 +160,8 @@ class SkyBlock(commands.Cog):
         base = skyblock['profiles'][profiles[index - 1]]
         profile_id = base["profile_id"]
 
-        stats = await self.cache.get_skyblock_stats(profile_id)
+        async with ctx.typing():
+            stats = await self.cache.get_skyblock_stats(profile_id)
 
         if stats is None:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
