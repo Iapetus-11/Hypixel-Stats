@@ -271,7 +271,7 @@ class Cache(commands.Cog):
         player_object = self.player_object_cache.get(player)
 
         if player_object is None:
-            player_object = await self.rate_limit_wait(f"self.hypixel.getPlayer({player})")
+            player_object = await self.rate_limit_wait(f"self.hypixel.getPlayer('{player}')")
             self.player_object_cache[player] = player_object
         return player_object
 
@@ -283,7 +283,7 @@ class Cache(commands.Cog):
         friends = self.player_friends_cache.get(player)
 
         if friends is None:
-            friends = await self.rate_limit_wait(f"self.hypixel.getPlayerFriends({player})")
+            friends = await self.rate_limit_wait(f"self.hypixel.getPlayerFriends('{player}')")
             self.player_friends_cache[player] = friends
         return friends
 
@@ -295,7 +295,7 @@ class Cache(commands.Cog):
         guild_id = self.player_guild_cache.get(player)
 
         if guild_id is None:
-            guild_id = await self.rate_limit_wait(f"self.hypixel.getPlayerGuild({player})")
+            guild_id = await self.rate_limit_wait(f"self.hypixel.getPlayerGuild('{player}')")
             self.player_guild_cache[player] = guild_id
         return guild_id
 
@@ -311,7 +311,7 @@ class Cache(commands.Cog):
         guild_name = self.guild_id_name_cache.get(guild_id)
 
         if guild_name is None:
-            guild_name = await self.rate_limit_wait(f"self.hypixel.getGuildNameByID({guild_id})")
+            guild_name = await self.rate_limit_wait(f"self.hypixel.getGuildNameByID('{guild_id}')")
             self.guild_id_name_cache[guild_id] = guild_name
         return guild_name
 
@@ -321,7 +321,7 @@ class Cache(commands.Cog):
         guild_id = self.guild_id_name_cache.get(guild_name)
 
         if guild_id is None:
-            guild_id = await self.rate_limit_wait(f"self.hypixel.getGuildIDByName({guild_name})")
+            guild_id = await self.rate_limit_wait(f"self.hypixel.getGuildIDByName('{guild_name}')")
             self.guild_id_name_cache[guild_name] = guild_id
         return guild_id
 
@@ -331,7 +331,7 @@ class Cache(commands.Cog):
         guild = self.guild_cache.get(guild_id)
 
         if guild is None:
-            guild = await self.rate_limit_wait(f"self.hypixel.getGuildData({guild_id})")
+            guild = await self.rate_limit_wait(f"self.hypixel.getGuildData('{guild_id}')")
             self.guild_cache[guild_id] = guild
         return guild
 
@@ -341,7 +341,7 @@ class Cache(commands.Cog):
         sb = self.skyblock_cache.get(profile)
 
         if sb is None:
-            sb = await self.rate_limit_wait(f"self.hypixel.getSkyblockStats({profile})")
+            sb = await self.rate_limit_wait(f"self.hypixel.getSkyblockStats('{profile}')")
             self.skyblock_cache[profile] = sb
 
         return sb
