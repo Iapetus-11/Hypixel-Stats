@@ -421,7 +421,7 @@ class Player(commands.Cog):
                          icon_url=await self.cache.get_player_head(p_name))
 
         names_descending = await self.cache.get_player_names(await self.cache.get_player_uuid(player))
-        name_hist_text = "\uFEFF"
+        name_hist_text = "(From newest to oldest)\n\n"
 
         for i in range(0, len(names_descending), 1):
             name_hist_text += f"**{len(names_descending) - i}.** `{names_descending[i]}`\n"
