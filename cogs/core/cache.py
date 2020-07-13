@@ -232,7 +232,6 @@ class Cache(commands.Cog):
                 if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
                     raise aiopypixel.exceptions.exceptions.InvalidPlayerError
                 else:
-                    print(type(e))
                     self.failed_mojang += 1
                     name = (await self.mojang2_get_user(player))["username"]
             self.uuid_name_cache[player] = name
