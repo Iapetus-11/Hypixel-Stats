@@ -368,7 +368,7 @@ class Cache(commands.Cog):
 
         j = await resp.json()
 
-        return [record.get("name") for record in sorted(j, reverse=False)]  # returns names from newest to oldest
+        return sorted(j, key=lambda record: record.get("name"), reverse=False)  # returns names from newest to oldest
 
 
 def setup(bot):
