@@ -423,10 +423,10 @@ class Player(commands.Cog):
         names_descending = await self.cache.get_player_names(await self.cache.get_player_uuid(player))
         name_hist_text = "\uFEFF"
 
-        await ctx.send(names_descending)
-
         for i in range(0, len(names_descending), 1):
             name_hist_text += f"**{len(names_descending) - i + 1}.** `{discord.utils.escape_markdown(names_descending[i])}`"
+
+        embed.description = name_hist_text
 
         await ctx.send(embed=embed)
 
