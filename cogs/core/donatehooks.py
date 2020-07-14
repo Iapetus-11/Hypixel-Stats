@@ -19,7 +19,7 @@ class DonateHooks(commands.Cog):
     async def donatebot_hook(self):
 
         async def handler(r):
-            if r.headers.get("authorization") == self.bot.DONATEBOT_AUTH_SECRET:
+            if r.headers.get("authorization") == self.bot.donatebot_auth_secret:
                 jj = await r.json()
 
                 # kuINi_O9Vq = Premium Monthly Subscription product id (currently 2.99$)
