@@ -99,7 +99,7 @@ bot.cog_list = [
     "cogs.core.events",
     "cogs.core.cache",
     "cogs.core.autoroles",
-    "cogs.core.dbls.topgg",
+    # "cogs.core.dbls.topgg",
     "cogs.cmds.owner",
     "cogs.cmds.useful",
     "cogs.cmds.settings",
