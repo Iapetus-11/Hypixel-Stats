@@ -101,7 +101,7 @@ class Guild(commands.Cog):
 
         async with ctx.typing():
             names = []
-            for m_uuid in [uuid for member.get("uuid") in guild_members]:
+            for m_uuid in [uuid for member.get("uuid") in guild_members]:  # prob jank ik
                 try:
                     names.append(await self.cache.get_player_name(m_uuid))
                 except Exception:
