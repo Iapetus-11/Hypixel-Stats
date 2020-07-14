@@ -181,6 +181,10 @@ class Player(commands.Cog):
 
         friends = await self.cache.get_player_friends(player)
 
+        dd = self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked"
+        if linked_acc is not None and await self.db.is_premium(linked_acc):
+            dd = "**[PREMIUM]**\n" + dd
+
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
 
@@ -196,7 +200,7 @@ class Player(commands.Cog):
 
         embed.add_field(name="Achievement\nPoints",
                         value=f"{await self.cache.slothpixel_get_player_achievement_pts(p.DISPLAY_NAME)}")
-        embed.add_field(name="Discord", value=self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked")
+        embed.add_field(name="Discord", value=)
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
