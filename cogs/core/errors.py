@@ -71,13 +71,13 @@ class Errors(commands.Cog):
             await self.send(ctx, "You didn't give me proper the permissions to do that!")
             return
 
+        if "NoStatError" in str(e):
+            await self.send(ctx, "No stats available!")
+            return
+
         if isinstance(e.original, RateLimitError):
             await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
                                  f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
-            return
-
-        if "NoStatError" in str(e):
-            await self.send(ctx, "No stats available!")
             return
 
         if isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
