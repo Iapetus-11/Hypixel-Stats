@@ -44,18 +44,18 @@ class Database(commands.Cog):
         async with self.db.acquire() as con:
             await con.execute("DELETE FROM accounts WHERE id=$1", id)
 
-    async def is_premium(self, gid):
-        prem = await self.db.fetchrow("SELECT * FROM premium WHERE gid=$1", gid)
+    async def is_premium(self, id):
+        prem = await self.db.fetchrow("SELECT * FROM premium WHERE id=$1", id)
         return prem is not None
 
-    async def set_premium(self, gid):
-        if not await self.is_premium(gid):
+    async def set_premium(self, id):
+        if not await self.is_premium(id):
             async with self.db.acquire() as con:
-                await con.execute("INSERT INTO premium VALUES ($1, $2)", gid, arrow.utcnow().timestamp)
+                await con.execute("INSERT INTO premium VALUES ($1, $2)", id, arrow.utcnow().timestamp)
 
-    async def remove_premium(self, gid):
+    async def remove_premium(self, id):
         async with self.db.acquire() as con:
-            await con.execute("DELETE FROM premium WHERE gid=$1", gid)
+            await con.execute("DELETE FROM premium WHERE id=$1", id)
 
 
 def setup(bot):
