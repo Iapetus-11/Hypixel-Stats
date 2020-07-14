@@ -259,7 +259,9 @@ class Player(commands.Cog):
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
 
+        await ctx.send(player)
         player = await self.cache.get_player_name(player)
+        await ctx.send(player)
 
         puuid = await self.cache.get_player_uuid(player)
 
