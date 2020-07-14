@@ -49,8 +49,9 @@ class Errors(commands.Cog):
                 await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
                 return
 
-            elif isinstance(e.original, InvalidDiscordUser):
-                await self.send(ctx, "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
+            elif isinstance(e.original, InvalidDiscordUser) or isinstance(e, InvalidDiscordUser):
+                await self.send(ctx,
+                                "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
                 return
 
         except AttributeError:
