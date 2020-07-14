@@ -187,7 +187,7 @@ class Player(commands.Cog):
         dd = (str(self.bot.get_user(linked_acc)) if linked_acc is not None else "Not Linked")
 
         if prem:
-            embed.description = ":gem: **PREMIUM**"
+            embed.description = ":gem: **PREMIUM USER**"
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
