@@ -188,7 +188,7 @@ class Player(commands.Cog):
         if prem:
             embed.description = ":gem: **PREMIUM**"
 
-        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile :gem:",
+        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
 
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
