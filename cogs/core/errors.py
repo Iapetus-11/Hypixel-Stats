@@ -8,9 +8,10 @@ from ..core.cache import *
 
 
 class Errors(commands.Cog):
-
     def __init__(self, bot):
         self.bot = bot
+
+        self.db = self.bot.get_cog("Database")
 
     async def send(self, ctx, msg):
         try:
@@ -31,6 +32,12 @@ class Errors(commands.Cog):
             return
 
         if isinstance(e, commands.CommandOnCooldown):
+            if await self.db.is_premium(ctx.author.id):
+                e.retry_after -= (2 / 3) * e.cooldown.per
+
+            if round(e.retry_after, 2) == 0:
+                await ctx.reinvoke()
+
             descs = [
                 "Didn't your parents tell you that [patience is a virtue](http://www.patience-is-a-virtue.org/)? Calm down and wait another {0} seconds.",
                 "Hey, you need to wait another {0} seconds before doing that again.",
@@ -40,8 +47,6 @@ class Errors(commands.Cog):
 
             await self.send(ctx, choice(descs).format(round(e.retry_after, 2)))
             return
-        else:
-            ctx.command.reset_cooldown(ctx)
 
         if isinstance(e, commands.errors.MissingRequiredArgument):
             await self.send(ctx, "Looks like you're forgetting to put something in!")
