@@ -186,7 +186,7 @@ class Player(commands.Cog):
         dd = str(self.bot.get_user(linked_acc)) if linked_acc is not None else "Not Linked" + (" :gem:" if prem else "")
 
         if prem:
-            padding = floor((len(f"{prefix}{p.DISPLAY_NAME}'s Profile") - 20) / 2)
+            padding = floor((len(f"{prefix}{p.DISPLAY_NAME}'s Profile") - 16) / 2)
             if padding < 1:
                 embed.description = ":gem: **PREMIUM** user :gem:"
             else:
