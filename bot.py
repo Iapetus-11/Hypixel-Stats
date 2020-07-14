@@ -102,6 +102,7 @@ bot.cog_list = [
     "cogs.core.cache",
     "cogs.core.autoroles",
     # "cogs.core.dbls.topgg",
+    # "cogs.core.paymenthooks",
     "cogs.cmds.owner",
     "cogs.cmds.useful",
     "cogs.cmds.settings",
