@@ -95,8 +95,7 @@ class Guild(commands.Cog):
             return
 
         embed = discord.Embed(color=await self.bot.cc())
-        embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)",
-                         icon_url=head)
+        embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)")
 
         premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
 
@@ -123,9 +122,7 @@ class Guild(commands.Cog):
                 else:
                     embed = discord.Embed(color=await self.bot.cc())
 
-                embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)",
-                                 icon_url=head)
-
+                embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)")
                 embed.set_footer(text=f"[Page {page}/{max_pages}]")
 
                 smol_chonks = []
