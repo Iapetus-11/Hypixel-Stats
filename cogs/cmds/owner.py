@@ -7,6 +7,8 @@ class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+        self.db = self.bot.get_cog("Database")
+
     async def send(self, location, message):  # idk because it's easy ig
         await location.send(embed=discord.Embed(color=await self.bot.cc(), description=message))
 
@@ -80,6 +82,17 @@ class Owner(commands.Cog):
             await self.send(ctx, f"```diff\n{f.read()}\n```")
         os.system("rm git_pull_log")
 
+    @commands.command(name="setpremium", aliases=["setprem", "premium"])
+    @commands.is_owner()
+    async def set_premium(self, ctx, user: discord.User, expires=-1):
+        await self.db.set_premium(user.id, expires)
+        await self.send(ctx, f"Gave {user} premium.")
+
+    @commands.command(name="removepremium", aliases=["remprem", "removeprem"])
+    @commands.is_owner()
+    async def remove_premium(self, ctx, user: discord.User):
+        await self.db.remove_premium(user.id)
+        await self.send(ctx, f"Removed {user}'s premium.")
 
 def setup(bot):
     bot.add_cog(Owner(bot))
