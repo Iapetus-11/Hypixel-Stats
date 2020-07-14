@@ -26,36 +26,31 @@ class Errors(commands.Cog):
         except AttributeError:
             ctx.handled = False
 
-        try:
+        if isinstance(e.original, RateLimitError):
+            await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
+                                 f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
+            return
 
-            if isinstance(e.original, RateLimitError):
-                await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
-                                     f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
-                return
+        if "NoStatError" in str(e):
+            await self.send(ctx, "No stats available!")
+            return
 
-            elif "NoStatError" in str(e):
-                await self.send(ctx, "No stats available!")
-                return
+        if isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
+            await self.send(ctx, "That player is invalid or doesn't exist!")
+            return
 
-            elif isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
-                await self.send(ctx, "That player is invalid or doesn't exist!")
-                return
+        if isinstance(e.original, InvalidGuildError):
+            await self.send(ctx, "That guild is invalid or doesn't exist!")
+            return
 
-            elif isinstance(e.original, InvalidGuildError):
-                await self.send(ctx, "That guild is invalid or doesn't exist!")
-                return
+        if isinstance(e.original, NullPlayerError):
+            await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
+            return
 
-            elif isinstance(e.original, NullPlayerError):
-                await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
-                return
-
-            elif isinstance(e.original, InvalidDiscordUser) or isinstance(e, InvalidDiscordUser):
-                await self.send(ctx,
-                                "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
-                return
-
-        except AttributeError:
-            pass
+        if isinstance(e.original, InvalidDiscordUser) or isinstance(e, InvalidDiscordUser):
+            await self.send(ctx,
+                            "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
+            return
 
         if isinstance(e, commands.errors.NoPrivateMessage):
             await self.send(ctx, "This command can't be used in private chat channels.")
