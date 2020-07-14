@@ -182,10 +182,12 @@ class Player(commands.Cog):
         friends = await self.cache.get_player_friends(player)
 
         dd = self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked"
-        if linked_acc is not None and await self.db.is_premium(linked_acc):
-            dd = f"**[PREMIUM]**\n{dd}"
 
-        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
+        prem = ""
+        if linked_acc is not None and await self.db.is_premium(linked_acc):
+            prem = " **[PREMIUM USER]**"
+
+        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile{prem}",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
 
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
