@@ -200,7 +200,7 @@ class Player(commands.Cog):
 
         embed.add_field(name="Achievement\nPoints",
                         value=f"{await self.cache.slothpixel_get_player_achievement_pts(p.DISPLAY_NAME)}")
-        embed.add_field(name="Discord", value=)
+        embed.add_field(name="Discord", value=dd)
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
