@@ -1089,7 +1089,7 @@ class Games(commands.Cog):
         bow_shots = duels.get("bow_shots", 0)
         bow_hits = duels.get("bow_hits", 0)
         embed.add_field(name="Bow Shots", value=bow_shots)
-        embed.add_field(name="Bow Hits", value=bow_shots)
+        embed.add_field(name="Bow Hits", value=bow_hits)
         embed.add_field(name="Accuracy",
                         value=f"{round((bow_hits + .00001) / (bow_shots + .00001), 2) * 100 * (0 if bow_shots == 0 else 1)}%")
 
