@@ -65,6 +65,7 @@ bot.cc = cc.__get__(bot)  # Bind the async cc() method to the bot class without 
 # Don't even think about it Hg
 # bot.cc = discord.Color.gold()  # color of the embeds
 bot.guild_invite_code = "MZ2cXxF"
+bot.support_guild_id = 718983582898585602
 bot.error_channel_id = 718983583779520541
 bot.start_time = None  # Will be set later in cogs.core.events
 bot.timeout_message = "You took too long to answer, the command was canceled."
