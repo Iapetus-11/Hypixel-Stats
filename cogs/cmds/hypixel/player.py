@@ -185,7 +185,7 @@ class Player(commands.Cog):
 
         prem = ""
         if linked_acc is not None and await self.db.is_premium(linked_acc):
-            prem = " **[PREMIUM USER]**"
+            prem = "[PREMIUM USER]"
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile{prem}",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
