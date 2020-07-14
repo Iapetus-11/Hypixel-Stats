@@ -86,12 +86,12 @@ class Guild(commands.Cog):
 
         if not guild_members:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                               description=f"**{discord.utils.escape_markdown(player)}** doesn't have any friends! :cry:"))
+                                               description=f"**{discord.utils.escape_markdown(g.NAME)}** doesn't have any members! :cry:"))
             return
 
         if len(guild_members) > 1024:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                               description=f"**{discord.utils.escape_markdown(player)}** has too many friends to show! :cry:"))
+                                               description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
             return
 
         embed = discord.Embed(color=await self.bot.cc())
@@ -145,65 +145,6 @@ class Guild(commands.Cog):
                     self.bot.loop.create_task(self.edit_show_online(sent, embed, smol_chonks))
 
                 if stop or len(guild_members) <= 21:
-                    return
-
-                if len(chonks) - 3 < 1:
-                    stop = True
-
-                def check(m):
-                    return m.content in ["more", "next", "nextpage", "showmore"]
-
-                await self.bot.wait_for("message", check=check, timeout=30)
-        except asyncio.TimeoutError:
-            pass
-
-    @commands.command(name="guildmembers", aliases=["gmembers", "guildplayers", "gms", "members"])
-    @commands.cooldown(1, 4, commands.BucketType.user)
-    async def guild_members(self, ctx, *, guild_name):
-        guild_id = await self.cache.get_guild_id_from_name(guild_name)
-        g = await self.cache.get_guild(guild_id)
-        members = [g["uuid"] for g in g.MEMBERS]
-
-        if len(members) > 1024:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                               description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
-            return
-
-        premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
-
-        async with ctx.typing():
-            names = [await self.cache.get_player_name(uuid) for uuid in members]
-
-            chonks = [names[i:i + 10] for i in range(0, len(names), 10)]  # groups of 10 of the usernames
-
-        try:
-            stop = False
-            page = 0
-            max_pages = ceil(len(chonks) / 3)
-
-            while True:
-                page += 1
-
-                if not stop and len(chonks) > 3:
-                    embed = discord.Embed(color=await self.bot.cc(),
-                                          title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)",
-                                          description="Type ``more`` for more!")
-                else:
-                    embed = discord.Embed(color=await self.bot.cc(),
-                                          title=f"Members of **{discord.utils.escape_markdown(g.NAME)}** ({len(members)} total!)")
-
-                embed.set_footer(text=f"[Page {page}/{max_pages}]")
-
-                for i in range(0, 3, 1):
-                    try:
-                        embed.add_field(name="\uFEFF",
-                                        value=discord.utils.escape_markdown("\n\n".join(chonks.pop(0))))
-                    except IndexError:
-                        pass
-
-                await ctx.send(embed=embed)
-
-                if stop or len(members) < 31:
                     return
 
                 if len(chonks) - 3 < 1:
