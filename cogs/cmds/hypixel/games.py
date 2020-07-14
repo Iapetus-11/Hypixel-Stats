@@ -1098,7 +1098,7 @@ class Games(commands.Cog):
         embed.add_field(name="Melee Swings", value=melee_swings)
         embed.add_field(name="Melee Hits", value=melee_hits)
         embed.add_field(name="Accuracy",
-                        value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * 0 if melee_swings == 0 else 1}%")
+                        value=f"{round((melee_hits + .00001) / (melee_swings + .00001), 2) * 100 * (0 if melee_swings == 0 else 1)}%")
 
         embed.add_field(name="Avg. Kills\nper Game",
                         value=round((kills + 0.00001) / (total_games + 0.00001)))
