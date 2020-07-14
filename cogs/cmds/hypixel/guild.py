@@ -116,7 +116,7 @@ class Guild(commands.Cog):
         embed = discord.Embed(color=await self.bot.cc())
         embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)")
 
-        premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
+        premium = False if ctx.guild is None else await self.db.is_premium(ctx.author.id)
 
         async with ctx.typing():
             names = []
