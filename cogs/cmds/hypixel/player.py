@@ -134,10 +134,11 @@ class Player(commands.Cog):
         async with ctx.typing():
             p = await self.cache.get_player(player)
 
+        prem = False
         linked_acc = await self.db.get_linked_account_via_uuid(p.UUID)
-        if linked_acc is not None: linked_acc = linked_acc[0]
-
-        prem = linked_acc is not None and self.db.is_premium(linked_acc)
+        if linked_acc is not None:
+            linked_acc = linked_acc[0]
+            prem = await self.db.is_premium(linked_acc)
 
         embed = discord.Embed(color=await self.bot.cc())
 
