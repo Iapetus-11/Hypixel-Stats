@@ -58,6 +58,103 @@ class Guild(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def edit_show_online(self, msg, prev_embed, chonks):
+        embed = prev_embed.copy()
+        embed.clear_fields()
+
+        for i in range(0, 3, 1):
+            try:
+                body = "\uFEFF"
+                users = chonks.pop(0)
+                for user in users:
+                    body += f"{await self.get_user_status(user)} {discord.utils.escape_markdown(user)}\n\n"
+                embed.add_field(name="\uFEFF", value=body)
+            except IndexError:
+                pass
+
+        await msg.edit(embed=embed)
+
+    @commands.command(name="guildmembers", aliases=["gmembers", "guildplayers", "gms", "members"])
+    @commands.cooldown(1, 4, commands.BucketType.user)
+    async def guild_members(self, ctx, *, guild_name):
+        guild_id = await self.cache.get_guild_id_from_name(guild_name)
+        g = await self.cache.get_guild(guild_id)
+
+        guild_members = g.MEMBERS
+
+        if not guild_members:
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                               description=f"**{discord.utils.escape_markdown(player)}** doesn't have any friends! :cry:"))
+            return
+
+        if len(guild_members) > 1024:
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                               description=f"**{discord.utils.escape_markdown(player)}** has too many friends to show! :cry:"))
+            return
+
+        embed = discord.Embed(color=await self.bot.cc())
+        embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)",
+                         icon_url=head)
+
+        premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
+
+        async with ctx.typing():
+            names = []
+            for m_uuid in guild_members:
+                try:
+                    names.append(await self.cache.get_player_name(m_uuid))
+                except Exception:
+                    names.append("[Invalid User]")
+
+            chonks = [names[i:i + 7] for i in range(0, len(names), 7)]  # groups of 10 of the usernames, 7 good 2
+
+        try:
+            stop = False
+            page = 0
+            max_pages = ceil(len(chonks) / 3)
+
+            while True:
+                page += 1
+
+                if not stop and len(chonks) > 3:
+                    embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
+                else:
+                    embed = discord.Embed(color=await self.bot.cc())
+
+                embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)",
+                                 icon_url=head)
+
+                embed.set_footer(text=f"[Page {page}/{max_pages}]")
+
+                smol_chonks = []
+
+                for i in range(0, 3, 1):
+                    try:
+                        smol_chonk = chonks.pop(0)
+                        smol_chonks.append(smol_chonk)
+                        embed.add_field(name="\uFEFF",
+                                        value=discord.utils.escape_markdown("\n\n".join(smol_chonk)))
+                    except IndexError:
+                        pass
+
+                sent = await ctx.send(embed=embed)
+
+                if premium:
+                    self.bot.loop.create_task(self.edit_show_online(sent, embed, smol_chonks))
+
+                if stop or len(guild_members) <= 21:
+                    return
+
+                if len(chonks) - 3 < 1:
+                    stop = True
+
+                def check(m):
+                    return m.content in ["more", "next", "nextpage", "showmore"]
+
+                await self.bot.wait_for("message", check=check, timeout=30)
+        except asyncio.TimeoutError:
+            pass
+
     @commands.command(name="guildmembers", aliases=["gmembers", "guildplayers", "gms", "members"])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def guild_members(self, ctx, *, guild_name):
@@ -69,6 +166,8 @@ class Guild(commands.Cog):
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
             return
+
+        premium = False if ctx.guild is None else await self.db.is_premium(ctx.guild.id)
 
         async with ctx.typing():
             names = [await self.cache.get_player_name(uuid) for uuid in members]
