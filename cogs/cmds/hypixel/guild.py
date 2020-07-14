@@ -11,7 +11,9 @@ class Guild(commands.Cog):
         """basic initalization of the guild cog"""
 
         self.bot = bot
+
         self.cache = self.bot.get_cog("Cache")
+        self.db = self.bot.get_cog("Database")
 
     @commands.command(name="guild", aliases=["g"])
     @commands.cooldown(1, 5, commands.BucketType.user)
