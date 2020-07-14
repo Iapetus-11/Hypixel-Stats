@@ -60,6 +60,25 @@ class Guild(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    async def get_user_status(self, user):
+        if " " in user:
+            return self.bot.EMOJIS['offline_status']
+
+        try:
+            p = await self.cache.get_player(user)
+        except Exception:
+            return self.bot.EMOJIS['offline_status']
+
+        if p is None:
+            return self.bot.EMOJIS['offline_status']
+
+        status = self.bot.EMOJIS['offline_status']
+        if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
+            if p.LAST_LOGIN > p.LAST_LOGOUT:
+                status = self.bot.EMOJIS['online_status']
+
+        return status
+
     async def edit_show_online(self, msg, prev_embed, chonks):
         embed = prev_embed.copy()
         embed.clear_fields()
