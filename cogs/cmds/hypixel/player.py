@@ -137,7 +137,7 @@ class Player(commands.Cog):
         linked_acc = await self.db.get_linked_account_via_uuid(p.UUID)
         if linked_acc is not None: linked_acc = linked_acc[0]
 
-        prem = True if (linked_acc is not None and self.db.is_premium(linked_acc)) else False
+        prem = linked_acc is not None and self.db.is_premium(linked_acc)
 
         embed = discord.Embed(color=await self.bot.cc())
 
