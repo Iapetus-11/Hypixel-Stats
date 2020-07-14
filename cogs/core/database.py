@@ -1,4 +1,3 @@
-import arrow
 import discord
 from discord.ext import commands
 
@@ -40,22 +39,22 @@ class Database(commands.Cog):
     async def get_linked_account_via_uuid(self, uuid):
         return await self.db.fetchrow("SELECT * FROM accounts WHERE uuid=$1", uuid)
 
-    async def drop_linked_account(self, id):
+    async def drop_linked_account(self, uid):
         async with self.db.acquire() as con:
-            await con.execute("DELETE FROM accounts WHERE id=$1", id)
+            await con.execute("DELETE FROM accounts WHERE uid=$1", uid)
 
-    async def is_premium(self, id):
-        prem = await self.db.fetchrow("SELECT * FROM premium WHERE id=$1", id)
+    async def is_premium(self, uid):
+        prem = await self.db.fetchrow("SELECT * FROM premium WHERE uid=$1", uid)
         return prem is not None
 
-    async def set_premium(self, id):
+    async def set_premium(self, uid, expires=-1):
         if not await self.is_premium(id):
             async with self.db.acquire() as con:
-                await con.execute("INSERT INTO premium VALUES ($1, $2)", id, arrow.utcnow().timestamp)
+                await con.execute("INSERT INTO premium VALUES ($1, $2)", uid, expires)
 
-    async def remove_premium(self, id):
+    async def remove_premium(self, uid):
         async with self.db.acquire() as con:
-            await con.execute("DELETE FROM premium WHERE id=$1", id)
+            await con.execute("DELETE FROM premium WHERE uid=$1", uid)
 
 
 def setup(bot):
