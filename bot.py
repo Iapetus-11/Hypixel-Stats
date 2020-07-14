@@ -49,7 +49,7 @@ async def get_prefix(_bot, message):
     return "H!" if message.content.startswith("H!") else "h!"
 
 
-async def cc(ctx=None):
+async def cc(uid=None):
     return discord.Color.gold()
 
 
