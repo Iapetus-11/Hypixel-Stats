@@ -11,8 +11,6 @@ class Errors(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.db = self.bot.get_cog("Database")
-
     async def send(self, ctx, msg):
         try:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description=msg))
@@ -32,7 +30,7 @@ class Errors(commands.Cog):
             return
 
         if isinstance(e, commands.CommandOnCooldown):
-            if await self.db.is_premium(ctx.author.id):
+            if await self.bot.get_cog("Database").is_premium(ctx.author.id):
                 e.retry_after -= (2 / 3) * e.cooldown.per
 
             if round(e.retry_after, 2) == 0:
