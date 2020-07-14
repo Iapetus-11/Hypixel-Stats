@@ -48,7 +48,7 @@ class Database(commands.Cog):
         return prem is not None
 
     async def set_premium(self, uid, expires):
-        if not await self.is_premium(id):
+        if not await self.is_premium(uid):
             async with self.db.acquire() as con:
                 await con.execute("INSERT INTO premium VALUES ($1, $2)", uid, expires)
 
