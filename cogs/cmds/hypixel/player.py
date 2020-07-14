@@ -183,13 +183,12 @@ class Player(commands.Cog):
 
         friends = await self.cache.get_player_friends(player)
 
-        dd = (str(self.bot.get_user(linked_acc)) if linked_acc is not None else "Not Linked") + (
-            " :gem:" if prem else "")
+        dd = (str(self.bot.get_user(linked_acc)) if linked_acc is not None else "Not Linked")
 
         if prem:
             padding = floor((len(f"{prefix}{p.DISPLAY_NAME}'s Profile") - 16) / 2)
             if padding < 1:
-                embed.description = ":gem: **PREMIUM** user :gem:"
+                embed.description = ":gem: **PREMIUM**"
             else:
                 embed.description = " " * padding + ":gem: **PREMIUM** user :gem:" + " " * padding
 
@@ -208,7 +207,7 @@ class Player(commands.Cog):
 
         embed.add_field(name="Achievement\nPoints",
                         value=f"{await self.cache.slothpixel_get_player_achievement_pts(p.DISPLAY_NAME)}")
-        embed.add_field(name="Discord", value=dd)
+        embed.add_field(name="Discord", value=(" :gem:" if prem else "") + dd)
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
