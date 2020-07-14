@@ -22,7 +22,7 @@ class DonateHooks(commands.Cog):
             if r.headers.get("authorization") == self.bot.donatebot_auth_secret:
                 jj = await r.json()
 
-                # kuINi_O9Vq = Premium Monthly Subscription product id (currently 2.99$)
+                # kuINi_O9Vq = Premium Monthly Subscription product id (currently $3 USD)
                 if jj.get("product_id") == "kuINi_O9Vq":
                     if jj.get("buyer_id") is not None:
                         if jj.get("status") == "completed":
