@@ -185,9 +185,9 @@ class Player(commands.Cog):
 
         prem = ""
         if linked_acc is not None and await self.db.is_premium(linked_acc):
-            prem = " [PREMIUM USER]"
+            prem = "\n[:gem: **Premium**]"
 
-        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile{prem}",
+        embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
 
         embed.add_field(name="Rank", value=rank.replace("_", "").replace("PLUS", "+"), inline=True)
@@ -202,7 +202,7 @@ class Player(commands.Cog):
 
         embed.add_field(name="Achievement\nPoints",
                         value=f"{await self.cache.slothpixel_get_player_achievement_pts(p.DISPLAY_NAME)}")
-        embed.add_field(name="Discord", value=dd)
+        embed.add_field(name="Discord", value=f"{dd}{prem}")
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
