@@ -183,7 +183,7 @@ class Player(commands.Cog):
 
         dd = self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked"
         if linked_acc is not None and await self.db.is_premium(linked_acc):
-            dd = "**[PREMIUM]**\n" + dd
+            dd = f"**[PREMIUM]**\n{dd}"
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
