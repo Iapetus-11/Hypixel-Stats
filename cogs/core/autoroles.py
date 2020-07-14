@@ -1,3 +1,4 @@
+import asyncio
 import discord
 from discord.ext import commands
 
@@ -21,13 +22,13 @@ class AutoRoles(commands.Cog):
                     try:
                         await member.add_roles(
                             self.bot.get_guild(self.bot.support_guild_id).get_role(732635033738674186))
-                    except Exception:
+                    except discord.HTTPException:
                         pass
                 else:
                     try:
                         await member.remove_roles(
                             self.bot.get_guild(self.bot.support_guild_id).get_role(732635033738674186))
-                    except Exception:
+                    except discord.HTTPException:
                         pass
 
             for i in range(0, 60 * 10, 1):
