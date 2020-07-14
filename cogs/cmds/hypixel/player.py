@@ -131,13 +131,10 @@ class Player(commands.Cog):
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
 
+        player = await self.cache.get_player_name(player)
+
         async with ctx.typing():
             p = await self.cache.get_player(player)
-        if p == 'Invalid Minecraft Username':
-            embed = discord.Embed(color=await self.bot.cc(),
-                                  description='Invalid Minecraft Username!')
-            await ctx.send(embed=embed)
-            return  # next level bad code (the error handler wasnt working for some reason)
 
         embed = discord.Embed(color=await self.bot.cc(), description=f"[`{p.UUID}`]")
 
@@ -353,6 +350,8 @@ class Player(commands.Cog):
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
+
+        player = await self.cache.get_player_name(player)
 
         player_guild = await self.cache.get_player_guild(player)
 
