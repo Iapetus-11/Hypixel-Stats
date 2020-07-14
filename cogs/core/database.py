@@ -65,7 +65,7 @@ class Database(commands.Cog):
             all = await self.db.fetch("SELECT * FROM premium")
             async with self.db.acquire() as con:
                 for entry in all:
-                    if arrow.utcnow().timestamp > entry[1]:
+                    if arrow.utcnow().timestamp > entry[1] > 1:
                         await con.execute("DELETE FROM premium WHERE uid=$1", entry[0])
 
             for _ in range(0, 60 * 10, 1):
