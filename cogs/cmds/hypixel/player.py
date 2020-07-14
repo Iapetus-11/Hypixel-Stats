@@ -186,11 +186,7 @@ class Player(commands.Cog):
         dd = (str(self.bot.get_user(linked_acc)) if linked_acc is not None else "Not Linked")
 
         if prem:
-            padding = floor((len(f"{prefix}{p.DISPLAY_NAME}'s Profile") - 16) / 2)
-            if padding < 1:
-                embed.description = ":gem: **PREMIUM**"
-            else:
-                embed.description = " " * padding + ":gem: **PREMIUM** user :gem:" + " " * padding
+            embed.description = ":gem: **PREMIUM**"
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
