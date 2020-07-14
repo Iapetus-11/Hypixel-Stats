@@ -134,10 +134,12 @@ class Player(commands.Cog):
         async with ctx.typing():
             p = await self.cache.get_player(player)
 
-        embed = discord.Embed(color=await self.bot.cc(), description=f"[`{p.UUID}`]")
-
         linked_acc = await self.db.get_linked_account_via_uuid(p.UUID)
         if linked_acc is not None: linked_acc = linked_acc[0]
+
+        prem = True if (linked_acc is not None and self.db.is_premium(linked_acc)) else False
+
+        embed = discord.Embed(color=await self.bot.cc())
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
@@ -181,11 +183,14 @@ class Player(commands.Cog):
 
         friends = await self.cache.get_player_friends(player)
 
-        dd = self.bot.get_user(linked_acc) if linked_acc is not None else "Not Linked"
+        dd = str(self.bot.get_user(linked_acc)) if linked_acc is not None else "Not Linked" + (" :gem:" if prem else "")
 
-        prem = ""
-        if linked_acc is not None and await self.db.is_premium(linked_acc):
-            prem = "\n[:gem: **Premium**]"
+        if prem:
+            padding = floor((len(f"{prefix}{p.DISPLAY_NAME}'s Profile") - 20) / 2)
+            if padding < 1:
+                embed.description = ":gem: **PREMIUM** user :gem:"
+            else:
+                embed.description = " " * padding + ":gem: **PREMIUM** user :gem:" + " " * padding
 
         embed.set_author(name=f"{prefix}{p.DISPLAY_NAME}'s Profile",
                          url=f"https://hypixel.net/player/{p.DISPLAY_NAME}", icon_url=player_pfp)
@@ -202,7 +207,7 @@ class Player(commands.Cog):
 
         embed.add_field(name="Achievement\nPoints",
                         value=f"{await self.cache.slothpixel_get_player_achievement_pts(p.DISPLAY_NAME)}")
-        embed.add_field(name="Discord", value=f"{dd}{prem}")
+        embed.add_field(name="Discord", value=dd)
         embed.add_field(name="Friends", value=len([] if friends is None else friends))
 
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
