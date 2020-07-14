@@ -220,7 +220,10 @@ class Cache(commands.Cog):
         """Fetches a player's username via their mc uuid"""
 
         if len(player) <= 16:
-            return player
+            if player in self.valid_names_and_uuids:
+                return player
+            uuid = await self.get_player_uuid(player)
+            return await self.get_player_name(uuid)
 
         name = self.uuid_name_cache.get(player)
 
@@ -234,6 +237,9 @@ class Cache(commands.Cog):
                     self.failed_mojang += 1
                     name = (await self.mojang2_get_user(player))["username"]
             self.uuid_name_cache[player] = name
+
+        if name not in self.valid_names_and_uuids:
+            self.valid_names_and_uuids.append(name)
 
         return name
 
