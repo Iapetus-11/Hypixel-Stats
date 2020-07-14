@@ -1,3 +1,4 @@
+import arrow
 import discord
 from discord.ext import commands
 
@@ -5,8 +6,11 @@ from discord.ext import commands
 class Database(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        
+
         self.db = bot.db
+
+        self.stop_loops = False
+        self.bot.loop.create_task(self.expiry_sweep())
 
     async def get_prefix(self, gid):
         pp = await self.db.fetchrow("SELECT prefix FROM prefixes WHERE gid=$1", gid)
@@ -55,6 +59,19 @@ class Database(commands.Cog):
     async def remove_premium(self, uid):
         async with self.db.acquire() as con:
             await con.execute("DELETE FROM premium WHERE uid=$1", uid)
+
+    async def expiry_sweep(self):
+        while True:
+            all = await self.db.fetch("SELECT * FROM premium")
+            async with self.db.acquire() as con:
+                for entry in all:
+                    if arrow.utcnow().timestamp > entry[1]:
+                        await con.execute("DELETE FROM premium WHERE uid=$1", entry[0])
+
+            for _ in range(0, 60 * 10, 1):
+                await asyncio.sleep(1)
+                if self.stop_loops:
+                    return
 
 
 def setup(bot):
