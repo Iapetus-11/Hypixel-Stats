@@ -688,13 +688,13 @@ class Games(commands.Cog):
         elif _type in ["2", "doubles", "2s", "double"]:
             type_clean = "DOUBLES"
             actual_type = "eight_two_"
-        elif _type in ["3", "threes", "3s", "3x3x3x3"]:
+        elif _type in ["3", "threes", "3s", "3x3x3x3", "3v3v3v3"]:
             type_clean = "3x3x3x3"
             actual_type = "four_three_"
-        elif _type in ["4", "fours", "4s", "4x4x4x4"]:
+        elif _type in ["4", "fours", "4s", "4x4x4x4", "4v4v4v4"]:
             type_clean = "4x4x4x4"
             actual_type = "four_four_"
-        elif _type in ["5", "fourvsfour", "4v4", "2x4", "4x4"]:
+        elif _type in ["5", "fourvsfour", "4v4", "2x4", "4x4", "4v4"]:
             type_clean = "4x4"
             actual_type = "two_four_"
         else:
