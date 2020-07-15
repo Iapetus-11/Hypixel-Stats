@@ -51,7 +51,7 @@ class Errors(commands.Cog):
             return
 
         if isinstance(e, commands.BadArgument):
-            await self.send(ctx, "Looks like you typed something wrong, try typing it correctly the first time, idiot.")
+            await self.send(ctx, "Looks like you typed something wrong.")
             return
 
         if isinstance(e, commands.errors.NoPrivateMessage):
@@ -92,7 +92,9 @@ class Errors(commands.Cog):
             await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
             return
 
-        if isinstance(e.original, InvalidDiscordUser) or isinstance(e, InvalidDiscordUser):
+        if isinstance(e.original, InvalidDiscordUser) or isinstance(e,
+                                                                    InvalidDiscordUser) or "InvalidPlayerError" in str(
+                e):
             await self.send(ctx,
                             "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
             return
