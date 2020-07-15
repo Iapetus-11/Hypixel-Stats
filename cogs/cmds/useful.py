@@ -68,12 +68,12 @@ class Useful(commands.Cog):
                   f"CMD Count: ``{self.bot.cmd_count}``\n" \
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
                   f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``\n" \
-                  f"Premium Users: ``{(await self.db.fetchrow('select COUNT(*) FROM premium'))[0]}``\n" \
+                  f"Premium Users: ``{(await self.bot.db.fetchrow('select COUNT(*) FROM premium'))[0]}``\n" \
                   f"Avg cmds / sec: ``{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}``\n"
         embed.add_field(name="General", value=general)
 
         caching = f"failed Hypixel: ``{self.cache.failed}``\n" \
-                  f"failed sloth: ``{self.cache.failed_sloth}``\n" \
+                  f"failed Sloth: ``{self.cache.failed_sloth}``\n" \
                   f"failed Mojang: ``{self.cache.failed_mojang}``\n" \
                   f"name & uuid cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
