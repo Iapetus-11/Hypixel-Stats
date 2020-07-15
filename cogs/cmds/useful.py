@@ -68,6 +68,7 @@ class Useful(commands.Cog):
                   f"CMD Count: ``{self.bot.cmd_count}``\n" \
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
                   f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``\n" \
+                  f"Premium Users: ``{(await self.db.fetchrow('select COUNT(*) FROM premium'))[0]}``\n" \
                   f"Avg cmds / sec: ``{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}``\n"
         embed.add_field(name="General", value=general)
 
@@ -77,14 +78,14 @@ class Useful(commands.Cog):
                   f"name & uuid cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
                   f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
                   f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
-                  f"skyblock endp cache: ``{len(self.cache.skyblock_cache)}``\n" \
-                  f"skyblock armor cache: ``{len(self.cache.armor_cache)}``\n"
+                  f"player object cache: ``{len(self.cache.player_object_cache)}``\n"
         caching2 = f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n" \
                    f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
                    f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
-                   f"player object cache: ``{len(self.cache.player_object_cache)}``\n" \
                    f"guild object cache: ``{len(self.cache.guild_cache)}``\n" \
-                   f"achievement pts cache: ``{len(self.cache.achievement_pts_cache)}``\n"
+                   f"achievement pts cache: ``{len(self.cache.achievement_pts_cache)}``\n" \
+                   f"skyblock endp cache: ``{len(self.cache.skyblock_cache)}``\n" \
+                   f"skyblock armor cache: ``{len(self.cache.armor_cache)}``\n"
         embed.add_field(name="Caching", value=caching)
         embed.add_field(name="Caching", value=caching2)
 
