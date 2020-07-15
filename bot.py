@@ -131,8 +131,9 @@ async def bot_check(ctx):
         return False
 
     if randint(0, 60) == 15:
-        await ctx.send(embed=discord.Embed(color=await bot.cc(),
-                                           description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
+        if not await self.bot.get_cog("Database").is_premium(ctx.author.id):
+            await ctx.send(embed=discord.Embed(color=await bot.cc(),
+                                               description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
 
     return not ctx.author.bot
 
