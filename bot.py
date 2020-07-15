@@ -27,7 +27,7 @@ DBL = [os.getenv("dbl1"), os.getenv("dbl2")]
 DONATEBOT_SECRET = os.getenv('donatebot_secret')
 
 # sets up logging methods
-logging.basicConfig(level=logging.INFO)  # Should be logging.WARNING in the future, like this for debug purposes ig
+logging.basicConfig(level=logging.WARNING)  # Should be logging.WARNING in the future, like INFO for debug purposes ig
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)  # Hide those annoying errors
 
 tips = [
