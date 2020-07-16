@@ -180,6 +180,8 @@ class Cache(commands.Cog):
     async def get_player_uuid(self, player):
         """Fetches a player's uuid via their username"""
 
+        player = player.replace(" ", "")
+
         # Check if user has a linked account in the db
         if discord.utils.escape_mentions(player).startswith("<@​!"):
             try:
@@ -218,6 +220,8 @@ class Cache(commands.Cog):
 
     async def get_player_name(self, player):
         """Fetches a player's username via their mc uuid"""
+
+        player = player.replace(" ", "")
 
         if len(player) <= 16:
             if player in self.valid_names_and_uuids:
