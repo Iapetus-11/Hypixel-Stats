@@ -47,6 +47,17 @@ class Database(commands.Cog):
         async with self.db.acquire() as con:
             await con.execute("DELETE FROM accounts WHERE uid=$1", uid)
 
+    async def get_color(self, uid):
+        color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
+        return color['color'] if color is not None else await self.bot.cc()
+
+    async def set_color(self, uid, color):
+        async with self.db.acquire() as con:
+            if color == await self.bot.cc():
+                await con.execute("DELETE FROM color WHERE uid=$1", uid)
+            else:
+                await con.execute("UPDATE COLOR SET color = $1 WHERE uid = $2", color, uid)
+
     async def is_premium(self, uid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE uid=$1", uid)
         return prem is not None
