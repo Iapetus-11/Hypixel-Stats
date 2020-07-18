@@ -16,7 +16,6 @@ class Settings(commands.Cog):
                               "?", ">", "<", ",",)
 
     @commands.group(name="config", aliases=["settings", "set", "conf"])
-    @commands.guild_only()
     @commands.has_permissions(administrator=True)
     async def config(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -27,6 +26,11 @@ class Settings(commands.Cog):
 
     @config.command(name="prefix", aliases=["pp", "p", "commandprefix"])
     async def config_prefix(self, ctx, prefix: str = None):
+        if ctx.guild is None:
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                               description="This command can't be used in dms or group chats."))
+            return
+
         if prefix is None:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                description=f"The current prefix is: ``{await self.db.get_prefix(ctx.guild.id)}``"))
@@ -43,6 +47,12 @@ class Settings(commands.Cog):
                 s = "\n*Also, your prefix was too long, so we shortened it!*"
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
                                                description=f"Changed the prefix from **``{ctx.prefix}``** to **``{prefix}``**{s}"))
+
+    @config.command(name="color", aliases=["changecolor"])
+    async def config_color(self, ctx, color: str = None):
+        if color is None:
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                               description=f"The current embed color is {await self.db.get_color(ctx.author.id)}"))
 
 
 def setup(bot):
