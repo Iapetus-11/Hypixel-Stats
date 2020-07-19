@@ -25,6 +25,11 @@ class Errors(commands.Cog):
         except AttributeError:
             ctx.handled = False
 
+        # Commands to ignore
+        for _type in [commands.CommandNotFound, commands.NotOwner, commands.CheckFailure, discord.errors.Forbidden]:
+            if isinstance(e, _type):
+                return
+
         if isinstance(e, commands.MaxConcurrencyReached):
             await self.send(ctx, "Hold on! You can't use multiple of that command at once!")
             return
@@ -98,11 +103,6 @@ class Errors(commands.Cog):
             await self.send(ctx,
                             "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
             return
-
-        # Commands to ignore
-        for _type in [commands.CommandNotFound, commands.NotOwner, commands.CheckFailure, discord.errors.Forbidden]:
-            if isinstance(e, _type):
-                return
 
         if "error code: 50013" in str(e):
             await self.send(ctx, "I can't do that, you idiot.")
