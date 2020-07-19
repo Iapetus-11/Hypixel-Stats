@@ -59,6 +59,8 @@ class Useful(commands.Cog):
         embed.set_author(name="Bot Statistics",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
+        key_data = await self.cache.hypixel.getKeyData()
+
         uptime = arrow.utcnow() - self.bot.start_time
 
         general = f"Guild Count: ``{len(self.bot.guilds)}``\n" \
@@ -69,7 +71,8 @@ class Useful(commands.Cog):
                   f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
                   f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``\n" \
                   f"Premium Users: ``{(await self.bot.db.fetchrow('select COUNT(*) FROM premium'))[0]}``\n" \
-                  f"Avg cmds / sec: ``{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}``\n"
+                  f"Avg cmds / sec: ``{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}``\n" \
+                  f"Key Data: ``Limit: {key_data['limit']}  Used: {key_data['queriesInPastMin']}``\n"
         embed.add_field(name="General", value=general)
 
         caching = f"failed Hypixel: ``{self.cache.failed}``\n" \
