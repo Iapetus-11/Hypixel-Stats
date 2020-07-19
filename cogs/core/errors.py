@@ -99,13 +99,17 @@ class Errors(commands.Cog):
 
         if isinstance(e.original, InvalidDiscordUser) or isinstance(e,
                                                                     InvalidDiscordUser) or "InvalidPlayerError" in str(
-                e):
+            e):
             await self.send(ctx,
                             "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
             return
 
         if "error code: 50013" in str(e):
             await self.send(ctx, "I can't do that, you idiot.")
+            return
+
+        if "HypixelsFault" in str(e):
+            await self.send(ctx, "Uh Oh! It looks like Hypixel's API is having some trouble right now...")
             return
 
         if "HTTPException: 503 Service Unavailable (error code: 0)" not in str(

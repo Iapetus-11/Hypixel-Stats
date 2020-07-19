@@ -27,6 +27,14 @@ class CustomErrorMsg(Exception):
         return self.msg
 
 
+class HypixelsFault(Exception):
+    def __init__(self, msg):
+        self.msg = "It was Hypixel's fault, I swear"
+
+    def __str__(self):
+        return self.msg
+
+
 class Cache(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -254,14 +262,10 @@ class Cache(commands.Cog):
 
         while try_again:
             try:
-                awaited = await eval(to_be_awaited)
-
-                """
+                try:
+                    awaited = await eval(to_be_awaited)
                 except asyncio.TimeoutError:
-                    await self.bot.get_channel(718983583779520540).send(
-                        f"RATE LIMIT TIMEOUT ({arrow.utcnow().timestamp}): ```{to_be_awaited}```")
-                    raise RatelimitTimeoutError
-                """
+                    raise HypixelsFault
 
                 try_again = False
 
