@@ -254,12 +254,14 @@ class Cache(commands.Cog):
 
         while try_again:
             try:
-                try:
-                    awaited = await asyncio.wait_for(eval(to_be_awaited), timeout=10)
+                awaited = await eval(to_be_awaited)
+
+                """
                 except asyncio.TimeoutError:
                     await self.bot.get_channel(718983583779520540).send(
                         f"RATE LIMIT TIMEOUT ({arrow.utcnow().timestamp}): ```{to_be_awaited}```")
                     raise RatelimitTimeoutError
+                """
 
                 try_again = False
 
