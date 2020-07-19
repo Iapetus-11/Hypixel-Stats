@@ -51,8 +51,11 @@ class Settings(commands.Cog):
     @config.command(name="color", aliases=["changecolor"])
     async def config_color(self, ctx, color: str = None):
         if color is None:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                               description=f"The current embed color is {await self.db.get_color(ctx.author.id)}"))
+            embed = discord.Embed(color=await self.bot.cc(), description=f"The current embed color is:")
+            embed.set_image(
+                url=f"http://singlecolorimage.com/get/{str(await self.db.get_color(ctx.author.id)).replace('#', '')}/400x100")
+            await ctx.send(embed=embed)
+            return
 
 
 def setup(bot):

@@ -47,11 +47,11 @@ class Database(commands.Cog):
         async with self.db.acquire() as con:
             await con.execute("DELETE FROM accounts WHERE uid=$1", uid)
 
-    async def get_color(self, uid):
+    async def get_color(self, uid):  # uid bigint, returns
         color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
         return color['color'] if color is not None else await self.bot.cc()
 
-    async def set_color(self, uid, color):
+    async def set_color(self, uid, color):  # bigint, varchar(10)
         async with self.db.acquire() as con:
             if color == await self.bot.cc():
                 await con.execute("DELETE FROM color WHERE uid=$1", uid)
