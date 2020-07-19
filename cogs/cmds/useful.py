@@ -59,7 +59,7 @@ class Useful(commands.Cog):
         embed.set_author(name="Bot Statistics",
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
 
-        key_data = await self.cache.hypixel.getKeyData()
+        key_data = (await self.cache.hypixel.getKeyData())['record']
 
         uptime = arrow.utcnow() - self.bot.start_time
 
