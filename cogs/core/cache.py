@@ -265,6 +265,7 @@ class Cache(commands.Cog):
                 try:
                     awaited = await eval(to_be_awaited)
                 except asyncio.TimeoutError:
+                    self.failed += 1
                     raise HypixelsFault
 
                 try_again = False
