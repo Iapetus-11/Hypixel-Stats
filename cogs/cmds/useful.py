@@ -26,10 +26,10 @@ class Useful(commands.Cog):
             pp = "Schlong"
         elif "schlong" in c:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                               description="Magnum Dong! \uFEFF ``69.00 ms``"))
+                                               description="Magnum Dong! \uFEFF `69.00 ms`"))
             return
         await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
-                                           description=f"{pp}! \uFEFF ``{round(self.bot.latency * 1000, 2)} ms``"))
+                                           description=f"{pp}! \uFEFF `{round(self.bot.latency * 1000, 2)} ms`"))
 
     @commands.command(name="info", aliases=["information"])
     async def information(self, ctx):
@@ -63,32 +63,33 @@ class Useful(commands.Cog):
 
         uptime = arrow.utcnow() - self.bot.start_time
 
-        general = f"Guild Count: ``{len(self.bot.guilds)}``\n" \
-                  f"DM Channels ``{len(self.bot.private_channels)}``\n" \
-                  f"User Count: ``{len(self.bot.users)}``\n" \
-                  f"Shard Count: ``{self.bot.shard_count}``\n" \
-                  f"CMD Count: ``{self.bot.cmd_count}``\n" \
-                  f"Latency: ``{round(self.bot.latency * 1000, 2)} ms``\n" \
-                  f"Linked Accounts: ``{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}``\n" \
-                  f"Premium Users: ``{(await self.bot.db.fetchrow('select COUNT(*) FROM premium'))[0]}``\n" \
-                  f"Avg cmds / sec: ``{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}``\n" \
-                  f"Key Data: ``Limit: {key_data['limit']}  Used: {key_data['queriesInPastMin']}``\n"
+        general = f"Guild Count: `{len(self.bot.guilds)}`\n" \
+                  f"DM Channels `{len(self.bot.private_channels)}`\n" \
+                  f"User Count: `{len(self.bot.users)}`\n" \
+                  f"Shard Count: `{self.bot.shard_count}`\n" \
+                  f"CMD Count: `{self.bot.cmd_count}`\n" \
+                  f"Latency: `{round(self.bot.latency * 1000, 2)} ms`\n" \
+                  f"Linked Accounts: `{(await self.bot.db.fetchrow('SELECT COUNT(*) FROM accounts'))[0]}`\n" \
+                  f"Premium Users: `{(await self.bot.db.fetchrow('select COUNT(*) FROM premium'))[0]}`\n" \
+                  f"Avg cmds / sec: `{round(self.bot.cmd_count / (uptime.seconds + uptime.days * 3600 * 24), 2)}`\n" \
+                  f"Req Limit: `{key_data['limit']}`\n" \
+                  f"Reqs Used: `{key_data['queriesInPastMin']}`\n"
         embed.add_field(name="General", value=general)
 
-        caching = f"failed Hypixel: ``{self.cache.failed}``\n" \
-                  f"failed Sloth: ``{self.cache.failed_sloth}``\n" \
-                  f"failed Mojang: ``{self.cache.failed_mojang}``\n" \
-                  f"name & uuid cache: ``{len(self.cache.valid_names_and_uuids)}``\n" \
-                  f"name -> uuid cache: ``{len(self.cache.name_uuid_cache)}``\n" \
-                  f"uuid -> name cache: ``{len(self.cache.uuid_name_cache)}``\n" \
-                  f"player object cache: ``{len(self.cache.player_object_cache)}``\n"
-        caching2 = f"player's friends cache: ``{len(self.cache.player_friends_cache)}``\n" \
-                   f"player's guild cache: ``{len(self.cache.player_guild_cache)}``\n" \
-                   f"guild id -> guild name cache: ``{len(self.cache.guild_id_name_cache)}``\n" \
-                   f"guild object cache: ``{len(self.cache.guild_cache)}``\n" \
-                   f"achievement pts cache: ``{len(self.cache.achievement_pts_cache)}``\n" \
-                   f"skyblock endp cache: ``{len(self.cache.skyblock_cache)}``\n" \
-                   f"skyblock armor cache: ``{len(self.cache.armor_cache)}``\n"
+        caching = f"failed Hypixel: `{self.cache.failed}`\n" \
+                  f"failed Sloth: `{self.cache.failed_sloth}`\n" \
+                  f"failed Mojang: `{self.cache.failed_mojang}`\n" \
+                  f"name & uuid cache: `{len(self.cache.valid_names_and_uuids)}`\n" \
+                  f"name -> uuid cache: `{len(self.cache.name_uuid_cache)}`\n" \
+                  f"uuid -> name cache: `{len(self.cache.uuid_name_cache)}`\n" \
+                  f"player object cache: `{len(self.cache.player_object_cache)}`\n"
+        caching2 = f"player's friends cache: `{len(self.cache.player_friends_cache)}`\n" \
+                   f"player's guild cache: `{len(self.cache.player_guild_cache)}`\n" \
+                   f"guild id -> guild name cache: `{len(self.cache.guild_id_name_cache)}`\n" \
+                   f"guild object cache: `{len(self.cache.guild_cache)}`\n" \
+                   f"achievement pts cache: `{len(self.cache.achievement_pts_cache)}`\n" \
+                   f"skyblock endp cache: `{len(self.cache.skyblock_cache)}`\n" \
+                   f"skyblock armor cache: `{len(self.cache.armor_cache)}`\n"
         embed.add_field(name="Caching", value=caching)
         embed.add_field(name="Caching", value=caching2)
 
@@ -135,9 +136,9 @@ class Useful(commands.Cog):
                 description=self.need_more_halp + "\n\uFEFF"
             )
 
-            embed.add_field(name=f":bar_chart: Stats", value=f"``{ctx.prefix}help stats``", inline=True)
-            embed.add_field(name=f":tools: Other", value=f"``{ctx.prefix}help other``", inline=True)
-            embed.add_field(name=f":gear: Config", value=f"``{ctx.prefix}help config``", inline=True)
+            embed.add_field(name=f":bar_chart: Stats", value=f"`{ctx.prefix}help stats`", inline=True)
+            embed.add_field(name=f":tools: Other", value=f"`{ctx.prefix}help other`", inline=True)
+            embed.add_field(name=f":gear: Config", value=f"`{ctx.prefix}help config`", inline=True)
 
             embed.set_footer(text=f"\uFEFF\nMade by Iapetus11 & TrustedMercury!")
 
@@ -153,18 +154,18 @@ class Useful(commands.Cog):
 
         p = ctx.prefix
 
-        player_stats = f"``{p}profile <username>`` *shows some general information for that player*\n\n" \
-                       f"``{p}stats`` *lists player stats available*\n\n" \
-                       f"``{p}names <username>`` *lists the name history of the given player*\n\n" \
-                       f"``{p}friends <username>`` *shows that user's friends*\n\n" \
-                       f"``{p}playerguild <username>`` *shows that player's guild*\n\uFEFF"
+        player_stats = f"`{p}profile <username>` *shows some general information for that player*\n\n" \
+                       f"`{p}stats` *lists player stats available*\n\n" \
+                       f"`{p}names <username>` *lists the name history of the given player*\n\n" \
+                       f"`{p}friends <username>` *shows that user's friends*\n\n" \
+                       f"`{p}playerguild <username>` *shows that player's guild*\n\uFEFF"
         embed.add_field(name="Player", value=player_stats, inline=False)
 
-        guild_stats = f"``{p}guild <guild name>`` *shows that hypixel guild*\n\n" \
-                      f"``{p}members <guild name>`` *shows the members in that guild*\n\uFEFF"
+        guild_stats = f"`{p}guild <guild name>` *shows that hypixel guild*\n\n" \
+                      f"`{p}members <guild name>` *shows the members in that guild*\n\uFEFF"
         embed.add_field(name="Guild", value=guild_stats, inline=False)
 
-        other_stats = f"``{p}watchdog`` *shows watchdog stats*\n\uFEFF"
+        other_stats = f"`{p}watchdog` *shows watchdog stats*\n\uFEFF"
         embed.add_field(name="Other", value=other_stats)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
@@ -181,19 +182,19 @@ class Useful(commands.Cog):
 
         p = ctx.prefix
 
-        minecraft = f"``{p}stealskin <username>`` *steal another user's skin*\n\n" \
-                    f"``{p}nametouuid <username>`` *turns a username into an mc uuid*\n\n" \
-                    f"``{p}uuidtoname <mc uuid>`` *turns an mc uuid into a name*\n\n" \
-                    f"``{p}colorcodes`` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
+        minecraft = f"`{p}stealskin <username>` *steal another user's skin*\n\n" \
+                    f"`{p}nametouuid <username>` *turns a username into an mc uuid*\n\n" \
+                    f"`{p}uuidtoname <mc uuid>` *turns an mc uuid into a name*\n\n" \
+                    f"`{p}colorcodes` *shows a list of color codes you can use to color text in mc*\n\uFEFF"
         embed.add_field(name="Minecraft", value=minecraft, inline=False)
 
-        other = f"``{p}help`` *shows a help message*\n\n" \
-                f"``{p}ping`` *shows the latency between the bot and discord*\n\n" \
-                f"``{p}uptime`` *shows the uptime of the bot*\n\n" \
-                f"``{p}info`` *shows information about the bot*\n\n" \
-                f"``{p}botstats`` *shows some bot statistics*\n\n" \
-                f"``{p}links`` *sends useful links, like an invite link for the bot*\n\n" \
-                f"``{p}math <math>`` *solves the given math problem*\n\uFEFF"
+        other = f"`{p}help` *shows a help message*\n\n" \
+                f"`{p}ping` *shows the latency between the bot and discord*\n\n" \
+                f"`{p}uptime` *shows the uptime of the bot*\n\n" \
+                f"`{p}info` *shows information about the bot*\n\n" \
+                f"`{p}botstats` *shows some bot statistics*\n\n" \
+                f"`{p}links` *sends useful links, like an invite link for the bot*\n\n" \
+                f"`{p}math <math>` *solves the given math problem*\n\uFEFF"
         embed.add_field(name="Other", value=other, inline=False)
 
         embed.set_footer(text=f"Made by Iapetus11 & TrustedMercury!")
@@ -210,8 +211,8 @@ class Useful(commands.Cog):
 
         p = ctx.prefix
 
-        server_config = f"``{p}config`` *shows the different settings you can change*\n\n" \
-                        f"``{p}config prefix <prefix>`` *changes the prefix of the server you're in*\n\uFEFF"
+        server_config = f"`{p}config` *shows the different settings you can change*\n\n" \
+                        f"`{p}config prefix <prefix>` *changes the prefix of the server you're in*\n\uFEFF"
         embed.add_field(name="Server Config", value=server_config, inline=False)
 
         user_config = f"`{p}link <mc username>` *links your minecraft and discord accounts*\n\n" \
@@ -249,7 +250,7 @@ class Useful(commands.Cog):
                     return
 
             await ctx.send(
-                embed=discord.Embed(color=await self.bot.cc(), description=f"```{str(round(eval(problem), 5))}```"))
+                embed=discord.Embed(color=await self.bot.cc(), description=f"``{str(round(eval(problem), 5))}``"))
         except Exception:
             await ctx.send(
                 embed=discord.Embed(color=await self.bot.cc(), description="Oops, something went wrong."))
