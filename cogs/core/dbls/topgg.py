@@ -1,3 +1,4 @@
+import asyncpg
 import dbl
 import discord
 from discord.ext import commands
@@ -11,6 +12,8 @@ class TopGG(commands.Cog):
                                    webhook_path="/updoot_topgg",
                                    webhook_auth=self.bot.dbl_keys[1],
                                    webhook_port=3209, autopost=True)
+
+        self.db_vb = self.bot.db_villager_bot
 
     def cog_unload(self):
         self.bot.loop.create_task(self.dblpy.close())
