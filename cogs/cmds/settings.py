@@ -63,6 +63,10 @@ class Settings(commands.Cog):
 
     @config.command(name="color", aliases=["changecolor"])
     async def config_color(self, ctx, color: str = None):
+        if not await self.db.is_premium(ctx.author.id):
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                               description="This config option is for [premium](https://donatebot.io/checkout/718983582898585602) users only."))
+            return
         if color is None:
             embed = discord.Embed(color=await self.bot.cc(ctx.author.id), title=f"The current embed color is:")
             # embed.set_image(url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
