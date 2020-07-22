@@ -71,7 +71,7 @@ class Settings(commands.Cog):
             return
         else:
             if color.lower() in list(self.colors):
-                await self.db.set_color(ctx.author.id, self.colors.get(color.lower()))
+                await self.db.set_color(ctx.author.id, self.colors.get(color.lower()).value)
                 embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                                       description=f"The new embed color is {color.lower()}")
                 embed.set_image(
