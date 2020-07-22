@@ -53,10 +53,7 @@ class Database(commands.Cog):
 
     async def set_color(self, uid, color):  # bigint, varchar(10)
         async with self.db.acquire() as con:
-            if color == await self.bot.cc():  # intentionally left without author id, believe me future petus
-                await con.execute("DELETE FROM color WHERE uid=$1", uid)
-            else:
-                await con.execute("UPDATE COLOR SET color = $1 WHERE uid = $2", color, uid)
+            await con.execute("UPDATE COLOR SET color = $1 WHERE uid = $2", color, uid)
 
     async def is_premium(self, uid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE uid=$1", uid)
