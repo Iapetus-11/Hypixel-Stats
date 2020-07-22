@@ -52,7 +52,7 @@ class Database(commands.Cog):
         return (await self.bot.cc()).value if color is None else color['color']  # intentionally left blank
 
     async def set_color(self, uid, color):  # bigint, varchar(10)
-        if color == 15844367﻿:  # discord.Color.gold().value
+        if color == 15844367:  # discord.Color.gold().value
             async with self.db.acquire() as con:
                 await con.execute("DELETE FROM color WHERE uid = $1", uid)
             return
