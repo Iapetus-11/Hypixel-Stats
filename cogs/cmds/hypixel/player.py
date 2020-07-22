@@ -28,7 +28,7 @@ class Player(commands.Cog):
 
         if linked is not None:
             await ctx.send(
-                embed=discord.Embed(color=await self.bot.cc(),
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                     description=f"It appears you've already linked your account!\n"
                                                 f"If you'd like to unlink it, do `{ctx.prefix}unlink`"))
             return
@@ -45,20 +45,20 @@ class Player(commands.Cog):
             if api_disc == str(ctx.author):
                 await self.db.link_account(ctx.author.id, uuid)
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description="You've successfully linked your account!"))
                 return
             elif assumed:
-                await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                    description="Your Discord username and Minecraft username have to be the same to do this!"))
                 return
         elif assumed:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"{discord.utils.escape_markdown(mc_username)} Doesn't have their Discord account linked to Hypixel. [Click here to link your account via Hypixel's website](https://hypixel.net/discord)"))
             return
 
         desc = "**Login to Hypixel** and type `/api` in the chat. Then, **send that text here** to link your account! Type `cancel` to cancel this process."
-        embed = discord.Embed(color=await self.bot.cc(), description=desc,
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id), description=desc,
                               title=":link: Link your Discord and MC accounts :link:")
         embed.set_footer(text="API keys are NOT stored and are used purely for verification purposes.")
 
@@ -66,7 +66,8 @@ class Player(commands.Cog):
             await ctx.author.send(embed=embed)
         except discord.errors.Forbidden:
             await ctx.send(
-                embed=discord.Embed(color=await self.bot.cc(), description="You have to let the bot dm you!"))
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                    description="You have to let the bot dm you!"))
             return
 
         def author_check(m):
@@ -76,18 +77,19 @@ class Player(commands.Cog):
             key = await self.bot.wait_for("message", check=author_check, timeout=(10 * 60))
         except asyncio.TimeoutError:
             await ctx.author.send(
-                embed=discord.Embed(color=await self.bot.cc(), description=self.bot.timeout_message))
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description=self.bot.timeout_message))
             return
 
         if key.content.lower() in ["cancel", "stop", "end"]:
             await ctx.author.send(
-                embed=discord.Embed(color=await self.bot.cc(), description="Verification has been canceled."))
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                    description="Verification has been canceled."))
             return
 
         try:
             key_owner_uuid = (await self.cache.get_key_data(key.content))["record"]["owner"]
         except Exception:
-            await ctx.author.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.author.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                       description="Uh oh, that key appears to be invalid, are you sure it's right?"))
             return
 
@@ -95,26 +97,28 @@ class Player(commands.Cog):
 
         # Hypixel API sometimes returns uuids with dashes
         if uuid != key_owner_uuid and uuid != key_owner_uuid.replace("-", ""):
-            await ctx.author.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.author.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                       description="Hmm that didn't work. Did you type the api key and your username correctly?"))
             return
 
         await self.db.link_account(ctx.author.id, uuid)  # Insert uuid and discord id into db
         await ctx.author.send(
-            embed=discord.Embed(color=await self.bot.cc(), description="Account linked successfully!"))
+            embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description="Account linked successfully!"))
 
     @commands.command(name="unlink", aliases=["unlinkacc", "unlinkaccount", "deletelink", "removeaccount"])
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def unlink_account(self, ctx):
         if await self.db.get_linked_account_via_id(ctx.author.id) is None:
             await ctx.send(
-                embed=discord.Embed(color=await self.bot.cc(), description="You don't have an account linked!\n"
-                                                                           f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                    description="You don't have an account linked!\n"
+                                                f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
             return
 
         await self.db.drop_linked_account(ctx.author.id)
         await ctx.send(
-            embed=discord.Embed(color=await self.bot.cc(), description="You have unlinked your account successfully."))
+            embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                description="You have unlinked your account successfully."))
 
     @commands.group(name="playerprofile", aliases=["profile", "h", "player", "p", "pp"])
     @commands.cooldown(1, 3, commands.BucketType.user)
@@ -125,7 +129,7 @@ class Player(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -139,7 +143,7 @@ class Player(commands.Cog):
             linked_acc = linked_acc[0]
             prem = await self.db.is_premium(linked_acc)
 
-        embed = discord.Embed(color=await self.bot.cc())
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
 
         online = f"{self.bot.EMOJIS['offline_status']} offline"
         if p.LAST_LOGIN is not None and p.LAST_LOGOUT is not None:
@@ -254,7 +258,7 @@ class Player(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -265,18 +269,18 @@ class Player(commands.Cog):
 
         player_friends = await self.cache.get_player_friends(player)
         if not player_friends:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"**{discord.utils.escape_markdown(player)}** doesn't have any friends! :cry:"))
             return
 
         if len(player_friends) > 1024:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"**{discord.utils.escape_markdown(player)}** has too many friends to show! :cry:"))
             return
 
         head = await self.cache.get_player_head(puuid)
 
-        embed = discord.Embed(color=await self.bot.cc())
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
         embed.set_author(name=f"{player}'s friends ({len(player_friends)} total!)",
                          icon_url=head)
 
@@ -301,9 +305,9 @@ class Player(commands.Cog):
                 page += 1
 
                 if not stop and len(chonks) > 3:
-                    embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
+                    embed = discord.Embed(color=await self.bot.cc(ctx.author.id), description="Type ``more`` for more!")
                 else:
-                    embed = discord.Embed(color=await self.bot.cc())
+                    embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
 
                 embed.set_author(
                     name=f"{player}'s friends ({len(player_friends)} total!)",
@@ -351,7 +355,7 @@ class Player(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -361,7 +365,7 @@ class Player(commands.Cog):
         player_guild = await self.cache.get_player_guild(player)
 
         if player_guild is None:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"**{discord.utils.escape_markdown(player)}** isn't in a guild!"))
             return
 
@@ -371,11 +375,11 @@ class Player(commands.Cog):
 
         desc = g.DESCRIPTION
         if desc is None:
-            embed = discord.Embed(color=await self.bot.cc())
+            embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
         else:
             length = len(author) + 2
             length = length if length > 30 else 30
-            embed = discord.Embed(color=await self.bot.cc(),
+            embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                                   description='\n'.join(
                                       desc[i:i + length] for i in
                                       range(0, len(desc), length)))
@@ -411,7 +415,7 @@ class Player(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -421,7 +425,7 @@ class Player(commands.Cog):
         except Exception:
             p_name = player
 
-        embed = discord.Embed(color=await self.bot.cc())
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
         embed.set_author(name=f"{p_name}'s Name History",
                          icon_url=await self.cache.get_player_head(p_name))
 
