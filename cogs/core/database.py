@@ -52,8 +52,12 @@ class Database(commands.Cog):
         return (await self.bot.cc()).value if color is None else color['color']  # intentionally left blank
 
     async def set_color(self, uid, color):  # bigint, varchar(10)
+        prev = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
         async with self.db.acquire() as con:
-            await con.execute("UPDATE COLOR SET color = $1 WHERE uid = $2", color, uid)
+            if prev is not None:
+                await con.execute("UPDATE COLOR SET color = $1 WHERE uid = $2", color, uid)
+            else:
+                await con.execute("INSERT INTO color VALUES ($1, $2)", uid, color)
 
     async def is_premium(self, uid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE uid=$1", uid)
