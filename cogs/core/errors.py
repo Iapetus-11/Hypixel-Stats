@@ -13,7 +13,7 @@ class Errors(commands.Cog):
 
     async def send(self, ctx, msg):
         try:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description=msg))
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description=msg))
         except discord.errors.Forbidden:
             pass
 
