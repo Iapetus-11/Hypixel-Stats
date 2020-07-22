@@ -50,16 +50,21 @@ async def get_prefix(_bot, message):
     return "H!" if message.content.startswith("H!") else "h!"
 
 
-async def cc(uid=None):
-    return discord.Color.gold()
-
-
 bot = commands.AutoShardedBot(
     command_prefix=get_prefix,
     case_insensitive=True,
     help_command=None,
     max_messages=512
 )
+
+
+async def cc(uid=None):
+    if uid is None:
+        return discord.Color.gold()
+    else:
+        color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
+        return await self.bot.cc() if color is None else color['color']  # intentionally left blank
+
 
 bot.cc = cc.__get__(bot)  # Bind the async cc() method to the bot class without subclassing commands.AutoShardedBot
 
