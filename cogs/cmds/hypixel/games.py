@@ -35,10 +35,10 @@ class Games(commands.Cog):
     @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats", "games", "gamestats"])
     async def player_stats(self, ctx, user=None):
         if user is not None:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"Each game has its own command! You have to do `{ctx.prefix}<stat> <player>`"))
             return
-        embed = discord.Embed(color=await self.bot.cc(),
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                               title=":chart_with_upwards_trend: Available Statistics :chart_with_downwards_trend:",
                               description=f"`{'`, `'.join(self.games)}`\n\nDo `{ctx.prefix}<stat> <player>` to view a certain stat!")
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
@@ -55,7 +55,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -70,6 +70,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Arcade Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -90,7 +91,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -105,6 +106,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Arena Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -142,7 +144,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -157,6 +159,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Battleground Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -188,7 +191,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -203,6 +206,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hungergames Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -230,7 +234,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -245,6 +249,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Paintball Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -273,7 +278,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -288,6 +293,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Quake Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -321,7 +327,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -336,6 +342,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -364,7 +371,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -379,6 +386,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s VampireZ Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -416,7 +424,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -431,6 +439,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Walls Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -457,7 +466,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -472,6 +481,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Turbo Kart Racer Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -510,7 +520,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -525,6 +535,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skywars Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -574,7 +585,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -589,6 +600,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Speed UHC Stats", icon_url=await self.cache.get_player_head(p.UUID))
 
@@ -624,7 +636,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -639,6 +651,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{discord.utils.escape_markdown(p.DISPLAY_NAME)}'s Build Battle Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -666,7 +679,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -702,6 +715,7 @@ class Games(commands.Cog):
             actual_type = ""
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}bedwars <player> <gamemode>`"
 
@@ -755,7 +769,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -770,6 +784,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s\nTrue Combat Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -791,7 +806,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -806,6 +821,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s TNT Games Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -836,7 +852,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -851,6 +867,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s\nSuper Smash Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -874,7 +891,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -907,6 +924,7 @@ class Games(commands.Cog):
             type_actual = ""
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}murdermystery <player> <gamemode>`"
 
@@ -951,7 +969,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -966,6 +984,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Cops & Crims Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -997,7 +1016,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -1012,6 +1031,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Sky Clash Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -1042,7 +1062,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -1057,6 +1077,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Duels Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -1104,7 +1125,7 @@ class Games(commands.Cog):
                 player = player[1]
             else:
                 await ctx.send(
-                    embed=discord.Embed(color=await self.bot.cc(),
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                         description=f"You need to link your account to do this!\n"
                                                     f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
                 return
@@ -1122,6 +1143,7 @@ class Games(commands.Cog):
             raise NoStatError
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Hypixel Pit Stats",
                          icon_url=await self.cache.get_player_head(p.UUID))
