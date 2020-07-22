@@ -16,7 +16,11 @@ class Errors(commands.Cog):
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description=msg))
         except discord.errors.Forbidden:
             pass
-
+        except Exception:
+            try:
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description=msg))
+            except discord.errors.Forbidden:
+                pass
     @commands.Cog.listener()
     async def on_command_error(self, ctx, e):
         try:
