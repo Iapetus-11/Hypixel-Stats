@@ -14,7 +14,7 @@ class General(commands.Cog):
     async def watchdog(self, ctx):
         wd40 = await self.cache.get_watchdog_stats()
 
-        embed = discord.Embed(color=await self.bot.cc(), title=":hammer: Watchdog Stats :hammer:")
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id), title=":hammer: Watchdog Stats :hammer:")
 
         auto = f"Total Bans: `{wd40.get('watchdog_total')}`\n" \
                f"Today: `{wd40.get('watchdog_rollingDaily')}`\n" \

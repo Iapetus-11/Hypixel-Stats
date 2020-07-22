@@ -27,12 +27,12 @@ class Guild(commands.Cog):
 
         desc = g.DESCRIPTION
         if desc is None:
-            embed = discord.Embed(color=await self.bot.cc(),
+            embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                                   url=f"https://hypixel.net/guilds/{g.NAME}".replace(" ", "%20"))
         else:
             length = len(author) + 2
             length = length if length > 30 else 30
-            embed = discord.Embed(color=await self.bot.cc(),
+            embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                                   url=f"https://hypixel.net/guilds/{g.NAME}".replace(" ", "%20"),
                                   description='\n'.join(
                                       desc[i:i + length] for i in
@@ -104,16 +104,16 @@ class Guild(commands.Cog):
         guild_members = g.MEMBERS
 
         if not guild_members:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"**{discord.utils.escape_markdown(g.NAME)}** doesn't have any members! :cry:"))
             return
 
         if len(guild_members) > 1024:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description=f"**{discord.utils.escape_markdown(g.NAME)}** has too many members to show! :cry:"))
             return
 
-        embed = discord.Embed(color=await self.bot.cc())
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
         embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)")
 
         premium = False if ctx.guild is None else await self.db.is_premium(ctx.author.id)
@@ -137,9 +137,9 @@ class Guild(commands.Cog):
                 page += 1
 
                 if not stop and len(chonks) > 3:
-                    embed = discord.Embed(color=await self.bot.cc(), description="Type ``more`` for more!")
+                    embed = discord.Embed(color=await self.bot.cc(ctx.author.id), description="Type ``more`` for more!")
                 else:
-                    embed = discord.Embed(color=await self.bot.cc())
+                    embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
 
                 embed.set_author(name=f"Members of {g.NAME} ({len(guild_members)} total!)")
                 embed.set_footer(text=f"[Page {page}/{max_pages}]")
