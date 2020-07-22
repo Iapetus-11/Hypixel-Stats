@@ -10,9 +10,10 @@ class Owner(commands.Cog):
         self.db = self.bot.get_cog("Database")
 
     async def send(self, location, message):  # idk because it's easy ig
-        await location.send(
-            embed=discord.Embed(color=await self.bot.cc(None if location.author is None else location.author.id),
-                                description=message))
+        try:
+            await location.send(embed=discord.Embed(color=await self.bot.cc(location.author.id), description=message))
+        except Exception:
+            await location.send(embed=discord.Embed(color=await self.bot.cc(), description=message))
 
     @commands.command(name="unload")
     @commands.is_owner()
