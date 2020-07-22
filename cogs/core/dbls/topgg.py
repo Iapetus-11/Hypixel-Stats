@@ -29,6 +29,21 @@ class TopGG(commands.Cog):
         user_id = int(data["user"])
         print(f"\u001b[32;1m {user_id} VOTED ON TOP.GG \u001b[0m")
 
+        user = self.bot.get_user(user_id)
+        amount = 32
+
+        if await self.dblpy.get_weekend_status():
+            amount *= 2
+
+        u_db_bal = await self.db_vb.fetchrow("SELECT amount FROM currency WHERE id = $1", user_id)
+
+        if u_db_bal is not None:
+            if user is not None:
+                await user.send(embed=discord.Embed(color=await self.bot.cc(),
+                                                    description=f"Thank you for voting! You've received {amount} emeralds in Villager Bot!"))
+            async with self.db_vb.acquire() as con:
+                await con.execute("UPDATE currency SET amount = $1 WHERE id = $2", u_db_val[0] + amount, user_id)
+
 
 def setup(bot):
     bot.add_cog(TopGG(bot))
