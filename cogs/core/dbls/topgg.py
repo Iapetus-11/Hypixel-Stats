@@ -17,7 +17,7 @@ class TopGG(commands.Cog):
 
     @commands.Cog.listener()
     async def on_dbl_test(self, data):
-        self.logger.info("\u001b[35m DBL WEBHOOK TEST \u001b[0m")
+        print("\u001b[35m DBL WEBHOOK TEST \u001b[0m")
         channel = self.bot.get_channel(718983583779520540)
         await channel.send(embed=discord.Embed(color=await self.bot.cc(), description="DBL WEBHOOK TEST"))
 
