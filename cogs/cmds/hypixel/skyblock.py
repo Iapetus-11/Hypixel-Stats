@@ -193,6 +193,7 @@ class SkyBlock(commands.Cog):
         armor = await self.get_armor(p.UUID, base, user_island_stats)
 
         embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Skyblock Stats", icon_url=head)
 
