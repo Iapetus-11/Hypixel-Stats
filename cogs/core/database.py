@@ -49,7 +49,7 @@ class Database(commands.Cog):
 
     async def get_color(self, uid):  # uid bigint, returns
         color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
-        return await self.bot.cc().value if color is None else color['color']  # intentionally left blank
+        return (await self.bot.cc()).value if color is None else color['color']  # intentionally left blank
 
     async def set_color(self, uid, color):  # bigint, varchar(10)
         async with self.db.acquire() as con:
