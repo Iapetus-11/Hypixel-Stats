@@ -75,7 +75,7 @@ class Settings(commands.Cog):
                 embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                                       description=f"The new embed color is {color.lower()}")
                 embed.set_image(
-                    url=f"http://singlecolorimage.com/get/{hex(self.colors.get(color.lower()).value).replace('0x', '')}/400x100")
+                    url=f"http://singlecolorimage.com/get/{hex(self.colors.get(color.lower()).value).replace('0x', '')}/200x100")
                 await ctx.send(embed=embed)
             else:
                 valid_colors_text = "`" + "`, `".join(list(self.colors)) + "`"
