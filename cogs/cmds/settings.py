@@ -15,6 +15,19 @@ class Settings(commands.Cog):
                               "_", "+", "=", "[", "]", "{", "}", ";", ":", "|", "/", ".",
                               "?", ">", "<", ",",)
 
+        self.colors = {
+            "red": discord.Color.red(),
+            "orange": discord.Color.orange(),
+            "yellow": discord.Color.gold(),
+            "green": discord.Color.green(),
+            "blue": discord.Color.blue(),
+            "purple": discord.Color.purple(),
+            "blurple": discord.Color.blurple(),
+            "grey": discord.Color.greyple(),
+            "magenta": discord.Color.magenta(),
+            "teal": discord.Color.teal()
+        }
+
     @commands.group(name="config", aliases=["settings", "set", "conf"])
     @commands.has_permissions(administrator=True)
     async def config(self, ctx):
@@ -53,9 +66,21 @@ class Settings(commands.Cog):
         if color is None:
             embed = discord.Embed(color=await self.bot.cc(), description=f"The current embed color is:")
             embed.set_image(
-                url=f"http://singlecolorimage.com/get/{str(await self.db.get_color(ctx.author.id)).replace('#', '')}/400x100")
+                url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/400x100")
             await ctx.send(embed=embed)
             return
+        else:
+            if color.lower() in list(self.colors):
+                await self.db.set_color(ctx.author.id, self.colors.get(color.lower()))
+                embed = discord.Embed(color=await self.bot.cc(), description=f"The new embed color is {color.lower()}")
+                embed.set_image(
+                    url=f"http://singlecolorimage.com/get/{hex(self.colors.get(color.lower())).replace('0x', '')}/400x100")
+                await ctx.send(embed=embed)
+            else:
+                valid_colors_text = "`" + "`, `".join(list(self.colors)) + "`"
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                                                   description=f"\"{discord.utils.escape_markdown(color)}\""
+                                                               f"is not an allowed/valid color. {valid_colors_text}"))
 
 
 def setup(bot):
