@@ -64,7 +64,7 @@ class Settings(commands.Cog):
     @config.command(name="color", aliases=["changecolor"])
     async def config_color(self, ctx, color: str = None):
         if color is None:
-            embed = discord.Embed(color=await self.bot.cc(ctx.author.id), description=f"The current embed color is:")
+            embed = discord.Embed(color=await self.bot.cc(ctx.author.id), title=f"The current embed color is:")
             embed.set_image(
                 url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/400x100")
             await ctx.send(embed=embed)
@@ -73,7 +73,7 @@ class Settings(commands.Cog):
             if color.lower() in list(self.colors):
                 await self.db.set_color(ctx.author.id, self.colors.get(color.lower()).value)
                 embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
-                                      description=f"The new embed color is {color.lower()}")
+                                      title=f"The new embed color is:")
                 embed.set_image(
                     url=f"http://singlecolorimage.com/get/{hex(self.colors.get(color.lower()).value).replace('0x', '')}/200x100")
                 await ctx.send(embed=embed)
@@ -81,7 +81,7 @@ class Settings(commands.Cog):
                 valid_colors_text = "`" + "`, `".join(list(self.colors)) + "`"
                 await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                    description=f"\"{discord.utils.escape_markdown(color)}\""
-                                                               f"is not an allowed/valid color. {valid_colors_text}"))
+                                                               f"is not an allowed/valid color.\n\n Valid colors: {valid_colors_text}"))
 
 
 def setup(bot):
