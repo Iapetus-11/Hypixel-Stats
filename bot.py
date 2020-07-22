@@ -63,7 +63,7 @@ async def cc(uid=None):
         return discord.Color.gold()
     else:
         color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
-        return await self.bot.cc() if color is None else color['color']  # intentionally left blank
+        return discord.Color.gold() if color is None else color['color']
 
 
 bot.cc = cc.__get__(bot)  # Bind the async cc() method to the bot class without subclassing commands.AutoShardedBot
