@@ -18,22 +18,24 @@ class BasicMC(commands.Cog):
     async def skinner(self, ctx, gamertag: str):
         response = await self.session.get(f"https://api.mojang.com/users/profiles/minecraft/{gamertag}")
         if response.status == 204:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That player doesn't exist!"))
+            await ctx.send(
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description="That player doesn't exist!"))
             return
         uuid = json.loads(await response.text()).get("id")
         if uuid is None:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That player doesn't exist!"))
+            await ctx.send(
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description="That player doesn't exist!"))
             return
         response = await self.session.get(
             f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}?unsigned=false")
         content = json.loads(await response.text())
         if "error" in content:
             if content["error"] == "TooManyRequestsException":
-                await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                    description="Oops, we're being ratelimited by the Mojang API, try again later!"))
                 return
         if len(content["properties"]) == 0:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description="We can't get this person's skin for some reason..."))
             return
         undec = base64.b64decode(content["properties"][0]["value"])
@@ -41,10 +43,11 @@ class BasicMC(commands.Cog):
             url = json.loads(undec)["textures"]["SKIN"]["url"]
         except Exception:
             await ctx.send(
-                embed=discord.Embed(color=await self.bot.cc(),
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                     description="An error occurred while fetching that skin!"))
             return
-        skin_embed = discord.Embed(color=await self.bot.cc(), description=f"{gamertag}'s skin\n[**[Download]**]({url})")
+        skin_embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                   description=f"{gamertag}'s skin\n[**[Download]**]({url})")
         skin_embed.set_thumbnail(url=url)
         skin_embed.set_image(url=f"https://mc-heads.net/body/{gamertag}")
         await ctx.send(embed=skin_embed)
@@ -55,24 +58,27 @@ class BasicMC(commands.Cog):
         r = await self.session.post("https://api.mojang.com/profiles/minecraft", json=[gamertag])
         j = json.loads(await r.text())  # [0]['id']
         if not j:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That user could not be found."))
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                               description="That user could not be found."))
             return
-        await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description=f"{gamertag}: ``{j[0]['id']}``"))
+        await ctx.send(
+            embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description=f"{gamertag}: ``{j[0]['id']}``"))
 
     @commands.command(name="uuidtoname", aliases=["getgamertag"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def get_gamertag(self, ctx, uuid: str):
         response = await self.session.get(f"https://api.mojang.com/user/profiles/{uuid}/names")
         if response.status == 204:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="That player doesn't exist!"))
+            await ctx.send(
+                embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description="That player doesn't exist!"))
             return
         j = json.loads(await response.text())
         name = j[len(j) - 1]["name"]
-        await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description=f"{uuid}: ``{name}``"))
+        await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id), description=f"{uuid}: ``{name}``"))
 
     @commands.command(name="colorcodes", aliases=["mccolorcodes", "colors", "cc"])
     async def mc_color_codes(self, ctx):
-        embed = discord.Embed(color=await self.bot.cc(),
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                               description="Text in Minecraft can be formatted using different codes and\nthe section (``§``) sign.")
         embed.set_author(name="Minecraft Formatting Codes")
         embed.add_field(name="Color Codes", value="<:red:697541699706028083> **Red** ``§c``\n"
