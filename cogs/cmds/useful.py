@@ -213,6 +213,7 @@ class Useful(commands.Cog):
         p = ctx.prefix
 
         server_config = f"`{p}config` *shows the different settings you can change*\n\n" \
+                        f"`{p}config color <color` *changes the color of the embeds*\n\n" \
                         f"`{p}config prefix <prefix>` *changes the prefix of the server you're in*\n\uFEFF"
         embed.add_field(name="Server Config", value=server_config, inline=False)
 
