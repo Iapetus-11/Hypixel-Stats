@@ -58,7 +58,7 @@ bot = commands.AutoShardedBot(
 )
 
 
-async def cc(uid=None):
+async def cc(self, uid=None):
     if uid is None:
         return discord.Color.gold()
     else:
