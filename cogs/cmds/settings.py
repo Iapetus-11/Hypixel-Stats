@@ -34,7 +34,8 @@ class Settings(commands.Cog):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
             embed.set_author(name="Bot Configuration", icon_url=str(self.bot.user.avatar_url_as(static_format="png")))
-            embed.add_field(name="Prefix", value=f"``{ctx.prefix}config prefix <prefix>``")
+            embed.add_field(name="Prefix", value=f"`{ctx.prefix}config prefix <prefix>`")
+            embed.add_field(name="Embed Color", value=f"`{ctx.prefix}config color <color>`")
             await ctx.send(embed=embed)
 
     @config.command(name="prefix", aliases=["pp", "p", "commandprefix"])
