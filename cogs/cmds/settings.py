@@ -65,6 +65,7 @@ class Settings(commands.Cog):
     async def config_color(self, ctx, color: str = None):
         if color is None:
             embed = discord.Embed(color=await self.bot.cc(ctx.author.id), title=f"The current embed color is:")
+            # embed.set_image(url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
             embed.set_image(
                 url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
             await ctx.send(embed=embed)
