@@ -73,7 +73,6 @@ class Settings(commands.Cog):
             # embed.set_image(url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
             embed.set_image(
                 url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
-            print(hex(await self.db.get_color(ctx.author.id)).replace('0x', ''))
             await ctx.send(embed=embed)
             return
         else:
@@ -83,7 +82,6 @@ class Settings(commands.Cog):
                                       title=f"The new embed color is:")
                 embed.set_image(
                     url=f"http://singlecolorimage.com/get/{hex(self.colors.get(color.lower()).value).replace('0x', '')}/200x75")
-                print(hex(self.colors.get(color.lower()).value).replace('0x', ''))
                 await ctx.send(embed=embed)
             else:
                 valid_colors_text = "`" + "`, `".join(list(self.colors)) + "`"
