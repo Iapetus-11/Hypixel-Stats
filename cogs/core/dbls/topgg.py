@@ -42,7 +42,7 @@ class TopGG(commands.Cog):
                 await user.send(embed=discord.Embed(color=await self.bot.cc(),
                                                     description=f"Thank you for voting! You've received {amount} emeralds in Villager Bot!"))
             async with self.db_vb.acquire() as con:
-                await con.execute("UPDATE currency SET amount = $1 WHERE id = $2", u_db_val[0] + amount, user_id)
+                await con.execute("UPDATE currency SET amount = $1 WHERE id = $2", u_db_bal[0] + amount, user_id)
 
 
 def setup(bot):
