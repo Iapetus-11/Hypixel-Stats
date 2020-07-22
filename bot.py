@@ -87,7 +87,7 @@ with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
 
 
-async def setup_db():
+async def setup_dbs():
     """Sets up the database pool connection"""
 
     bot.db = await asyncpg.create_pool(
@@ -105,7 +105,7 @@ async def setup_db():
     )
 
 
-asyncio.get_event_loop().run_until_complete(setup_db())
+asyncio.get_event_loop().run_until_complete(setup_dbs())
 
 
 bot.cog_list = [
