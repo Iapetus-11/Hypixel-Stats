@@ -68,7 +68,7 @@ class Settings(commands.Cog):
             # embed.set_image(url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
             embed.set_image(
                 url=f"http://singlecolorimage.com/get/{hex(await self.db.get_color(ctx.author.id)).replace('0x', '')}/200x75")
-            print(hex(self.colors.get(color.lower()).value).replace('0x', ''))
+            print(hex(await self.db.get_color(ctx.author.id)).replace('0x', ''))
             await ctx.send(embed=embed)
             return
         else:
