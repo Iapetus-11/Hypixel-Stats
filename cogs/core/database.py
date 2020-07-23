@@ -85,7 +85,7 @@ class Database(commands.Cog):
                         await con.execute("DELETE FROM premium WHERE uid=$1", entry[0])
                         await self.set_color(entry[0], 15844367)
 
-            for _ in range(0, 60 * 5, 1):
+            for _ in range(0, 60 * 2.5, 1):
                 await asyncio.sleep(1)
                 if self.stop_loops:
                     return
