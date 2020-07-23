@@ -45,7 +45,7 @@ class Database(commands.Cog):
 
     async def drop_linked_account(self, uid):
         async with self.db.acquire() as con:
-            await con.execute("DELETE FROM accounts WHERE uid=$1", uid)
+            await con.execute("DELETE FROM accounts WHERE id=$1", uid)
 
     async def get_color(self, uid):  # uid bigint, returns
         color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
