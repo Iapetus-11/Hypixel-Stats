@@ -100,5 +100,6 @@ class Owner(commands.Cog):
         await self.db.remove_premium(user.id)
         await self.send(ctx, f"Removed {user}'s premium.")
 
+
 def setup(bot):
     bot.add_cog(Owner(bot))
