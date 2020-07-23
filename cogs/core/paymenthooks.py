@@ -29,7 +29,7 @@ class DonateHooks(commands.Cog):
                             await self.bot.get_channel(732658675725893743).send(
                                 f"Payment completed! USER ID: {jj.get('buyer_id')} TXN_ID: {jj.get('txn_id')} Time: {arrow.utcnow().timestamp}")
                             timestamp_ends = arrow.utcnow().shift(weeks=+4).timestamp
-                            await self.db.set_premium(int(jj.get("buyer_id")), timestamp_ends)
+                            await self.db.add_premium(int(jj.get("buyer_id")), timestamp_ends)
                         elif jj.get("status") in ["reversed", "refunded", "sub_ended"]:
                             await self.bot.get_channel(732658675725893743).send(
                                 f"Payment not completed. Status: ({jj.get('status')}) USER ID: {jj.get('buyer_id')} TXN_ID: {jj.get('txn_id')} Time: {arrow.utcnow().timestamp}")

@@ -45,7 +45,7 @@ class Database(commands.Cog):
 
     async def drop_linked_account(self, uid):
         async with self.db.acquire() as con:
-            await con.execute("DELETE FROM accounts WHERE uid=$1", uid)
+            await con.execute("DELETE FROM accounts WHERE id=$1", uid)
 
     async def get_color(self, uid):  # uid bigint, returns
         color = await self.db.fetchrow("SELECT * FROM color WHERE uid=$1", uid)
@@ -67,7 +67,7 @@ class Database(commands.Cog):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE uid=$1", uid)
         return prem is not None
 
-    async def set_premium(self, uid, expires):
+    async def add_premium(self, uid, expires):
         if not await self.is_premium(uid):
             async with self.db.acquire() as con:
                 await con.execute("INSERT INTO premium VALUES ($1, $2)", uid, expires)
@@ -83,8 +83,9 @@ class Database(commands.Cog):
                 for entry in all:
                     if arrow.utcnow().timestamp > entry[1] > 1:
                         await con.execute("DELETE FROM premium WHERE uid=$1", entry[0])
+                        await self.set_color(entry[0], 15844367)
 
-            for _ in range(0, 60 * 10, 1):
+            for _ in range(0, 60 * 2.5, 1):
                 await asyncio.sleep(1)
                 if self.stop_loops:
                     return
