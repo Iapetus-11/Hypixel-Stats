@@ -32,7 +32,7 @@ class TopGG(commands.Cog):
         user = self.bot.get_user(user_id)
 
         amount = 32
-        prem_minutes = 30
+        prem_minutes = 15
         if await self.dblpy.get_weekend_status():
             amount *= 2
             prem_minutes *= 2
@@ -52,7 +52,8 @@ class TopGG(commands.Cog):
                 msg = f"Thank you for voting! You've received `{prem_minutes} minutes` of Hypixel Stats **Premium**!"
                 await user.send(embed=discord.Embed(color=await self.bot.cc(user_id), description=msg))
 
-                await self.db.
+                timestamp_ends = arrow.utcnow().shift(minutes=+prem_minutes).timestamp
+                await self.db.add_premium(user_id, timestamp_ends)
 
 
 def setup(bot):
