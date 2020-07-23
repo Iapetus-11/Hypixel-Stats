@@ -82,6 +82,7 @@ bot.cmd_count = 0
 bot.start_time = arrow.utcnow()
 bot.dbl_keys = DBL
 bot.donatebot_auth_secret = DONATEBOT_SECRET
+bot.api_trouble = False
 
 with open('data/emojis.json') as EMOJIS:
     bot.EMOJIS = json.load(EMOJIS)
@@ -144,9 +145,13 @@ async def bot_check(ctx):
         return False
 
     if randint(0, 60) == 15:
-        if not await bot.get_cog("Database").is_premium(ctx.author.id):
-            await ctx.send(embed=discord.Embed(color=await bot.cc(),
-                                               description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
+        if not bot.api_trouble:
+            if not await bot.get_cog("Database").is_premium(ctx.author.id):
+                await ctx.send(embed=discord.Embed(color=await bot.cc(ctx.author.id),
+                                                   description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
+        else:
+            await ctx.send(embed=discord.Embed(color=await bot.cc(ctx.author.id),
+                                               description=":warning: The Hypixel API seems to be having trouble right now, that could be the reason for any errors or slow bot responses :warning:")
 
     return not ctx.author.bot
 
