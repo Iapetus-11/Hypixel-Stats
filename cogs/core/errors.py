@@ -43,7 +43,7 @@ class Errors(commands.Cog):
             if await self.bot.get_cog("Database").is_premium(ctx.author.id):
                 e.retry_after -= (2 / 3) * e.cooldown.per
 
-            if round(e.retry_after, 2) == 0:
+            if round(e.retry_after, 2) <= 0:
                 await ctx.reinvoke()
 
             descs = [
