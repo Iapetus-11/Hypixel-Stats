@@ -91,7 +91,7 @@ class Owner(commands.Cog):
     async def set_premium(self, ctx, user: discord.User, expires=-1):
         if expires != -1:
             timestamp_ends = arrow.utcnow().shift(minutes=+expires).timestamp
-        await self.db.set_premium(user.id, expires)
+        await self.db.add_premium(user.id, expires)
         await self.send(ctx, f"Gave {user} premium.")
 
     @commands.command(name="removepremium", aliases=["remprem", "removeprem"])
