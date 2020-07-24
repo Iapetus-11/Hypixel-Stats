@@ -1298,7 +1298,7 @@ class Games(commands.Cog):
 
     @compare.command(name="murdermystery", aliases=["murder_mystery", "mm"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def compare_murder_mystery(self, ctx, player_1, player_2, _type=None):
+    async def compare_murder_mystery(self, ctx, player_1, player_2, *, _type=None):
         await ctx.trigger_typing()
 
         try:
