@@ -720,8 +720,10 @@ class Games(commands.Cog):
 
         embed = self.embed.copy()
         embed.color = await self.bot.cc(ctx.author.id)
+        bw_gamemodes = ['solo', 'doubles', 'threes', 'fours', 'fourvsfour']
 
-        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}bedwars <player> <gamemode>`"
+        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}bedwars <player> <gamemode>`\n\n" \
+                            f"Available gamemodes: `{'`, `'.join(bw_gamemodes)}`"
 
         embed.set_author(name=f"{p.DISPLAY_NAME}'s Bedwars Stats ({type_clean})",
                          icon_url=await self.cache.get_player_head(p.UUID))
@@ -1241,7 +1243,11 @@ class Games(commands.Cog):
         embed = self.embed.copy()
         embed.color = await self.bot.cc(ctx.author.id)
 
-        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}compare bedwars <player1> <player2> <gamemode>`"
+        bw_gamemodes = ['solo', 'doubles', 'threes', 'fours', 'fourvsfour']
+
+        embed.description = f"You can specify which gamemode by doing\n" \
+                            f"`{ctx.prefix}compare bedwars <player1> <player2> <gamemode>`\n\n" \
+                            f"Available gamemodes: `{'`, `'.join(bw_gamemodes)}`"
 
         embed.set_author(name=f"{p1_pf.DISPLAY_NAME} VS. {p2_pf.DISPLAY_NAME} Bedwars Stats ({type_clean})")
 
