@@ -151,7 +151,8 @@ async def bot_check(ctx):
                                                    description=f"**{choice(['Handy Dandy Tip:', 'Cool Tip:', 'Pro Tip:'])}** {choice(tips)}"))
         else:
             await ctx.send(embed=discord.Embed(color=await bot.cc(ctx.author.id),
-                                               description=":warning: The Hypixel API seems to be having trouble right now, that could be the reason for any errors or slow bot responses :warning:")
+                                               description=":warning: The Hypixel API seems to be having trouble right now, "
+                                                           "that could be the reason for any errors or slow bot responses :warning:"))
 
     return not ctx.author.bot
 
