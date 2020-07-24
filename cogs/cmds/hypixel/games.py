@@ -1241,8 +1241,7 @@ class Games(commands.Cog):
 
         embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}compare bedwars <player1> <player2> <gamemode>`"
 
-        embed.set_author(name=f"{p1_pf.DISPLAY_NAME} VS. {p2_pf.DISPLAY_NAME} Bedwars Stats ({type_clean})",
-                         icon_url=await self.cache.get_player_head(p.UUID))
+        embed.set_author(name=f"{p1_pf.DISPLAY_NAME} VS. {p2_pf.DISPLAY_NAME} Bedwars Stats ({type_clean})")
 
         embed.add_field(name="XP", value=await self.c_ds(p1, p2, "Experience"))
         embed.add_field(name="Coins", value=await self.c_ds(p1, p2, "coins"))
