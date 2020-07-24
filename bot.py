@@ -136,6 +136,10 @@ for cog in bot.cog_list:
 async def bot_check(ctx):
     bot.cmd_count += 1
 
+    if await self.bot.get_cog("Database").is_channel_disabled(ctx.channel.id):
+        if ctx.command.cog.qualified_name not in ["Owner", "Settings"]:
+            return
+
     if not bot.is_ready():
         embed = discord.Embed(
             color=await bot.cc(),

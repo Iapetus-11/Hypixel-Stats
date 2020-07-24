@@ -213,11 +213,13 @@ class Useful(commands.Cog):
         p = ctx.prefix
 
         server_config = f"`{p}config` *shows the different settings you can change*\n\n" \
-                        f"`{p}config color <color` *changes the color of the embeds*\n\n" \
+                        f"`{p}config disable <channel>` *disables commands in that channel*\n\n" \
+                        f"`{p}config enables <channel>` *enables commands in that channel*\n\n" \
                         f"`{p}config prefix <prefix>` *changes the prefix of the server you're in*\n\uFEFF"
         embed.add_field(name="Server Config", value=server_config, inline=False)
 
         user_config = f"`{p}link <mc username>` *links your minecraft and discord accounts*\n\n" \
+                      f"`{p}config color <color` *changes the color of the embeds*\n\n" \
                       f"`{p}unlink` *unlinks your accounts*\n\uFEFF"
         embed.add_field(name="User Config", value=user_config, inline=False)
 

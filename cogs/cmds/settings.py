@@ -35,9 +35,12 @@ class Settings(commands.Cog):
             embed.set_author(name="Bot Configuration", icon_url=str(self.bot.user.avatar_url_as(static_format="png")))
             embed.add_field(name="Prefix", value=f"`{ctx.prefix}config prefix <prefix>`")
             embed.add_field(name="Embed Color", value=f"`{ctx.prefix}config color <color>`")
+            embed.add_field(name="Disable Channel", value=f"`{ctx.prefix}config disable <channel>`")
+            embed.add_field(name="Enable Channel", value=f"`{ctx.prefix}config enable <channel>`")
             await ctx.send(embed=embed)
 
     @config.command(name="prefix", aliases=["pp", "p", "commandprefix"])
+    @commands.guild_only()
     @commands.has_permissions(administrator=True)
     async def config_prefix(self, ctx, prefix: str = None):
         if ctx.guild is None:
@@ -89,7 +92,23 @@ class Settings(commands.Cog):
                                                    description=f"\"{discord.utils.escape_markdown(color)}\""
                                                                f"is not an allowed/valid color.\n\n Valid colors: {valid_colors_text}"))
 
-    @config.command(name="")
+    @config.command(name="disable_channel",
+                    aliases=["disablechannel", "disable", "enable", "reenable", "reenablechannel"])
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
+    async def config_disable_channel(self, ctx, channel: discord.Channel = None):
+        if channel is None:
+            channel = ctx.channel
+        is_disabled = await self.db.is_channel_disabled(channel.id)
+
+        if is_disabled:
+            await self.db.undisable_channel(channel.id)
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                               description=f"Re-enabled commands in {channel.mention}."))
+        else:
+            await self.db.disable_channel(channel.id)
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                               description=f"Disabled commands in {channel.mention}."))
 
 
 def setup(bot):
