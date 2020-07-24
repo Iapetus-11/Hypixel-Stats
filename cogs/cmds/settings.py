@@ -29,7 +29,6 @@ class Settings(commands.Cog):
         }
 
     @commands.group(name="config", aliases=["settings", "set", "conf"])
-    @commands.has_permissions(administrator=True)
     async def config(self, ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(color=await self.bot.cc(ctx.author.id))
@@ -39,6 +38,7 @@ class Settings(commands.Cog):
             await ctx.send(embed=embed)
 
     @config.command(name="prefix", aliases=["pp", "p", "commandprefix"])
+    @commands.has_permissions(administrator=True)
     async def config_prefix(self, ctx, prefix: str = None):
         if ctx.guild is None:
             await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
@@ -88,6 +88,8 @@ class Settings(commands.Cog):
                 await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                    description=f"\"{discord.utils.escape_markdown(color)}\""
                                                                f"is not an allowed/valid color.\n\n Valid colors: {valid_colors_text}"))
+
+    @config.command(name="")
 
 
 def setup(bot):
