@@ -1289,8 +1289,8 @@ class Games(commands.Cog):
                         value=await self.c_vs(round((deaths1 + 0.00001) / (total_games1 + 0.00001), 2),
                                               round((deaths2 + 0.00001) / (total_games2 + 0.00001), 2)))
         embed.add_field(name="WLR",
-                        value=await self.c_vs(round((wins + 0.00001) / (losses + 0.00001), 2),
-                                              round((wins + 0.00001) / (losses + 0.00001), 2)))
+                        value=await self.c_vs(round((wins1 + 0.00001) / (losses1 + 0.00001), 2),
+                                              round((wins2 + 0.00001) / (losses2 + 0.00001), 2)))
 
         await ctx.send(embed=embed)
 
