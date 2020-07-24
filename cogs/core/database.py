@@ -93,7 +93,7 @@ class Database(commands.Cog):
             async with self.db.acquire() as con:
                 for entry in all:
                     if arrow.utcnow().timestamp > entry[1] > 1:
-                        await con.execute("DELETE FROM premium WHERE uid=$1", entry[0])
+                        await con.execute("DELETE FROM premium WHERE uid=$1 AND expires = $2", entry[0], entry[1])
                         await self.set_color(entry[0], 15844367)
 
             for _ in range(0, 60 * 2.5, 1):
