@@ -41,7 +41,7 @@ class TopGG(commands.Cog):
 
         if u_db_bal is not None:
             if user is not None:
-                msg = f"Thank you for voting! You've received {amount} emeralds in Villager Bot " \
+                msg = f"Thank you for voting! You've received `{amount} emeralds` in Villager Bot " \
                       f"and `{prem_minutes} minutes` of Hypixel Stats **Premium**!"
                 await user.send(embed=discord.Embed(color=await self.bot.cc(user_id), description=msg))
 
