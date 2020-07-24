@@ -1191,12 +1191,13 @@ class Games(commands.Cog):
 
     @commands.group(name="compare", aliases=["compare_stats"])
     async def compare(self, ctx):
-        embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
-                              title=":chart_with_upwards_trend: Available Comparable Statistics :chart_with_downwards_trend:",
-                              description=f"`{'`, `'.join(self.comparable_games)}`\n\nDo `{ctx.prefix}compare <stat> <player1> <player2> [gamemode]` "
-                                          f"to compare two players!\n\n*`[]` indicates an optional argument, whereas `<>` indicates a required argument.*")
-        embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
-        await ctx.send(embed=embed)
+        if ctx.invoked_subcommand is None:
+            embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                  title=":chart_with_upwards_trend: Available Comparable Statistics :chart_with_downwards_trend:",
+                                  description=f"`{'`, `'.join(self.comparable_games)}`\n\nDo `{ctx.prefix}compare <stat> <player1> <player2> [gamemode]` "
+                                              f"to compare two players!\n\n*`[]` indicates an optional argument, whereas `<>` indicates a required argument.*")
+            embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
+            await ctx.send(embed=embed)
 
     @compare.command(name="bedwars", aliases=["bed_wars", "bed", "bedw", "bw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
