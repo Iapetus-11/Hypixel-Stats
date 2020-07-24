@@ -702,7 +702,7 @@ class Games(commands.Cog):
         if _type in ["1", "1s", "solos", "solo", "singles"]:
             type_clean = "SOLO"
             actual_type = "eight_one_"
-        elif _type in ["2", "doubles", "2s", "double"]:
+        elif _type in ["2", "doubles", "2s", "double", "duos"]:
             type_clean = "DOUBLES"
             actual_type = "eight_two_"
         elif _type in ["3", "threes", "3s", "3x3x3x3", "3v3v3v3"]:
