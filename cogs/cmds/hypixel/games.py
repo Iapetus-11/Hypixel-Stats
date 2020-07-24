@@ -1298,6 +1298,73 @@ class Games(commands.Cog):
 
     @compare.command(name="murdermystery", aliases=["murder_mystery", "mm"])
     @commands.cooldown(1, 2, commands.BucketType.user)
+    async def compare_murder_mystery(self, ctx, player_1, player_2, _type=None):
+        await ctx.trigger_typing()
+
+        try:
+            p1_pf = await self.cache.get_player(player_1)
+            p2_pf = await self.cache.get_player(player_2)
+            p1 = p1_pf.STATS["MurderMystery"]
+            p2 = p2_pf.STATS["MurderMystery"]
+        except KeyError:
+            raise NoStatError
+        except TypeError:
+            raise NoStatError
+
+        _type = str(_type).lower()
+
+        if _type in ["classic"]:
+            type_clean = "CLASSIC"
+            type_actual = "_MURDER_CLASSIC"
+        elif _type in ["doubleup", "double up", "double up!"]:
+            type_clean = "DOUBLE UP!"
+            type_actual = "_MURDER_DOUBLE_UP"
+        elif _type in ["assassins"]:
+            type_clean = "ASSASSINS"
+            type_actual = "_MURDER_ASSASSINS"
+        elif _type in ["infection", "infectionv2", "infection v2"]:
+            type_clean = "INFECTION V2"
+            type_actual = "_MURDER_INFECTION"
+        else:
+            type_clean = "ALL"
+            type_actual = ""
+
+        embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
+
+        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}compare murdermystery <player1> <player2> <gamemode>`"
+
+        embed.set_author(name=f"{p1_pf.DISPLAY_NAME} VS. {p2_pf.DISPLAY_NAME} Murder Mystery Stats [{type_clean}]")
+
+        embed.add_field(name="Coins\nPicked Up", value=await self.c_ds(p1, p2, f"coins_pickedup{type_actual}"))
+        embed.add_field(name="Games", value=await self.c_ds(p1, p2, f"games{type_actual}"))
+        embed.add_field(name="Wins", value=await self.c_ds(p1, p2, f"wins{type_actual}"))
+
+        kills1 = p1.get(f"kills{type_actual}", 0)
+        kills2 = p2.get(f"kills{type_actual}", 0)
+        deaths1 = p1.get(f"deaths{type_actual}", 0)
+        deaths2 = p2.get(f"deaths{type_actual}", 0)
+        embed.add_field(name="Kills", value=await self.c_vs(kills1, kills2))
+        embed.add_field(name="Deaths", value=await self.c_vs(deaths1, deaths2))
+        embed.add_field(name="KDR", value=await self.c_vs(round((kills1 + .00001) / (deaths1 + .00001), 2),
+                                                          round((kills2 + .00001) / (deaths2 + .00001), 2)))
+
+        if type_actual in ["", "_MURDER_CLASSIC", "_MURDER_DOUBLE_UP", "_MURDER_ASSASSINS"]:
+            embed.add_field(name="Knife Kills", value=mystery.get(f"knife_kills{type_actual}", 0))
+            embed.add_field(name="\uFEFF", value="\uFEFF")
+            embed.add_field(name="Thrown Knife\nKills", value=mystery.get(f"thrown_knife_kills{type_actual}", 0))
+
+            embed.add_field(name="Bow Kills", value=mystery.get(f"bow_kills{type_actual}", 0))
+            embed.add_field(name="\uFEFF", value="\uFEFF")
+            embed.add_field(name="Trap Kills", value=mystery.get(f"trap_kills{type_actual}", 0))
+
+        elif type_actual == "_MURDER_INFECTION":
+            embed.add_field(name="Total Time Survived", value=mystery.get("total_time_survived_seconds", 0),
+                            inline=False)
+
+        embed.add_field(name="Total Coins", value=mystery.get("coins", 0), inline=False)
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
