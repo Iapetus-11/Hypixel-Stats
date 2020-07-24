@@ -157,6 +157,7 @@ class Useful(commands.Cog):
 
         player_stats = f"`{p}profile <username>` *shows some general information for that player*\n\n" \
                        f"`{p}stats` *lists player stats available*\n\n" \
+                       f"`{p}compare` *lists comparable stats available*\n\n" \
                        f"`{p}names <username>` *lists the name history of the given player*\n\n" \
                        f"`{p}friends <username>` *shows that user's friends*\n\n" \
                        f"`{p}playerguild <username>` *shows that player's guild*\n\uFEFF"
