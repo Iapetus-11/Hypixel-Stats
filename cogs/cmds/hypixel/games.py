@@ -44,7 +44,7 @@ class Games(commands.Cog):
             return
         embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                               title=":chart_with_upwards_trend: Available Statistics :chart_with_downwards_trend:",
-                              description=f"`{'`, `'.join(self.games)}`\n\nDo `{ctx.prefix}<stat> <player>` to view a certain stat!")
+                              description=f"`{'`, `'.join(self.games)}`\n\nDo `{ctx.prefix}<game> <player>` to view that player's stats for that game!")
         embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
         await ctx.send(embed=embed)
 
@@ -1196,7 +1196,7 @@ class Games(commands.Cog):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
                                   title=":chart_with_upwards_trend: Available Comparable Statistics :chart_with_downwards_trend:",
-                                  description=f"`{'`, `'.join(self.comparable_games)}`\n\nDo `{ctx.prefix}compare <stat> <player1> <player2> [gamemode]` "
+                                  description=f"`{'`, `'.join(self.comparable_games)}`\n\nDo `{ctx.prefix}compare <game> <player1> <player2> [gamemode]` "
                                               f"to compare two players!\n\n*`[]` indicates an optional argument, whereas `<>` indicates a required argument.*")
             embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
             await ctx.send(embed=embed)
