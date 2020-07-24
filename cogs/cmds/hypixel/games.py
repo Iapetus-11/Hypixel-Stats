@@ -33,7 +33,7 @@ class Games(commands.Cog):
         ]
 
         self.comparable_games = [
-            'bedwars'
+            'bedwars', 'murdermystery'
         ]
 
     @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats", "games", "gamestats"])
