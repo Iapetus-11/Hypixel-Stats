@@ -63,6 +63,17 @@ class Database(commands.Cog):
             else:
                 await con.execute("INSERT INTO color VALUES ($1, $2)", uid, color)
 
+    async def is_channel_disabled(self, channel_id):
+        return await self.db.fetchrow("SELECT * FROM disabled_channels WHERE channel_id = $1", channel_id) is not None
+
+    async def disable_channel(self, channel_id):
+        async with self.db.acquire() as con:
+            await con.execute("INSERT INTO disabled_channels VALUES ($1)", channel_id)
+
+    async def undisable_channel(self, channel_id):
+        async with self.db.acquire() as con:
+            await con.execute("DELETE FROM disabled_channels where channel_id = $1", channel_id)
+
     async def is_premium(self, uid):
         prem = await self.db.fetchrow("SELECT * FROM premium WHERE uid=$1", uid)
         return prem is not None
