@@ -1296,6 +1296,9 @@ class Games(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @compare.command(name="murdermystery", aliases=["murder_mystery", "mm"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+
 
 def setup(bot):
     bot.add_cog(Games(bot))
