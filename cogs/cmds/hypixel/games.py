@@ -1191,7 +1191,7 @@ class Games(commands.Cog):
         val_2 = base_2.get(key, 0)
         return await self.c_vs(val_1, val_2)
 
-    @commands.group(name="compare", aliases=["compare_stats"])
+    @commands.group(name="compare", aliases=["compare_stats", "c"])
     async def compare(self, ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
