@@ -32,6 +32,10 @@ class Games(commands.Cog):
             'murdermystery', 'copsandcrims', 'skyclash', 'duels', 'pit', "skyblock"
         ]
 
+        self.comparable_games = [
+            'bedwars'
+        ]
+
     @commands.command(name="stats", aliases=["playerstats", "pstats", "player_stats", "games", "gamestats"])
     async def player_stats(self, ctx, user=None):
         if user is not None:
@@ -1172,6 +1176,121 @@ class Games(commands.Cog):
         embed.add_field(name="Blocks Placed", value=armpit.get("blocks_placed", 0))
         embed.add_field(name="\uFEFF", value="\uFEFF")
         embed.add_field(name="Max Killstreak", value=armpit.get("max_streak", 0))
+
+        await ctx.send(embed=embed)
+
+    async def c_vs(self, val_1, val_2):
+        val_1 = int(val_1)
+        val_2 = int(val_2)
+        return f"{val_1} {':arrow_up_small:' * (val_1 > val_2)}{':arrow_down_small:' * (val_1 < val_2)}{':left_right_arrow:' * (val_1 == val_2)} {val_2}"
+
+    async def c_ds(self, base_1, base_2, key):  # :arrow_up_small:
+        val_1 = base_1.get(key, 0)
+        val_2 = base_2.get(key, 0)
+        return await self.c_vs(val_1, val_2)
+
+    @commands.group(name="compare", aliases=["compare_stats"])
+    async def compare(self, ctx):
+        embed = discord.Embed(color=await self.bot.cc(ctx.author.id),
+                              title=":chart_with_upwards_trend: Available Comparable Statistics :chart_with_downwards_trend:",
+                              description=f"`{'`, `'.join(self.comparable_games)}`\n\nDo `{ctx.prefix}compare <stat> <player1> <player2> [gamemode]` "
+                                          f"to compare two players!\n\n*`[]` indicates an optional argument, whereas `<>` indicates a required argument.*")
+        embed.set_footer(text="Made by Iapetus11 & TrustedMercury")
+        await ctx.send(embed=embed)
+
+    @compare.command(name="bedwars", aliases=["bed_wars", "bed", "bedw", "bw"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def compare_bedwars(self, ctx, player_1, player_2, _type=None):
+        await ctx.trigger_typing()
+
+        p1_pf = await self.cache.get_player(player_1)
+        p2_pf = await self.cache.get_player(player_2)
+
+        try:
+            p1 = p1_pf.STATS["Bedwars"]
+            p2 = p2_pf.STATS["Bedwars"]
+        except KeyError:
+            raise NoStatError
+        except TypeError:
+            raise NoStatError
+
+        _type = str(_type).lower()
+
+        if _type in ["1", "1s", "solos", "solo", "singles"]:
+            type_clean = "SOLO"
+            actual_type = "eight_one_"
+        elif _type in ["2", "doubles", "2s", "double"]:
+            type_clean = "DOUBLES"
+            actual_type = "eight_two_"
+        elif _type in ["3", "threes", "3s", "3x3x3x3", "3v3v3v3"]:
+            type_clean = "3x3x3x3"
+            actual_type = "four_three_"
+        elif _type in ["4", "fours", "4s", "4x4x4x4", "4v4v4v4"]:
+            type_clean = "4x4x4x4"
+            actual_type = "four_four_"
+        elif _type in ["5", "fourvsfour", "4v4", "2x4", "4x4", "4v4"]:
+            type_clean = "4x4"
+            actual_type = "two_four_"
+        else:
+            type_clean = "ALL"
+            actual_type = ""
+
+        embed = self.embed.copy()
+        embed.color = await self.bot.cc(ctx.author.id)
+
+        embed.description = f"You can specify which gamemode by doing\n`{ctx.prefix}compare bedwars <player1> <player2> <gamemode>`"
+
+        embed.set_author(name=f"{p1_pf.DISPLAY_NAME} VS. {p2_pf.DISPLAY_NAME} Bedwars Stats ({type_clean})",
+                         icon_url=await self.cache.get_player_head(p.UUID))
+
+        embed.add_field(name="XP", value=await self.c_ds(p1, p2, "Experience"))
+        embed.add_field(name="Coins", value=await self.c_ds(p1, p2, "coins"))
+        embed.add_field(name="Level", value=await self.c_ds(p1_pf.ACHIEVEMENTS, p2_pf.ACHIEVEMENTS, "bedwars_level"))
+
+        wins1 = p1.get(f"{actual_type}wins_bedwars", 0)
+        wins2 = p2.get(f"{actual_type}wins_bedwars", 0)
+        losses1 = p1.get(f"{actual_type}losses_bedwars", 0)
+        losses2 = p2.get(f"{actual_type}losses_bedwars", 0)
+        embed.add_field(name="Wins", value=await self.c_vs(wins1, wins2))
+        embed.add_field(name="Losses", value=await self.c_vs(losses1, losses2))
+        embed.add_field(name="Winstreak", value=await self.c_ds(p1, p2, f"{actual_type}winstreak"))
+
+        kills1 = p1.get(f"{actual_type}kills_bedwars", 0)
+        kills2 = p2.get(f"{actual_type}kills_bedwars", 0)
+        deaths1 = p1.get(f"{actual_type}deaths_bedwars", 0)
+        deaths2 = p2.get(f"{actual_type}deaths_bedwars", 0)
+        embed.add_field(name="Kills", value=await self.c_vs(kills1, kills2))
+        embed.add_field(name="Deaths", value=await self.c_vs(deaths1, deaths2))
+        embed.add_field(name="KDR", value=await self.c_vs(round((kills1 + .00001) / (deaths1 + .00001), 2),
+                                                          round((kills2 + .00001) / (deaths2 + .00001), 2)))
+
+        final_kills1 = p1.get(f"{actual_type}final_kills_bedwars", 0)
+        final_kills2 = p2.get(f"{actual_type}final_kills_bedwars", 0)
+        final_deaths1 = p1.get(f"{actual_type}final_deaths_bedwars", 0)
+        final_deaths2 = p2.get(f"{actual_type}final_deaths_bedwars", 0)
+        embed.add_field(name="Final Kills", value=await self.c_vs(final_kills1, final_kills2))
+        embed.add_field(name="Final Deaths", value=await self.c_vs(final_deaths1, final_deaths2))
+        embed.add_field(name="Final KDR",
+                        value=await self.c_vs(round((final_kills1 + .00001) / (final_deaths1 + .00001), 2),
+                                              round((final_kills2 + .00001) / (final_deaths2 + .00001), 2)))
+
+        beds_broken1 = p1.get(f"{actual_type}beds_broken_bedwars", 0)
+        beds_broken2 = p2.get(f"{actual_type}beds_broken_bedwars", 0)
+        total_games1 = p1.get(f"{actual_type}wins_bedwars", 0) + p1.get(f"{actual_type}beds_lost_bedwars", 0)
+        total_games2 = p2.get(f"{actual_type}wins_bedwars", 0) + p2.get(f"{actual_type}beds_lost_bedwars", 0)
+        embed.add_field(name="Void Deaths", value=await self.c_ds(p1, p2, f"{actual_type}void_deaths_bedwars"))
+        embed.add_field(name="Beds Broken", value=await self.c_vs(beds_broken1, beds_broken2))
+        embed.add_field(name="Total Games", value=await self.c_vs(total_games1, total_games2))
+
+        embed.add_field(name="Avg. Kills\nper Game",
+                        value=await self.c_vs(round((kills1 + 0.00001) / (total_games1 + 0.00001), 2),
+                                              round((kills2 + 0.00001) / (total_games2 + 0.00001), 2)))
+        embed.add_field(name="Avg. Deaths\nper Game",
+                        value=await self.c_vs(round((deaths1 + 0.00001) / (total_games1 + 0.00001), 2),
+                                              round((deaths2 + 0.00001) / (total_games2 + 0.00001), 2)))
+        embed.add_field(name="WLR",
+                        value=await self.c_vs(round((wins + 0.00001) / (losses + 0.00001), 2),
+                                              round((wins + 0.00001) / (losses + 0.00001), 2)))
 
         await ctx.send(embed=embed)
 
