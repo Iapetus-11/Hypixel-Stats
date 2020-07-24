@@ -35,6 +35,9 @@ class Settings(commands.Cog):
             embed.set_author(name="Bot Configuration", icon_url=str(self.bot.user.avatar_url_as(static_format="png")))
             embed.add_field(name="Prefix", value=f"`{ctx.prefix}config prefix <prefix>`")
             embed.add_field(name="Embed Color", value=f"`{ctx.prefix}config color <color>`")
+
+            embed.add_field(name="\uFEFF", value="\uFEFF", inline=False)
+
             embed.add_field(name="Disable Channel", value=f"`{ctx.prefix}config disable <channel>`")
             embed.add_field(name="Enable Channel", value=f"`{ctx.prefix}config enable <channel>`")
             await ctx.send(embed=embed)
