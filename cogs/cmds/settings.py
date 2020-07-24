@@ -96,7 +96,7 @@ class Settings(commands.Cog):
                     aliases=["disablechannel", "disable", "enable", "reenable", "reenablechannel"])
     @commands.guild_only()
     @commands.has_permissions(administrator=True)
-    async def config_disable_channel(self, ctx, channel: discord.Channel = None):
+    async def config_disable_channel(self, ctx, channel: discord.TextChannel = None):
         if channel is None:
             channel = ctx.channel
         is_disabled = await self.db.is_channel_disabled(channel.id)
