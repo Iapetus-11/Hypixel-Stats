@@ -126,6 +126,8 @@ class Errors(commands.Cog):
             lines = traceback.format_exception(etype, e, trace, verbosity)
             traceback_text = ''.join(lines)
 
+            print(traceback_text)
+
             traceback_text = traceback_text[:1023]
 
             if "discord.errors.Forbidden" in traceback_text:
