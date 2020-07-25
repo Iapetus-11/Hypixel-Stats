@@ -157,7 +157,7 @@ class Cache(commands.Cog):
             return "Error"
 
         if resp.status == 404:
-            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError("Not found on slothpixel", username)
 
         if resp.status == 429:
             self.failed_sloth += 1
@@ -176,12 +176,12 @@ class Cache(commands.Cog):
         resp = await self.session.get(f"https://api.ashcon.app/mojang/v2/user/{player}")
 
         if resp.status == 404:
-            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError("Failed during mojang2 get", player)
 
         j = await resp.json()
 
         if j.get("code") == 404:
-            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError("Failed during mojang2 get", player)
 
         return {"uuid": j["uuid"], "username": j["username"]}
 
@@ -216,7 +216,7 @@ class Cache(commands.Cog):
                 uuid = await self.hypixel.usernameToUUID(player)
             except Exception as e:
                 if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
-                    raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+                    raise aiopypixel.exceptions.exceptions.InvalidPlayerError(e.cause, e.player)
                 else:
                     self.failed_mojang += 1
                     uuid = (await self.mojang2_get_user(player))["uuid"]
