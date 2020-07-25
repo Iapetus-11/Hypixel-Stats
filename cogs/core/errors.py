@@ -90,12 +90,11 @@ class Errors(commands.Cog):
                                  f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
             return
 
-        if isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
-            try:
-                await self.send(ctx, f"Player \"`{e.player}`\" is invalid or doesn't exist!")
-                return
-            except Exception as e:
-                await self.send(ctx, e)
+        if isinstance(e.original, InvalidPlayerError) or isinstance(e,
+                                                                    InvalidPlayerError) or "InvalidPlayerError" in str(
+                e):
+            await self.send(ctx, f"Player \"`{e.player}`\" is invalid or doesn't exist!")
+            return
 
         if isinstance(e.original, InvalidGuildError):
             await self.send(ctx, "That guild is invalid or doesn't exist!")
