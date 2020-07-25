@@ -1210,8 +1210,21 @@ class Games(commands.Cog):
 
     @compare.command(name="bedwars", aliases=["bed_wars", "bed", "bedw", "bw"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def compare_bedwars(self, ctx, player_1, player_2, _type=None):
+    async def compare_bedwars(self, ctx, player_1, player_2=None, _type=None):
         await ctx.trigger_typing()
+
+        if player_2 is None:
+            _type = player_2
+            player_2 = player_1
+            player_1 = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player_1 is not None:
+                player_1 = player_1[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                        description=f"You need to link your account to do this!\n"
+                                                    f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         p1_pf = await self.cache.get_player(player_1)
         p2_pf = await self.cache.get_player(player_2)
@@ -1311,6 +1324,19 @@ class Games(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def compare_murder_mystery(self, ctx, player_1, player_2, *, _type=None):
         await ctx.trigger_typing()
+
+        if player_2 is None:
+            _type = player_2
+            player_2 = player_1
+            player_1 = await self.db.get_linked_account_via_id(ctx.author.id)
+            if player_1 is not None:
+                player_1 = player_1[1]
+            else:
+                await ctx.send(
+                    embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                        description=f"You need to link your account to do this!\n"
+                                                    f"Do `{ctx.prefix}link <mc_username>` to link your account!"))
+                return
 
         try:
             p1_pf = await self.cache.get_player(player_1)
