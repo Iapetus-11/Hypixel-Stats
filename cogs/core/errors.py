@@ -24,11 +24,6 @@ class Errors(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, e):
-        try:
-            if ctx.handled is None:
-                ctx.handled = False
-        except AttributeError:
-            ctx.handled = False
 
         # Commands to ignore
         for _type in [commands.CommandNotFound, commands.NotOwner, commands.CheckFailure, discord.errors.Forbidden]:
@@ -90,9 +85,7 @@ class Errors(commands.Cog):
                                  f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
             return
 
-        if isinstance(e.original, InvalidPlayerError) or isinstance(e,
-                                                                    InvalidPlayerError) or "InvalidPlayerError" in str(
-                e):
+        if isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
             await self.send(ctx, f"Player \"`{e.player}`\" is invalid or doesn't exist!")
             return
 
@@ -104,9 +97,7 @@ class Errors(commands.Cog):
             await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
             return
 
-        if isinstance(e.original, InvalidDiscordUser) or isinstance(e,
-                                                                    InvalidDiscordUser) or "InvalidPlayerError" in str(
-            e):
+        if isinstance(e.original, InvalidDiscordUser) or isinstance(e, InvalidDiscordUser):
             await self.send(ctx,
                             "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
             return
