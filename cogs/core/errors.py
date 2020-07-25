@@ -91,8 +91,11 @@ class Errors(commands.Cog):
             return
 
         if isinstance(e.original, InvalidPlayerError) or isinstance(e, InvalidPlayerError):
-            await self.send(ctx, f"Player \"`{e.player}`\" is invalid or doesn't exist!")
-            return
+            try:
+                await self.send(ctx, f"Player \"`{e.player}`\" is invalid or doesn't exist!")
+                return
+            except Exception as e:
+                await self.send(ctx, e)
 
         if isinstance(e.original, InvalidGuildError):
             await self.send(ctx, "That guild is invalid or doesn't exist!")
