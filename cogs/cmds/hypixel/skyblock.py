@@ -128,7 +128,7 @@ class SkyBlock(commands.Cog):
         for profile_id in profiles:
             profile_names += f'`{profiles.index(profile_id) + 1}.` **{skyblock["profiles"][profile_id].get("cute_name")}** ' \
                              f'[`{skyblock["profiles"][profile_id].get("profile_id")}`]\n'
-        picker_embed = discord.Embed(color=await self.bot.cc(), description=profile_names)
+        picker_embed = discord.Embed(color=await self.bot.cc(ctx.author.id), description=profile_names)
         picker_embed.set_author(name=f"{p.DISPLAY_NAME}'s SkyBlock Islands:", icon_url=head)
         picker_embed.set_footer(text="Just send one of the above numbers!")
         await ctx.send(embed=picker_embed)
@@ -143,16 +143,19 @@ class SkyBlock(commands.Cog):
                     index = int(index.content)
                 except ValueError:
                     await ctx.send(
-                        embed=discord.Embed(color=await self.bot.cc(), description="That's not a valid index!"))
+                        embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                            description="That's not a valid index!"))
                 else:
                     if index > len(profiles) or index <= 0:
                         await ctx.send(
-                            embed=discord.Embed(color=await self.bot.cc(), description="That's not a valid index!"))
+                            embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                                description="That's not a valid index!"))
                     else:
                         valid = True
                         break
             if not valid:
-                await ctx.send(embed=discord.Embed(color=await self.bot.cc(), description="The command was canceled."))
+                await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
+                                                   description="The command was canceled."))
                 return
         except asyncio.TimeoutError:
             return
@@ -186,7 +189,7 @@ class SkyBlock(commands.Cog):
         user_island_stats = stats["members"].get(p.UUID)
 
         if user_island_stats.get("stats") is None:
-            await ctx.send(embed=discord.Embed(color=await self.bot.cc(),
+            await ctx.send(embed=discord.Embed(color=await self.bot.cc(ctx.author.id),
                                                description="The bot doesn't have sufficient data to show this island!"))
             return
 
