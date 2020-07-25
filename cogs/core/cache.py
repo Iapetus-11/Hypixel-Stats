@@ -244,7 +244,7 @@ class Cache(commands.Cog):
                 name = await self.hypixel.UUIDToUsername(player)
             except Exception as e:
                 if isinstance(e, aiopypixel.exceptions.exceptions.InvalidPlayerError):
-                    raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+                    raise aiopypixel.exceptions.exceptions.InvalidPlayerError(e.cause, e.player)
                 else:
                     self.failed_mojang += 1
                     name = (await self.mojang2_get_user(player))["username"]
@@ -377,7 +377,7 @@ class Cache(commands.Cog):
         resp = await self.session.get(f"https://api.mojang.com/user/profiles/{uuid}/names")
 
         if resp.status == 204:
-            raise aiopypixel.exceptions.exceptions.InvalidPlayerError
+            raise aiopypixel.exceptions.exceptions.InvalidPlayerError("Failed while fetching player's names", player)
 
         j = await resp.json()
 
