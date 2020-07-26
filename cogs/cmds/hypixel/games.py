@@ -1189,9 +1189,12 @@ class Games(commands.Cog):
     async def c_vs(self, val_1, val_2):
         val_1 = int(val_1)
         val_2 = int(val_2)
-        return f"{'**' * (val_1 > val_2)}{val_1}{'** :arrow_backward: ' * (val_1 > val_2)}" \
-               f"{' :arrow_forward: **' * (val_1 < val_2)}" \
-               f"{' :left_right_arrow: ' * (val_1 == val_2)}{val_2}{'**' * (val_1 < val_2)}"
+        p1_win = self.bot.emojis['updoot']
+        p2_win = self.bot.emojis['downdoot']
+        meh = self.bot.emojis['meh']
+        return f"{'**' * (val_1 > val_2)}{val_1}{f'** {p1_win} ' * (val_1 > val_2)}" \
+               f"{f' {p2_win} **' * (val_1 < val_2)}" \
+               f"{f' {meh} ' * (val_1 == val_2)}{val_2}{'**' * (val_1 < val_2)}"
 
     async def c_ds(self, base_1, base_2, key):  # :arrow_up_small:
         val_1 = base_1.get(key, 0)
