@@ -1191,7 +1191,7 @@ class Games(commands.Cog):
         val_2 = int(val_2)
         p1_win = self.bot.EMOJIS['updoot']
         p2_win = self.bot.EMOJIS['downdoot']
-        meh = self.bot.emojis['meh']
+        meh = self.bot.EMOJIS['meh']
         return f"{'**' * (val_1 > val_2)}{val_1}{f'** {p1_win} ' * (val_1 > val_2)}" \
                f"{f' {p2_win} **' * (val_1 < val_2)}" \
                f"{f' {meh} ' * (val_1 == val_2)}{val_2}{'**' * (val_1 < val_2)}"
