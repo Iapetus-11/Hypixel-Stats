@@ -80,6 +80,11 @@ class Errors(commands.Cog):
             await self.send(ctx, "No stats available!")
             return
 
+        if isinstance(e.original, HypixelAPIError):
+            self.bot.failed += 1
+            await self.send(ctx, "For some reason, the Hypixel API is not working properly. Please try again later.")
+            return
+
         if isinstance(e.original, RateLimitError):
             await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
                                  f"please contact us on the [support server](https://discord.gg/{self.bot.guild_invite_code}), thank you!")
@@ -101,7 +106,9 @@ class Errors(commands.Cog):
             await self.send(ctx, "That player hasn't joined Hypixel before! (They don't have any stats!)")
             return
 
-        if isinstance(e.original, InvalidDiscordUser) or isinstance(e, InvalidDiscordUser):
+        if isinstance(e.original, InvalidDiscordUser) or isinstance(e,
+                                                                    InvalidDiscordUser) or "InvalidDiscordUser" in str(
+                e):
             await self.send(ctx,
                             "That user doesn't have their account linked, or doesn't exist!\nIf you'd like to link your account, do `h!link <mc_username>`")
             return
