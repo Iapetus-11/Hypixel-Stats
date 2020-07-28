@@ -81,7 +81,7 @@ class Errors(commands.Cog):
             return
 
         if isinstance(e.original, HypixelAPIError):
-            self.bot.failed += 1
+            self.bot.get_cog("Cache").failed += 1
             await self.send(ctx, "For some reason, the Hypixel API is not working properly. Please try again later.")
             return
 
