@@ -81,10 +81,13 @@ class Errors(commands.Cog):
             await self.send(ctx, "No stats available!")
             return
 
-        if isinstance(e, TimeoutError):
-            self.bot.get_cog("Cache").failed += 1
-            await self.send(ctx, "For some reason, the Hypixel API took too long to respond. Please try again later.")
-            return
+        try:
+            if isinstance(e, TimeoutError) or isinstance(e.original, TimeoutError):
+                self.bot.get_cog("Cache").failed += 1
+                await self.send(ctx, "For some reason, the Hypixel API took too long to respond. Please try again later.")
+                return
+        except Exception:
+            pass
 
         if isinstance(e.original, HypixelAPIError):
             self.bot.get_cog("Cache").failed += 1
