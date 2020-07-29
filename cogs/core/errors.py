@@ -3,6 +3,7 @@ import traceback
 from aiopypixel.exceptions.exceptions import *
 from discord.ext import commands
 from random import choice
+from concurrent.futures._base import TimeoutError
 
 from ..core.cache import *
 
@@ -78,6 +79,11 @@ class Errors(commands.Cog):
 
         if "NoStatError" in str(e):
             await self.send(ctx, "No stats available!")
+            return
+
+        if isinstance(e, TimeoutError):
+            self.bot.get_cog("Cache").failed += 1
+            await self.send(ctx, "For some reason, the Hypixel API took too long to respond. Please try again later.")
             return
 
         if isinstance(e.original, HypixelAPIError):
