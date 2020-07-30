@@ -1,9 +1,9 @@
 import discord
 import traceback
 from aiopypixel.exceptions.exceptions import *
+from concurrent.futures._base import TimeoutError
 from discord.ext import commands
 from random import choice
-from concurrent.futures._base import TimeoutError
 
 from ..core.cache import *
 
@@ -127,7 +127,8 @@ class Errors(commands.Cog):
             return
 
         if "HypixelsFault" in str(e):
-            await self.send(ctx, "Uh Oh! It looks like Hypixel's API is having some trouble right now...")
+            await self.send(ctx,
+                            "Uh Oh! It looks like Hypixel's API is having some trouble right now. Please try again later.")
             return
 
         if "HTTPException: 503 Service Unavailable (error code: 0)" not in str(
