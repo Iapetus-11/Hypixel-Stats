@@ -28,7 +28,7 @@ class CustomErrorMsg(Exception):
 
 
 class HypixelsFault(Exception):
-    def __init__(self, msg):
+    def __init__(self):
         self.msg = "It was Hypixel's fault, I swear"
 
     def __str__(self):
