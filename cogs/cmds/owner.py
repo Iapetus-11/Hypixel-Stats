@@ -36,6 +36,7 @@ class Owner(commands.Cog):
                     f"`{p}awaiteval <code>` *awaits the entered code*\n\n" \
                     f"`{p}gitpull` *fetches the latest code from github*\n\n" \
                     f"`{p}lookup <user>` *shows the mutual servers shared with the user*\n\n" \
+                    f"`{p}toggleclear` *toggles the clearing of the cache*\n\n" \
                     f"`{p}setpremium <user> <minutes till expiry>` *gives that user premium*\n\n" \
                     f"`{p}removepremium <user>` *removes that user's premium*\n\uFEFF"
         embed.add_field(name="Miscellaneous", value=misc_cmds, inline=False)
