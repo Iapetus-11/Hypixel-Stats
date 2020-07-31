@@ -16,6 +16,34 @@ class Owner(commands.Cog):
         except Exception:
             await location.send(embed=discord.Embed(color=await self.bot.cc(), description=message))
 
+    @commands.command(name="ownerhelp", aliases=["ownercmds"])
+    async def owner_help(self, ctx):
+        embed = discord.Embed(
+            color=await self.bot.cc(ctx.author.id),
+            title=":gear: Bot Owner Commands",
+            description="These commands can only be used by Iapetus11 & TrustedMercury"
+        )
+
+        p = ctx.prefix
+
+        cmds_cogs = f"`{p}unload <cog>` *unloads the specified cog*\n\n" \
+                    f"`{p}load <cog>` *loads the specified cog*\n\n" \
+                    f"`{p}reload <cog>` *reloads the specified cog*\n\n" \
+                    f"`{p}reloadall` *reloads all the cogs*\n\uFEFF"
+        embed.add_field(name="Cog Management", value=cmds_cogs, inline=False)
+
+        misc_cmds = f"`{p}eval <code>` *evaluates the entered code*\n\n" \
+                    f"`{p}awaiteval <code>` *awaits the entered code*\n\n" \
+                    f"`{p}gitpull` *fetches the latest code from github*\n\n" \
+                    f"`{p}lookup <user>` *shows the mutual servers shared with the user*\n\n" \
+                    f"`{p}setpremium <user> <minutes till expiry>` *gives that user premium*\n\n" \
+                    f"`{p}removepremium <user>` *removes that user's premium*\n\uFEFF"
+        embed.add_field(name="Miscellaneous", value=misc_cmds, inline=False)
+
+        embed.set_footer(text="Made by Iapetus11 & TrustedMercury!")
+
+        await ctx.send(embed=embed)
+
     @commands.command(name="unload")
     @commands.is_owner()
     async def unload(self, ctx, *, cog: str):
