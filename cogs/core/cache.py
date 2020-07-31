@@ -49,6 +49,8 @@ class Cache(commands.Cog):
         self.failed_sloth = 0
         self.failed_mojang = 0
 
+        self.do_clear = True
+
         self.valid_names_and_uuids = []
         self.name_uuid_cache = {}  # {name: uuid}
         self.uuid_name_cache = {}  # {uuid: name}
@@ -83,38 +85,47 @@ class Cache(commands.Cog):
 
     async def reset_10_minutes(self):
         while True:
-            for i in range(0, 60 * 10, 1):
-                await asyncio.sleep(1)
-                if self.stop_loops:
-                    return
+            if self.do_clear:
+                for i in range(0, 60 * 10, 1):
+                    await asyncio.sleep(1)
+                    if self.stop_loops:
+                        return
 
-            self.player_object_cache = {}
-            self.achievement_pts_cache = {}
+                self.player_object_cache = {}
+                self.achievement_pts_cache = {}
+            else:
+                await asyncio.sleep(.5)
 
     async def reset_1_hour(self):
         while True:
-            for i in range(0, 60 * 60, 1):
-                await asyncio.sleep(1)
-                if self.stop_loops:
-                    return
+            if self.do_clear:
+                for i in range(0, 60 * 60, 1):
+                    await asyncio.sleep(1)
+                    if self.stop_loops:
+                        return
 
-            self.player_guild_cache = {}
-            self.armor_cache = {}
-            self.watchdog_cached = None
-            self.skyblock_cache = {}
+                self.player_guild_cache = {}
+                self.armor_cache = {}
+                self.watchdog_cached = None
+                self.skyblock_cache = {}
+            else:
+                await asyncio.sleep(.5)
 
     async def reset_2_hours(self):
         while True:
-            for i in range(0, 60 * 60 * 2, 1):
-                await asyncio.sleep(1)
-                if self.stop_loops:
-                    return
+            if self.do_clear:
+                for i in range(0, 60 * 60 * 2, 1):
+                    await asyncio.sleep(1)
+                    if self.stop_loops:
+                        return
 
-            self.player_friends_cache = {}
-            self.guild_cache = {}
-            self.guild_id_name_cache = {}
+                self.player_friends_cache = {}
+                self.guild_cache = {}
+                self.guild_id_name_cache = {}
+            else:
+                await asyncio.sleep(.5)
 
-    async def reset_6_hours(self):
+    async def reset_6_hours(self):  # doesn't need to stop clearing cause reasons
         while True:
             for i in range(0, 60 * 60 * 6, 1):
                 await asyncio.sleep(1)

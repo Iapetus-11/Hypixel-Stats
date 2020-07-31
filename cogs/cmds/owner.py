@@ -128,6 +128,12 @@ class Owner(commands.Cog):
         await self.db.remove_premium(user.id)
         await self.send(ctx, f"Removed {user}'s premium.")
 
+    @commands.command(name="toggleclear", aliases=["togglecacheclearing", "togglecacheclear"])
+    @commands.is_owner()
+    async def toggle_cache_clearing(self, ctx):
+        self.bot.get_cog("Cache").do_clear = not self.bot.get_cog("Cache").do_clear
+        await self.send(ctx, f"Set cache clearing to {self.bot.get_cog('Cache').do_clear}")
+
 
 def setup(bot):
     bot.add_cog(Owner(bot))
