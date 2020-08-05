@@ -85,14 +85,12 @@ class Errors(commands.Cog):
             if isinstance(e, TimeoutError) or isinstance(e.original, TimeoutError):
                 self.bot.get_cog("Cache").failed += 1
                 await self.send(ctx, "For some reason, the Hypixel API took too long to respond. Please try again later.")
-                return
         except Exception:
             pass
 
         if isinstance(e.original, HypixelAPIError):
             self.bot.get_cog("Cache").failed += 1
             await self.send(ctx, "For some reason, the Hypixel API is not working properly. Please try again later.")
-            return
 
         if isinstance(e.original, RateLimitError):
             await self.send(ctx, f"Uh oh, something took way too long, try again! If this message persists, "
@@ -129,7 +127,6 @@ class Errors(commands.Cog):
         if "HypixelsFault" in str(e):
             await self.send(ctx,
                             "Uh Oh! It looks like Hypixel's API is having some trouble right now. Please try again later.")
-            return
 
         if "HTTPException: 503 Service Unavailable (error code: 0)" not in str(
                 e) and "discord.errors.Forbidden" not in str(e):
