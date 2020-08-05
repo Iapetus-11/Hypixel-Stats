@@ -1,5 +1,5 @@
-arrow
-asyncpg
-aiopypixel
-discord.py
-python-dotenv
+arrow==0.15.7
+asyncpg==0.20.1
+aiopypixel==1.8.0
+discord.py==1.3.4
+python-dotenv==0.14.0
