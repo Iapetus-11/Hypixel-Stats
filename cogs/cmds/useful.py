@@ -60,8 +60,7 @@ class Useful(commands.Cog):
                          icon_url=str(self.bot.user.avatar_url_as(format="png", size=256)))
         try:
             key_data = (await asyncio.wait_for(await self.cache.hypixel.getKeyData(), timeout=3))['record']
-        except Exception as e:
-            await ctx.send(e)
+        except Exception:
             key_data = {"limit": "error", "queriesInPastMin": "error"}
 
         uptime = arrow.utcnow() - self.bot.start_time
