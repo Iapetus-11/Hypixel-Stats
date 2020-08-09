@@ -67,7 +67,7 @@ class Cache(commands.Cog):
         self.stop_loops = False
 
         self.bot.loop.create_task(self.reset_continuous())
-        self.bot.loop.create_task(self.reset_10_minutes())
+        self.bot.loop.create_task(self.reset_5_minutes())
         self.bot.loop.create_task(self.reset_1_hour())
         self.bot.loop.create_task(self.reset_2_hours())
         self.bot.loop.create_task(self.reset_6_hours())
@@ -83,10 +83,10 @@ class Cache(commands.Cog):
             while len(self.valid_names_and_uuids) > len(self.bot.guilds) * 3:  # reset valid names + uuids
                 self.valid_names_and_uuids.pop(0)
 
-    async def reset_10_minutes(self):
+    async def reset_5_minutes(self):
         while True:
             if self.do_clear:
-                for i in range(0, 60 * 10, 1):
+                for i in range(0, 60 * 5, 1):
                     await asyncio.sleep(1)
                     if self.stop_loops:
                         return
