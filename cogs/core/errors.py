@@ -127,6 +127,7 @@ class Errors(commands.Cog):
         if "HypixelsFault" in str(e):
             await self.send(ctx,
                             "Uh Oh! It looks like Hypixel's API is having some trouble right now. Please try again later.")
+            return
 
         if "HTTPException: 503 Service Unavailable (error code: 0)" not in str(
                 e) and "discord.errors.Forbidden" not in str(e):
