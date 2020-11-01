@@ -22,6 +22,9 @@ from random import randint, choice
 load_dotenv()
 TOKEN = os.getenv('discord_token')
 DB_PASSWORD = os.getenv('db_password')
+DB_HOST = os.getenv("db_host")
+DB_NAME = os.getenv("db_name")
+DB_USER = os.getenv("db_user")
 # DB_VB_PASSWORD = os.getenv('db_vb_password')
 HYPIXEL = os.getenv('hypixel_key')
 DBL = [os.getenv("dbl1"), os.getenv("dbl2")]
@@ -92,9 +95,9 @@ async def setup_dbs():
     """Sets up the database pool connection"""
 
     bot.db = await asyncpg.create_pool(
-        host="localhost",
-        database="hypixel-stats-bot",
-        user="pi",
+        host=DB_HOST,
+        database=DB_NAME,
+        user=DB_USER,
         password=DB_PASSWORD
     )
 
