@@ -1,12 +1,6 @@
 FROM python:3
 
-ADD bot.py /
-ADD requirements.txt /
-ADD ./data/emojis.json /data/
-
-RUN cd data
-RUN ls -a
-RUN cd ..
+COPY . .
 
 RUN pip install -r requirements.txt
 
